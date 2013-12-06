@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>[]</title>
+<title>[02 Pythonic Image]</title>
 <style type="text/css">
     .clearfix{*zoom:1;}.clearfix:before,.clearfix:after{display:table;content:"";line-height:0;}
 .clearfix:after{clear:both;}
@@ -1694,15 +1694,14 @@ init_mathjax();
 <body>
 
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="welcome-to-the-first-simpleitk-notebook-demo">Welcome to the first SimpleITK Notebook demo:</h1>
-<h1 id="simpleitk-image-basics">SimpleITK Image Basics</h1>
-<p>This document will give a brief orientation to the SimpleITK Image class.</p>
-<p>First we import the SimpleITK Python module. By convention our module is imported into the shorter and more pythonic &quot;sitk&quot; local name.</p>
+<h1 id="pythonic-syntactic-sugar">Pythonic Syntactic Sugar</h1>
+<p>The &quot;Image Basics&quot; was straight forward and follow ITK's C++ interface (albeit without those cumbersome templates).</p>
+<p>Sugar is great it give your energy to get things done faster!</p>
 </div>
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[1]:
+In&nbsp;[]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="kn">import</span> <span class="nn">SimpleITK</span> <span class="kn">as</span> <span class="nn">sitk</span>
@@ -1712,20 +1711,44 @@ In&nbsp;[1]:
 </div>
 
 </div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="image-construction">Image Construction</h2>
-<p>There are a variety of ways to create an image. All images' initial value is well defined as zero.</p>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">(</span><span class="n">img</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[]:
 </div>
 <div class="input_area box-flex1">
-<div class="highlight"><pre><span class="n">image</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">sitk</span><span class="o">.</span><span class="n">sitkInt16</span><span class="p">)</span>
-<span class="n">image_2D</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">sitk</span><span class="o">.</span><span class="n">sitkFloat32</span><span class="p">)</span>
-<span class="n">image_2D</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">Image</span><span class="p">([</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">],</span> <span class="n">sitk</span><span class="o">.</span><span class="n">sitkUInt32</span><span class="p">)</span>
-<span class="n">image_RGB</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">Image</span><span class="p">([</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">],</span> <span class="n">sitk</span><span class="o">.</span><span class="n">sitkVectorUInt8</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GaborSource</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=.</span><span class="mo">03</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">(</span><span class="n">img</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="n">nda</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">imshow</span><span class="p">(</span><span class="n">nda</span><span class="p">)</span>
+<span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1733,1197 +1756,39 @@ In&nbsp;[2]:
 
 </div>
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="pixel-types">Pixel Types</h3>
-<p>The pixel type is represented as an enumerated type. The following is a table of the enumerated list.</p>
+<h2 id="multi-dimension-slice-indexing">Multi-dimension slice indexing</h2>
+<p>If you are familiar with numpy, sliced index then this should be cake for the SimpleITK image. The Python standard slice interface for 1-D object:</p>
 <table>
-  <tr><td>
-sitkUInt8
-</td><td>
-Unsigned 8 bit integer
+    <tr><td>
+Operation
+</td>  <td>
+Result
 </td></tr>
-  <tr><td>
-sitkInt8
-</td><td>
-Signed 8 bit integer
+    <tr><td>
+d[i]
+</td>   <td>
+ith item of d, starting index 0
 </td></tr>
-  <tr><td>
-sitkUInt16
-</td><td>
-Unsigned 16 bit integer
+    <tr><td>
+d[i:j]
+</td> <td>
+slice of d from i to j
 </td></tr>
-  <tr><td> 
-sitkInt16
-</td><td>
-Signed 16 bit integer
-</td></tr>
-  <tr><td>
-sitkUInt32
-</td><td>
-Unsigned 32 bit integer
-</td></tr>
-  <tr><td>
-sitkInt32
-</td><td>
-Signed 32 bit integer
-</td></tr>
-  <tr><td>
-sitkUInt64
-</td><td>
-Unsigned 64 bit integer
-</td></tr>
-  <tr><td>
-sitkInt64
-</td><td>
-Signed 64 bit integer
-</td></tr>
-  <tr><td>
-sitkFloat32
-</td><td>
-32 bit float
-</td></tr>
-  <tr><td>
-sitkFloat64
-</td><td>
-64 bit float
-</td></tr>
-  <tr><td>
-sitkComplexFloat32
-</td><td>
-complex number of 32 bit float
-</td></tr>
-  <tr><td>
-sitkComplexFloat64
-</td><td>
-complex number of 64 bit float
-</td></tr>
-  <tr><td>
-sitkVectorUInt8
-</td><td>
-Multi-component of unsigned 8 bit integer
-</td></tr>
-  <tr><td>
-sitkVectorInt8
-</td><td>
-Multi-component of signed 8 bit integer
-</td></tr>
-  <tr><td>
-sitkVectorUInt16
-</td><td>
-Multi-component of unsigned 16 bit integer
-</td></tr>
-  <tr><td>
-sitkVectorInt16
-</td><td>
-Multi-component of signed 16 bit integer
-</td></tr>
-  <tr><td>
-sitkVectorUInt32
-</td><td>
-Multi-component of unsigned 32 bit integer
-</td></tr>
-  <tr><td>
-sitkVectorInt32
-</td><td>
-Multi-component of signed 32 bit integer
-</td></tr>
-  <tr><td>
-sitkVectorUInt64
-</td><td>
-Multi-component of unsigned 64 bit integer
-</td></tr>
-  <tr><td>
-sitkVectorInt64
-</td><td>
-Multi-component of signed 64 bit integer
-</td></tr>
-  <tr><td>
-sitkVectorFloat32
-</td><td>
-Multi-component of 32 bit float
-</td></tr>
-  <tr><td>
-sitkVectorFloat64
-</td><td>
-Multi-component of 64 bit float
-</td></tr>
-  <tr><td>
-sitkLabelUInt8
-</td><td>
-RLE label of unsigned 8 bit integers
-</td></tr>
-  <tr><td>
-sitkLabelUInt16
-</td><td>
-RLE label of unsigned 16 bit integers
-</td></tr>
-  <tr><td>
-sitkLabelUInt32
-</td><td>
-RLE label of unsigned 32 bit integers
-</td></tr>
-  <tr><td>
-sitkLabelUInt64
-</td><td>
-RLE label of unsigned 64 bit integers
+    <tr><td>
+d[i:j:k]
+</td>   <td>
+slice of d from i to j with step k
 </td></tr>
 </table>
 
-<p>There is also <code>sitkUnknown</code>, which is used for undefined or erroneous pixel ID's. It has a value of -1.</p>
-<p>Currently, the 64-bit types are not available and have a value of -1.</p>
-</div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="more-information-about-the-class-be-obtained-in-the-docstring">More Information about the class be obtained in the Docstring</h3>
-<p>SimpleITK classes and functions have the Docstrings derived from the C++ function definition and the Doxygen documentation.</p>
 </div>
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[3]:
+In&nbsp;[]:
 </div>
 <div class="input_area box-flex1">
-<div class="highlight"><pre><span class="n">help</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-Help on Image in module SimpleITK object:
-
-class Image(__builtin__.object)
- |  The main Image class for SimpleITK.
- |  
- |  C++ includes: sitkImage.h
- |  
- |  Methods defined here:
- |  
- |  CopyInformation(self, *args, **kwargs)
- |      CopyInformation(Image self, Image srcImage)
- |      
- |      Copy common meta-data from an image to this one.
- |      
- |      
- |      Copies the Origin, Spacing, and Direction from the source image to
- |      this image.
- |      
- |      It is required for the source Image&apos;s dimension and size to match,
- |      this image&apos;s attributes, otherwise an exception will be generated.
- |  
- |  GetDepth(self)
- |      GetDepth(Image self) -&gt; unsigned int
- |  
- |  GetDimension(self)
- |      GetDimension(Image self) -&gt; unsigned int
- |  
- |  GetDirection(self)
- |      GetDirection(Image self) -&gt; VectorDouble
- |      
- |      Set/Get the Direction.
- |      
- |      
- |      Internally, the Direction is represented by a matrix 2x2 for a 2D and
- |      and 3x3 for a 3D image. The matrix is passed as a 1D array in row-
- |      major form.
- |  
- |  GetHeight(self)
- |      GetHeight(Image self) -&gt; unsigned int
- |  
- |  GetITKBase(self, *args)
- |      GetITKBase(Image self) -&gt; itk::DataObject
- |      GetITKBase(Image self) -&gt; itk::DataObject const *
- |  
- |  GetNumberOfComponentsPerPixel(self)
- |      GetNumberOfComponentsPerPixel(Image self) -&gt; unsigned int
- |      
- |      Get the number of components for each pixel.
- |      
- |      
- |      For scalar images this methods returns 1. For vector images the number
- |      of components for each pixel is returned.
- |  
- |  GetOrigin(self)
- |      GetOrigin(Image self) -&gt; VectorDouble
- |      
- |      Get/Set the Origin
- |  
- |  GetPixel(self, *idx)
- |      Returns the value of a pixel.
- |      
- |      This method takes 2 parameters in 2D: the x and y index,
- |      and 3 parameters in 3D: the x, y and z index.
- |  
- |  GetPixelAsComplexFloat64(self, *args, **kwargs)
- |      GetPixelAsComplexFloat64(Image self, VectorUInt32 idx) -&gt; std::complex&lt; double &gt;
- |  
- |  GetPixelID(self)
- |      GetPixelID(Image self) -&gt; itk::simple::PixelIDValueEnum
- |  
- |  GetPixelIDTypeAsString(self)
- |      GetPixelIDTypeAsString(Image self) -&gt; std::string
- |  
- |  GetPixelIDValue(self)
- |      GetPixelIDValue(Image self) -&gt; itk::simple::PixelIDValueType
- |  
- |  GetSize(self)
- |      GetSize(Image self) -&gt; VectorUInt32
- |  
- |  GetSpacing(self)
- |      GetSpacing(Image self) -&gt; VectorDouble
- |      
- |      Get the Spacing
- |  
- |  GetWidth(self)
- |      GetWidth(Image self) -&gt; unsigned int
- |  
- |  SetDirection(self, *args, **kwargs)
- |      SetDirection(Image self, VectorDouble direction)
- |  
- |  SetOrigin(self, *args, **kwargs)
- |      SetOrigin(Image self, VectorDouble origin)
- |  
- |  SetPixel(self, *args)
- |      Sets the value of a pixel.
- |      
- |      This method takes 3 parameters in 2D: the x and y index then the value,
- |      and 4 parameters in 3D: the x, y and z index then the value.
- |  
- |  SetPixelAsComplexFloat64(self, *args, **kwargs)
- |      SetPixelAsComplexFloat64(Image self, VectorUInt32 idx, std::complex&lt; double &gt; const v)
- |  
- |  SetSpacing(self, *args, **kwargs)
- |      SetSpacing(Image self, VectorDouble spacing)
- |  
- |  TransformIndexToPhysicalPoint(self, *args, **kwargs)
- |      TransformIndexToPhysicalPoint(Image self, VectorInt64 index) -&gt; VectorDouble
- |      
- |      Transform index to physical point
- |  
- |  TransformPhysicalPointToIndex(self, *args, **kwargs)
- |      TransformPhysicalPointToIndex(Image self, VectorDouble point) -&gt; VectorInt64
- |      
- |      Transform physical point to index
- |  
- |  __GetPixelAsComplexFloat32__(self, *args, **kwargs)
- |      __GetPixelAsComplexFloat32__(Image self, VectorUInt32 idx) -&gt; std::complex&lt; float &gt;
- |  
- |  __GetPixelAsDouble__(self, *args, **kwargs)
- |      __GetPixelAsDouble__(Image self, VectorUInt32 idx) -&gt; double
- |  
- |  __GetPixelAsFloat__(self, *args, **kwargs)
- |      __GetPixelAsFloat__(Image self, VectorUInt32 idx) -&gt; float
- |  
- |  __GetPixelAsInt16__(self, *args, **kwargs)
- |      __GetPixelAsInt16__(Image self, VectorUInt32 idx) -&gt; int16_t
- |  
- |  __GetPixelAsInt32__(self, *args, **kwargs)
- |      __GetPixelAsInt32__(Image self, VectorUInt32 idx) -&gt; int32_t
- |  
- |  __GetPixelAsInt64__(self, *args, **kwargs)
- |      __GetPixelAsInt64__(Image self, VectorUInt32 idx) -&gt; int64_t
- |  
- |  __GetPixelAsInt8__(self, *args, **kwargs)
- |      __GetPixelAsInt8__(Image self, VectorUInt32 idx) -&gt; int8_t
- |  
- |  __GetPixelAsUInt16__(self, *args, **kwargs)
- |      __GetPixelAsUInt16__(Image self, VectorUInt32 idx) -&gt; uint16_t
- |  
- |  __GetPixelAsUInt32__(self, *args, **kwargs)
- |      __GetPixelAsUInt32__(Image self, VectorUInt32 idx) -&gt; uint32_t
- |  
- |  __GetPixelAsUInt64__(self, *args, **kwargs)
- |      __GetPixelAsUInt64__(Image self, VectorUInt32 idx) -&gt; uint64_t
- |  
- |  __GetPixelAsUInt8__(self, *args, **kwargs)
- |      __GetPixelAsUInt8__(Image self, VectorUInt32 idx) -&gt; uint8_t
- |  
- |  __GetPixelAsVectorFloat32__(self, *args, **kwargs)
- |      __GetPixelAsVectorFloat32__(Image self, VectorUInt32 idx) -&gt; VectorFloat
- |  
- |  __GetPixelAsVectorFloat64__(self, *args, **kwargs)
- |      __GetPixelAsVectorFloat64__(Image self, VectorUInt32 idx) -&gt; VectorDouble
- |  
- |  __GetPixelAsVectorInt16__(self, *args, **kwargs)
- |      __GetPixelAsVectorInt16__(Image self, VectorUInt32 idx) -&gt; VectorInt16
- |  
- |  __GetPixelAsVectorInt32__(self, *args, **kwargs)
- |      __GetPixelAsVectorInt32__(Image self, VectorUInt32 idx) -&gt; VectorInt32
- |  
- |  __GetPixelAsVectorInt64__(self, *args, **kwargs)
- |      __GetPixelAsVectorInt64__(Image self, VectorUInt32 idx) -&gt; VectorInt64
- |  
- |  __GetPixelAsVectorInt8__(self, *args, **kwargs)
- |      __GetPixelAsVectorInt8__(Image self, VectorUInt32 idx) -&gt; VectorInt8
- |  
- |  __GetPixelAsVectorUInt16__(self, *args, **kwargs)
- |      __GetPixelAsVectorUInt16__(Image self, VectorUInt32 idx) -&gt; VectorUInt16
- |  
- |  __GetPixelAsVectorUInt32__(self, *args, **kwargs)
- |      __GetPixelAsVectorUInt32__(Image self, VectorUInt32 idx) -&gt; VectorUInt32
- |  
- |  __GetPixelAsVectorUInt64__(self, *args, **kwargs)
- |      __GetPixelAsVectorUInt64__(Image self, VectorUInt32 idx) -&gt; VectorUInt64
- |  
- |  __GetPixelAsVectorUInt8__(self, *args, **kwargs)
- |      __GetPixelAsVectorUInt8__(Image self, VectorUInt32 idx) -&gt; VectorUInt8
- |  
- |  __SetPixelAsComplexFloat32__(self, *args, **kwargs)
- |      __SetPixelAsComplexFloat32__(Image self, VectorUInt32 idx, std::complex&lt; float &gt; const v)
- |  
- |  __SetPixelAsDouble__(self, *args, **kwargs)
- |      __SetPixelAsDouble__(Image self, VectorUInt32 idx, double v)
- |  
- |  __SetPixelAsFloat__(self, *args, **kwargs)
- |      __SetPixelAsFloat__(Image self, VectorUInt32 idx, float v)
- |  
- |  __SetPixelAsInt16__(self, *args, **kwargs)
- |      __SetPixelAsInt16__(Image self, VectorUInt32 idx, int16_t v)
- |  
- |  __SetPixelAsInt32__(self, *args, **kwargs)
- |      __SetPixelAsInt32__(Image self, VectorUInt32 idx, int32_t v)
- |  
- |  __SetPixelAsInt64__(self, *args, **kwargs)
- |      __SetPixelAsInt64__(Image self, VectorUInt32 idx, int64_t v)
- |  
- |  __SetPixelAsInt8__(self, *args, **kwargs)
- |      __SetPixelAsInt8__(Image self, VectorUInt32 idx, int8_t v)
- |  
- |  __SetPixelAsUInt16__(self, *args, **kwargs)
- |      __SetPixelAsUInt16__(Image self, VectorUInt32 idx, uint16_t v)
- |  
- |  __SetPixelAsUInt32__(self, *args, **kwargs)
- |      __SetPixelAsUInt32__(Image self, VectorUInt32 idx, uint32_t v)
- |  
- |  __SetPixelAsUInt64__(self, *args, **kwargs)
- |      __SetPixelAsUInt64__(Image self, VectorUInt32 idx, uint64_t v)
- |  
- |  __SetPixelAsUInt8__(self, *args, **kwargs)
- |      __SetPixelAsUInt8__(Image self, VectorUInt32 idx, uint8_t v)
- |  
- |  __SetPixelAsVectorFloat32__(self, *args, **kwargs)
- |      __SetPixelAsVectorFloat32__(Image self, VectorUInt32 idx, VectorFloat v)
- |  
- |  __SetPixelAsVectorFloat64__(self, *args, **kwargs)
- |      __SetPixelAsVectorFloat64__(Image self, VectorUInt32 idx, VectorDouble v)
- |  
- |  __SetPixelAsVectorInt16__(self, *args, **kwargs)
- |      __SetPixelAsVectorInt16__(Image self, VectorUInt32 idx, VectorInt16 v)
- |  
- |  __SetPixelAsVectorInt32__(self, *args, **kwargs)
- |      __SetPixelAsVectorInt32__(Image self, VectorUInt32 idx, VectorInt32 v)
- |  
- |  __SetPixelAsVectorInt64__(self, *args, **kwargs)
- |      __SetPixelAsVectorInt64__(Image self, VectorUInt32 idx, VectorInt64 v)
- |  
- |  __SetPixelAsVectorInt8__(self, *args, **kwargs)
- |      __SetPixelAsVectorInt8__(Image self, VectorUInt32 idx, VectorInt8 v)
- |  
- |  __SetPixelAsVectorUInt16__(self, *args, **kwargs)
- |      __SetPixelAsVectorUInt16__(Image self, VectorUInt32 idx, VectorUInt16 v)
- |  
- |  __SetPixelAsVectorUInt32__(self, *args, **kwargs)
- |      __SetPixelAsVectorUInt32__(Image self, VectorUInt32 idx, VectorUInt32 v)
- |  
- |  __SetPixelAsVectorUInt64__(self, *args, **kwargs)
- |      __SetPixelAsVectorUInt64__(Image self, VectorUInt32 idx, VectorUInt64 v)
- |  
- |  __SetPixelAsVectorUInt8__(self, *args, **kwargs)
- |      __SetPixelAsVectorUInt8__(Image self, VectorUInt32 idx, VectorUInt8 v)
- |  
- |  __abs__(self)
- |  
- |  __add__(self, other)
- |  
- |  __and__(self, other)
- |  
- |  __del__ lambda self
- |  
- |  __div__(self, other)
- |  
- |  __eq__(self, other)
- |  
- |  __floordiv__(self, other)
- |  
- |  __ge__(self, other)
- |  
- |  __getattr__ lambda self, name
- |  
- |  __getitem__(self, idx)
- |      Get an pixel value or a sliced image.
- |      
- |      This operator implements basic indexing where idx is
- |      arguments or a squence of integers the same dimension as
- |      the image. The result will be a pixel value from that
- |      index.
- |      
- |      Multi-dimension extended slice based indexing is also
- |      implemented. The return is a copy of a new image. The
- |      standard sliced based indices are supported including
- |      negative indices, to indicate location relative to the
- |      end, along with negative step sized to indicate reversing
- |      of direction.
- |      
- |      If the length of idx is less than the number of dimension
- |      of the image it will be padded with the defaults slice
- |      &quot;:&quot;.
- |      
- |      A 2D image can be extracted from a 3D image by providing
- |      one argument being an integer instead of a slice.
- |  
- |  __gt__(self, other)
- |  
- |  __iadd__(self, other)
- |  
- |  __init__(self, *args)
- |      __init__(itk::simple::Image self) -&gt; Image
- |      __init__(itk::simple::Image self, Image img) -&gt; Image
- |      __init__(itk::simple::Image self, unsigned int width, unsigned int height, itk::simple::PixelIDValueEnum valueEnum) -&gt; Image
- |      __init__(itk::simple::Image self, unsigned int width, unsigned int height, unsigned int depth, itk::simple::PixelIDValueEnum valueEnum) -&gt; Image
- |      __init__(itk::simple::Image self, VectorUInt32 size, itk::simple::PixelIDValueEnum valueEnum, unsigned int numberOfComponents=0) -&gt; Image
- |      
- |      Default constructor, creates an image of size 0.
- |  
- |  __invert__(self)
- |  
- |  __iter__(self)
- |  
- |  __le__(self, other)
- |  
- |  __len__(self)
- |  
- |  __lt__(self, other)
- |  
- |  __mod__(self, other)
- |  
- |  __mul__(self, other)
- |  
- |  __ne__(self, other)
- |  
- |  __neg__(self)
- |  
- |  __or__(self, other)
- |  
- |  __pos__(self)
- |  
- |  __pow__(self, other)
- |  
- |  __radd__(self, other)
- |  
- |  __rand__(self, other)
- |  
- |  __rdiv__(self, other)
- |  
- |  __repr__ = _swig_repr(self)
- |  
- |  __rfloordiv__(self, other)
- |  
- |  __rmul__(self, other)
- |  
- |  __ror__(self, other)
- |  
- |  __rpow__(self, other)
- |  
- |  __rsub__(self, other)
- |  
- |  __rtruediv__(self, other)
- |  
- |  __rxor__(self, other)
- |  
- |  __setattr__ lambda self, name, value
- |  
- |  __setitem__(self, idx, value)
- |      Sets the pixel value at index idx to value.
- |      
- |      The dimension of idx should match that of the image.
- |  
- |  __str__(self)
- |      __str__(Image self) -&gt; std::string
- |  
- |  __sub__(self, other)
- |  
- |  __truediv__(self, other)
- |  
- |  __xor__(self, other)
- |  
- |  ----------------------------------------------------------------------
- |  Data descriptors defined here:
- |  
- |  __dict__
- |      dictionary for instance variables (if defined)
- |  
- |  __weakref__
- |      list of weak references to the object (if defined)
- |  
- |  ----------------------------------------------------------------------
- |  Data and other attributes defined here:
- |  
- |  __swig_destroy__ = &lt;built-in function delete_Image&gt;
- |      delete_Image(Image self)
- |  
- |  __swig_getmethods__ = {}
- |  
- |  __swig_setmethods__ = {}
-
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="accessing-attributes">Accessing Attributes</h2>
-<p>If you are familliar with ITK, then these methods will follow your expectations:</p>
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[4]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetSize</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetOrigin</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetSpacing</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetDirection</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetNumberOfComponentsPerPixel</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-(256, 128, 64)
-(0.0, 0.0, 0.0)
-(1.0, 1.0, 1.0)
-(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0)
-1
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Note: The starting index of a SimpleITK Image is always 0. If the output of an ITK filter has non-zero starting index, then the origin will be adjusted.</p>
-<p>The size of the image's dimensions have explicit accessors:</p>
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[5]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetWidth</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetHeight</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetDepth</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-256
-128
-64
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Since the dimension and pixel type of a SimpleITK image is determined at run-time accessors are needed.</p>
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[6]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetDimension</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetPixelIDValue</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetPixelIDTypeAsString</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-3
-2
-16-bit signed integer
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>What is the depth of a 2D image?</p>
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[7]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="k">print</span> <span class="n">image_2D</span><span class="o">.</span><span class="n">GetSize</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">image_2D</span><span class="o">.</span><span class="n">GetDepth</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-(32, 32)
-0
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>What is the dimension and size of a Vector image?</p>
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[8]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="k">print</span> <span class="n">image_RGB</span><span class="o">.</span><span class="n">GetDimension</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">image_RGB</span><span class="o">.</span><span class="n">GetSize</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-2
-(128, 128)
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[9]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="k">print</span> <span class="n">image_RGB</span><span class="o">.</span><span class="n">GetNumberOfComponentsPerPixel</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-3
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="accessing-pixels">Accessing Pixels</h2>
-<p>There are the member functions <code>GetPixel</code> and <code>SetPixel</code> which provides an ITK-like interface for pixel access.</p>
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[10]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="n">help</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">GetPixel</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-Help on method GetPixel in module SimpleITK:
-
-GetPixel(self, *idx) method of SimpleITK.Image instance
-    Returns the value of a pixel.
-    
-    This method takes 2 parameters in 2D: the x and y index,
-    and 3 parameters in 3D: the x, y and z index.
-
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[11]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetPixel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">image</span><span class="o">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetPixel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="c">#print image.GetPixel([0,0,0]) BUG: Causes segfault in 0.6rc1 fix before release</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-0
-1
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[12]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="k">print</span> <span class="n">image</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">image</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="k">print</span> <span class="n">image</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-1
-10
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="conversion-between-numpy-and-simpleitk">Conversion between numpy and SimpleITK</h2>
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[13]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="n">nda</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">nda</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-[[[10  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]
-
- [[ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]
-
- [[ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]
-
- ..., 
- [[ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]
-
- [[ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]
-
- [[ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]]
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[14]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="n">help</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-Help on function GetArrayFromImage in module SimpleITK:
-
-GetArrayFromImage(image)
-    Get a numpy array from a SimpleITK Image.
-
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[15]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="n">nda</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">(</span><span class="n">image_RGB</span><span class="p">)</span>
-<span class="n">img</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetImageFromArray</span><span class="p">(</span><span class="n">nda</span><span class="p">)</span>
-<span class="n">img</span><span class="o">.</span><span class="n">GetSize</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt output_prompt">
-    Out[15]:</div>
-<div class="box-flex1 output_subarea output_pyout">
-
-
-<pre>
-(3, 128, 128)
-</pre>
-
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[16]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="n">help</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">GetImageFromArray</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-Help on function GetImageFromArray in module SimpleITK:
-
-GetImageFromArray(arr, isVector=False)
-    Get a SimpleITK Image from a numpy array. If isVector is True, then a 3D array will be treaded as a 2D vector image, otherwise it will be treaded as a 3D image
-
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[17]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetImageFromArray</span><span class="p">(</span><span class="n">nda</span><span class="p">,</span> <span class="n">isVector</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">img</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-VectorImage (0x7fbe8a3f8390)
-  RTTI typeinfo:   itk::VectorImage&lt;unsigned char, 2u&gt;
-  Reference Count: 1
-  Modified Time: 486
-  Debug: Off
-  Observers: 
-    none
-  Source: (none)
-  Source output name: (none)
-  Release Data: Off
-  Data Released: False
-  Global Release Data: Off
-  PipelineMTime: 0
-  UpdateMTime: 0
-  RealTimeStamp: 0 seconds 
-  LargestPossibleRegion: 
-    Dimension: 2
-    Index: [0, 0]
-    Size: [128, 128]
-  BufferedRegion: 
-    Dimension: 2
-    Index: [0, 0]
-    Size: [128, 128]
-  RequestedRegion: 
-    Dimension: 2
-    Index: [0, 0]
-    Size: [128, 128]
-  Spacing: [1, 1]
-  Origin: [0, 0]
-  Direction: 
-1 0
-0 1
-
-  IndexToPointMatrix: 
-1 0
-0 1
-
-  PointToIndexMatrix: 
-1 0
-0 1
-
-  Inverse Direction: 
-1 0
-0 1
-
-  VectorLength: 3
-  PixelContainer: 
-    ImportImageContainer (0x7fbe8a3d99e0)
-      RTTI typeinfo:   itk::ImportImageContainer&lt;unsigned long, unsigned char&gt;
-      Reference Count: 1
-      Modified Time: 487
-      Debug: Off
-      Observers: 
-        none
-      Pointer: 0x7fbe89e0f800
-      Container manages memory: true
-      Size: 49152
-      Capacity: 49152
-
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="the-order-of-index-and-dimensions-need-careful-attention-during-conversion">The order of index and dimensions need careful attention during conversion</h2>
-<p>ITK's Image class does not have a bracket operator. It has a GetPixel which takes an ITK Index object as an argument, which is an array ordered as <code>(x,y,z)</code>. This is the convention that SimpleITK's Image class uses for the GetPixel method as well.</p>
-<p>While in numpy, an array is indexed in the opposite order <code>(z,y,x)</code>.</p>
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[18]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="k">print</span> <span class="n">img</span><span class="o">.</span><span class="n">GetSize</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">nda</span><span class="o">.</span><span class="n">shape</span>
-<span class="k">print</span> <span class="n">nda</span><span class="o">.</span><span class="n">shape</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-(128, 128)
-(128, 128, 3)
-(3, 128, 128)
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="are-we-still-dealing-with-image-because-i-havent-seen-one-yet...">Are we still dealing with Image, because I haven't seen one yet...</h3>
-<p>While SimpleITK does not do visualization, it does contain a built in <code>Show</code> method. This function writes the image out to disk and than launches a program for visualization. By default it is configured to use ImageJ, because it is readily supports all the image types which SimpleITK has and load very quickly. However, it's easily customizable by setting enviroment variables.</p>
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[19]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="n">sitk</span><span class="o">.</span><span class="n">Show</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[20]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="n">sitk</span><span class="o">.</span><span class="n">Show</span><span class="err">?</span>
+<div class="highlight"><pre><span class="n">img</span><span class="p">[</span><span class="mi">24</span><span class="p">,</span><span class="mi">24</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -2931,126 +1796,29 @@ In&nbsp;[20]:
 
 </div>
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>By converting into a numpy array, matplotlob can be used for visualization for integration into the scientifc python enviroment.</p>
+<h3 id="cropping">Cropping</h3>
 </div>
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[21]:
+In&nbsp;[]:
 </div>
 <div class="input_area box-flex1">
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">pylab</span>
-<span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="nb">slice</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">(</span><span class="n">image</span><span class="p">)[</span><span class="n">z</span><span class="p">,:,:]</span>
-<span class="n">imshow</span><span class="p">(</span><span class="nb">slice</span><span class="p">)</span>
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">16</span><span class="p">:</span><span class="mi">48</span><span class="p">,:])</span>
 </pre></div>
 
 </div>
 </div>
 
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt output_prompt">
-    Out[21]:</div>
-<div class="box-flex1 output_subarea output_pyout">
-
-
-<pre>
-&lt;matplotlib.image.AxesImage at 0x1176e3510&gt;
-</pre>
-
 </div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
 </div>
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_display_data">
-
-
-<img src="data:image/png;base64,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
-AAAAAElFTkSuQmCC
-">
-
-</div>
-</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">[:,</span><span class="mi">16</span><span class="p">:</span><span class="o">-</span><span class="mi">16</span><span class="p">])</span>
+</pre></div>
 
 </div>
 </div>
@@ -3059,7 +1827,316 @@ AAAAAElFTkSuQmCC
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[21]:
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">[:</span><span class="mi">32</span><span class="p">,:</span><span class="mi">32</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="flipping">Flipping</h3>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">img_corner</span> <span class="o">=</span> <span class="n">img</span><span class="p">[:</span><span class="mi">32</span><span class="p">,:</span><span class="mi">32</span><span class="p">]</span>
+<span class="n">myshow</span><span class="p">(</span><span class="n">img_corner</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">(</span><span class="n">img_corner</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,:])</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">Tile</span><span class="p">(</span><span class="n">img_corner</span><span class="p">,</span> <span class="n">img_corner</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,::],</span><span class="n">img_corner</span><span class="p">[::,::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">img_corner</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="slice-extraction">Slice Extraction</h3>
+<p>A 2D image can be extracted from a 3D one.</p>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GaborSource</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">[:,:,</span><span class="mi">32</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">16</span><span class="p">,:,:])</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="super-sampling">Super Sampling</h3>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">[:,::</span><span class="mi">3</span><span class="p">,</span><span class="mi">32</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="mathematical-operators">Mathematical Operators</h2>
+<p>Most python mathematical operators are overloaded to call the SimpleITK filter which does that same operation on a per-pixel basis. They can operate on a two images or an image and a scalar.</p>
+<p>If two images are used then both must have the same pixel type. The output image type is ussually the same.</p>
+<p>As these operators basically call ITK filter, which just use raw C++ operators, care must be taked to prevent overflow, and divide by zero etc.</p>
+<table>
+    <tr><td>
+Operators
+</td></tr>
+    <tr><td>
++
+</td></tr>
+    <tr><td>
+-
+</td></tr>
+    <tr><td>
+*
+</td></tr>
+    <tr><td>
+/
+</td></tr>
+    <tr><td>
+//
+</td></tr>
+    <tr><td>
+**
+</td></tr>
+<table>
+
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">ReadImage</span><span class="p">(</span><span class="s">&quot;Data/cthead1.png&quot;</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">Cast</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">sitk</span><span class="o">.</span><span class="n">sitkFloat32</span><span class="p">)</span>
+<span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">img</span><span class="p">[</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">timg</span> <span class="o">=</span> <span class="n">img</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">myshow</span><span class="p">(</span><span class="n">timg</span><span class="p">)</span>
+<span class="n">timg</span><span class="p">[</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="division-operators">Division Operators</h3>
+<p>All three Python division operators are implemented <code>__floordiv__</code>, <code>__truediv__</code>, and <code>__div__</code>.</p>
+<p>The true division's output is a double pixle type.</p>
+<p>See PEP 238 so see why the Python changed the division operator in Python 3.</p>
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="bitwise-logic-operators">Bitwise Logic Operators</h3>
+<table>
+    <tr><td>
+Operators
+</td></tr>
+    <tr><td>
+&amp;
+</td></tr>
+    <tr><td>
+|
+</td></tr>
+    <tr><td>
+^
+</td></tr>
+<table>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="comparative-operators">Comparative Operators</h2>
+<table>
+    <tr><td>
+Operators
+</td></tr>
+    <tr><td>
+&gt;
+</td></tr>
+    <tr><td>
+&gt;=
+</td></tr>
+    <tr><td>
+&lt;
+</td></tr>
+    <tr><td>
+&lt;=
+</td></tr>
+    <tr><td>
+==
+</td></tr>
+<table>
+
+<p>These comparative operators follow the same convention as the reset of SimpleITK for binary images. They have the pixel type of <code>sitkUInt8</code> with values of 0 and 1.</p>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">ReadImage</span><span class="p">(</span><span class="s">&quot;Data/cthead1.png&quot;</span><span class="p">)</span>
+<span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="amazingly-make-common-trivial-tasks-really-trivial">Amazingly make common trivial tasks really trivial</h3>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="o">&gt;</span><span class="mi">90</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">(</span><span class="n">img</span><span class="o">&gt;</span><span class="mi">150</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="n">myshow</span><span class="p">((</span><span class="n">img</span><span class="o">&gt;</span><span class="mi">90</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">img</span><span class="o">&gt;</span><span class="mi">150</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre>
