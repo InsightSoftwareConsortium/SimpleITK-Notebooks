@@ -4,6 +4,18 @@ This is a collection of IPython Notebooks, designed for tutorials, presentations
 
 [SimpleITK](http://www.simpleitk.org) is an abstraction layer and wrapper around the [Insight Toolkit](http://www.itk.org) for many languages including python.
 
+# View Static Converted Pages
+
+http://simpleitk.github.io/SimpleITK-Notebooks/01_Image_Basics.html
+http://simpleitk.github.io/SimpleITK-Notebooks/02_Pythonic_Image.html
+http://simpleitk.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html
+http://simpleitk.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html
+http://simpleitk.github.io/SimpleITK-Notebooks/21_Transform_and_Resampling.html
+http://simpleitk.github.io/SimpleITK-Notebooks/30_Segmentation_Region_Growing.html
+http://simpleitk.github.io/SimpleITK-Notebooks/31_Levelset_Segmentation.html
+http://simpleitk.github.io/SimpleITK-Notebooks/32_Watersheds_Segmentation.html
+
+
 
 # Getting Started
 
