@@ -1,8 +1,93 @@
+<!doctype html>
 <html>
   <head>
-    <title>SimpleITK-Notebooks Github Pages</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>SimpleITK Notebooks by SimpleITK</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-  <body bgcolor=white>
-    <h1>Hello Github Pages</h1>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>SimpleITK Notebooks</h1>
+        <p>IPython Notebooks for learning how to use SimpleITK</p>
+        <p class="view"><a href="https://github.com/SimpleITK/SimpleITK-Notebooks">View the Project on GitHub <small>SimpleITK/SimpleITK-Notebooks</small></a></p>
+        <ul>
+          <li><a href="https://github.com/SimpleITK/SimpleITK-Notebooks/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/SimpleITK/SimpleITK-Notebooks/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/SimpleITK/SimpleITK-Notebooks">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="simpleitk-notebooks" class="anchor" href="#simpleitk-notebooks"><span class="octicon octicon-link"></span></a>SimpleITK Notebooks</h1>
+
+<p>This is a collection of IPython Notebooks, designed for tutorials, presentations and demonstration of using SimpleITK in the "pylab" environment for interactive image process.</p>
+
+<p><a href="http://www.simpleitk.org">SimpleITK</a> is an abstraction layer and wrapper around the <a href="http://www.itk.org">Insight Toolkit</a> for many languages including python.</p>
+
+<h1>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h1>
+
+<p>For general information about installing SimpleITK please see the <a href="http://www.itk.org/Wiki/ITK/Release_4/SimpleITK/GettingStarted">SimpleITK wiki</a>.</p>
+
+<h2>
+<a name="additional-data-download" class="anchor" href="#additional-data-download"><span class="octicon octicon-link"></span></a>Additional Data Download</h2>
+
+<p>Additionally the SPL's "Multi-modality MRI-based Atlas of the Brain" should be downloaded and extracted into the SimpleITK-Notebooks/Data directory.</p>
+
+<p><a href="http://www.spl.harvard.edu/publications/item/view/2037">http://www.spl.harvard.edu/publications/item/view/2037</a></p>
+
+<h2>
+<a name="setting-up-a-python-environment" class="anchor" href="#setting-up-a-python-environment"><span class="octicon octicon-link"></span></a>Setting Up a Python Environment</h2>
+
+<p>It is recommended to setup a separate Python virtual environment to run through these notebooks as a tutorial.</p>
+
+<p>Under the best of circumstances (tested on OSX 10.8 and 10.7.5, RH6, Ubuntu 12) this environment can be setup with the following:</p>
+
+<pre><code>sudo pip install virtualenv
+virtualenv ~/sitkpy --no-site-packages
+~/sitkpy/bin/pip install ipython[all]
+~/sitkpy/bin/pip install numpy
+~/sitkpy/bin/pip install matplotlib
+</code></pre>
+
+<p>Note: On Linux platforms you may be able to obtain many of these packages as system packages which may suffice ( Ubuntu 12+).
+Note: On Window platforms some of these packages should be obtained as binary downloads and installed.</p>
+
+<h3>
+<a name="install-simpleitk" class="anchor" href="#install-simpleitk"><span class="octicon octicon-link"></span></a>Install SimpleITK</h3>
+
+<p>For many common platforms, a built distribution is available as an Python egg. This can be downloading and installed with the following command:</p>
+
+<pre><code>~/sitkpy/bin/easy_install SimpleITK
+</code></pre>
+
+<p>As of this writing, SimpleITK version &gt;=0.6r1 is required to run these notebooks. This version currently needs to be downloaded from <a href="http://sourceforge.net/projects/simpleitk/files/SimpleITK/0.6.rc1/Python/">Source Forge</a></p>
+
+<h3>
+<a name="run-the-environment" class="anchor" href="#run-the-environment"><span class="octicon octicon-link"></span></a>Run the environment</h3>
+
+<p>To launch:</p>
+
+<pre><code>cd SimpleITK-Notebooks
+~/sitkpy/bin/ipython notebook --pylab=inline
+</code></pre>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/SimpleITK">SimpleITK</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
   </body>
 </html>
