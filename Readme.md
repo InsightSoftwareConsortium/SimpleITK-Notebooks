@@ -6,15 +6,14 @@ This is a collection of IPython Notebooks, designed for tutorials, presentations
 
 # View Static Converted Pages
 
-http://simpleitk.github.io/SimpleITK-Notebooks/01_Image_Basics.html
-http://simpleitk.github.io/SimpleITK-Notebooks/02_Pythonic_Image.html
-http://simpleitk.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html
-http://simpleitk.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html
-http://simpleitk.github.io/SimpleITK-Notebooks/21_Transform_and_Resampling.html
-http://simpleitk.github.io/SimpleITK-Notebooks/30_Segmentation_Region_Growing.html
-http://simpleitk.github.io/SimpleITK-Notebooks/31_Levelset_Segmentation.html
-http://simpleitk.github.io/SimpleITK-Notebooks/32_Watersheds_Segmentation.html
-
+[01 Image Basics](http://simpleitk.github.io/SimpleITK-Notebooks/01_Image_Basics.html)  
+[02 Pythonic Image](http://simpleitk.github.io/SimpleITK-Notebooks/02_Pythonic_Image.html)  
+[10 plotlib's imshow](http://simpleitk.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html)  
+[20 Expand With Interpolators](http://simpleitk.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html)  
+[21 Transform and Resampling](http://simpleitk.github.io/SimpleITK-Notebooks/21_Transform_and_Resampling.html)  
+[30 Segmentation Region Growing](http://simpleitk.github.io/SimpleITK-Notebooks/30_Segmentation_Region_Growing.html)  
+[31 Levelset Segmentation](http://simpleitk.github.io/SimpleITK-Notebooks/31_Levelset_Segmentation.html)  
+[32 Watershed Segmentation](http://simpleitk.github.io/SimpleITK-Notebooks/32_Watersheds_Segmentation.html)  
 
 
 # Getting Started
