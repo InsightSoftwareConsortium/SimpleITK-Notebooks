@@ -14,6 +14,7 @@ This is a collection of IPython Notebooks, designed for tutorials, presentations
 [30 Segmentation Region Growing](http://simpleitk.github.io/SimpleITK-Notebooks/30_Segmentation_Region_Growing.html)  
 [31 Levelset Segmentation](http://simpleitk.github.io/SimpleITK-Notebooks/31_Levelset_Segmentation.html)  
 [32 Watershed Segmentation](http://simpleitk.github.io/SimpleITK-Notebooks/32_Watersheds_Segmentation.html)  
+[41 Progress](http://simpleitk.github.io/SimpleITK-Notebooks/41_Progress.html)
 
 
 # Getting Started
