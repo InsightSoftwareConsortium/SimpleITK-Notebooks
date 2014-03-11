@@ -1869,11 +1869,11 @@ RLE label of unsigned 64 bit integers
 </table>
 
 <p>There is also <code>sitkUnknown</code>, which is used for undefined or erroneous pixel ID's. It has a value of -1.</p>
-<p>Currently, the 64-bit types are not available and have a value of -1.</p>
+<p>The 64-bit integer types are not available on all distributions. When not available the value is <code>sitkUnknown</code>.</p>
 </div>
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="more-information-about-the-class-be-obtained-in-the-docstring">More Information about the class be obtained in the Docstring</h3>
-<p>SimpleITK classes and functions have the Docstrings derived from the C++ function definition and the Doxygen documentation.</p>
+<h3 id="more-information-about-the-image-class-be-obtained-in-the-docstring">More Information about the Image class be obtained in the Docstring</h3>
+<p>SimpleITK classes and functions have the Docstrings derived from the C++ definitions and the Doxygen documentation.</p>
 </div>
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
@@ -1894,7 +1894,7 @@ In&nbsp;[3]:
 <div class="hbox output_area"><div class="prompt"></div>
 <div class="box-flex1 output_subarea output_stream output_stdout">
 <pre>
-Help on Image in module SimpleITK object:
+Help on Image in module SimpleITK.SimpleITK object:
 
 class Image(__builtin__.object)
  |  The main Image class for SimpleITK.
@@ -1912,8 +1912,8 @@ class Image(__builtin__.object)
  |      Copies the Origin, Spacing, and Direction from the source image to
  |      this image.
  |      
- |      It is required for the source Image&apos;s dimension and size to match,
- |      this image&apos;s attributes, otherwise an exception will be generated.
+ |      It is required for the source Image&apos;s dimension and size to match, this image&apos;s attributes, otherwise an
+ |      exception will be generated.
  |  
  |  GetDepth(self)
  |      GetDepth(Image self) -&gt; unsigned int
@@ -1923,13 +1923,6 @@ class Image(__builtin__.object)
  |  
  |  GetDirection(self)
  |      GetDirection(Image self) -&gt; VectorDouble
- |      
- |      Set/Get the Direction.
- |      
- |      
- |      Internally, the Direction is represented by a matrix 2x2 for a 2D and
- |      and 3x3 for a 3D image. The matrix is passed as a 1D array in row-
- |      major form.
  |  
  |  GetHeight(self)
  |      GetHeight(Image self) -&gt; unsigned int
@@ -1937,6 +1930,26 @@ class Image(__builtin__.object)
  |  GetITKBase(self, *args)
  |      GetITKBase(Image self) -&gt; itk::DataObject
  |      GetITKBase(Image self) -&gt; itk::DataObject const *
+ |  
+ |  GetMetaData(self, *args, **kwargs)
+ |      GetMetaData(Image self, std::string const &amp; key) -&gt; std::string
+ |      
+ |      Get the value of a meta-data dictionary entry as a string.
+ |      
+ |      
+ |      If the key is not in the dictionary then an exception is thrown.
+ |      
+ |      string types in the dictionary are returned as their native strings.
+ |      Other types are printed to string before returning.
+ |  
+ |  GetMetaDataKeys(self)
+ |      GetMetaDataKeys(Image self) -&gt; VectorString
+ |      
+ |      get a vector of keys in from the meta-data dictionary
+ |      
+ |      
+ |      Returns a vector of keys to the key/value entries in the image&apos;s meta-
+ |      data dictionary. Iterate through with these keys to get the values.
  |  
  |  GetNumberOfComponentsPerPixel(self)
  |      GetNumberOfComponentsPerPixel(Image self) -&gt; unsigned int
@@ -1949,8 +1962,6 @@ class Image(__builtin__.object)
  |  
  |  GetOrigin(self)
  |      GetOrigin(Image self) -&gt; VectorDouble
- |      
- |      Get/Set the Origin
  |  
  |  GetPixel(self, *idx)
  |      Returns the value of a pixel.
@@ -1975,11 +1986,14 @@ class Image(__builtin__.object)
  |  
  |  GetSpacing(self)
  |      GetSpacing(Image self) -&gt; VectorDouble
- |      
- |      Get the Spacing
  |  
  |  GetWidth(self)
  |      GetWidth(Image self) -&gt; unsigned int
+ |  
+ |  HasMetaDataKey(self, *args, **kwargs)
+ |      HasMetaDataKey(Image self, std::string const &amp; key) -&gt; bool
+ |      
+ |      Query the meta-data dictionary for the existence of a key.
  |  
  |  SetDirection(self, *args, **kwargs)
  |      SetDirection(Image self, VectorDouble direction)
@@ -1999,10 +2013,20 @@ class Image(__builtin__.object)
  |  SetSpacing(self, *args, **kwargs)
  |      SetSpacing(Image self, VectorDouble spacing)
  |  
+ |  TransformContinuousIndexToPhysicalPoint(self, *args, **kwargs)
+ |      TransformContinuousIndexToPhysicalPoint(Image self, VectorDouble index) -&gt; VectorDouble
+ |      
+ |      Transform continuous index to physical point
+ |  
  |  TransformIndexToPhysicalPoint(self, *args, **kwargs)
  |      TransformIndexToPhysicalPoint(Image self, VectorInt64 index) -&gt; VectorDouble
  |      
  |      Transform index to physical point
+ |  
+ |  TransformPhysicalPointToContinuousIndex(self, *args, **kwargs)
+ |      TransformPhysicalPointToContinuousIndex(Image self, VectorDouble point) -&gt; VectorDouble
+ |      
+ |      Transform physical point to continuous index
  |  
  |  TransformPhysicalPointToIndex(self, *args, **kwargs)
  |      TransformPhysicalPointToIndex(Image self, VectorDouble point) -&gt; VectorInt64
@@ -2185,8 +2209,6 @@ class Image(__builtin__.object)
  |      __init__(itk::simple::Image self, unsigned int width, unsigned int height, itk::simple::PixelIDValueEnum valueEnum) -&gt; Image
  |      __init__(itk::simple::Image self, unsigned int width, unsigned int height, unsigned int depth, itk::simple::PixelIDValueEnum valueEnum) -&gt; Image
  |      __init__(itk::simple::Image self, VectorUInt32 size, itk::simple::PixelIDValueEnum valueEnum, unsigned int numberOfComponents=0) -&gt; Image
- |      
- |      Default constructor, creates an image of size 0.
  |  
  |  __invert__(self)
  |  
@@ -2320,7 +2342,7 @@ In&nbsp;[4]:
 
 </div>
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note: The starting index of a SimpleITK Image is always 0. If the output of an ITK filter has non-zero starting index, then the origin will be adjusted.</p>
+<p>Note: The starting index of a SimpleITK Image is always 0. If the output of an ITK filter has non-zero starting index, then the index will be set to 0, and the origin adjusted accordingly.</p>
 <p>The size of the image's dimensions have explicit accessors:</p>
 </div>
 <div class="cell border-box-sizing code_cell vbox">
@@ -2490,13 +2512,30 @@ In&nbsp;[9]:
 
 </div>
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>For certain file types such as DICOM, additional information about the image is contained in the meta-data dicitonary.</p>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[10]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">image</span><span class="o">.</span><span class="n">GetMetaDataKeys</span><span class="p">():</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">{0}</span><span class="se">\&quot;</span><span class="s">:</span><span class="se">\&quot;</span><span class="s">{1}</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">GetMetaData</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="accessing-pixels">Accessing Pixels</h2>
 <p>There are the member functions <code>GetPixel</code> and <code>SetPixel</code> which provides an ITK-like interface for pixel access.</p>
 </div>
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[10]:
+In&nbsp;[11]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="n">help</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">GetPixel</span><span class="p">)</span>
@@ -2512,9 +2551,9 @@ In&nbsp;[10]:
 <div class="hbox output_area"><div class="prompt"></div>
 <div class="box-flex1 output_subarea output_stream output_stdout">
 <pre>
-Help on method GetPixel in module SimpleITK:
+Help on method GetPixel in module SimpleITK.SimpleITK:
 
-GetPixel(self, *idx) method of SimpleITK.Image instance
+GetPixel(self, *idx) method of SimpleITK.SimpleITK.Image instance
     Returns the value of a pixel.
     
     This method takes 2 parameters in 2D: the x and y index,
@@ -2532,13 +2571,12 @@ GetPixel(self, *idx) method of SimpleITK.Image instance
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[11]:
+In&nbsp;[12]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetPixel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">image</span><span class="o">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">image</span><span class="o">.</span><span class="n">GetPixel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="c">#print image.GetPixel([0,0,0]) BUG: Causes segfault in 0.6rc1 fix before release</span>
 </pre></div>
 
 </div>
@@ -2565,7 +2603,7 @@ In&nbsp;[11]:
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[12]:
+In&nbsp;[13]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="k">print</span> <span class="n">image</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
@@ -2600,7 +2638,7 @@ In&nbsp;[12]:
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[13]:
+In&nbsp;[14]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="n">nda</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
@@ -2677,7 +2715,7 @@ In&nbsp;[13]:
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[14]:
+In&nbsp;[15]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="n">help</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">)</span>
@@ -2693,7 +2731,7 @@ In&nbsp;[14]:
 <div class="hbox output_area"><div class="prompt"></div>
 <div class="box-flex1 output_subarea output_stream output_stdout">
 <pre>
-Help on function GetArrayFromImage in module SimpleITK:
+Help on function GetArrayFromImage in module SimpleITK.SimpleITK:
 
 GetArrayFromImage(image)
     Get a numpy array from a SimpleITK Image.
@@ -2710,7 +2748,7 @@ GetArrayFromImage(image)
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[15]:
+In&nbsp;[16]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="n">nda</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">(</span><span class="n">image_RGB</span><span class="p">)</span>
@@ -2726,7 +2764,7 @@ In&nbsp;[15]:
 
 
 <div class="hbox output_area"><div class="prompt output_prompt">
-    Out[15]:</div>
+    Out[16]:</div>
 <div class="box-flex1 output_subarea output_pyout">
 
 
@@ -2744,7 +2782,7 @@ In&nbsp;[15]:
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[16]:
+In&nbsp;[17]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="n">help</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">GetImageFromArray</span><span class="p">)</span>
@@ -2760,7 +2798,7 @@ In&nbsp;[16]:
 <div class="hbox output_area"><div class="prompt"></div>
 <div class="box-flex1 output_subarea output_stream output_stdout">
 <pre>
-Help on function GetImageFromArray in module SimpleITK:
+Help on function GetImageFromArray in module SimpleITK.SimpleITK:
 
 GetImageFromArray(arr, isVector=False)
     Get a SimpleITK Image from a numpy array. If isVector is True, then a 3D array will be treaded as a 2D vector image, otherwise it will be treaded as a 3D image
@@ -2777,7 +2815,7 @@ GetImageFromArray(arr, isVector=False)
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[17]:
+In&nbsp;[18]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetImageFromArray</span><span class="p">(</span><span class="n">nda</span><span class="p">,</span> <span class="n">isVector</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -2794,11 +2832,12 @@ In&nbsp;[17]:
 <div class="hbox output_area"><div class="prompt"></div>
 <div class="box-flex1 output_subarea output_stream output_stdout">
 <pre>
-VectorImage (0x7fbe8a3f8390)
+VectorImage (0x7f8b68d90880)
   RTTI typeinfo:   itk::VectorImage&lt;unsigned char, 2u&gt;
   Reference Count: 1
-  Modified Time: 486
+  Modified Time: 497
   Debug: Off
+  Object Name: 
   Observers: 
     none
   Source: (none)
@@ -2841,14 +2880,15 @@ VectorImage (0x7fbe8a3f8390)
 
   VectorLength: 3
   PixelContainer: 
-    ImportImageContainer (0x7fbe8a3d99e0)
+    ImportImageContainer (0x7f8b68d90a70)
       RTTI typeinfo:   itk::ImportImageContainer&lt;unsigned long, unsigned char&gt;
       Reference Count: 1
-      Modified Time: 487
+      Modified Time: 498
       Debug: Off
+      Object Name: 
       Observers: 
         none
-      Pointer: 0x7fbe89e0f800
+      Pointer: 0x7f8b69969c00
       Container manages memory: true
       Size: 49152
       Capacity: 49152
@@ -2870,7 +2910,7 @@ VectorImage (0x7fbe8a3f8390)
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[18]:
+In&nbsp;[19]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="k">print</span> <span class="n">img</span><span class="o">.</span><span class="n">GetSize</span><span class="p">()</span>
@@ -2907,7 +2947,7 @@ In&nbsp;[18]:
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[19]:
+In&nbsp;[20]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="n">sitk</span><span class="o">.</span><span class="n">Show</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
@@ -2920,7 +2960,7 @@ In&nbsp;[19]:
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[20]:
+In&nbsp;[21]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="n">sitk</span><span class="o">.</span><span class="n">Show</span><span class="err">?</span>
@@ -2936,7 +2976,7 @@ In&nbsp;[20]:
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[21]:
+In&nbsp;[22]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="kn">import</span> <span class="nn">pylab</span>
@@ -2953,12 +2993,12 @@ In&nbsp;[21]:
 
 
 <div class="hbox output_area"><div class="prompt output_prompt">
-    Out[21]:</div>
+    Out[22]:</div>
 <div class="box-flex1 output_subarea output_pyout">
 
 
 <pre>
-&lt;matplotlib.image.AxesImage at 0x1176e3510&gt;
+&lt;matplotlib.image.AxesImage at 0x110d3c290&gt;
 </pre>
 
 </div>
@@ -3051,19 +3091,6 @@ AAAAAElFTkSuQmCC
 
 </div>
 </div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[21]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre>
-</pre></div>
 
 </div>
 </div>
