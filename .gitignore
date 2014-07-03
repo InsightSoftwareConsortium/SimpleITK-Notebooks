@@ -1,4 +1,5 @@
 .DS_Store
+Data
 build
 *.o
 \#*\#
@@ -6,3 +7,4 @@ build
 *~
 *.pyc
 *.orig
+.ipynb_checkpoints/
