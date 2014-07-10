@@ -1,6 +1,6 @@
 # SimpleITK Notebooks
 
-This is a collection of IPython Notebooks, designed for tutorials, presentations and demonstration of using SimpleITK in the "pylab" environment for interactive image process.
+This is a collection of IPython Notebooks, designed for tutorials, presentations and to demonstrate using SimpleITK in the IPython Notebook with scipy environment for interactive image process.
 
 [SimpleITK](http://www.simpleitk.org) is an abstraction layer and wrapper around the [Insight Toolkit](http://www.itk.org) for many languages including python.
 
@@ -21,11 +21,16 @@ This is a collection of IPython Notebooks, designed for tutorials, presentations
 
 For general information about installing SimpleITK please see the [SimpleITK wiki](http://www.itk.org/Wiki/ITK/Release_4/SimpleITK/GettingStarted).
 
-## Additional Data Download
+## Additional Data Downloads
 
 Additionally the SPL's "Multi-modality MRI-based Atlas of the Brain" should be downloaded and extracted into the SimpleITK-Notebooks/Data directory.
 
 http://www.spl.harvard.edu/publications/item/view/2037
+
+
+For the Visible Human Notebooks the data should be downloaded from the MIDAS server.
+
+http://midas3.kitware.com/midas/folder/10410
 
 
 ## Setting Up a Python Environment
