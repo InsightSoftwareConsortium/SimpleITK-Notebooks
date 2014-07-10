@@ -1,10 +1,14 @@
 import SimpleITK as sitk
 import matplotlib.pyplot as plt
 
+from IPython.html.widgets import interact, interactive
+from IPython.html import widgets
+
 def myshow(img, title=None, margin=0.05, dpi=80 ):
     nda = sitk.GetArrayFromImage(img)
-    spacing = img.GetSpacing()
 
+    spacing = img.GetSpacing()
+    slicer = False
 
     if nda.ndim == 3:
         # fastest dim, either component or x
@@ -12,7 +16,7 @@ def myshow(img, title=None, margin=0.05, dpi=80 ):
 
         # the the number of components is 3 or 4 consider it an RGB image
         if not c in (3,4):
-            nda = nda[nda.shape[0]//2,:,:]
+            slicer = True
 
     elif nda.ndim == 4:
         c = nda.shape[-1]
@@ -21,29 +25,44 @@ def myshow(img, title=None, margin=0.05, dpi=80 ):
             raise Runtime("Unable to show 3D-vector Image")
 
         # take a z-slice
-        nda = nda[nda.shape[0]//2,:,:,:]
+        slicer = True
 
-    ysize = nda.shape[0]
-    xsize = nda.shape[1]
+    if (slicer):
+        ysize = nda.shape[1]
+        xsize = nda.shape[2]
+    else:
+        ysize = nda.shape[0]
+        xsize = nda.shape[1]
 
 
     # Make a figure big enough to accomodate an axis of xpixels by ypixels
     # as well as the ticklabels, etc...
     figsize = (1 + margin) * ysize / dpi, (1 + margin) * xsize / dpi
+    def callback(z=None):
 
-    fig = plt.figure(figsize=figsize, dpi=dpi)
-    # Make the axis the right size...
-    ax = fig.add_axes([margin, margin, 1 - 2*margin, 1 - 2*margin])
+        extent = (0, xsize*spacing[1], ysize*spacing[0], 0)
 
-    extent = (0, xsize*spacing[1], ysize*spacing[0], 0)
+        fig = plt.figure(figsize=figsize, dpi=dpi)
 
-    t = ax.imshow(nda,extent=extent,interpolation=None)
+        # Make the axis the right size...
+        ax = fig.add_axes([margin, margin, 1 - 2*margin, 1 - 2*margin])
 
-    if nda.ndim == 2:
-        t.set_cmap("gray")
+        plt.set_cmap("gray")
 
-    if title:
-        plt.title(title)
+        if z is None:
+            ax.imshow(nda,extent=extent,interpolation=None)
+        else:
+            ax.imshow(nda[z,...],extent=extent,interpolation=None)
+
+        if title:
+            plt.title(title)
+
+        plt.show()
+
+    if slicer:
+        interact(callback, z=(0,nda.shape[0]-1))
+    else:
+        callback()
 
 def myshow3d(img, xslices=[], yslices=[], zslices=[], title=None, margin=0.05, dpi=80):
     size = img.GetSize()
