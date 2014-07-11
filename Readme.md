@@ -63,4 +63,4 @@ As of this writing, SimpleITK version >=0.6r1 is required to run these notebooks
 To launch:
 
     cd SimpleITK-Notebooks
-    ~/sitkpy/bin/ipython notebook --pylab=inline
+    ~/sitkpy/bin/ipython notebook
