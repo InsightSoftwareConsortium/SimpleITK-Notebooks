@@ -6,15 +6,15 @@ This is a collection of IPython Notebooks, designed for tutorials, presentations
 
 # View Static Converted Pages
 
-[01 Image Basics](http://simpleitk.github.io/SimpleITK-Notebooks/01_Image_Basics.html)  
-[02 Pythonic Image](http://simpleitk.github.io/SimpleITK-Notebooks/02_Pythonic_Image.html)  
-[10 plotlib's imshow](http://simpleitk.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html)  
-[20 Expand With Interpolators](http://simpleitk.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html)  
-[21 Transform and Resampling](http://simpleitk.github.io/SimpleITK-Notebooks/21_Transform_and_Resampling.html)  
-[30 Segmentation Region Growing](http://simpleitk.github.io/SimpleITK-Notebooks/30_Segmentation_Region_Growing.html)  
-[31 Levelset Segmentation](http://simpleitk.github.io/SimpleITK-Notebooks/31_Levelset_Segmentation.html)  
-[32 Watershed Segmentation](http://simpleitk.github.io/SimpleITK-Notebooks/32_Watersheds_Segmentation.html)  
-[41 Progress](http://simpleitk.github.io/SimpleITK-Notebooks/41_Progress.html)
+[01 Image Basics](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/01_Image_Basics.html)
+[02 Pythonic Image](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/02_Pythonic_Image.html)
+[10 plotlib's imshow](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html)
+[20 Expand With Interpolators](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html)
+[21 Transform and Resampling](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/21_Transform_and_Resampling.html)
+[30 Segmentation Region Growing](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/30_Segmentation_Region_Growing.html)
+[31 Levelset Segmentation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/31_Levelset_Segmentation.html)
+[32 Watershed Segmentation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/32_Watersheds_Segmentation.html)
+[41 Progress](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/41_Progress.html)
 
 
 # Getting Started
@@ -53,13 +53,13 @@ Note: On Window platforms some of these packages should be obtained as binary do
 For many common platforms, a built distribution is available as an Python egg. This can be downloading and installed with the following command:
 
     ~/sitkpy/bin/easy_install SimpleITK
- 
+
 
 As of this writing, SimpleITK version >=0.6r1 is required to run these notebooks. This version currently needs to be downloaded from [Source Forge](http://sourceforge.net/projects/simpleitk/files/SimpleITK/0.6.rc1/Python/)
 
 
 ### Run the environment
- 
+
 To launch:
 
     cd SimpleITK-Notebooks
