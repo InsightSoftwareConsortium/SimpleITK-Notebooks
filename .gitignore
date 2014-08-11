@@ -8,3 +8,4 @@ build
 *.pyc
 *.orig
 .ipynb_checkpoints/
+.*.swp
