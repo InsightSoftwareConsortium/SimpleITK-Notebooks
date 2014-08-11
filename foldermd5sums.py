@@ -8,16 +8,26 @@ import os
 import sys
 import hashlib
 
-def get_md5sums(directory):
+def get_relative_filepaths(base_directory):
+    """ Return a list of file paths without the base_directory prefix"""
+    file_list = []
+    for root, subFolders, files in os.walk('Data'):
+        relative_path="/".join(root.split('/')[1:])
+        for file in files:
+            file_list.append(os.path.join(relative_path,file))
+    return file_list
+
+
+def get_md5sums(base_directory):
     md5sums = []
-    for filename in os.listdir(directory):
+    for filename in get_relative_filepaths(base_directory):
         md5 = hashlib.md5()
-        with open(os.path.join(directory, filename), 'rb') as fp:
+        full_filepath = os.path.join(base_directory, filename)
+        with open(full_filepath, 'rb') as fp:
             for chunk in iter(lambda: fp.read(128 * md5.block_size), b''):
                 md5.update(chunk)
         md5hash = md5.hexdigest()
         md5sums.append((filename, md5hash))
-
     return md5sums
 
 if __name__ == '__main__':
