@@ -9,3 +9,5 @@ build
 *.orig
 .ipynb_checkpoints/
 .*.swp
+.mha
+.jpg
