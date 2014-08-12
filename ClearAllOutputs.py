@@ -33,6 +33,9 @@ if __name__ == '__main__':
     filename = sys.argv[1]
     with io.open(filename, 'r', encoding='utf8') as f:
         nb = current.read(f, 'json')
-    nb = strip_output(nb)
-    with io.open(filename, 'w', encoding='utf8') as f:
-        current.write(nb, f, 'json')
+    nb_out = strip_output(nb)
+    if nb != nb_out:
+        with io.open(filename, 'w', encoding='utf8') as f:
+            current.write(nb_out, f, 'json')
+        sys.exit(1)
+    sys.exit(0)
