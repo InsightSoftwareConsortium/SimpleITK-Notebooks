@@ -64,19 +64,28 @@ def mkdir_p(path):
             pass
         else:
             raise
-
-midas_servers = [
-    # Data published by MIDAS
-    "http://midas3.kitware.com/midas/api/rest?method=midas.bitstream.download&checksum=%(hash)&algorithm=%(algo)",
-    # Data published by developers using git-gerrit-push.
-    "http://www.itk.org/files/ExternalData/%(algo)/%(hash)",
-    # Mirror supported by the Slicer community.
-    "http://slicer.kitware.com/midas3/api/rest?method=midas.bitstream.download&checksum=%(hash)&algorithm=%(algo)",
-]
+def get_midas_servers():
+    import os
+    midas_servers = list()
+    if 'ExternalData_OBJECT_STORES' in os.environ.keys():
+        local_object_stores = os.environ['ExternalData_OBJECT_STORES']
+        for local_object_store in local_object_stores.split(";"):
+          midas_servers.append( "file://{0}/MD5/%(hash)".format(local_object_store) )
+    midas_servers.extend( [
+        # Data published by MIDAS
+        "http://midas3.kitware.com/midas/api/rest?method=midas.bitstream.download&checksum=%(hash)&algorithm=%(algo)",
+        # Data published by developers using git-gerrit-push.
+        "http://www.itk.org/files/ExternalData/%(algo)/%(hash)",
+        # Mirror supported by the Slicer community.
+        "http://slicer.kitware.com/midas3/api/rest?method=midas.bitstream.download&checksum=%(hash)&algorithm=%(algo)",
+        ])
+    return midas_servers
 
 
 def output_hash_is_valid(known_md5sum, output_file):
     md5 = hashlib.md5()
+    if not os.path.exists(output_file):
+        return False
     with open(output_file, 'rb') as fp:
         for url_download in iter(lambda: fp.read(128 * md5.block_size), b''):
             md5.update(url_download)
@@ -93,7 +102,7 @@ def fetch_midas_data_one(onefilename, output_directory, manifest_file, verify=Tr
     assert filename == onefilename, "ERROR: {0} does not exist in {1}".format(onefilename, manifest_file)
 
     output_file = os.path.realpath(os.path.join(output_directory, onefilename))
-    for url_base in midas_servers:
+    for url_base in get_midas_servers():
         url = url_base.replace("%(hash)", md5sum).replace("%(algo)", "md5")
         if not os.path.exists(output_file):
             verify = True  # Must verify if the file does not exists originally
@@ -116,8 +125,8 @@ def fetch_midas_data_one(onefilename, output_directory, manifest_file, verify=Tr
         if force == False and ( not output_hash_is_valid(md5sum, output_file) ):
             # Attempt to download if md5sum is incorrect.
             fetch_midas_data_one(onefilename, output_directory, manifest_file, verify, force=True)
-
-    print errorMsg
+    if len(errorMsg) > 0:
+        print errorMsg
     return output_file
 
 
