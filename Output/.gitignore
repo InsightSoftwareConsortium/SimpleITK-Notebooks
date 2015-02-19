@@ -1,0 +1,8 @@
+#
+#Maintain an empty directory in the git repository, where all files in this
+#directory will always be ignored by git:
+#http://stackoverflow.com/questions/115983/how-can-i-add-an-empty-directory-to-a-git-repository
+#
+*
+# Except this file
+!.gitignore
