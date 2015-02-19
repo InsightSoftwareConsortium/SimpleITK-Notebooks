@@ -1,0 +1,15 @@
+To create the html for the gh-pages:
+install pandoc (required by nbconvert)
+
+Automated execution and conversion of notebooks, feature will 
+be available in ipython 3.0:
+ipython nbconvert --ExecutePreprocessor.enabled=True a.ipynb
+
+http://stackoverflow.com/questions/17905350/running-an-ipython-notebook-non-interactively
+
+The problem with this is that if you have intentionally introduced exceptions
+the notebook will stop execution at that point. Possibly they incorporate
+this into the 3.0 release, currently (2/2015) still an open issue (Add an 'ignore exceptions' mode to run commands in notebook):
+
+https://github.com/ipython/ipython/issues/1977
+https://github.com/ipython/ipython/pull/4993
