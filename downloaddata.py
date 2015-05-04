@@ -30,9 +30,9 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
     # Open the url
     try:
         url_response = urlopen(url)
-    except HTTPError, e:
+    except HTTPError as e:
         return "HTTP Error: {0} {1}\n".format(e.code, url)
-    except URLError, e:
+    except URLError as e:
         return "URL Error: {0} {1}\n".format(e.reason, url)
     total_size = url_response.info().getheader('Content-Length').strip()
     total_size = int(total_size)
@@ -46,9 +46,9 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
                     break
                 local_file.write(url_download)
             # handle errors
-            except HTTPError, e:
+            except HTTPError as e:
                 return "HTTP Error: {0} {1}\n".format(e.code, url)
-            except URLError, e:
+            except URLError as e:
                 return "URL Error: {0} {1}\n".format(e.reason, url)
             if report_hook:
                 report_hook(bytes_so_far, url_download_size, total_size)
@@ -126,7 +126,7 @@ def fetch_midas_data_one(onefilename, output_directory, manifest_file, verify=Tr
             # Attempt to download if md5sum is incorrect.
             fetch_midas_data_one(onefilename, output_directory, manifest_file, verify, force=True)
     if len(errorMsg) > 0:
-        print errorMsg
+        print(errorMsg)
     return output_file
 
 
