@@ -1446,5 +1446,13 @@
 [
 "vm_head_mri.mha",
 "2c27ccbddff0bb1b1458075a2a57b7e5"
+],
+[
+"training_001_ct.mha",
+"51174490e46fd227b7ae0b83d8e9a143"
+],
+[
+"training_001_mr_T1.mha",
+"04e76cef57966ac99ad4cee3b787b158"
 ]
 ]
