@@ -192,14 +192,15 @@ div#notebook {
 
 
 <h2 id="Registration-Components">Registration Components<a class="anchor-link" href="#Registration-Components">&#182;</a></h2><p><img src="ITKv4RegistrationComponentsDiagram.svg" style="width:700px"/><br><br></p>
-<p>There are multiple options for creating an instance of the registration framework, depending on your choices from the following groups of components:</p>
-<h3 id="Optimizers">Optimizers<a class="anchor-link" href="#Optimizers">&#182;</a></h3><p>The registration framework supports several optimizer types via the SetMetricAsX() methods, these include:</p>
+<p>There are many options for creating an instance of the registration framework, all of which are configured in SimpleITK via methods of the <a href="http://www.itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1ImageRegistrationMethod.html">ImageRegistrationMethod</a> class. This class encapsulates many of the components available in ITK for constructing a registration instance.</p>
+<p>Currently, the available choices from the following groups of ITK components are:</p>
+<h3 id="Optimizers">Optimizers<a class="anchor-link" href="#Optimizers">&#182;</a></h3><p>The SimpleITK registration framework supports several optimizer types via the SetMetricAsX() methods, these include:</p>
 <ul>
   <li>
   <a href="http://www.itk.org/Doxygen/html/classitk_1_1ExhaustiveOptimizerv4.html">Exhaustive</a>
   </li>
   <li>
-  <a "http://www.itk.org/Doxygen/html/classitk_1_1AmoebaOptimizerv4.html">Nelder-Mead downhill simplex</a>, a.k.a. Amoeba.
+  <a href="http://www.itk.org/Doxygen/html/classitk_1_1AmoebaOptimizerv4.html">Nelder-Mead downhill simplex</a>, a.k.a. Amoeba.
   </li>
   <li>
   Variations on gradient descent:
@@ -224,7 +225,7 @@ div#notebook {
 </ul>
 
 
-<h3 id="Similarity-metrics">Similarity metrics<a class="anchor-link" href="#Similarity-metrics">&#182;</a></h3><p>The registration framework supports several metric types via the SetMetricAsX() methods, these include:</p>
+<h3 id="Similarity-metrics">Similarity metrics<a class="anchor-link" href="#Similarity-metrics">&#182;</a></h3><p>The SimpleITK registration framework supports several metric types via the SetMetricAsX() methods, these include:</p>
 <ul>
   <li>
   <a href="http://www.itk.org/Doxygen/html/classitk_1_1MeanSquaresImageToImageMetricv4.html">MeanSquares</a>
@@ -247,7 +248,7 @@ div#notebook {
 </ul>
 
 
-<h3 id="Interpolators">Interpolators<a class="anchor-link" href="#Interpolators">&#182;</a></h3><p>The registration framework supports several interpolators via the SetInterpolator() method, which receives one of
+<h3 id="Interpolators">Interpolators<a class="anchor-link" href="#Interpolators">&#182;</a></h3><p>The SimpleITK registration framework supports several interpolators via the SetInterpolator() method, which receives one of
 the <a href="http://www.itk.org/SimpleITKDoxygen/html/namespaceitk_1_1simple.html#a7cb1ef8bd02c669c02ea2f9f5aa374e5">following enumerations</a>:</p>
 <ul>
 <li> sitkNearestNeighbor </li>
@@ -273,11 +274,11 @@ the <a href="http://www.itk.org/SimpleITKDoxygen/html/namespaceitk_1_1simple.htm
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">SimpleITK</span> <span class="kn">as</span> <span class="nn">sitk</span>
 
-    <span class="c">#utility method that either downloads data from the MIDAS repository or</span>
-    <span class="c">#if already downloaded returns the file name for reading from disk (cached data)</span>
+<span class="c">#utility method that either downloads data from the MIDAS repository or</span>
+<span class="c">#if already downloaded returns the file name for reading from disk (cached data)</span>
 <span class="kn">from</span> <span class="nn">downloaddata</span> <span class="kn">import</span> <span class="n">fetch_midas_data</span> <span class="k">as</span> <span class="n">fdata</span>
 
-    <span class="c">#always write output to a separate directory, we don&#39;t want to polute the source directory </span>
+<span class="c">#always write output to a separate directory, we don&#39;t want to polute the source directory </span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s">&#39;Output&#39;</span>
 </pre></div>
@@ -311,14 +312,16 @@ the <a href="http://www.itk.org/SimpleITKDoxygen/html/namespaceitk_1_1simple.htm
 <span class="c">#callback invoked by the interact ipython method for scrolling through the image stacks of</span>
 <span class="c">#the two images (moving and fixed)</span>
 <span class="k">def</span> <span class="nf">display_images</span><span class="p">(</span><span class="n">fixed_image_z</span><span class="p">,</span> <span class="n">moving_image_z</span><span class="p">,</span> <span class="n">fixed_npa</span><span class="p">,</span> <span class="n">moving_npa</span><span class="p">):</span>
-        <span class="c">#create a figure with two subplots and the specified size</span>
+    <span class="c">#create a figure with two subplots and the specified size</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-        <span class="c">#draw the fixed image in the first subplot</span>
+    
+    <span class="c">#draw the fixed image in the first subplot</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">fixed_npa</span><span class="p">[</span><span class="n">fixed_image_z</span><span class="p">,:,:],</span><span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">);</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;fixed image&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">)</span>
-        <span class="c">#draw the moving image in the second subplot</span>
+    
+    <span class="c">#draw the moving image in the second subplot</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">moving_npa</span><span class="p">[</span><span class="n">moving_image_z</span><span class="p">,:,:],</span><span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">);</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;moving image&#39;</span><span class="p">)</span>
@@ -345,7 +348,7 @@ the <a href="http://www.itk.org/SimpleITKDoxygen/html/namespaceitk_1_1simple.htm
     
     <span class="k">del</span> <span class="n">metric_values</span>
     <span class="k">del</span> <span class="n">multires_iterations</span>
-        <span class="c">#close figure, we don&#39;t want to get a duplicate of the plot latter on</span>
+    <span class="c">#close figure, we don&#39;t want to get a duplicate of the plot latter on</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="c">#callback invoked when the IterationEvent happens, update our data and display new figure    </span>
@@ -353,9 +356,9 @@ the <a href="http://www.itk.org/SimpleITKDoxygen/html/namespaceitk_1_1simple.htm
     <span class="k">global</span> <span class="n">metric_values</span><span class="p">,</span> <span class="n">multires_iterations</span>
     
     <span class="n">metric_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">registration_method</span><span class="o">.</span><span class="n">GetMetricValue</span><span class="p">())</span>                                       
-        <span class="c">#clear the output area (wait=True, to reduce flickering), and plot current data</span>
+    <span class="c">#clear the output area (wait=True, to reduce flickering), and plot current data</span>
     <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="c">#plot the similarity metric values</span>
+    <span class="c">#plot the similarity metric values</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">metric_values</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">multires_iterations</span><span class="p">,</span> <span class="p">[</span><span class="n">metric_values</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">multires_iterations</span><span class="p">],</span> <span class="s">&#39;b*&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Iteration Number&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
@@ -2630,19 +2633,27 @@ o4xUyoxDRhllpNL/Aipe+0ifqEadAAAAAElFTkSuQmCC
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">registration_method</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">ImageRegistrationMethod</span><span class="p">()</span>
+
+<span class="c">#similarity metric settings</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">SetMetricAsMattesMutualInformation</span><span class="p">(</span><span class="n">numberOfHistogramBins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">SetMetricSamplingStrategy</span><span class="p">(</span><span class="n">registration_method</span><span class="o">.</span><span class="n">RANDOM</span><span class="p">)</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">SetMetricSamplingPercentage</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+
 <span class="n">registration_method</span><span class="o">.</span><span class="n">SetInterpolator</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">sitkLinear</span><span class="p">)</span>
+
+<span class="c">#optimizer settings</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">SetOptimizerAsGradientDescent</span><span class="p">(</span><span class="n">learningRate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">numberOfIterations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">convergenceMinimumValue</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">convergenceWindowSize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">SetOptimizerScalesFromPhysicalShift</span><span class="p">()</span>
-    <span class="c">#the following three lines set up the multi-resolution framework            </span>
+
+<span class="c">#setup for the multi-resolution framework            </span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">SetShrinkFactorsPerLevel</span><span class="p">(</span><span class="n">shrinkFactors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">SetSmoothingSigmasPerLevel</span><span class="p">(</span><span class="n">smoothingSigmas</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">SmoothingSigmasAreSpecifiedInPhysicalUnitsOn</span><span class="p">()</span>
-    <span class="c">#don&#39;t optimize in-place, we would possibly like to run this cell multiple times</span>
+
+<span class="c">#don&#39;t optimize in-place, we would possibly like to run this cell multiple times</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">SetInitialTransform</span><span class="p">(</span><span class="n">initial_transform</span><span class="p">,</span> <span class="n">inPlace</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="c">#connect all of the observers so that we can perform plotting during registration</span>
+
+<span class="c">#connect all of the observers so that we can perform plotting during registration</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">AddCommand</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">sitkStartEvent</span><span class="p">,</span> <span class="n">start_plot</span><span class="p">)</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">AddCommand</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">sitkEndEvent</span><span class="p">,</span> <span class="n">end_plot</span><span class="p">)</span>
 <span class="n">registration_method</span><span class="o">.</span><span class="n">AddCommand</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">sitkMultiResolutionIterationEvent</span><span class="p">,</span> <span class="n">update_multires_iterations</span><span class="p">)</span> 
@@ -2894,7 +2905,7 @@ mdXMycPMzGrm5GFmZjVz8jAzs5o5eZiZWc2cPMzMrGb/H0uraGQVPgHHAAAAAElFTkSuQmCC
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Final metric value: -0.619068209544
+<pre>Final metric value: -0.619068185917
 Optimizer&apos;s stopping condition, GradientDescentOptimizerv4Template: Convergence checker passed at iteration 10.
 </pre>
 </div>
@@ -3527,7 +3538,7 @@ SOSQkJDAIpFDQkICi0QOCQkJLBI5JCQksEjkkJCQwCKRQ0JCAotEDgkJCSwSOSQkJLBI5JCQkMDi
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre> 
