@@ -17,6 +17,8 @@ This is a collection of IPython Notebooks, designed for tutorials, presentations
 - [41 Progress](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/41_Progress.html)
 - [55 Visible Human Resample](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/55_VH_Resample.html)
 - [56 Visible Human Registration 1](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/56_VH_Registration1.html)
+- [56 Visible Human Registration 1](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/56_VH_Registration1.html)
+- [57 RIRE Registration](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/57_RIRE_Registration1.html)
 
 # Getting Started
 
