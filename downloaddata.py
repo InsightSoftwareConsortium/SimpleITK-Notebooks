@@ -2,7 +2,7 @@
 
 """
 Since we do not want to store large binary data files in our Git repository,
-we fetch_midas_data_all it from a network resource.
+we fetch_data_all it from a network resource.
 """
 
 import hashlib
@@ -11,9 +11,9 @@ import os
 import json
 
 import errno
+import warnings
 
 # http://stackoverflow.com/questions/2028517/python-urllib2-progress-hook
-
 
 def url_download_report(bytes_so_far, url_download_size, total_size):
     percent = float(bytes_so_far) / total_size
@@ -22,11 +22,19 @@ def url_download_report(bytes_so_far, url_download_size, total_size):
         sys.stdout.write("Downloaded %d of %d bytes (%0.2f%%)\r" %
                          (bytes_so_far, total_size, percent))
     if bytes_so_far >= total_size:
-        sys.stdout.write('\n')
+        sys.stdout.write("\n")
 
 
 def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=None):
+    # Use the urllib2 to download the data. The Requests package, highly
+    # recommended for this task, doesn't support the file scheme so we opted
+    # for urllib2 which does.  
     from urllib2 import urlopen, URLError, HTTPError
+    from xml.dom import minidom
+    valid_content_types = {"application/octet-stream", #binary stream - MIDAS
+                           "application/x-tar", #tar file
+                           "application/x-compressed", #tar gzipped file
+                           "application/zip"} #zip file
     # Open the url
     try:
         url_response = urlopen(url)
@@ -34,26 +42,39 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
         return "HTTP Error: {0} {1}\n".format(e.code, url)
     except URLError as e:
         return "URL Error: {0} {1}\n".format(e.reason, url)
-    total_size = url_response.info().getheader('Content-Length').strip()
-    total_size = int(total_size)
-    bytes_so_far = 0
-    with open(outputfile, "wb") as local_file:
-        while 1:
-            try:
-                url_download = url_response.read(url_download_size)
-                bytes_so_far += len(url_download)
-                if not url_download:
-                    break
-                local_file.write(url_download)
-            # handle errors
-            except HTTPError as e:
-                return "HTTP Error: {0} {1}\n".format(e.code, url)
-            except URLError as e:
-                return "URL Error: {0} {1}\n".format(e.reason, url)
-            if report_hook:
-                report_hook(bytes_so_far, url_download_size, total_size)
-    return "Downloaded Successfully"
-
+    # MIDAS is a service and therefor will not generate the expected URLError
+    # when given a nonexistent url. It does return an error message in xml.
+    # When the response is xml then we have an error, we read the whole message
+    # and return the 'msg' attribute associated with the 'err' tag.
+    # The URLError above is not superfluous as it will occur when the url 
+    # refers to a non existent file ('file://non_existent_file_name') or url
+    # which is not a service ('http://non_existent_address').
+    if url_response.info().getheader("Content-Type") == "text/xml":
+        doc = minidom.parseString(url_response.read())
+        return doc.getElementsByTagName("err")[0].getAttribute("msg") + ': ' + url
+    if url_response.info().getheader("Content-Type") in valid_content_types:        
+        total_size = url_response.info().getheader("Content-Length").strip()
+        total_size = int(total_size)
+        bytes_so_far = 0
+        with open(outputfile, "wb") as local_file:
+            while 1:
+                try:
+                    url_download = url_response.read(url_download_size)
+                    bytes_so_far += len(url_download)
+                    if not url_download:
+                        break
+                    local_file.write(url_download)
+                # handle errors
+                except HTTPError as e:
+                    return "HTTP Error: {0} {1}\n".format(e.code, url)
+                except URLError as e:
+                    return "URL Error: {0} {1}\n".format(e.reason, url)
+                if report_hook:
+                    report_hook(bytes_so_far, url_download_size, total_size)
+        return "Downloaded Successfully"
+    error_msg = "File "+ "\'" + os.path.basename(outputfile)
+    error_msg += "\': unexpected content type found at: " + url
+    raise Exception(error_msg)     
 
 # http://stackoverflow.com/questions/600268/mkdir-p-functionality-in-python?rq=1
 def mkdir_p(path):
@@ -64,6 +85,26 @@ def mkdir_p(path):
             pass
         else:
             raise
+
+#http://stackoverflow.com/questions/2536307/decorators-in-the-python-standard-lib-deprecated-specifically
+def deprecated(func):
+    """This is a decorator which can be used to mark functions
+    as deprecated. It will result in a warning being emmitted
+    when the function is used."""
+
+    def new_func(*args, **kwargs):
+        warnings.simplefilter('always', DeprecationWarning) #turn off filter 
+        warnings.warn("Call to deprecated function {}.".format(func.__name__), category=DeprecationWarning, stacklevel=2)
+        warnings.simplefilter('default', DeprecationWarning) #reset filter
+        return func(*args, **kwargs)
+
+    new_func.__name__ = func.__name__
+    new_func.__doc__ = func.__doc__
+    new_func.__dict__.update(func.__dict__)
+    return new_func
+
+
+
 def get_midas_servers():
     import os
     midas_servers = list()
@@ -93,69 +134,106 @@ def output_hash_is_valid(known_md5sum, output_file):
     return retreived_md5sum == known_md5sum
 
 
-def fetch_midas_data_one(onefilename, output_directory, manifest_file, verify=True, force=False):
+def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, force=False):
+    import tarfile, zipfile
+    
     with open(manifest_file, 'r') as fp:
         manifest = json.load(fp)
-    for filename, md5sum in manifest:
-        if filename == onefilename:
-            break
-    assert filename == onefilename, "ERROR: {0} does not exist in {1}".format(onefilename, manifest_file)
+    assert onefilename in manifest, "ERROR: {0} does not exist in {1}".format(onefilename, manifest_file)
 
     output_file = os.path.realpath(os.path.join(output_directory, onefilename))
-    for url_base in get_midas_servers():
-        url = url_base.replace("%(hash)", md5sum).replace("%(algo)", "md5")
-        if not os.path.exists(output_file):
-            verify = True  # Must verify if the file does not exists originally
+    data_dictionary = manifest[onefilename]
+    md5sum = data_dictionary['md5sum']    
+    # List of places where the file can be downloaded from
+    all_urls = []    
+    if "url" in data_dictionary:
+        all_urls.append(data_dictionary["url"])    
+    else:
+        for url_base in get_midas_servers():
+            all_urls.append(url_base.replace("%(hash)", md5sum).replace("%(algo)", "md5"))
+        
+    if not os.path.exists(output_file):
+        verify = True  # Must verify if the file does not exists originally
+
+    for url in all_urls:        
         # Only download if the file does not already exist.
-        errorMsg = ""
         if force or not os.path.exists(output_file):
             mkdir_p(os.path.dirname(output_file))
-            errorMsg += url_download_read(url, output_file, report_hook=url_download_report)
+            url_download_read(url, output_file, report_hook=url_download_report)
             if output_hash_is_valid(md5sum, output_file):
                 # Stop looking once found at one of the midas servers!
                 verify = False  # No need to re-verify
-                errorMsg = "Verified download for {0}".format(output_file)
                 break
-
+    # Did not find the file anywhere.        
+    if not os.path.exists(output_file):
+        error_msg = "File " + "\'"  + os.path.basename(output_file) +"\'"
+        error_msg += " could not be found in any of the following locations:\n" 
+        error_msg += ", ".join(all_urls)
+        raise Exception(error_msg)
+    
     if verify:
         if force == True and ( not output_hash_is_valid(md5sum, output_file) ):
-            error_msg = 'File ' + output_file
-            error_msg += ' has incorrect hash value, ' + md5sum + ' was expected.'
+            error_msg = "File " + output_file
+            error_msg += " has incorrect hash value, " + md5sum + " was expected."
             raise Exception(error_msg)
         if force == False and ( not output_hash_is_valid(md5sum, output_file) ):
             # Attempt to download if md5sum is incorrect.
-            fetch_midas_data_one(onefilename, output_directory, manifest_file, verify, force=True)
-    if len(errorMsg) > 0:
-        print(errorMsg)
+            fetch_data_one(onefilename, output_directory, manifest_file, verify, 
+                           force=True)
+    # If the file is in an archive, unpack it.                          
+    if tarfile.is_tarfile(output_file) or zipfile.is_zipfile(output_file):
+        tmp_output_file = output_file + ".tmp"
+        os.rename(output_file, tmp_output_file)        
+        if tarfile.is_tarfile(tmp_output_file):
+            archive = tarfile.open(tmp_output_file)
+        if zipfile.is_zipfile(tmp_output_file):
+            archive = zipfile.ZipFile(tmp_output_file, 'r')
+        archive.extractall(os.path.dirname(tmp_output_file))
+        archive.close()
+        os.remove(tmp_output_file)
+
     return output_file
 
+@deprecated
+def fetch_midas_data_one(onefilename, output_directory, manifest_file, verify=True, force=False):
+    return fetch_data_one(onefilename, output_directory, manifest_file, verify, force)
 
-def fetch_midas_data_all(output_directory, manifest_file, verify=True):
+
+def fetch_data_all(output_directory, manifest_file, verify=True):
     with open(manifest_file, 'r') as fp:
         manifest = json.load(fp)
-    for filename, _ in manifest:
-        fetch_midas_data_one(filename, output_directory, manifest_file, verify=True, force=False)
+    for filename in manifest:
+        fetch_data_one(filename, output_directory, manifest_file, verify=True, 
+                       force=False)
+
+@deprecated
+def fetch_midas_data_all(output_directory, manifest_file, verify=True):
+    return fetch_data_all(output_directory, manifest_file, verify)
 
 
-def fetch_midas_data(cache_file_name, verify=False, cache_directory_name="Data"):
+def fetch_data(cache_file_name, verify=False, cache_directory_name="Data"):
     """
-    fetch_midas_data is a simplified interface that requires
+    fetch_data is a simplified interface that requires
     relative pathing with a manifest.json file located in the
     same cache_directory_name name.
 
     By default the cache_directory_name is "Data" relative to the current
-    python script.  An absolute path can also be given
+    python script.  An absolute path can also be given.
     """
     if not os.path.isabs(cache_directory_name):
         cache_root_directory_name = os.path.dirname(__file__)
         cache_directory_name = os.path.join(cache_root_directory_name, cache_directory_name)
     cache_manifest_file = os.path.join(cache_directory_name, 'manifest.json')
     assert os.path.exists(cache_manifest_file), "ERROR, {0} does not exist".format(cache_manifest_file)
-    return fetch_midas_data_one(cache_file_name, cache_directory_name, cache_manifest_file, verify=verify)
+    return fetch_data_one(cache_file_name, cache_directory_name, cache_manifest_file, verify=verify)
+
+@deprecated
+def fetch_midas_data(cache_file_name, verify=False, cache_directory_name="Data"):
+    return fetch_data(cache_file_name, verify, cache_directory_name)
+
 
 if __name__ == '__main__':
-    import time
-
+        
     if len(sys.argv) < 3:
         print('Usage: ' + sys.argv[0] + ' output_directory manifest.json')
         sys.exit(1)
@@ -163,4 +241,4 @@ if __name__ == '__main__':
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
     manifest = sys.argv[2]
-    fetch_midas_data_all(output_directory, manifest)
+    fetch_data_all(output_directory, manifest)
