@@ -2,7 +2,30 @@
 
 """
 Since we do not want to store large binary data files in our Git repository,
-we fetch_data_all it from a network resource.
+we fetch_data_all from a network resource.
+
+The data we download is described in a json file. The file format is a dictionary
+of dictionaries. The top level key is the file name. The returned dictionary
+contains an md5 checksum and possibly a url. The md5 checksum is mandatory.
+When the optional url is given, we attempt to download from that url, otherwise
+we attempt to download from the list of MIDAS servers returned by the 
+get_midas_servers() function.
+
+Example json file contents:
+
+{
+"SimpleITK.jpg": {
+"md5sum": "2685660c4f50c5929516127aed9e5b1a"
+},
+"POPI/meta/00.mhd" : {
+"md5sum": "3bfc3c92e18a8e6e8494482c44654fd3",
+"url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/10-MetaImage.tar"
+}
+}
+
+Note that the file we download can be inside an archive. In this case, the md5 
+checksum is that of the archive.
+
 """
 
 import hashlib
@@ -31,10 +54,7 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
     # for urllib2 which does.  
     from urllib2 import urlopen, URLError, HTTPError
     from xml.dom import minidom
-    valid_content_types = {"application/octet-stream", #binary stream - MIDAS
-                           "application/x-tar", #tar file
-                           "application/x-compressed", #tar gzipped file
-                           "application/zip"} #zip file
+    
     # Open the url
     try:
         url_response = urlopen(url)
@@ -48,33 +68,32 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
     # and return the 'msg' attribute associated with the 'err' tag.
     # The URLError above is not superfluous as it will occur when the url 
     # refers to a non existent file ('file://non_existent_file_name') or url
-    # which is not a service ('http://non_existent_address').
+    # which is not a service ('http://non_existent_address').    
     if url_response.info().getheader("Content-Type") == "text/xml":
         doc = minidom.parseString(url_response.read())
-        return doc.getElementsByTagName("err")[0].getAttribute("msg") + ': ' + url
-    if url_response.info().getheader("Content-Type") in valid_content_types:        
-        total_size = url_response.info().getheader("Content-Length").strip()
-        total_size = int(total_size)
-        bytes_so_far = 0
-        with open(outputfile, "wb") as local_file:
-            while 1:
-                try:
-                    url_download = url_response.read(url_download_size)
-                    bytes_so_far += len(url_download)
-                    if not url_download:
-                        break
-                    local_file.write(url_download)
-                # handle errors
-                except HTTPError as e:
-                    return "HTTP Error: {0} {1}\n".format(e.code, url)
-                except URLError as e:
-                    return "URL Error: {0} {1}\n".format(e.reason, url)
-                if report_hook:
-                    report_hook(bytes_so_far, url_download_size, total_size)
-        return "Downloaded Successfully"
-    error_msg = "File "+ "\'" + os.path.basename(outputfile)
-    error_msg += "\': unexpected content type found at: " + url
-    raise Exception(error_msg)     
+        if doc.getElementsByTagName("err")[0]:
+            return doc.getElementsByTagName("err")[0].getAttribute("msg") + ': ' + url
+    # We download all content types - the assumption is that the md5sum ensures
+    # that what we received is the expected data.
+    total_size = url_response.info().getheader("Content-Length").strip()
+    total_size = int(total_size)
+    bytes_so_far = 0
+    with open(outputfile, "wb") as local_file:
+        while 1:
+            try:
+                url_download = url_response.read(url_download_size)
+                bytes_so_far += len(url_download)
+                if not url_download:
+                    break
+                local_file.write(url_download)
+            # handle errors
+            except HTTPError as e:
+                return "HTTP Error: {0} {1}\n".format(e.code, url)
+            except URLError as e:
+                return "URL Error: {0} {1}\n".format(e.reason, url)
+            if report_hook:
+                report_hook(bytes_so_far, url_download_size, total_size)
+    return "Downloaded Successfully"
 
 # http://stackoverflow.com/questions/600268/mkdir-p-functionality-in-python?rq=1
 def mkdir_p(path):
@@ -141,6 +160,7 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
         manifest = json.load(fp)
     assert onefilename in manifest, "ERROR: {0} does not exist in {1}".format(onefilename, manifest_file)
 
+    sys.stdout.write("Downloading {0}\n".format(onefilename))
     output_file = os.path.realpath(os.path.join(output_directory, onefilename))
     data_dictionary = manifest[onefilename]
     md5sum = data_dictionary['md5sum']    
@@ -233,6 +253,7 @@ def fetch_midas_data(cache_file_name, verify=False, cache_directory_name="Data")
 
 
 if __name__ == '__main__':
+    
         
     if len(sys.argv) < 3:
         print('Usage: ' + sys.argv[0] + ' output_directory manifest.json')
