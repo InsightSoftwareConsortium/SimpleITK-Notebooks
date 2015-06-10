@@ -42,12 +42,19 @@ def url_download_report(bytes_so_far, url_download_size, total_size):
     percent = float(bytes_so_far) / total_size
     percent = round(percent * 100, 2)
     if bytes_so_far > url_download_size:
-        sys.stdout.write("Downloaded %d of %d bytes (%0.2f%%)\r" %
+        # Note that the carriage return is at the begining of the
+        # string and not the end. This accomodates usage in 
+        # IPython usage notebooks. Otherwise the string is not
+        # displayed in the output.
+        sys.stdout.write("\rDownloaded %d of %d bytes (%0.2f%%)" %
                          (bytes_so_far, total_size, percent))
+        sys.stdout.flush()
     if bytes_so_far >= total_size:
-        sys.stdout.write("\n")
-
-
+        sys.stdout.write("\rDownloaded %d of %d bytes (%0.2f%%)\n" %
+                         (bytes_so_far, total_size, percent))
+        sys.stdout.flush()
+        
+ 
 def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=None):
     # Use the urllib2 to download the data. The Requests package, highly
     # recommended for this task, doesn't support the file scheme so we opted
@@ -160,7 +167,7 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
         manifest = json.load(fp)
     assert onefilename in manifest, "ERROR: {0} does not exist in {1}".format(onefilename, manifest_file)
 
-    sys.stdout.write("Downloading {0}\n".format(onefilename))
+    sys.stdout.write("Fetching {0}\n".format(onefilename))
     output_file = os.path.realpath(os.path.join(output_directory, onefilename))
     data_dictionary = manifest[onefilename]
     md5sum = data_dictionary['md5sum']    
