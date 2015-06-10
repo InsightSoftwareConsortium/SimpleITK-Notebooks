@@ -49,6 +49,14 @@ For many common platforms, a built distribution is available as an Python egg. T
 
 As of this writing, SimpleITK version >=0.6r1 is required to run these notebooks. This version currently needs to be downloaded from [Source Forge](http://sourceforge.net/projects/simpleitk/files/SimpleITK/0.6.rc1/Python/)
 
+### Downloading Data
+
+The data can be automatically downloaded to the "Data" directory when you execute the notebooks.
+
+Alternatively, to download all the data before hand:
+
+   cd SimpleITK-Notebooks
+   ./downloaddata.py Data/ Data/manifest.json
 
 ### Run the environment
 
