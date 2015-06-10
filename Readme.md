@@ -55,8 +55,8 @@ The data can be automatically downloaded to the "Data" directory when you execut
 
 Alternatively, to download all the data before hand:
 
-   cd SimpleITK-Notebooks
-   ./downloaddata.py Data/ Data/manifest.json
+    cd SimpleITK-Notebooks
+    ./downloaddata.py Data/ Data/manifest.json
 
 ### Run the environment
 
