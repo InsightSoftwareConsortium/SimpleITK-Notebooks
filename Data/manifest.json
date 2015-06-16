@@ -47,7 +47,7 @@
  "training_001_mr_T1.mha" : {
   "md5sum" : "04e76cef57966ac99ad4cee3b787b158"
  },
- "CIRS057A_MR_CT_DICOM.zip" : {
- "md5sum" : "f555722fcbc8f6f3690961f1b3054d18"
+ "CIRS057A_MR_CT_DICOM/readme.txt" : {
+ "md5sum" : "d92c97e6fe6520cb5b1a50b96eb9eb96"
  }
 }
