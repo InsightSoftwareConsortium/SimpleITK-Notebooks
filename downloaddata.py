@@ -23,9 +23,20 @@ Example json file contents:
 }
 }
 
-Note that the file we download can be inside an archive. In this case, the md5 
+Notes: 
+1. The file we download can be inside an archive. In this case, the md5 
 checksum is that of the archive.
 
+2. For the md5 verification to work we need to store archives on MIDAS and cannot
+   use its on-the-fly archive download mechanism (this mechanism allows users
+   to download "directories/communities" as a single zip archive). The issue is that
+   every time the archive is created its md5 changes. It is likely MIDAS is also
+   encoding the archive's modification/creation time as part of the md5.
+
+   Another issue is that when downloading from this type of url 
+   (e.g. http://midas3.kitware.com/midas/download/folder/11610/ipythonNotebookData.zip)
+   the returned data does not have a "Content-Length" field in the header. The
+   current implementation  will throw an exception.  
 """
 
 import hashlib
