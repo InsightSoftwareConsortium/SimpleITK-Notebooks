@@ -65,15 +65,16 @@
 <p>For general information about installing SimpleITK please see the <a href="http://www.itk.org/Wiki/ITK/Release_4/SimpleITK/GettingStarted">SimpleITK wiki</a>.</p>
 
 <h2>
-<a id="additional-data-downloads" class="anchor" href="#additional-data-downloads" aria-hidden="true"><span class="octicon octicon-link"></span></a>Additional Data Downloads</h2>
+<a id="additional-data-downloads" class="anchor" href="#additional-data-downloads" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Downloads</h2>
 
-<p>Additionally the SPL's "Multi-modality MRI-based Atlas of the Brain" should be downloaded and extracted into the SimpleITK-Notebooks/Data directory.</p>
+<p>The data is automatically downloaded to the "Data" directory when you execute the notebooks.</p>
 
-<p><a href="http://www.spl.harvard.edu/publications/item/view/2037">http://www.spl.harvard.edu/publications/item/view/2037</a></p>
+<p>Alternatively, to download all the data before hand:</p>
 
-<p>For the Visible Human Notebooks the data should be downloaded from the MIDAS server.</p>
+<pre><code>cd SimpleITK-Notebooks
+ ./downloaddata.py Data/ Data/manifest.json
+</code></pre>
 
-<p><a href="http://midas3.kitware.com/midas/folder/10410">http://midas3.kitware.com/midas/folder/10410</a></p>
 
 <h2>
 <a id="setting-up-a-python-environment" class="anchor" href="#setting-up-a-python-environment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting Up a Python Environment</h2>
