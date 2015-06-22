@@ -6,7 +6,7 @@ This is a collection of IPython Notebooks, designed for tutorials, presentations
 
 # View Static Converted Pages
 
-- [01 Image Basics](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/01_Image_Basics.html) 
+- [01 Image Basics](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/01_Image_Basics.html)
 - [02 Pythonic Image](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/02_Pythonic_Image.html)
 - [10 plotlib's imshow](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html)
 - [20 Expand With Interpolators](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html)
@@ -65,3 +65,18 @@ To launch:
 
     cd SimpleITK-Notebooks
     ~/sitkpy/bin/ipython notebook
+
+### Working offline
+
+In some situations, such as a tutorial session, you may not have internet access. This requires that you:
+
+1. Download the data in advance - see above.
+2. To display Math/LaTex, the IPython server tries to load MathJax from a content delivery network (CDN) which will fail as you do not have internet connectivity (will take a while, but you will receive an error message).
+
+You can either install MathJax locally, open a Python or IPython prompt and paste:
+
+    from IPython.external import mathjax; mathjax.install_mathjax()
+
+or run the notebooks with MathJax disabled:
+
+    ipython notebook --no-mathjax
