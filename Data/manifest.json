@@ -52,5 +52,8 @@
  },
  "SimpleITK.jpg" : {
  "md5sum" : "2685660c4f50c5929516127aed9e5b1a"
+ },
+ "spherical_fiducials.mha" : {
+ "md5sum" : "f43ce40dccace392f13ff8fcf536edc2"
  }
 }
