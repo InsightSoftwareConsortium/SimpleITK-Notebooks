@@ -47,6 +47,9 @@
  "training_001_mr_T1.mha" : {
   "md5sum" : "04e76cef57966ac99ad4cee3b787b158"
  },
+ "ct_T1.standard" : {
+ "md5sum" : "91b694af442eaa854be808997c8f0f4b"
+ },
  "CIRS057A_MR_CT_DICOM/readme.txt" : {
  "md5sum" : "d92c97e6fe6520cb5b1a50b96eb9eb96"
  },
