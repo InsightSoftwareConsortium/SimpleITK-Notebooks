@@ -1,6 +1,6 @@
 # SimpleITK Notebooks
 
-This is a collection of IPython Notebooks, designed for tutorials, presentations and to demonstrate using SimpleITK in the IPython Notebook with scipy environment for interactive image process.
+This is a collection of IPython Notebooks, designed for tutorials and  presentations and to demonstrate SimpleITK in the IPython Notebook with the scipy environment for interactive image analysis.
 
 [SimpleITK](http://www.simpleitk.org) is an abstraction layer and wrapper around the [Insight Toolkit](http://www.itk.org) for many languages including python.
 
@@ -9,7 +9,7 @@ This is a collection of IPython Notebooks, designed for tutorials, presentations
 - [00 Setup](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/00_Setup.html)
 - [01 Image Basics](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/01_Image_Basics.html)
 - [02 Pythonic Image](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/02_Pythonic_Image.html)
-- [03_Image Details](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/03_ImageDetails.html)
+- [03 Image Details](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/03_ImageDetails.html)
 - [10 plotlib's imshow](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html)
 - [20 Expand With Interpolators](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html)
 - [21 Transform and Resampling](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/21_Transform_and_Resampling.html)
@@ -32,6 +32,8 @@ For general information about installing SimpleITK please see the [SimpleITK wik
 
 It is recommended to setup a separate Python virtual environment to run through these notebooks as a tutorial.
 
+### Install Tutorial Dependencies
+
 Under the best of circumstances (tested on OSX 10.8 and 10.7.5, RH6, Ubuntu 12) this environment can be setup with the following:
 
     sudo pip install virtualenv
@@ -50,7 +52,7 @@ For many common platforms, a built distribution is available as an Python egg. T
     ~/sitkpy/bin/easy_install SimpleITK
 
 
-As of this writing, SimpleITK version >=0.6r1 is required to run these notebooks. This version currently needs to be downloaded from [Source Forge](http://sourceforge.net/projects/simpleitk/files/SimpleITK/0.6.rc1/Python/)
+As of this writing, SimpleITK version >=0.9.0 is required to run these notebooks. This version currently needs to be downloaded from [Source Forge](http://sourceforge.net/projects/simpleitk/files/SimpleITK/0.9.0/Python/)
 
 ### Downloading Data
 
