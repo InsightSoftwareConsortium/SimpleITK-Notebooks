@@ -12,7 +12,7 @@ This is a collection of IPython Notebooks, designed for tutorials and  presentat
 - [03 Image Details](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/03_ImageDetails.html)
 - [10 plotlib's imshow](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html)
 - [20 Expand With Interpolators](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html)
-- [21 Transform and Resampling](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/21_Transform_and_Resampling.html)
+- [21 Transforms and Resampling](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/21_Transforms_and_Resampling.html)
 - [22 Transforms](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/22_Transforms.html)
 - [30 Segmentation Region Growing](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/30_Segmentation_Region_Growing.html)
 - [31 Levelset Segmentation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/31_Levelset_Segmentation.html)
