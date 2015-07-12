@@ -9,7 +9,7 @@ This is a collection of IPython Notebooks, designed for tutorials, presentations
 - [00 Setup](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/00_Setup.html)
 - [01 Image Basics](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/01_Image_Basics.html)
 - [02 Pythonic Image](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/02_Pythonic_Image.html)
-- [03_Image Details](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/03_ImageDetails.html)
+- [03 Image Details](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/03_Image_Details.html)
 - [10 plotlib's imshow](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html)
 - [20 Expand With Interpolators](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html)
 - [21 Transform and Resampling](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/21_Transform_and_Resampling.html)
