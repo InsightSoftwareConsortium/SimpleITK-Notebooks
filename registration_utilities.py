@@ -1,6 +1,7 @@
 import numpy as np
 from scipy import linalg
-
+import matplotlib.pyplot as plt
+import SimpleITK as sitk
 
 def load_RIRE_ground_truth(file_name):
     """
@@ -147,3 +148,65 @@ def registration_errors(tx, reference_fixed_point_list, reference_moving_point_l
 
   return (np.mean(errors), np.std(errors), np.min(errors), np.max(errors), errors) 
 
+def display_scalar_images(image1_z_index, image2_z_index, image1, image2, 
+                          min_max_image1= (), min_max_image2 = (), title1="", title2="", figure_size=(10,8)):
+    """
+    Display a plot with two slices from 3D images. Display of the specific z slices is side by side.
+
+    Note: When using this function as a callback for interact in IPython notebooks it is recommended to 
+          provide the min_max_image1 and min_max_image2 variables for intensity scaling. Otherwise we
+          compute them internally every time this function is invoked (scrolling events).
+    Args:
+        image1_z_index (int): index of the slice we display for the first image.
+        image2_z_index (int): index of the slice we display for the second image.
+        image1 (SimpleITK.Image): first image.
+        image2 (SimpleITK.Image): second image.
+        min_max_image1 (Tuple(float, float)): image intensity values are linearly scaled to be in the given range. if
+                                              the range is not provided by the caller, then we use the image's minimum 
+                                              and maximum intensities.
+        min_max_image2 (Tuple(float, float)): image intensity values are linearly scaled to be in the given range. if
+                                              the range is not provided by the caller, then we use the image's minimum 
+                                              and maximum intensities.
+       title1 (string): title for first image plot.
+       title2 (string): title for second image plot.
+       figure_size (Tuple(float,float)): width and height of figure in inches.                               
+    """
+
+    intensity_statistics_filter = sitk.StatisticsImageFilter()
+    if min_max_image1:
+        vmin1 = min(min_max_image1)
+        vmax1 = max(min_max_image1)
+    else:
+        intensity_statistics_filter.Execute(image1)
+        vmin1 = intensity_statistics_filter.GetMinimum()
+        vmax1 = intensity_statistics_filter.GetMaximum()
+    if min_max_image2:
+        vmin2 = min(min_max_image2)
+        vmax2 = max(min_max_image2)
+    else:
+        intensity_statistics_filter.Execute(image2)
+        vmin2 = intensity_statistics_filter.GetMinimum()
+        vmax2 = intensity_statistics_filter.GetMaximum()
+    
+    plt.subplots(1,2,figsize=figure_size)
+    
+    plt.subplot(1,2,1)
+    plt.imshow(sitk.GetArrayFromImage(image1[:,:,image1_z_index]),cmap=plt.cm.Greys_r, vmin=vmin1, vmax=vmax1)
+    plt.title(title1)
+    plt.axis('off')
+    
+    plt.subplot(1,2,2)
+    plt.imshow(sitk.GetArrayFromImage(image2[:,:,image2_z_index]),cmap=plt.cm.Greys_r, vmin=vmin2, vmax=vmax2)
+    plt.title(title2)
+    plt.axis('off')
+
+
+def display_images_with_alpha(image_z, alpha, image1, image2):
+    """
+    Display a plot with a slice from the 3D images that is alpha blended.
+    It is assumed that the two images have the same physical charecteristics (origin,
+    spacing, direction, size), if they do not, an exception is thrown.
+    """
+    img = (1.0 - alpha)*image1[:,:,image_z] + alpha*image2[:,:,image_z] 
+    plt.imshow(sitk.GetArrayFromImage(img),cmap=plt.cm.Greys_r);
+    plt.axis('off')
