@@ -24,7 +24,7 @@ This is a collection of IPython Notebooks, designed for tutorials and  presentat
 - [60 Registration Introduction](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/60_Registration_Introduction.html)
 - [61 Registration Introduction Continued](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/61_Registration_Introduction_Continued.html)
 - [62 Registration Tuning](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/62_Registration_Tuning.html)
-- [63 Registration Initialization](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/62_Registration_Initialization.html)
+- [63 Registration Initialization](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/63_Registration_Initialization.html)
 
 
 # Getting Started
