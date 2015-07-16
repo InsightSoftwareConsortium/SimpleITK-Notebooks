@@ -10,18 +10,22 @@ This is a collection of IPython Notebooks, designed for tutorials and  presentat
 - [01 Image Basics](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/01_Image_Basics.html)
 - [02 Pythonic Image](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/02_Pythonic_Image.html)
 - [03 Image Details](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/03_Image_Details.html)
-- [10 plotlib's imshow](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html)
+- [10 matplotlib's imshow](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html)
 - [20 Expand With Interpolators](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html)
 - [21 Transforms and Resampling](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/21_Transforms_and_Resampling.html)
 - [22 Transforms](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/22_Transforms.html)
 - [30 Segmentation Region Growing](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/30_Segmentation_Region_Growing.html)
 - [31 Levelset Segmentation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/31_Levelset_Segmentation.html)
 - [32 Watershed Segmentation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/32_Watersheds_Segmentation.html)
+- [33 Thresholding and Edge Detection Segmentation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/33_Segmentation_Thresholding_Edge_Detection.html)
 - [41 Progress](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/41_Progress.html)
 - [55 Visible Human Resample](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/55_VH_Resample.html)
 - [56 Visible Human Registration 1](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/56_VH_Registration1.html)
-- [60 Registration Introduction](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/60_RegistrationIntroduction.html)
-- [61 Registration Introduction Continued](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/61_RegistrationIntroductionContinued.html)
+- [60 Registration Introduction](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/60_Registration_Introduction.html)
+- [61 Registration Introduction Continued](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/61_Registration_Introduction_Continued.html)
+- [62 Registration Tuning](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/62_Registration_Tuning.html)
+- [63 Registration Initialization](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/62_Registration_Initialization.html)
+
 
 # Getting Started
 
