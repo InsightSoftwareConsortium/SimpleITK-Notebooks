@@ -34,7 +34,7 @@
         <h1>
 <a id="simpleitk-notebooks" class="anchor" href="#simpleitk-notebooks" aria-hidden="true"><span class="octicon octicon-link"></span></a>SimpleITK Notebooks</h1>
 
-<p>This is a collection of IPython Notebooks, designed for tutorials, presentations and to demonstrate using SimpleITK in the IPython Notebook with scipy environment for interactive image process.</p>
+<p>This is a collection of IPython Notebooks, designed for tutorials and  presentations and to demonstrate SimpleITK in the IPython Notebook with the scipy environment for interactive image analysis.</p>
 
 <p><a href="http://www.simpleitk.org">SimpleITK</a> is an abstraction layer and wrapper around the <a href="http://www.itk.org">Insight Toolkit</a> for many languages including python.</p>
 
@@ -42,21 +42,26 @@
 <a id="view-static-converted-pages" class="anchor" href="#view-static-converted-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>View Static Converted Pages</h1>
 
 <ul>
-<li>
-<a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/01_Image_Basics.html">01 Image Basics</a> </li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/00_Setup.html">00 Setup</a></li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/01_Image_Basics.html">01 Image Basics</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/02_Pythonic_Image.html">02 Pythonic Image</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html">10 plotlib's imshow</a></li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/03_Image_Details.html">03 Image Details</a></li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/10_matplotlib's_imshow.html">10 matplotlib's imshow</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/20_Expand_With_Interpolators.html">20 Expand With Interpolators</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/21_Transform_and_Resampling.html">21 Transform and Resampling</a></li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/21_Transforms_and_Resampling.html">21 Transforms and Resampling</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/22_Transforms.html">22 Transforms</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/30_Segmentation_Region_Growing.html">30 Segmentation Region Growing</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/31_Levelset_Segmentation.html">31 Levelset Segmentation</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/32_Watersheds_Segmentation.html">32 Watershed Segmentation</a></li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/33_Segmentation_Thresholding_Edge_Detection.html">33 Thresholding and Edge Detection Segmentation</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/41_Progress.html">41 Progress</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/55_VH_Resample.html">55 Visible Human Resample</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/56_VH_Registration1.html">56 Visible Human Registration 1</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/60_RegistrationIntroduction.html">60 Registration Introduction</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/61_RegistrationIntroductionContinued.html">61 Registration Introduction Continued</a></li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/60_Registration_Introduction.html">60 Registration Introduction</a></li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/61_Registration_Introduction_Continued.html">61 Registration Introduction Continued</a></li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/62_Registration_Tuning.html">62 Registration Tuning</a></li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/63_Registration_Initialization.html">63 Registration Initialization</a></li>
+<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/64_Registration_Memory_Time_Tradeoff.html">64 Registration Memory Time Tradeoff</a></li>
 </ul>
 
 <h1>
@@ -68,6 +73,9 @@
 <a id="setting-up-a-python-environment" class="anchor" href="#setting-up-a-python-environment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting Up a Python Environment</h2>
 
 <p>It is recommended to setup a separate Python virtual environment to run through these notebooks as a tutorial.</p>
+
+<h3>
+<a id="install-tutorial-dependencies" class="anchor" href="#install-tutorial-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install Tutorial Dependencies</h3>
 
 <p>Under the best of circumstances (tested on OSX 10.8 and 10.7.5, RH6, Ubuntu 12) this environment can be setup with the following:</p>
 
@@ -89,7 +97,7 @@ Note: On Window platforms some of these packages should be obtained as binary do
 <pre><code>~/sitkpy/bin/easy_install SimpleITK
 </code></pre>
 
-<p>As of this writing, SimpleITK version &gt;=0.6r1 is required to run these notebooks. This version currently needs to be downloaded from <a href="http://sourceforge.net/projects/simpleitk/files/SimpleITK/0.6.rc1/Python/">Source Forge</a></p>
+<p>As of this writing, SimpleITK version &gt;=0.9.0 is required to run these notebooks. This version currently needs to be downloaded from <a href="http://sourceforge.net/projects/simpleitk/files/SimpleITK/0.9.0/Python/">Source Forge</a></p>
 
 <h3>
 <a id="downloading-data" class="anchor" href="#downloading-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Downloading Data</h3>
@@ -109,6 +117,26 @@ Note: On Window platforms some of these packages should be obtained as binary do
 
 <pre><code>cd SimpleITK-Notebooks
 ~/sitkpy/bin/ipython notebook
+</code></pre>
+
+<h3>
+<a id="working-offline" class="anchor" href="#working-offline" aria-hidden="true"><span class="octicon octicon-link"></span></a>Working offline</h3>
+
+<p>In some situations, such as a tutorial session, you may not have internet access. This requires that you:</p>
+
+<ol>
+<li>Download the data in advance - see above.</li>
+<li>To display Math/LaTex, the IPython server tries to load MathJax from a content delivery network (CDN) which will fail as you do not have internet connectivity (will take a while, but you will receive an error message).</li>
+</ol>
+
+<p>You can either install MathJax locally, open a Python or IPython prompt and paste:</p>
+
+<pre><code>from IPython.external import mathjax; mathjax.install_mathjax()
+</code></pre>
+
+<p>or run the notebooks with MathJax disabled:</p>
+
+<pre><code>ipython notebook --no-mathjax
 </code></pre>
       </section>
     </div>
