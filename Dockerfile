@@ -1,6 +1,8 @@
 FROM debian:8
 MAINTAINER Insight Software Consortium <community@itk.org>
 
+
+# Install SimpleITK Python wrapping
 RUN apt-get update && apt-get install -y \
   build-essential \
   curl \
@@ -77,3 +79,41 @@ RUN git clone git://itk.org/SimpleITK.git && \
   /usr/bin/python3 ./PythonPackage/setup.py install && \
   cd ../../.. && \
   rm -rf SimpleITK SimpleITK-build
+
+
+# Install the Jupyter notebook
+# Based off jupyter/notebook/Dockerfile
+RUN curl -sL https://deb.nodesource.com/setup | bash - && \
+    apt-get update && apt-get install -y \
+  locales \
+  libzmq3-dev \
+  sqlite3 \
+  libsqlite3-dev \
+  pandoc \
+  libcurl4-openssl-dev \
+  nodejs
+
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+  locale-gen
+ENV LANGUAGE en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+
+RUN pip3 install --upgrade setuptools pip
+
+RUN mkdir -p /srv/
+WORKDIR /srv/
+RUN git clone --depth 1 https://github.com/ipython/ipykernel /srv/ipykernel
+WORKDIR /srv/ipykernel
+RUN pip3 install .
+
+WORKDIR /srv/
+RUN git clone --depth 1 https://github.com/jupyter/notebook /srv/notebook
+WORKDIR /srv/notebook/
+RUN chmod -R +rX /srv/notebook
+RUN pip3 install .
+RUN python3 -m ipykernel.kernelspec
+
+EXPOSE 8889
+
+CMD ["jupyter", "notebook", "--port=8889", "--no-browser", "--ip=0.0.0.0"]
