@@ -10,16 +10,20 @@ from registration_utilities import registration_errors
 # Callback we associate with the StartEvent, sets up our new data.
 def metric_start_plot():
     global metric_values, multires_iterations
+    global current_iteration_number
     
     metric_values = []
     multires_iterations = []
+    current_iteration_number = -1
 
 # Callback we associate with the EndEvent, do cleanup of data and figure.
 def metric_end_plot():
     global metric_values, multires_iterations
-    
+    global current_iteration_number
+
     del metric_values
     del multires_iterations
+    del current_iteration_number
     # Close figure, we don't want to get a duplicate of the plot latter on
     plt.close()
 
@@ -27,7 +31,14 @@ def metric_end_plot():
 # new figure.    
 def metric_plot_values(registration_method):
     global metric_values, multires_iterations
+    global current_iteration_number
     
+    # Some optimizers report an iteration event for function evaluations and not
+    # a complete iteration, we only want to update every iteration.
+    if registration_method.GetOptimizerIteration() == current_iteration_number:
+        return
+
+    current_iteration_number =  registration_method.GetOptimizerIteration()
     metric_values.append(registration_method.GetMetricValue())                                       
     # Clear the output area (wait=True, to reduce flickering), and plot 
     # current data.
@@ -49,23 +60,27 @@ def metric_update_multires_iterations():
 def metric_and_reference_start_plot():
     global metric_values, multires_iterations, reference_mean_values
     global reference_min_values, reference_max_values
-    
+    global current_iteration_number
+
     metric_values = []
     multires_iterations = []
     reference_mean_values = []
     reference_min_values = []
     reference_max_values = []
+    current_iteration_number = -1
 
 # Callback we associate with the EndEvent, do cleanup of data and figure.
 def metric_and_reference_end_plot():
     global metric_values, multires_iterations, reference_mean_values
     global reference_min_values, reference_max_values
+    global current_iteration_number
     
     del metric_values
     del multires_iterations
     del reference_mean_values
     del reference_min_values
     del reference_max_values
+    del current_iteration_number
     # Close figure, we don't want to get a duplicate of the plot latter on.
     plt.close()
 
@@ -74,7 +89,14 @@ def metric_and_reference_end_plot():
 def metric_and_reference_plot_values(registration_method, fixed_points, moving_points):
     global metric_values, multires_iterations, reference_mean_values
     global reference_min_values, reference_max_values
-    
+    global current_iteration_number
+
+    # Some optimizers report an iteration event for function evaluations and not
+    # a complete iteration, we only want to update every iteration.
+    if registration_method.GetOptimizerIteration() == current_iteration_number:
+        return
+
+    current_iteration_number =  registration_method.GetOptimizerIteration()
     metric_values.append(registration_method.GetMetricValue())
     # Compute and store TRE statistics (mean, min, max).
     current_transform = sitk.Transform(registration_method.GetInitialTransform())
