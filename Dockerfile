@@ -117,3 +117,27 @@ RUN python3 -m ipykernel.kernelspec
 EXPOSE 8889
 
 CMD ["jupyter", "notebook", "--port=8889", "--no-browser", "--ip=0.0.0.0"]
+
+
+# Make the SimpleITK Tutorial Notebooks available
+# Tutorial dependencies
+# libfreetype6-dev is a matplotlib workaround:
+# https://stackoverflow.com/questions/27024731/matplotlib-compilation-error-typeerror-unorderable-types-str-int
+RUN apt-get update && apt-get install -y \
+  python3-matplotlib \
+  python3-numpy
+
+# jupyter is our user
+RUN useradd -m -s /bin/bash jupyter
+USER jupyter
+ENV HOME /home/jupyter
+ENV SHELL /bin/bash
+ENV USER jupyter
+WORKDIR /home/jupyter/
+
+RUN mkdir -p ./Data
+ADD Data/* ./Data/
+ADD *.ipynb *.py *.png *.svg *.jpg ./
+USER root
+RUN chown -R jupyter.jupyter *
+USER jupyter
