@@ -116,7 +116,7 @@ RUN python3 -m ipykernel.kernelspec
 
 EXPOSE 8889
 
-CMD ["jupyter", "notebook", "--port=8889", "--no-browser", "--ip=0.0.0.0"]
+CMD ["sh", "-c", "jupyter notebook --port=8889 --no-browser --ip=0.0.0.0"]
 
 
 # Make the SimpleITK Tutorial Notebooks available
