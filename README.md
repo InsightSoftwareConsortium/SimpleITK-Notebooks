@@ -43,7 +43,7 @@ Under the best of circumstances (tested on OSX 10.8 and 10.7.5, RH6, Ubuntu 12) 
 
     sudo pip install virtualenv
     virtualenv ~/sitkpy --no-site-packages
-    ~/sitkpy/bin/pip install ipython[all]
+    ~/sitkpy/bin/pip install 'ipython[all]'
     ~/sitkpy/bin/pip install numpy
     ~/sitkpy/bin/pip install matplotlib
 
