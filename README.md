@@ -43,9 +43,7 @@ Under the best of circumstances (tested on OSX 10.8 and 10.7.5, RH6, Ubuntu 12) 
 
     sudo pip install virtualenv
     virtualenv ~/sitkpy --no-site-packages
-    ~/sitkpy/bin/pip install 'ipython[all]'
-    ~/sitkpy/bin/pip install numpy
-    ~/sitkpy/bin/pip install matplotlib
+    ~/sitkpy/bin/pip install 'ipython[all]' numpy matplotlib
 
 Note: On Linux platforms you may be able to obtain many of these packages as system packages which may suffice ( Ubuntu 12+).
 Note: On Window platforms some of these packages should be obtained as binary downloads and installed.
