@@ -1,8 +1,8 @@
 import SimpleITK as sitk
 import matplotlib.pyplot as plt
 
-from IPython.html.widgets import interact, interactive
-from IPython.html import widgets
+from ipywidgets import interact, interactive
+from ipywidgets import widgets
 
 def myshow(img, title=None, margin=0.05, dpi=80 ):
     nda = sitk.GetArrayFromImage(img)
