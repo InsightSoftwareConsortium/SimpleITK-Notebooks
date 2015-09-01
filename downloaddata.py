@@ -6,10 +6,12 @@ we fetch_data_all from a network resource.
 
 The data we download is described in a json file. The file format is a dictionary
 of dictionaries. The top level key is the file name. The returned dictionary
-contains an md5 checksum and possibly a url. The md5 checksum is mandatory.
+contains an md5 checksum and possibly a url and boolean flag indicating
+the file is part of an archive. The md5 checksum is mandatory.
 When the optional url is given, we attempt to download from that url, otherwise
 we attempt to download from the list of MIDAS servers returned by the 
-get_midas_servers() function.
+get_midas_servers() function. Files that are contained in archives are
+identified by the archive flag.
 
 Example json file contents:
 
@@ -20,6 +22,10 @@ Example json file contents:
 "POPI/meta/00.mhd" : {
 "md5sum": "3bfc3c92e18a8e6e8494482c44654fd3",
 "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/10-MetaImage.tar"
+},
+"CIRS057A_MR_CT_DICOM/readme.txt" : {
+ "md5sum" : "d92c97e6fe6520cb5b1a50b96eb9eb96",
+ "archive" : "true"
 }
 }
 
@@ -190,18 +196,24 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
         for url_base in get_midas_servers():
             all_urls.append(url_base.replace("%(hash)", md5sum).replace("%(algo)", "md5"))
         
-    if not os.path.exists(output_file):
-        verify = True  # Must verify if the file does not exists originally
+    new_download = False
 
     for url in all_urls:        
-        # Only download if the file does not already exist.
+        # Only download if force is true or the file does not exist.
         if force or not os.path.exists(output_file):
             mkdir_p(os.path.dirname(output_file))
             url_download_read(url, output_file, report_hook=url_download_report)
+            # Check if a file was downloaded and has the correct hash
             if output_hash_is_valid(md5sum, output_file):
-                # Stop looking once found at one of the midas servers!
-                verify = False  # No need to re-verify
+                new_download = True
+                # Stop looking once found
                 break
+            # If the file exists this means the hash is invalid we have a problem.
+            elif os.path.exists(output_file):
+                    error_msg = "File " + output_file
+                    error_msg += " has incorrect hash value, " + md5sum + " was expected."
+                    raise Exception(error_msg)
+
     # Did not find the file anywhere.        
     if not os.path.exists(output_file):
         error_msg = "File " + "\'"  + os.path.basename(output_file) +"\'"
@@ -209,12 +221,10 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
         error_msg += ", ".join(all_urls)
         raise Exception(error_msg)
     
-    if verify:
-        if force == True and ( not output_hash_is_valid(md5sum, output_file) ):
-            error_msg = "File " + output_file
-            error_msg += " has incorrect hash value, " + md5sum + " was expected."
-            raise Exception(error_msg)
-        if force == False and ( not output_hash_is_valid(md5sum, output_file) ):
+    if not new_download and verify:
+        # If the file was part of an archive then we don't verify it. These
+        # files are only verfied on download
+        if ( not "archive" in data_dictionary) and ( not output_hash_is_valid(md5sum, output_file) ):
             # Attempt to download if md5sum is incorrect.
             fetch_data_one(onefilename, output_directory, manifest_file, verify, 
                            force=True)
@@ -241,7 +251,7 @@ def fetch_data_all(output_directory, manifest_file, verify=True):
     with open(manifest_file, 'r') as fp:
         manifest = json.load(fp)
     for filename in manifest:
-        fetch_data_one(filename, output_directory, manifest_file, verify=True, 
+        fetch_data_one(filename, output_directory, manifest_file, verify, 
                        force=False)
 
 @deprecated
