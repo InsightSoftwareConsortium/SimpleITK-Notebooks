@@ -51,7 +51,8 @@
  "md5sum" : "91b694af442eaa854be808997c8f0f4b"
  },
  "CIRS057A_MR_CT_DICOM/readme.txt" : {
- "md5sum" : "d92c97e6fe6520cb5b1a50b96eb9eb96"
+ "md5sum" : "d92c97e6fe6520cb5b1a50b96eb9eb96",
+ "archive" : "true"
  },
  "SimpleITK.jpg" : {
  "md5sum" : "2685660c4f50c5929516127aed9e5b1a"
