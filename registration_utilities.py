@@ -200,6 +200,8 @@ def display_scalar_images(image1_z_index, image2_z_index, image1, image2,
     plt.title(title2)
     plt.axis('off')
 
+    plt.show()
+
 
 def display_images_with_alpha(image_z, alpha, image1, image2):
     """
@@ -210,3 +212,4 @@ def display_images_with_alpha(image_z, alpha, image1, image2):
     img = (1.0 - alpha)*image1[:,:,image_z] + alpha*image2[:,:,image_z] 
     plt.imshow(sitk.GetArrayFromImage(img),cmap=plt.cm.Greys_r);
     plt.axis('off')
+    plt.show()
