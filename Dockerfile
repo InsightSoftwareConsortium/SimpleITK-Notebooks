@@ -1,4 +1,4 @@
-FROM debian:8
+FROM thewtex/jupyter-notebook-debian:latest
 MAINTAINER Insight Software Consortium <community@itk.org>
 
 
@@ -80,64 +80,9 @@ RUN git clone git://itk.org/SimpleITK.git && \
   cd ../../.. && \
   rm -rf SimpleITK SimpleITK-build
 
-
-# Install the Jupyter notebook
-# Based off jupyter/notebook/Dockerfile
-RUN curl -sL https://deb.nodesource.com/setup | bash - && \
-    apt-get update && apt-get install -y \
-  locales \
-  libzmq3-dev \
-  sqlite3 \
-  libsqlite3-dev \
-  pandoc \
-  libcurl4-openssl-dev \
-  nodejs
-
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-  locale-gen
-ENV LANGUAGE en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-
-RUN pip3 install --upgrade setuptools pip
-
-RUN mkdir -p /srv/
-WORKDIR /srv/
-RUN git clone --depth 1 https://github.com/ipython/ipykernel /srv/ipykernel
-WORKDIR /srv/ipykernel
-RUN pip3 install .
-
-WORKDIR /srv/
-RUN git clone --depth 1 https://github.com/jupyter/notebook /srv/notebook
-WORKDIR /srv/notebook/
-RUN chmod -R +rX /srv/notebook
-RUN pip3 install .
-RUN python3 -m ipykernel.kernelspec
-
-EXPOSE 8889
-
-CMD ["sh", "-c", "jupyter notebook --port=8889 --no-browser --ip=0.0.0.0"]
-
-
-# Make the SimpleITK Tutorial Notebooks available
-# Tutorial dependencies
-# libfreetype6-dev is a matplotlib workaround:
-# https://stackoverflow.com/questions/27024731/matplotlib-compilation-error-typeerror-unorderable-types-str-int
-RUN apt-get update && apt-get install -y \
-  python3-matplotlib \
-  python3-numpy
-
-# jupyter is our user
-RUN useradd -m -s /bin/bash jupyter
-USER jupyter
-ENV HOME /home/jupyter
-ENV SHELL /bin/bash
-ENV USER jupyter
-WORKDIR /home/jupyter/
-
-RUN mkdir -p ./Data
-ADD Data/* ./Data/
-ADD *.ipynb *.py *.png *.svg *.jpg ./
 USER root
-RUN chown -R jupyter.jupyter *
-USER jupyter
+RUN pip3 install ipywidgets
+RUN apt-get install -y python3-matplotlib
+RUN pip install --upgrade numpy
+
+ADD . ./
