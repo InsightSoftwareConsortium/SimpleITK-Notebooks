@@ -76,7 +76,11 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
     # Use the urllib2 to download the data. The Requests package, highly
     # recommended for this task, doesn't support the file scheme so we opted
     # for urllib2 which does.  
-    from urllib2 import urlopen, URLError, HTTPError
+    try:
+        # Python 3
+        from urllib.request import urlopen, URLError, HTTPError
+    except ImportError:
+        from urllib2 import urlopen, URLError, HTTPError
     from xml.dom import minidom
     
     # Open the url
@@ -93,13 +97,23 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
     # The URLError above is not superfluous as it will occur when the url 
     # refers to a non existent file ('file://non_existent_file_name') or url
     # which is not a service ('http://non_existent_address').    
-    if url_response.info().getheader("Content-Type") == "text/xml":
+    try:
+        # Python 3
+        content_type = url_response.info().get("Content-Type")
+    except AttributeError:
+        content_type = url_response.info().getheader("Content-Type")
+    if content_type == "text/xml":
         doc = minidom.parseString(url_response.read())
         if doc.getElementsByTagName("err")[0]:
             return doc.getElementsByTagName("err")[0].getAttribute("msg") + ': ' + url
     # We download all content types - the assumption is that the md5sum ensures
     # that what we received is the expected data.
-    total_size = url_response.info().getheader("Content-Length").strip()
+    try:
+        # Python 3
+        content_length = url_response.info().get("Content-Length")
+    except AttributeError:
+        content_length = url_response.info().getheader("Content-Length")
+    total_size = content_length.strip()
     total_size = int(total_size)
     bytes_so_far = 0
     with open(outputfile, "wb") as local_file:
