@@ -80,12 +80,3 @@ To launch:
 In some situations, such as a tutorial session, you may not have internet access. This requires that you:
 
 1. Download the data in advance - see above.
-2. To display Math/LaTex, the IPython server tries to load MathJax from a content delivery network (CDN) which will fail as you do not have internet connectivity (will take a while, but you will receive an error message).
-
-You can either install MathJax locally, open a Python or IPython prompt and paste:
-
-    from IPython.external import mathjax; mathjax.install_mathjax()
-
-or run the notebooks with MathJax disabled:
-
-    ipython notebook --no-mathjax
