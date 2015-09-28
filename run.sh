@@ -2,6 +2,6 @@
 
 docker run \
   --rm \
-  -p 8889:8889 \
+  -p 8888:8888 \
   -v $PWD:/usr/src \
   insighttoolkit/simpleitk-notebooks
