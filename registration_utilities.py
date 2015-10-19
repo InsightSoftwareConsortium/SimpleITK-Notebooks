@@ -96,7 +96,7 @@ def generate_random_pointset(image, num_points):
 
 
 def registration_errors(tx, reference_fixed_point_list, reference_moving_point_list, 
-                        display_points = False):
+                        display_errors = False, min_err= None, max_err=None, figure_size=(8,6)):
   """
   Distances between points transformed by the given transformation and their
   location in another coordinate system. When the points are only used to 
@@ -109,8 +109,13 @@ def registration_errors(tx, reference_fixed_point_list, reference_moving_point_l
                                                      cooredinate system.
       reference_moving_point_list (list(tuple-like)): Points in moving image 
                                                       cooredinate system.
-      display_points (boolean): Display a 3D figure with lines connecting 
-                                corresponding points.
+      display_errors (boolean): Display a 3D figure with the points from 
+                                reference_fixed_point_list color corresponding
+                                to the error.
+      min_err, max_err (float): color range is linearly stretched between min_err 
+                                and max_err. If these values are not given then
+                                the range of errors computed from the data is used.
+      figure_size (tuple): Figure size in inches.
 
   Returns:
    (mean, std, min, max, errors) (float, float, float, float, [float]): 
@@ -120,33 +125,36 @@ def registration_errors(tx, reference_fixed_point_list, reference_moving_point_l
 
   errors = [linalg.norm(np.array(p_fixed) -  np.array(p_moving))
             for p_fixed,p_moving in zip(transformed_fixed_point_list, reference_moving_point_list)]
-  if display_points:
+  min_errors = np.min(errors)
+  max_errors = np.max(errors)
+  if display_errors:
       from mpl_toolkits.mplot3d import Axes3D
       import matplotlib.pyplot as plt
-      fig = plt.figure()
+      import matplotlib
+      fig = plt.figure(figsize=figure_size)
       ax = fig.add_subplot(111, projection='3d')
-   
-      ax.scatter(list(np.array(transformed_fixed_point_list).T)[0],
-                 list(np.array(transformed_fixed_point_list).T)[1],
-                 list(np.array(transformed_fixed_point_list).T)[2],  
-                 marker = 'o',
-                 color = 'blue',
-                 label = 'transformed fixed points')
-                 
-      ax.scatter(list(np.array(reference_moving_point_list).T)[0],
-                 list(np.array(reference_moving_point_list).T)[1],
-                 list(np.array(reference_moving_point_list).T)[2],  
-                 marker = '^',
-                 color = 'blue',
-                 label = 'moving points')
-      # Connect corresponding points with red line. 
-      for points in zip(transformed_fixed_point_list, reference_moving_point_list):
-        x,y,z = zip(*points)
-        ax.plot(x,y,z, color='red')            
-      
-      ax.legend(bbox_to_anchor = [0.5,1.0], loc='center') 
+      if not min_err:
+          min_err = min_errors
+      if not max_err:
+          max_err = max_errors
 
-  return (np.mean(errors), np.std(errors), np.min(errors), np.max(errors), errors) 
+      collection = ax.scatter(list(np.array(reference_fixed_point_list).T)[0],
+                              list(np.array(reference_fixed_point_list).T)[1],
+                              list(np.array(reference_fixed_point_list).T)[2],  
+                              marker = 'o',
+                              c = errors,
+                              vmin = min_err,
+                              vmax = max_err,
+                              cmap = matplotlib.cm.hot,
+                              label = 'fixed points')
+      plt.colorbar(collection, shrink=0.8)
+      plt.title('registration errors in mm', x=0.7, y=1.05)
+      ax.set_xlabel('X')
+      ax.set_ylabel('Y')
+      ax.set_zlabel('Z')
+      plt.show()
+
+  return (np.mean(errors), np.std(errors), min_errors, max_errors, errors) 
 
 def display_scalar_images(image1_z_index, image2_z_index, image1, image2, 
                           min_max_image1= (), min_max_image2 = (), title1="", title2="", figure_size=(10,8)):
