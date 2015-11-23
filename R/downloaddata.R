@@ -115,7 +115,7 @@ fetch_data_one <- function(onefilename, output_directory, manifest_file, verify=
     }
 
   }
-
+  return(outfile)
 }
 
 fetch_data_all <- function(output_directory, manifest_file, verify=TRUE)
