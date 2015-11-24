@@ -52,7 +52,14 @@ fetch_data_one <- function(onefilename, output_directory, manifest_file, verify=
       try(
         download.file(url, outfile, method="auto")
       )
-      if (tools::md5sum(outfile) == this.md5sum) {
+      newmd5 <- tools::md5sum(outfile)
+      if (is.na(newmd5)) {
+        ## for some reason we get NAs for md5sum
+        cat("md5sum is missing\n")
+        cat(outfile, "\n")
+        cat(url, "\n")
+      }
+      if (newmd5 == this.md5sum) {
         newdownload=TRUE
         break
       } else {
