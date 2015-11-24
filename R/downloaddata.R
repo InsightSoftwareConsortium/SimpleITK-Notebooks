@@ -59,7 +59,7 @@ fetch_data_one <- function(onefilename, output_directory, manifest_file, verify=
         cat(outfile, "\n")
         cat(url, "\n")
       }
-      if (newmd5 == this.md5sum) {
+      if (!is.na(newmd5) & (newmd5 == this.md5sum)) {
         newdownload=TRUE
         break
       } else {
