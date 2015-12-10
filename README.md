@@ -28,7 +28,7 @@ This is a collection of IPython Notebooks, designed for tutorials and  presentat
 - [64 Registration Memory Time Tradeoff](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/64_Registration_Memory_Time_Tradeoff.html)
 - [65 Registration Free Form Deformation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/65_Registration_FFD.html)
 - [66 Registration Demons](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/66_Registration_Demons.html)
-
+- [67 Registration Homework](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/67_Registration_Semiautomatic_Homework.html)
 
 # Getting Started
 
