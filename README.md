@@ -1,8 +1,11 @@
 # SimpleITK Notebooks
 
-This is a collection of IPython Notebooks, designed for tutorials and  presentations and to demonstrate SimpleITK in the IPython Notebook with the scipy environment for interactive image analysis.
+[SimpleITK](http://www.simpleitk.org) is an abstraction layer and wrapper around the [Insight Toolkit](http://www.itk.org) for many languages including Python, R,...
 
-[SimpleITK](http://www.simpleitk.org) is an abstraction layer and wrapper around the [Insight Toolkit](http://www.itk.org) for many languages including python.
+This repository contains a collection of Jupyter Notebooks, designed for tutorials and  presentations and to demonstrate the use of SimpleITK for interactive image analysis.
+
+The majority of the notebooks are written in Python, with some examples in R which are found, not surprisingly, in the R subdirectory. 
+
 
 # View Static Converted Pages
 
