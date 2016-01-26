@@ -1,48 +1,136 @@
 #!/bin/sh
 
-which docker &> /dev/null
+container=simpleitk-notebooks
+image=insighttoolkit/simpleitk-notebooks
+port=8888
+extra_run_args=""
+quiet=""
+
+show_help() {
+cat << EOF
+Usage: ${0##*/} [-h] [-q] [-c CONTAINER] [-i IMAGE] [-p PORT] [-r DOCKER_RUN_FLAGS]
+
+This script is a convenience script to run Docker images. It:
+
+- Makes sure docker is available
+- On Windows and Mac OSX, creates a docker machine if required
+- Informs the user of the URL to access the container with a web browser
+- Stops and removes containers from previous runs to avoid conflicts
+- Mounts the present working directory to /home/jovyan/notebooks on Linux and Mac OSX
+- Prints out the graphical app output log following execution
+
+Options:
+
+  -h             Display this help and exit.
+  -c             Container name to use (default ${container}).
+  -i             Image name (default ${image}).
+  -p             Port to expose the notebook server (default ${port}). If an empty
+                 string, the port is not exposed.
+  -r             Extra arguments to pass to 'docker run'.
+  -q             Do not output informational messages.
+EOF
+}
+
+while [ $# -gt 0 ]; do
+	case "$1" in
+		-h)
+			show_help
+			exit 0
+			;;
+		-c)
+			container=$2
+			shift
+			;;
+		-i)
+			image=$2
+			shift
+			;;
+		-p)
+			port=$2
+			shift
+			;;
+		-r)
+			extra_run_args="$extra_run_args $2"
+			shift
+			;;
+		-q)
+			quiet=1
+			;;
+		*)
+			show_help >&2
+			exit 1
+			;;
+	esac
+	shift
+done
+
+
+which docker 2>&1 >/dev/null
 if [ $? -ne 0 ]; then
 	echo "Error: the 'docker' command was not found.  Please install docker."
 	exit 1
 fi
 
-_OS=$(uname)
-if [ "${_OS}" != "Linux" ]; then
-	_VM=$(docker-machine active 2> /dev/null || echo "default")
-	if ! docker-machine inspect "${_VM}" &> /dev/null; then
-		echo "Creating machine ${_VM}..."
-		docker-machine -D create -d virtualbox --virtualbox-memory 2048 ${_VM}
+os=$(uname)
+if [ "${os}" != "Linux" ]; then
+	vm=$(docker-machine active 2> /dev/null || echo "default")
+	if ! docker-machine inspect "${vm}" &> /dev/null; then
+		if [ -z "$quiet" ]; then
+			echo "Creating machine ${vm}..."
+		fi
+		docker-machine -D create -d virtualbox --virtualbox-memory 2048 ${vm}
 	fi
-	docker-machine start ${_VM} > /dev/null
-    eval $(docker-machine env $_VM --shell=sh)
+	docker-machine start ${vm} > /dev/null
+    eval $(docker-machine env $vm --shell=sh)
 fi
 
-_IP=$(docker-machine ip ${_VM} 2> /dev/null || echo "localhost" )
-_URL="http://${_IP}:8888"
+ip=$(docker-machine ip ${vm} 2> /dev/null || echo "localhost")
+url="http://${ip}:$port"
 
-_RUNNING=$(docker ps -q --filter "name=simpleitk-notebooks")
-if [ -n "$_RUNNING" ]; then
-	docker stop simpleitk-notebooks
+cleanup() {
+	docker stop $container >/dev/null
+	docker rm $container >/dev/null
+}
+
+running=$(docker ps -a -q --filter "name=${container}")
+if [ -n "$running" ]; then
+	if [ -z "$quiet" ]; then
+		echo "Stopping and removing the previous session..."
+		echo ""
+	fi
+	cleanup
 fi
 
-echo ""
-echo "Setting up the Docker Jupyter Notebook"
-echo ""
-echo "Point your web browser to ${_URL}"
-echo ""
-echo ""
-echo "Enter Control-C to stop the server."
-
-_REPO_DIR="$(cd "$(dirname "$0")" && pwd )"
-_MOUNT_LOCAL=""
-if [ "${_OS}" = "Linux" ] || [ "${_OS}" = "Darwin" ]; then
-	_MOUNT_LOCAL=" -v ${_REPO_DIR}:/home/jovyan/notebooks/ "
+if [ -z "$quiet" ]; then
+	echo ""
+	echo "Setting up the notebook container..."
+	echo ""
+	if [ -n "$port" ]; then
+		echo "Point your web browser to ${url}"
+		echo ""
+	fi
 fi
+
+pwd_dir="$(pwd)"
+mount_local=""
+if [ "${os}" = "Linux" ] || [ "${os}" = "Darwin" ]; then
+	mount_local=" -v ${pwd_dir}:/home/jovyan/notebooks "
+fi
+port_arg=""
+if [ -n "$port" ]; then
+	port_arg="-p $port:8888"
+fi
+
 docker run \
-  --rm \
-  --name 2015-miccai \
-  ${_MOUNT_LOCAL} \
-  -p 8888:8888 \
-  insighttoolkit/simpleitk-notebooks &> /dev/null
+  -d \
+  --name $container \
+  ${mount_local} \
+  $port_arg \
+  $extra_run_args \
+  $image >/dev/null
+
+trap "docker stop $container >/dev/null" SIGINT SIGTERM
+
+docker wait $container >/dev/null
 
 # vim: noexpandtab shiftwidth=4 tabstop=4 softtabstop=0
