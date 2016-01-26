@@ -76,6 +76,7 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
     # Use the urllib2 to download the data. The Requests package, highly
     # recommended for this task, doesn't support the file scheme so we opted
     # for urllib2 which does.  
+
     try:
         # Python 3
         from urllib.request import urlopen, URLError, HTTPError
@@ -102,6 +103,12 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
         content_type = url_response.info().get("Content-Type")
     except AttributeError:
         content_type = url_response.info().getheader("Content-Type")
+    # MIDAS error message in json format
+    if content_type == "text/html; charset=UTF-8":
+        doc = json.loads(url_response.read().decode("utf-8"))
+        if doc['stat']=='fail':
+            return doc['message'] + url
+    # MIDAS error message in xml format
     if content_type == "text/xml":
         doc = minidom.parseString(url_response.read())
         if doc.getElementsByTagName("err")[0]:
@@ -212,7 +219,7 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
         
     new_download = False
 
-    for url in all_urls:        
+    for url in all_urls:
         # Only download if force is true or the file does not exist.
         if force or not os.path.exists(output_file):
             mkdir_p(os.path.dirname(output_file))
