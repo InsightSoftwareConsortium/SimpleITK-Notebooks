@@ -183,6 +183,8 @@ def get_midas_servers():
         "http://www.itk.org/files/ExternalData/%(algo)/%(hash)",
         # Mirror supported by the Slicer community.
         "http://slicer.kitware.com/midas3/api/rest?method=midas.bitstream.download&checksum=%(hash)&algorithm=%(algo)",
+        # Insight journal data server
+        "http://www.insight-journal.org/midas/api/rest?method=midas.bitstream.by.hash&hash=%(hash)"
         ])
     return midas_servers
 

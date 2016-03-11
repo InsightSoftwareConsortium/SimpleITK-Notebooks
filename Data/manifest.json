@@ -199,5 +199,17 @@
   "md5sum" : "4716b86ff1a213e8b92c4807ca9813a1",
   "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/90Mask-MetaImage.tar",
   "archive" : "true"
+ },
+ "liverTumorSegmentations/Patient01Homo.mha" : {
+ "md5sum" : "dfc3efbd8c0d4b66792d22b75ec4cc18"
+ },
+ "liverTumorSegmentations/Patient01Homo_Rad01.mha" : {
+ "md5sum" : "76bd4cd0b9b0ca02612f66fa939a8b60"
+ },
+ "liverTumorSegmentations/Patient01Homo_Rad02.mha" : {
+ "md5sum" : "ac13f182d968fd09faf92604908d30f8"
+ },
+ "liverTumorSegmentations/Patient01Homo_Rad03.mha" : {
+ "md5sum" : "7a156c16e859d3eeb8ad31f59f4b2d96"
  }
 }
