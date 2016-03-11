@@ -21,6 +21,7 @@ The majority of the notebooks are written in Python, with some examples in R whi
 - [31 Levelset Segmentation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/31_Levelset_Segmentation.html)
 - [32 Watershed Segmentation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/32_Watersheds_Segmentation.html)
 - [33 Thresholding and Edge Detection Segmentation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/33_Segmentation_Thresholding_Edge_Detection.html)
+- [34 Segmentation Evaluation](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/34_Segmentation_Evaluation.html)
 - [41 Progress](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/41_Progress.html)
 - [55 Visible Human Resample](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/55_VH_Resample.html)
 - [56 Visible Human Registration 1](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/56_VH_Registration1.html)
