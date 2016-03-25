@@ -2,6 +2,7 @@ import SimpleITK as sitk
 import matplotlib.pyplot as plt
 import ipywidgets as widgets
 from IPython.display import display
+import numpy as np
 
 class RegistrationPointDataAquisition(object):
     """
@@ -308,7 +309,7 @@ class PointDataAquisition(object):
                 # Offset in pixels and get in data coordinates.
                 text_in_data_coords = self.axes.transData.inverted().transform((text_in_data_coords[0]+text_x_offset, text_in_data_coords[1]+text_y_offset))
                 self.axes.text(text_in_data_coords[0], text_in_data_coords[1], str(i), color='yellow')                               
-        self.axes.set_title('fixed image - localized {0} points'.format(len(self.point_indexes)))   
+        self.axes.set_title('localized {0} points'.format(len(self.point_indexes)))
         self.axes.set_axis_off()
         
 
@@ -318,6 +319,22 @@ class PointDataAquisition(object):
 
         self.fig.canvas.draw_idle()
     
+    def add_point_indexes(self, point_index_data):
+        self.validate_points(point_index_data)
+        self.point_indexes.append(list(point_index_data))
+        self.update_display()
+
+    def set_point_indexes(self, point_index_data):
+        self.validate_points(point_index_data)
+        del self.point_indexes[:]
+        self.point_indexes = list(point_index_data)
+        self.update_display()
+
+    def validate_points(self, point_index_data):
+        for p in point_index_data:
+            if p[0]>=self.npa.shape[2] or p[0]<0 or p[1]>=self.npa.shape[1] or p[1]<0 or p[2]>=self.npa.shape[0] or p[2]<0:
+                raise ValueError('Given point (' + ', '.join(map(str,p)) + ') is outside the image bounds.')
+
     def clear_all(self, button):
         del self.point_indexes[:]
         self.update_display()
@@ -329,9 +346,120 @@ class PointDataAquisition(object):
         
     def get_points(self):
         return [self.image.TransformContinuousIndexToPhysicalPoint(pnt) for pnt in self.point_indexes]
-                    
+
+    def get_point_indexes(self):
+        '''
+        Return the point indexes, not the continous index we keep.
+        '''
+        # Round and then cast to int, just rounding will return a float
+        return [tuple(map(lambda x: int(round(x)), pnt)) for pnt in self.point_indexes]
+
+
     def __call__(self, event):
         if self.viewing_checkbox.value == 'edit':
             if event.inaxes==self.axes:
                 self.point_indexes.append((event.xdata, event.ydata, self.slice_slider.value))
                 self.update_display()
+
+
+
+class MultiImageDisplay(object):
+
+    def __init__(self, image_list, axis=0, shared_slider=False, title_list=None, window_level_list= None, figure_size=(10,8)):
+
+        self.get_window_level_numpy_array(image_list, window_level_list)
+        if title_list:
+            if len(image_list)!=len(title_list):
+                raise ValueError('Title list and image list lengths do not match')
+            self.title_list = list(title_list)
+
+        # Our dynamic slice, based on the axis the user specifies
+        self.slc = [slice(None)]*3
+        self.axis = axis
+
+        # Create a figure.
+        self.fig, self.axes = plt.subplots(1,len(image_list),figsize=figure_size)
+
+        ui = self.create_ui(shared_slider)
+
+        # Display the data and the controls, first time we display the image is outside the "update_display" method
+        # as that method relies on the previous zoom factor which doesn't exist yet.
+        for ax, npa, slider, min_intensity, max_intensity in zip(self.axes, self.npa_list, self.slider_list, self.min_intensity_list, self.max_intensity_list):
+            self.slc[self.axis] = slice(slider.value, slider.value+1)
+            # Need to use squeeze to collapse degenerate dimension (e.g. RGB image size 124 124 1 3)
+            ax.imshow(np.squeeze(npa[self.slc]),
+                      cmap=plt.cm.Greys_r,
+                      vmin=min_intensity,
+                      vmax=max_intensity)
+        self.update_display()
+        display(ui)
+
+    def create_ui(self, shared_slider):
+        # Create the active UI components. Height and width are specified in 'em' units. This is
+        # a html size specification, size relative to current font size.
+        ui = None
+
+        if shared_slider:
+            # Validate that all the images have the same size along the axis which we scroll through
+            sz = self.npa_list[0].shape[self.axis]
+            for npa in self.npa_list:
+                       if npa.shape[self.axis]!=sz:
+                           raise ValueError('Not all images have the same size along the specified axis, cannot share slider.')
+
+            slider = widgets.IntSlider(description='image slice:',
+                                      min=0,
+                                      max=sz-1,
+                                      step=1,
+                                      value = int((sz-1)/2),
+                                      width='20em')
+            slider.on_trait_change(self.update_display,'value')
+            self.slider_list = [slider]*len(self.npa_list)
+            ui = widgets.Box(padding=7, children=[slider])
+        else:
+            self.slider_list = []
+            for npa in self.npa_list:
+                slider = widgets.IntSlider(description='image slice:',
+                                           min=0,
+                                           max=npa.shape[self.axis]-1,
+                                           step=1,
+                                           value = int((npa.shape[self.axis]-1)/2),
+                                           width='20em')
+                slider.on_trait_change(self.update_display,'value')
+                self.slider_list.append(slider)
+            ui = widgets.Box(padding=7, children=self.slider_list)
+        return ui
+
+    def get_window_level_numpy_array(self, image_list, window_level_list):
+        self.npa_list = list(map(sitk.GetArrayFromImage, image_list))
+        if not window_level_list:
+            self.min_intensity_list = list(map(np.min, self.npa_list))
+            self.max_intensity_list = list(map(np.max, self.npa_list))
+        else:
+            self.min_intensity_list = list(map(lambda x: x[1]-x[0]/2.0, window_level_list))
+            self.max_intensity_list = list(map(lambda x: x[1]+x[0]/2.0, window_level_list))
+
+    def update_display(self):
+
+        # Draw the image(s)
+        for ax, npa, title, slider, min_intensity, max_intensity in zip(self.axes, self.npa_list, self.title_list, self.slider_list, self.min_intensity_list, self.max_intensity_list):
+            # We want to keep the zoom factor which was set prior to display, so we log it before
+            # clearing the axes.
+            xlim = ax.get_xlim()
+            ylim = ax.get_ylim()
+
+            self.slc[self.axis] = slice(slider.value, slider.value+1)
+            ax.clear()
+            # Need to use squeeze to collapse degenerate dimension (e.g. RGB image size 124 124 1 3)
+            ax.imshow(np.squeeze(npa[self.slc]),
+                      cmap=plt.cm.Greys_r,
+                      vmin=min_intensity,
+                      vmax=max_intensity)
+            ax.set_title(title)
+            ax.set_axis_off()
+
+            # Set the zoom factor back to what it was before we cleared the axes, and rendered our data.
+            ax.set_xlim(xlim)
+            ax.set_ylim(ylim)
+
+        self.fig.canvas.draw_idle()
+
