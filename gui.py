@@ -379,6 +379,8 @@ class MultiImageDisplay(object):
 
         # Create a figure.
         self.fig, self.axes = plt.subplots(1,len(image_list),figsize=figure_size)
+        if len(image_list)==1:
+            self.axes = [self.axes]
 
         ui = self.create_ui(shared_slider)
 
