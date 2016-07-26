@@ -4,7 +4,9 @@
 # Note that all of the feedback with regard to download progress goes to the console and is not visible in the notebook as is
 # the case with the Python notebooks. 
 #
-library(rPython)
+if (!require(rPython)) {
+    stop("rPython library not installed - run install.packages('rPython')\n")
+}
 
 # Find the python script directory, one above this script's location. We are assuming here that this file
 # is sourced with chdir equals true [source('ddata.R', chdir=T)]
