@@ -1,0 +1,25 @@
+machine:
+    python:
+      version: 3.4.4
+
+    environment:
+      ExternalData_OBJECT_STORES: ${HOME}/.ExternalData
+
+
+dependencies:
+    cache_directories:
+        - "~/.ExternalData"
+
+    pre:
+        - pip install --upgrade pip
+        - pip install SimpleITK jupyter matplotlib ipywidgets
+        - mkdir -p "${ExternalData_OBJECT_STORES}"
+        - python downloaddata.py "${ExternalData_OBJECT_STORES}" Data/manifest.json
+
+test:
+    pre:
+        - python --version
+        - python -c "import SimpleITK as sitk; print(sitk.Version())"
+
+    override:
+        - for fn in $(ls *.ipynb); do jupyter nbconvert --execute $fn; done
