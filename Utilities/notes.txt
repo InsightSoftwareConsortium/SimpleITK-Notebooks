@@ -1,15 +1,17 @@
 To create the html for the gh-pages:
-install pandoc (required by nbconvert)
+Install pandoc (required by nbconvert) and run nbconvert without specifying the
+output format, the default is html.
 
-Automated execution and conversion of notebooks, feature will 
-be available in ipython 3.0:
-ipython nbconvert --ExecutePreprocessor.enabled=True a.ipynb
+Automated execution and conversion of notebooks:
+jupyter nbconvert --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=python2 --ExecutePreprocessor.allow_errors=True --execute my_notebook.ipynb
 
-http://stackoverflow.com/questions/17905350/running-an-ipython-notebook-non-interactively
+The kernels we use for testing include: python2, python3, and ir .
 
-The problem with this is that if you have intentionally introduced exceptions
-the notebook will stop execution at that point. Possibly they incorporate
-this into the 3.0 release, currently (2/2015) still an open issue (Add an 'ignore exceptions' mode to run commands in notebook):
+Notebooks are executed ignoring errors (allow_errors=True) so that all cells are
+run. Execution fails if a cell does not complete within the specified time
+(timeout, in seconds). Our testing framework is based on the use of the notebook
+cell metadata. We add a json tag "simpleitk_error_allowed" to all cells that
+potentially generate an error which should be ignored. These include cells with
+intentional errors and cells that invoke the SimpleITK Show() command - we don't
+know if a viewer is actually installed.
 
-https://github.com/ipython/ipython/issues/1977
-https://github.com/ipython/ipython/pull/4993
