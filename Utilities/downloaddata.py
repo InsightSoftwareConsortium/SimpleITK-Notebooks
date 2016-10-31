@@ -282,7 +282,7 @@ def fetch_midas_data_all(output_directory, manifest_file, verify=True):
     return fetch_data_all(output_directory, manifest_file, verify)
 
 
-def fetch_data(cache_file_name, verify=False, cache_directory_name="Data"):
+def fetch_data(cache_file_name, verify=False, cache_directory_name="../Data"):
     """
     fetch_data is a simplified interface that requires
     relative pathing with a manifest.json file located in the

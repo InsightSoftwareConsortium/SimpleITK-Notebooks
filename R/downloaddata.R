@@ -8,18 +8,18 @@ if (!require(rPython)) {
     stop("rPython library not installed - run install.packages('rPython')\n")
 }
 
-# Find the python script directory, one above this script's location. We are assuming here that this file
+# Find the python script directory, under the Utilities directory in the repository. We are assuming here that this file
 # is sourced with chdir equals true [source('ddata.R', chdir=T)]
-python_script_dir <- normalizePath("..")
+python_script_dir <- normalizePath("../Utilities")
 
 python.exec("import os")
 python.exec("import sys")
 python.exec(paste("sys.path.append('", python_script_dir,"')",sep=""))
 python.exec("from downloaddata import fetch_data, fetch_data_all")
 
-fetch_data<-function(cache_file_name, verify=FALSE, cache_directory_name="Data"){
+fetch_data<-function(cache_file_name, verify=FALSE, cache_directory_name="../Data"){
     v<- if(verify) 'True' else 'False'
-    python.exec(  paste("filename = fetch_data(cache_file_name='",cache_file_name,"',verify=",v,", cache_directory_name='",cache_directory_name,"')", sep=""))
+    python.exec(  paste("filename = fetch_data(cache_file_name='",cache_file_name,"',verify=",v,", cache_directory_name='",normalizePath(cache_directory_name),"')", sep=""))
     python.get("filename")
 }
 
