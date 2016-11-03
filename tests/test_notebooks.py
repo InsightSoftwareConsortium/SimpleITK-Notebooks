@@ -3,6 +3,7 @@ import subprocess
 import tempfile
 
 import nbformat
+import pytest
 
 """
 run all tests:
@@ -10,6 +11,13 @@ pytest -v --tb=short
 
 run specific test:
 pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_10_matplotlibs_imshow
+
+-s : disable all capturing of output.
+-m marker_name: run only tests marked with 'marker_name' (python_notebook, r_notebook). 
+
+-m logical_expression: run only tests for which the logical expression is true such as 
+                       "python_notebook and not large_memory"
+
 """
 
 class Test_notebooks(object):
@@ -134,97 +142,131 @@ class Test_notebooks(object):
     #
     # Python notebook testing.
     #
+    @pytest.mark.python_notebook
     def test_00_Setup_p(self):
         self.evaluate_notebook(self.absolute_path_python('00_Setup.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_01_Image_Basics_p(self):
         self.evaluate_notebook(self.absolute_path_python('01_Image_Basics.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_02_Pythonic_Image_p(self):
         self.evaluate_notebook(self.absolute_path_python('02_Pythonic_Image.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_03_Image_Details_p(self):
         self.evaluate_notebook(self.absolute_path_python('03_Image_Details.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_10_matplotlibs_imshow_p(self):
         self.evaluate_notebook(self.absolute_path_python('10_matplotlib\'s_imshow.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_20_Expand_With_Interpolators_p(self):
         self.evaluate_notebook(self.absolute_path_python('20_Expand_With_Interpolators.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_21_Transforms_and_Resampling_p(self):
         self.evaluate_notebook(self.absolute_path_python('21_Transforms_and_Resampling.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_22_Transforms_p(self):
         self.evaluate_notebook(self.absolute_path_python('22_Transforms.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_300_Segmentation_Overview_p(self):
         self.evaluate_notebook(self.absolute_path_python('300_Segmentation_Overview.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_30_Segmentation_Region_Growing_p(self):
         self.evaluate_notebook(self.absolute_path_python('30_Segmentation_Region_Growing.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_31_Levelset_Segmentation_p(self):
         self.evaluate_notebook(self.absolute_path_python('31_Levelset_Segmentation.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_32_Watersheds_Segmentation_p(self):
         self.evaluate_notebook(self.absolute_path_python('32_Watersheds_Segmentation.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_33_Segmentation_Thresholding_Edge_Detection_p(self):
         self.evaluate_notebook(self.absolute_path_python('33_Segmentation_Thresholding_Edge_Detection.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_34_Segmentation_Evaluation_p(self):
         self.evaluate_notebook(self.absolute_path_python('34_Segmentation_Evaluation.ipynb'), 'python3')
 
     # This notebook times out when run with nbconvert, due to javascript issues. We currently don't
     # test it.
+    @pytest.mark.python_notebook
     def test_41_Progress_p(self):
         #self.evaluate_notebook(self.absolute_path_python('41_Progress.ipynb'), 'python3')
         assert(True)
 
+    @pytest.mark.python_notebook
     def test_51_VH_Segmentation1_p(self):
         self.evaluate_notebook(self.absolute_path_python('51_VH_Segmentation1.ipynb'), 'python3')
 
+    # This notebook uses too much memory (exceeds the 4Gb allocated for the testing machine).
+    @pytest.mark.large_memory
+    @pytest.mark.python_notebook
     def test_55_VH_Resample_p(self):
         self.evaluate_notebook(self.absolute_path_python('55_VH_Resample.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_56_VH_Registration1_p(self):
         self.evaluate_notebook(self.absolute_path_python('56_VH_Registration1.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_60_Registration_Introduction_p(self):
         self.evaluate_notebook(self.absolute_path_python('60_Registration_Introduction.ipynb'), 'python3')
 
+    # This notebook uses too much memory (exceeds the 4Gb allocated for the testing machine).
+    @pytest.mark.large_memory
+    @pytest.mark.python_notebook
     def test_61_Registration_Introduction_Continued_p(self):
         self.evaluate_notebook(self.absolute_path_python('61_Registration_Introduction_Continued.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_62_Registration_Tuning_p(self):
         self.evaluate_notebook(self.absolute_path_python('62_Registration_Tuning.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_63_Registration_Initialization_p(self):
         self.evaluate_notebook(self.absolute_path_python('63_Registration_Initialization.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_64_Registration_Memory_Time_Tradeoff_p(self):
         self.evaluate_notebook(self.absolute_path_python('64_Registration_Memory_Time_Tradeoff.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_65_Registration_FFD_p(self):
         self.evaluate_notebook(self.absolute_path_python('65_Registration_FFD.ipynb'), 'python3')
 
+    # This notebook uses too much memory (exceeds the 4Gb allocated for the testing machine).
+    @pytest.mark.large_memory
+    @pytest.mark.python_notebook
     def test_66_Registration_Demons_p(self):
         self.evaluate_notebook(self.absolute_path_python('66_Registration_Demons.ipynb'), 'python3')
 
+    @pytest.mark.python_notebook
     def test_67_Registration_Semiautomatic_Homework_p(self):
         self.evaluate_notebook(self.absolute_path_python('67_Registration_Semiautomatic_Homework.ipynb'), 'python3')
 
     #
     # R notebook testing.
     #
-
+    @pytest.mark.r_notebook
     def test_Image_Basics_r(self):
         self.evaluate_notebook(self.absolute_path_r('Image_Basics.ipynb'), 'ir')
 
+    @pytest.mark.r_notebook
     def test_R_style_image_r(self):
         self.evaluate_notebook(self.absolute_path_r('R_style_image.ipynb'), 'ir')
 
+    @pytest.mark.r_notebook
     def test_33_Segmentation_Thresholding_Edge_Detection_r(self):
         self.evaluate_notebook(self.absolute_path_r('33_Segmentation_Thresholding_Edge_Detection.ipynb'), 'ir')
 
