@@ -12,9 +12,10 @@ dependencies:
 
     pre:
         - pip install --upgrade pip
-        - pip install SimpleITK jupyter matplotlib ipywidgets
+        - pip install SimpleITK jupyter matplotlib ipywidgets scipy pandas pytest
         - mkdir -p "${ExternalData_OBJECT_STORES}"
-        - python downloaddata.py "${ExternalData_OBJECT_STORES}" Data/manifest.json
+        - python Utilities/downloaddata.py "${ExternalData_OBJECT_STORES}" Data/manifest.json
+        - cp -as ${ExternalData_OBJECT_STORES}/* Data
 
 test:
     pre:
@@ -22,4 +23,5 @@ test:
         - python -c "import SimpleITK as sitk; print(sitk.Version())"
 
     override:
-        - for fn in $(ls *.ipynb); do jupyter nbconvert --execute $fn; done
+        - pytest -v -m "python_notebook and not large_memory" --tb=short tests/test_notebooks.py:
+                timeout: 1800
