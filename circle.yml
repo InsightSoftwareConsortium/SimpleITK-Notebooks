@@ -12,7 +12,7 @@ dependencies:
 
     pre:
         - pip install --upgrade pip
-        - pip install SimpleITK jupyter matplotlib ipywidgets scipy pandas pytest
+        - pip install -r requirements-dev.txt
         - mkdir -p "${ExternalData_OBJECT_STORES}"
         - python Utilities/downloaddata.py "${ExternalData_OBJECT_STORES}" Data/manifest.json
         - cp -as ${ExternalData_OBJECT_STORES}/* Data
