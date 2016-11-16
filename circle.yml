@@ -1,26 +1,27 @@
 machine:
-    python:
-      version: 3.4.4
-
     environment:
       ExternalData_OBJECT_STORES: ${HOME}/.ExternalData
 
+    post:
+      - pyenv global 2.7.11 3.4.4
 
 dependencies:
     cache_directories:
         - "~/.ExternalData"
 
     pre:
-        - pip install --upgrade pip
-        - pip install -r requirements-dev.txt
+        - pip3.4 install --upgrade pip
+        - pip3.4 install -r requirements-dev.txt
+        - pip2.7 install --upgrade pip
+        - pip2.7 install -r requirements-dev.txt
         - mkdir -p "${ExternalData_OBJECT_STORES}"
         - python Utilities/downloaddata.py "${ExternalData_OBJECT_STORES}" Data/manifest.json
         - cp -as ${ExternalData_OBJECT_STORES}/* Data
 
 test:
     pre:
-        - python --version
-        - python -c "import SimpleITK as sitk; print(sitk.Version())"
+        - python2.7 -c "import SimpleITK as sitk; print(sitk.Version())"
+        - python3.4 -c "import SimpleITK as sitk; print(sitk.Version())"
 
     override:
         - pytest -v -m "python_notebook and not large_memory" --tb=short tests/test_notebooks.py:
