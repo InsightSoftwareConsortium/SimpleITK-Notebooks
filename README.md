@@ -5,4 +5,4 @@
 
 This repository contains a collection of Jupyter Notebooks, designed for tutorials and  presentations and to demonstrate the use of SimpleITK for interactive image analysis.
 
-Notebooks are written in Python and R (see respective directories).
+Notebooks are written in Python and R. For additional details see respective directories.
