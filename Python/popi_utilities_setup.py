@@ -45,11 +45,11 @@ def overlay_binary_segmentation_contours(image, mask, window_min, window_max):
     resampled_img = sitk.Resample(image, new_size, sitk.Transform(), 
                                   sitk.sitkLinear, image.GetOrigin(),
                                   new_spacing, image.GetDirection(), 0.0, 
-                                  image.GetPixelIDValue())
+                                  image.GetPixelID())
     resampled_msk = sitk.Resample(mask, new_size, sitk.Transform(), 
                                   sitk.sitkNearestNeighbor, mask.GetOrigin(),
                                   new_spacing, mask.GetDirection(), 0.0, 
-                                  mask.GetPixelIDValue())
+                                  mask.GetPixelID())
 
     # Create the overlay: cast the mask to expected label pixel type, and do the same for the image after
     # window-level, accounting for the high dynamic range of the CT.

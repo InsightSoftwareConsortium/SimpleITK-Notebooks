@@ -73,7 +73,7 @@ def myshow3d(img, xslices=[], yslices=[], zslices=[], title=None, margin=0.05, d
     maxlen = max(len(img_xslices), len(img_yslices), len(img_zslices))
 
 
-    img_null = sitk.Image([0,0], img.GetPixelIDValue(), img.GetNumberOfComponentsPerPixel())
+    img_null = sitk.Image([0,0], img.GetPixelID(), img.GetNumberOfComponentsPerPixel())
 
     img_slices = []
     d = 0
