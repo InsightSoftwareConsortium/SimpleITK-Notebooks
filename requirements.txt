@@ -1,0 +1,7 @@
+SimpleITK>=0.10.0
+jupyter
+matplotlib
+ipywidgets
+scipy
+pandas
+
