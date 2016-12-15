@@ -9,10 +9,11 @@ machine:
 dependencies:
     cache_directories:
         - "~/.ExternalData"
-
+    override:
+        - pip install tox tox-pyenv
+        - pyenv local 2.7.10 3.4.4
     pre:
         - pip install --upgrade pip
-        - pip install SimpleITK jupyter matplotlib ipywidgets scipy pandas pytest
         - mkdir -p "${ExternalData_OBJECT_STORES}"
         - python Utilities/downloaddata.py "${ExternalData_OBJECT_STORES}" Data/manifest.json
         - cp -as ${ExternalData_OBJECT_STORES}/* Data
@@ -20,8 +21,6 @@ dependencies:
 test:
     pre:
         - python --version
-        - python -c "import SimpleITK as sitk; print(sitk.Version())"
-
     override:
-        - pytest -v -m "python_notebook and not large_memory" --tb=short tests/test_notebooks.py:
-                timeout: 1800
+        - tox:
+            timeout: 1800
