@@ -1,9 +1,18 @@
 import os
 import subprocess
 import tempfile
-
 import nbformat
 import pytest
+import markdown
+
+from lxml.html import document_fromstring
+try:
+   # Python 3
+   from urllib.request import urlopen, URLError
+except ImportError:
+   from urllib2 import urlopen, URLError
+
+
 
 """
 run all tests:
@@ -23,55 +32,132 @@ pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_00_Setup_p
 class Test_notebooks(object):
     """
     Testing of SimpleITK Jupyter notebooks:
-    1. Check that notebooks do not contain output (sanity check as these should 
+    1. Static analysis:
+       Check that notebooks do not contain output (sanity check as these should
        not have been pushed to the repository).
-    2. Run the notebook and check for errors. In some notebooks we 
+       Check that all the URLs in the markdown cells are not broken.
+    2. Dynamic analysis:
+       Run the notebook and check for errors. In some notebooks we
        intentionally cause errors to illustrate certain features of the toolkit. 
        All code cells that intentionally generate an error are expected to be 
        marked using the cell's metadata. In the notebook go to 
-       "View->Cell Toolbar->Edit Metadata and add the following json: 
+       "View->Cell Toolbar->Edit Metadata and add the following json entry:
        
        "simpleitk_error_expected": simpleitk_error_message
 
-       Cells where an error is allowed, but not necessarily expected should be marked
-       with the following json:
+       with the appropriate "simpleitk_error_message" text.
+       Cells where an error is allowed, but not necessarily expected should be
+       marked with the following json:
 
        "simpleitk_error_allowed": simpleitk_error_message
 
        The simpleitk_error_message is a substring of the generated error
        message, such as 'Exception thrown in SimpleITK Show:'
     """
+
+    _allowed_error_markup = 'simpleitk_error_allowed'
+    _expected_error_markup = 'simpleitk_error_expected'
+
     def evaluate_notebook(self, path, kernel_name):
         """
+        Perform static and dynamic analysis of the notebook.
         Execute a notebook via nbconvert and print the results of the test (errors etc.)
         Args:
             path (string): Name of notebook to run.
             kernel_name (string): Which jupyter kernel to use to run the test. 
                                   Relevant values are:'python2', 'python3', 'ir'.
         """
-        allowed_error_markup = 'simpleitk_error_allowed'
-        expected_error_markup = 'simpleitk_error_expected'
 
         dir_name, file_name = os.path.split(path)
         if dir_name:
             os.chdir(dir_name)
 
         print('-------- begin (kernel {0}) {1} --------'.format(kernel_name,file_name))
-        
+        no_static_errors = self.static_analysis(path)
+        no_dynamic_errors = self.dynamic_analysis(path, kernel_name)
+        print('-------- end (kernel {0}) {1} --------'.format(kernel_name,file_name))
+        assert(no_static_errors and no_dynamic_errors)
+
+
+
+    def static_analysis(self, path):
+        """
+        Perform static analysis of the notebook.
+        Read the notebook and check that there is no ouput and that the links
+        in the markdown cells are not broken.
+        Args:
+            path (string): Name of notebook.
+        Return:
+            boolean: True if static analysis succeeded, otherwise False.
+        """
+
+        nb = nbformat.read(path, nbformat.current_nbformat)
+
+        #######################
         # Check that the notebook does not contain output from code cells 
         # (should not be in the repository, but well...).
-        nb = nbformat.read(path, nbformat.current_nbformat)
+        #######################
         no_unexpected_output = True
-        # Check that the cell dictionary has an 'outputs' key and that it is empty, relies
-        # on Python using short circuit evaluation so that we don't get KeyError when retrieving
-        # the 'outputs' entry.
+
+        # Check that the cell dictionary has an 'outputs' key and that it is
+        # empty, relies on Python using short circuit evaluation so that we
+        # don't get KeyError when retrieving the 'outputs' entry.
         cells_with_output = [c.source for c in nb.cells if 'outputs' in c and c.outputs]
         if cells_with_output:
             no_unexpected_output = False
-            print('Cells with unexpected output:')
+            print('Cells with unexpected output:\n_____________________________')
             for cell in cells_with_output: 
                 print(cell+'\n---')
+        else:
+           print('no unexpected output')
 
+        #######################
+        # Check that all the links in the markdown cells are valid/accessible.
+        #######################
+        no_broken_links = True
+
+        cells_and_broken_links = []
+        for c in nb.cells:
+           if c.cell_type == 'markdown':
+              html_tree = document_fromstring(markdown.markdown(c.source))
+              broken_links = []
+              #iterlinks() returns tuples of the form (element, attribute, link, pos)
+              for document_link in html_tree.iterlinks():
+                 try:
+                    if 'http' not in document_link[2]:  # Local file.
+                       url = 'file://' + os.path.abspath(document_link[2])
+                    else:  # Remote file.
+                       url = document_link[2]
+                    urlopen(url)
+                 except URLError:
+                    broken_links.append(url)
+              if broken_links:
+                 cells_and_broken_links.append((broken_links,c.source))
+        if cells_and_broken_links:
+           no_broken_links = False
+           print('Cells with broken links:\n________________________')
+           for links, cell in cells_and_broken_links:
+              print(cell+'\n')
+              print('\tBroken links:')
+              print('\t'+'\n\t'.join(links)+'\n---')
+        else:
+           print('no broken links')
+
+        return(no_unexpected_output and no_broken_links)
+
+
+    def dynamic_analysis(self, path, kernel_name):
+        """
+        Perform dynamic analysis of the notebook.
+        Execute a notebook via nbconvert and print the results of the test
+        (errors etc.)
+        Args:
+            path (string): Name of notebook to run.
+            kernel_name (string): Which jupyter kernel to use to run the test.
+                                  Relevant values are:'python', 'ir'.
+        Return:
+            boolean: True if dynamic analysis succeeded, otherwise False.
+        """
 
         # Execute the notebook and allow errors (run all cells), output is
         # written to a temporary file which is automatically deleted.
@@ -92,9 +178,9 @@ class Test_notebooks(object):
         unexpected_errors = [(output.evalue, c.source) for c in nb.cells \
                               if 'outputs' in c for output in c.outputs \
                               if (output.output_type=='error') and \
-                               (((allowed_error_markup not in c.metadata) and (expected_error_markup not in c.metadata))or \
-                               ((allowed_error_markup in c.metadata) and (c.metadata[allowed_error_markup] not in output.evalue)) or \
-                               ((expected_error_markup in c.metadata) and (c.metadata[expected_error_markup] not in output.evalue)))]
+                               (((Test_notebooks._allowed_error_markup not in c.metadata) and (Test_notebooks._expected_error_markup not in c.metadata))or \
+                               ((Test_notebooks._allowed_error_markup in c.metadata) and (c.metadata[Test_notebooks._allowed_error_markup] not in output.evalue)) or \
+                               ((Test_notebooks._expected_error_markup in c.metadata) and (c.metadata[Test_notebooks._expected_error_markup] not in output.evalue)))]
         
         no_unexpected_errors = True 
         if unexpected_errors:
@@ -110,14 +196,14 @@ class Test_notebooks(object):
         # but expected error was not generated.)
         missing_expected_errors = []
         for c in nb.cells:
-            if expected_error_markup in c.metadata:
+            if Test_notebooks._expected_error_markup in c.metadata:
                 missing_error = True
                 if 'outputs' in c:
                     for output in c.outputs:
-                        if (output.output_type=='error') and (c.metadata[expected_error_markup] in output.evalue):
+                        if (output.output_type=='error') and (c.metadata[Test_notebooks._expected_error_markup] in output.evalue):
                                 missing_error = False
                 if missing_error:
-                    missing_expected_errors.append((c.metadata[expected_error_markup],c.source))
+                    missing_expected_errors.append((c.metadata[Test_notebooks._expected_error_markup],c.source))
 
         no_missing_expected_errors = True
         if missing_expected_errors:
@@ -129,8 +215,7 @@ class Test_notebooks(object):
         else:
             print('no missing expected errors')
 
-        print('-------- end (kernel {0}) {1} --------'.format(kernel_name,file_name))
-        assert(no_unexpected_output and no_unexpected_errors and no_missing_expected_errors)
+        return(no_unexpected_errors and no_missing_expected_errors)
 
 
     def absolute_path_python(self, notebook_file_name):
@@ -277,7 +362,4 @@ class Test_notebooks(object):
     @pytest.mark.r_notebook
     def test_300_Segmentation_Overview_r(self):
         self.evaluate_notebook(self.absolute_path_r('300_Segmentation_Overview.ipynb'), 'ir')
-
-
-
 
