@@ -374,3 +374,7 @@ class Test_notebooks(object):
     @pytest.mark.r_notebook
     def test_65_Registration_FFD_r(self):
         self.evaluate_notebook(self.absolute_path_r('65_Registration_FFD.ipynb'), 'ir')
+
+    @pytest.mark.r_notebook
+    def test_66_Registration_Demons_r(self):
+        self.evaluate_notebook(self.absolute_path_r('66_Registration_Demons.ipynb'), 'ir')
