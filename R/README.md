@@ -13,6 +13,7 @@ For general information about installing SimpleITK please see the [SimpleITK wik
 2. Install the rPython package, at the R prompt: install.packages("rPython").
 3. [Install](http://jupyter.readthedocs.org/en/latest/install.html) the Jupyter environment.
 4. [Install](https://github.com/IRkernel/IRkernel) the R kernel for Jupyter.
+5. Install the following R packages: scatterplot3d, tidyr, ggplot2, xtable, purrr. 
 
 ### Install SimpleITK
 
