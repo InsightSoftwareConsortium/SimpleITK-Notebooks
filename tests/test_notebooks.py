@@ -363,3 +363,6 @@ class Test_notebooks(object):
     def test_300_Segmentation_Overview_r(self):
         self.evaluate_notebook(self.absolute_path_r('300_Segmentation_Overview.ipynb'), 'ir')
 
+    @pytest.mark.r_notebook
+    def test_60_Registration_Introduction_r(self):
+        self.evaluate_notebook(self.absolute_path_r('60_Registration_Introduction.ipynb'), 'ir')
