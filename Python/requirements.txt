@@ -1,0 +1,10 @@
+SimpleITK>=0.10.0
+jupyter
+matplotlib
+ipywidgets
+numpy
+scipy
+pandas
+pytest
+markdown
+lxml
