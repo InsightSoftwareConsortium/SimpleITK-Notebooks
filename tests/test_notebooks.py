@@ -4,8 +4,13 @@ import tempfile
 import nbformat
 import pytest
 import markdown
+import re
 
-from lxml.html import document_fromstring
+from enchant.checker import SpellChecker
+from enchant.tokenize import Filter, EmailFilter, URLFilter
+from enchant import DictWithPWL
+
+from lxml.html import document_fromstring, etree
 try:
    # Python 3
    from urllib.request import urlopen, URLError
@@ -79,7 +84,6 @@ class Test_notebooks(object):
         assert(no_static_errors and no_dynamic_errors)
 
 
-
     def static_analysis(self, path):
         """
         Perform static analysis of the notebook.
@@ -143,7 +147,39 @@ class Test_notebooks(object):
         else:
            print('no broken links')
 
-        return(no_unexpected_output and no_broken_links)
+        #######################
+        # Spell check all markdown cells and comments in code cells using the pyenchant spell checker.
+        #######################
+        no_spelling_mistakes = True
+        simpleitk_notebooks_dictionary = DictWithPWL('en_US', os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                     'additional_dictionary.txt'))
+        spell_checker = SpellChecker(simpleitk_notebooks_dictionary, filters = [EmailFilter, URLFilter])
+        cells_and_spelling_mistakes = []
+        for c in nb.cells:
+           spelling_mistakes = []
+           if c.cell_type == 'markdown':
+              # Get the text as a string from the html without the markup which is replaced by space.
+              spell_checker.set_text(' '.join(etree.XPath('//text()')(document_fromstring(markdown.markdown(c.source)))))
+           elif c.cell_type == 'code':
+              # Get all the comments and concatenate them into a single string separated by newlines.
+              comment_lines = re.findall('#+.*',c.source)
+              spell_checker.set_text('\n'.join(comment_lines))
+           for error in spell_checker:
+              error_message = 'error: '+ '\'' + error.word +'\', ' + 'suggestions: ' + str(spell_checker.suggest())
+              spelling_mistakes.append(error_message)
+           if spelling_mistakes:
+              cells_and_spelling_mistakes.append((spelling_mistakes, c.source))
+        if cells_and_spelling_mistakes:
+           no_spelling_mistakes = False
+           print('Cells with spelling mistakes:\n________________________')
+           for misspelled_words, cell in cells_and_spelling_mistakes:
+              print(cell+'\n')
+              print('\tMisspelled words and suggestions:')
+              print('\t'+'\n\t'.join(misspelled_words)+'\n---')
+        else:
+           print('no spelling mistakes')
+
+        return(no_unexpected_output and no_broken_links and no_spelling_mistakes)
 
 
     def dynamic_analysis(self, path, kernel_name):
