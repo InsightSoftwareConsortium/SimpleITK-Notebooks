@@ -1,0 +1,5 @@
+pytest
+markdown
+lxml
+pyenchant
+-rPython/requirements.txt

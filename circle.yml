@@ -17,6 +17,7 @@ dependencies:
         - mkdir -p "${ExternalData_OBJECT_STORES}"
         - python Utilities/downloaddata.py "${ExternalData_OBJECT_STORES}" Data/manifest.json
         - cp -as ${ExternalData_OBJECT_STORES}/* Data
+        - sudo apt-get update; sudo apt-get install enchant
 
 test:
     pre:

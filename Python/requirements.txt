@@ -5,6 +5,3 @@ ipywidgets
 numpy
 scipy
 pandas
-pytest
-markdown
-lxml
