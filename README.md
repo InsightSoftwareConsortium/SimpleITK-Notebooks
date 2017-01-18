@@ -1,16 +1,24 @@
 # SimpleITK Notebooks
 [![CircleCI](https://circleci.com/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/tree/master.svg?style=svg)](https://circleci.com/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/tree/master)
 
-[SimpleITK](https://itk.org/Wiki/SimpleITK) is an abstraction layer and wrapper around the [Insight Toolkit](http://www.itk.org) for many languages including C++, Python, R, Java, C#, Lua, Tcl and Ruby.
+[SimpleITK](https://itk.org/Wiki/SimpleITK) is an abstraction layer and wrapper around the Insight Segmentation and Registration Toolkit [(ITK)](http://www.itk.org). It is available in the following programming languages: C++, Python, R, Java, C#, Lua, Tcl and Ruby.
 
 This repository contains a collection of Jupyter Notebooks, designed for tutorials and  presentations. The notebooks demonstrate the use of SimpleITK for interactive image analysis using the Python and R programming languages.
-
-For additional language specific details see the README files in the respective directories ([Python details](Python/README.md), [R details](R/README.md)).
 
 The animation below is a visualization of a rigid CT/MR registration process
 created with SimpleITK and Python (the [script](Utilities/intro_animation.py) used to generate the frames for the animated gif is found in the repository's Utilities directory).
 
 ![](registration_visualization.gif)
+
+# Getting Started
+
+Note that currently SimpleITK with R is only available on Linux and Mac.
+
+1. Language specific details for installing the notebooks is given in the README files in the respective directories ([Python](Python/README.md), [R](R/README.md)). For general information about installing SimpleITK please see the [SimpleITK wiki](http://www.itk.org/Wiki/ITK/Release_4/SimpleITK/GettingStarted).
+
+2. The [SimpleITK API documentation](https://itk.org/SimpleITKDoxygen/html/index.html) is based on the C++ implementation which is readily mapped to your language of choice.
+
+3. Learn the general concepts underlying the implementations of segmentation and registration by reading the ([ITK book](https://itk.org/ItkSoftwareGuide)). The relevant portion is "Book 2: Design and Functionality". The ITK API is significantly different from the SimpleITK one, but the general concepts are the same (e.g. combination of optimizer and similarity metric for registration).     
 
 # Contributions from the Community
 
