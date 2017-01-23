@@ -260,4 +260,6 @@ tfm
 dataframe
 Args
 lapply
+resamples
+ReadImage
 
