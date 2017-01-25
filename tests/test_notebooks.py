@@ -331,7 +331,7 @@ class Test_notebooks(object):
         self.evaluate_notebook(self.absolute_path_python('51_VH_Segmentation1.ipynb'), 'python')
 
     # This notebook uses too much memory (exceeds the 4Gb allocated for the testing machine).
-    @pytest.mark.large_memory
+    # We deal with it by resampling the image after reading (see setup_for_testing.py).
     @pytest.mark.python_notebook
     def test_55_VH_Resample_p(self):
         self.evaluate_notebook(self.absolute_path_python('55_VH_Resample.ipynb'), 'python')
@@ -345,7 +345,7 @@ class Test_notebooks(object):
         self.evaluate_notebook(self.absolute_path_python('60_Registration_Introduction.ipynb'), 'python')
 
     # This notebook uses too much memory (exceeds the 4Gb allocated for the testing machine).
-    @pytest.mark.large_memory
+    # We deal with it by resampling the image after reading (see setup_for_testing.py).
     @pytest.mark.python_notebook
     def test_61_Registration_Introduction_Continued_p(self):
         self.evaluate_notebook(self.absolute_path_python('61_Registration_Introduction_Continued.ipynb'), 'python')
@@ -367,7 +367,7 @@ class Test_notebooks(object):
         self.evaluate_notebook(self.absolute_path_python('65_Registration_FFD.ipynb'), 'python')
 
     # This notebook uses too much memory (exceeds the 4Gb allocated for the testing machine).
-    @pytest.mark.large_memory
+    # We deal with it by resampling the image after reading (see setup_for_testing.py).
     @pytest.mark.python_notebook
     def test_66_Registration_Demons_p(self):
         self.evaluate_notebook(self.absolute_path_python('66_Registration_Demons.ipynb'), 'python')

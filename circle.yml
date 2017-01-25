@@ -4,7 +4,7 @@ machine:
 
     environment:
       ExternalData_OBJECT_STORES: ${HOME}/.ExternalData
-
+      SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
 
 dependencies:
     cache_directories:
@@ -25,3 +25,4 @@ test:
     override:
         - tox:
             timeout: 1800
+
