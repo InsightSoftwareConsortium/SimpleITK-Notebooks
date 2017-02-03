@@ -7,13 +7,19 @@
 import os
 import SimpleITK as sitk
 
-def ReadImageDecorator(original_read_image):
-    def read_and_resize(*args, **kwargs):
-        shrink_filter = sitk.ShrinkImageFilter()
-        shrink_filter.SetShrinkFactor(4)
-        return shrink_filter.Execute(original_read_image(*args, **kwargs))
-    return read_and_resize
+#
+# A decorator which receives the size to shrink as a parameter.
+#
+def shrink_decorator(size):
+    def inner_decorator(func):
+        def func_and_resize(*args, **kwargs):
+            shrink_filter = sitk.ShrinkImageFilter()
+            shrink_filter.SetShrinkFactor(size)
+            return shrink_filter.Execute(func(*args, **kwargs))
+        return func_and_resize
+    return inner_decorator
 
 if os.environ.get('SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT'):
-    sitk.ReadImage = ReadImageDecorator(sitk.ReadImage)
+    sitk.ReadImage = shrink_decorator(4)(sitk.ReadImage)
+
 
