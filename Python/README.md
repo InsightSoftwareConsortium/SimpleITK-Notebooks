@@ -5,6 +5,12 @@
 
 We recommend setting up a separate Python virtual environment to run through these notebooks as a tutorial.
 
+If you are working with [Anaconda](https://www.continuum.io/) then you can set up the environment (named sitkpy) and install all dependencies and SimpleITK using a single command:
+
+    conda env create -f environment.yml
+
+You can then skip the next two steps which deal with a vanilla installation of Python.
+
 ### Install Dependencies
 
 Under the best of circumstances (tested on OSX 10.8 and 10.7.5, RH6, Ubuntu 12) this environment can be setup with the following:
