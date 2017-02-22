@@ -1,0 +1,14 @@
+name: sitkpy
+
+channels:
+  - simpleitk
+
+dependencies:
+  - python=3.4
+  - jupyter
+  - matplotlib
+  - ipywidgets
+  - numpy
+  - scipy
+  - pandas
+  - SimpleITK>=0.10.0
