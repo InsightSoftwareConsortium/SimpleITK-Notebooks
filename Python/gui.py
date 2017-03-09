@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import ipywidgets as widgets
 from IPython.display import display
 import numpy as np
+from matplotlib.widgets import  RectangleSelector
+import matplotlib.patches as patches
+
 
 class RegistrationPointDataAquisition(object):
     """
@@ -465,3 +468,220 @@ class MultiImageDisplay(object):
 
         self.fig.canvas.draw_idle()
 
+
+
+class ROIDataAquisition(object):
+    '''
+    This class provides a GUI for selecting box shaped Regions Of Interest (ROIs). Each ROI is represented as a
+    tuple: ((min_x,max_x),(min_y,max_y),(min_z,max_z)).
+    When using the zoom/pan tool from the toolbar ROI selection is disabled. Once you click again on the zoom/pan
+    button zooming/panning will be disabled and ROI selection is enabled.
+    Note that when you are marking the ROI on a slice that is outside the Z-range selected by the
+    range slider, once you are done selecting the ROI, you will see no change on the current slice. This is the
+    correct behavior, though initially you may be surprised by it.
+    '''
+    def __init__(self, image, window_level= None, figure_size=(10,8)):
+        self.image = image
+        self.npa, self.min_intensity, self.max_intensity = self.get_window_level_numpy_array(self.image, window_level)
+        self.rois = []
+
+        # ROI display settings
+        self.roi_display_properties = dict(facecolor='red', edgecolor='black', alpha=0.2, fill=True)
+
+        # Create a figure.
+        self.fig, self.axes = plt.subplots(1,1,figsize=figure_size)
+        # Connect the mouse button press to the canvas (__call__ method is the invoked callback).
+        self.fig.canvas.mpl_connect('button_press_event', self)
+        self.roi_selector = RectangleSelector(self.axes, lambda eclick, erelease: None,
+                                              drawtype='box', useblit=True,
+                                              button=[1, 3],  # Left, right buttons only.
+                                              minspanx=5, minspany=5, # Ignore motion smaller than 5 pixels.
+                                              spancoords='pixels',
+                                              interactive=True,
+                                              rectprops = self.roi_display_properties)
+        self.roi_selector.set_visible(False)
+
+        ui = self.create_ui()
+
+        # Display the data and the controls, first time we display the image is outside the "update_display" method
+        # as that method relies on the existance of a previous image which is removed from the figure.
+        self.axes.imshow(self.npa[self.slice_slider.value,:,:],
+                         cmap=plt.cm.Greys_r,
+                         vmin=self.min_intensity,
+                         vmax=self.max_intensity)
+        self.update_display()
+        display(ui)
+
+
+    def create_ui(self):
+        # Create the active UI components. Height and width are specified in 'em' units. This is
+        # a html size specification, size relative to current font size.
+        self.addroi_button = widgets.Button(description= 'Add ROI',
+                                               width= '7em',
+                                               height= '3em')
+        self.addroi_button.on_click(self.add_roi)
+        self.clearlast_button = widgets.Button(description= 'Clear Last',
+                                               width= '7em',
+                                               height= '3em')
+        self.clearlast_button.on_click(self.clear_last)
+
+        self.clearall_button = widgets.Button(description= 'Clear All',
+                                              width= '7em',
+                                              height= '3em')
+        self.clearall_button.on_click(self.clear_all)
+
+        self.roi_range_slider = widgets.IntRangeSlider(description= 'ROI z range:',
+                                                       min=0,
+                                                       max=self.npa.shape[0]-1,
+                                                       step=1,
+                                                       value=[0,self.npa.shape[0]-1],
+                                                       width='20em')
+
+        self.slice_slider = widgets.IntSlider(description='image z slice:',
+                                              min=0,
+                                              max=self.npa.shape[0]-1,
+                                              step=1,
+                                              value = int((self.npa.shape[0]-1)/2),
+                                              width='20em')
+        self.slice_slider.observe(self.on_slice_slider_value_change, names='value')
+
+        # Layout of UI components. This is pure ugliness because we are not using a UI toolkit. Layout is done
+        # using the box widget and padding so that the visible UI components are spaced nicely.
+        bx0 = widgets.Box(padding=7, children=[self.slice_slider])
+        bx1 = widgets.Box(padding=7, children = [self.addroi_button])
+        bx2 = widgets.Box(padding = 15, children = [self.clearlast_button])
+        bx3 = widgets.Box(padding = 15, children = [self.clearall_button])
+        bx4 = widgets.Box(padding = 15, children = [self.roi_range_slider])
+        return widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3]),widgets.VBox(children=[bx0,bx4])])
+
+
+    def on_slice_slider_value_change(self, change):
+        self.update_display()
+
+
+    def get_window_level_numpy_array(self, image, window_level):
+        npa = sitk.GetArrayFromImage(image)
+        # We don't take the minimum/maximum values, just in case there are outliers (top/bottom 2%)
+        if not window_level:
+            min_max = np.percentile(npa.flatten(), [2,98])
+            return npa, min_max[0], min_max[1]
+        else:
+            return npa, window_level[1]-window_level[0]/2.0, window_level[1]+window_level[0]/2.0
+
+
+    def update_display(self):
+        # Draw the image and ROIs.
+        # imshow adds an image to the axes, so we also remove the previous one.
+        self.axes.imshow(self.npa[self.slice_slider.value,:,:],
+                         cmap=plt.cm.Greys_r,
+                         vmin=self.min_intensity,
+                         vmax=self.max_intensity)
+        self.axes.images[0].remove()
+        # Iterate over all of the ROIs and only display/undisplay those that are relevant.
+        for roi_data in self.rois:
+            if self.slice_slider.value>= roi_data[3][0] and self.slice_slider.value<= roi_data[3][1]:
+                roi_data[0].set_visible(True)
+            else:
+                roi_data[0].set_visible(False)
+        self.axes.set_title('selected {0} ROIs'.format(len(self.rois)))
+        self.axes.set_axis_off()
+
+        self.fig.canvas.draw_idle()
+
+
+    def add_roi_data(self, roi_data):
+        '''
+        Add regions of interest to this GUI.
+        Input is an iterable containing tuples where each tuple contains
+        three tuples (min_x,max_x),(min_y,max_y), (min_z,max_z). The ROI
+        is the box defined by these integer values and includes
+        both min/max values.
+        '''
+        self.validate_rois(roi_data)
+        for roi in roi_data:
+            self.rois.append((patches.Rectangle((roi[0][0], roi[1][0]),
+                                                 roi[0][1]-roi[0][0],
+                                                 roi[1][1]-roi[1][0],
+                                                 **self.roi_display_properties),
+                              *roi))
+            self.axes.add_patch(self.rois[-1][0])
+        self.update_display()
+
+
+    def set_rois(self, roi_data):
+        '''
+        Clear any existing ROIs and set the display to the given ones.
+        Input is an iterable containing tuples where each tuple contains
+        three tuples (min_x,max_x),(min_y,max_y), (min_z,max_z). The ROI
+        is the box defined by these integer values and includes
+        both min/max values.
+        '''
+        self.clear_all_data()
+        self.add_roi_data(roi_data)
+
+
+    def validate_rois(self, roi_data):
+        for roi in roi_data:
+            # First element in each tuple is expected to be smaller or equal to the second element.
+            if roi[0][0]>roi[0][1] or roi[1][0]>roi[1][1] or roi[2][0]>roi[2][1]:
+                raise ValueError('First element in each tuple is expected to be smaller than second element, error in ROI (' + ', '.join(map(str,roi)) + ').')
+            # Note that SimpleITK uses x-y-z specification vs. numpy's z-y-x
+            if roi[0][0]>=self.npa.shape[2] or roi[0][1]<0 or roi[1][0]>=self.npa.shape[1] or roi[1][1]<0 or roi[2][0]>=self.npa.shape[0] or roi[2][0]<0:
+                raise ValueError('Given ROI (' + ', '.join(map(str,roi)) + ') is outside the image bounds.')
+
+
+    def add_roi(self, button):
+        if self.roi_selector.visible:
+            self.roi_selector.set_visible(False)
+            # Extent is in sub-pixel coordinates, we need it in pixels/voxels.
+            roi_extent = [int(round(coord)) for coord in self.roi_selector.extents]
+            # We keep the patch for display and the x,y,z ranges of the ROI.
+            self.rois.append((patches.Rectangle((roi_extent[0], roi_extent[2]),
+                                   roi_extent[1]-roi_extent[0],
+                                   roi_extent[3]-roi_extent[2],
+                                   **self.roi_display_properties),
+                                   (roi_extent[0],roi_extent[1]),
+                                   (roi_extent[2],roi_extent[3]),
+                                   self.roi_range_slider.value))
+            self.axes.add_patch(self.rois[-1][0])
+            self.update_display()
+
+
+    def clear_all_data(self):
+        for roi_data in self.rois:
+            roi_data[0].remove()
+        del self.rois[:]
+
+
+    def clear_all(self, button):
+        self.clear_all_data()
+        self.update_display()
+
+
+    def clear_last(self, button):
+        if self.rois:
+            self.rois[-1][0].remove()
+            self.rois.pop()
+            self.update_display()
+
+
+    def get_rois(self):
+        '''
+        Return a list of tuples representing the ROIs. Each tuple contains three tuples (min_x,max_x),
+        (min_y,max_y), (min_z,max_z). The ROI is the box defined by these integer values and includes
+        both min/max values.
+        '''
+        return [(roi_data[1],roi_data[2],roi_data[3]) for roi_data in self.rois]
+
+
+    def __call__(self, event):
+        # This is dangerous as we are accessing a "private" variable to find the state
+        # of the figure's toolbar ('ZOOM',PAN' or None). When Zoom or pan are active we will
+        # ignore the button press, once the user deactivates the zoom/pan we can allow them
+        # to select the ROI.
+        # Discussion on stack overflow with matplotlib developer (circa 2013), no change to date:
+        # http://stackoverflow.com/questions/20711148/ignore-matplotlib-cursor-widget-when-toolbar-widget-selected
+        if self.fig.canvas.toolbar._active is None:
+            self.roi_selector.set_visible(True)
+            self.addroi_button.disabled = False
+            self.update_display()
