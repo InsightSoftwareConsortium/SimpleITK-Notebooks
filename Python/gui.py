@@ -612,7 +612,7 @@ class ROIDataAquisition(object):
                                                  roi[0][1]-roi[0][0],
                                                  roi[1][1]-roi[1][0],
                                                  **self.roi_display_properties),
-                              *roi))
+                              roi[0], roi[1], roi[2]))
             self.axes.add_patch(self.rois[-1][0])
         self.update_display()
 
