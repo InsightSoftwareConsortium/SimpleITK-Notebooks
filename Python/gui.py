@@ -70,7 +70,7 @@ class RegistrationPointDataAquisition(object):
                                               step=1, 
                                               value = int((self.fixed_npa.shape[0]-1)/2),
                                               width='20em')
-        self.fixed_slider.on_trait_change(self.update_display,'value')
+        self.fixed_slider.observe(self.on_slice_slider_value_change, names='value')
         
         self.moving_slider = widgets.IntSlider(description='moving image z slice:', 
                                                min=0,
@@ -78,7 +78,7 @@ class RegistrationPointDataAquisition(object):
                                                step=1, 
                                                value = int((self.moving_npa.shape[0]-1)/2),
                                                width='19em')
-        self.moving_slider.on_trait_change(self.update_display,'value')
+        self.moving_slider.observe(self.on_slice_slider_value_change, names='value')
 
         # Layout of UI components. This is pure ugliness because we are not using a UI toolkit. Layout is done
         # using the box widget and padding so that the visible UI components are spaced nicely.
@@ -98,6 +98,9 @@ class RegistrationPointDataAquisition(object):
             return npa, npa.min(), npa.max()
         else:
             return npa, window_level[1]-window_level[0]/2.0, window_level[1]+window_level[0]/2.0 
+
+    def on_slice_slider_value_change(self, change):
+        self.update_display()
 
     def update_display(self):
         """
@@ -269,7 +272,7 @@ class PointDataAquisition(object):
                                               step=1, 
                                               value = int((self.npa.shape[0]-1)/2),
                                               width='20em')
-        self.slice_slider.on_trait_change(self.update_display,'value')
+        self.slice_slider.observe(self.on_slice_slider_value_change, names='value')
         
         # Layout of UI components. This is pure ugliness because we are not using a UI toolkit. Layout is done
         # using the box widget and padding so that the visible UI components are spaced nicely.
@@ -285,6 +288,9 @@ class PointDataAquisition(object):
             return npa, npa.min(), npa.max()
         else:
             return npa, window_level[1]-window_level[0]/2.0, window_level[1]+window_level[0]/2.0 
+ 
+    def on_slice_slider_value_change(self, change):
+        self.update_display()
     
     def update_display(self):
         # We want to keep the zoom factor which was set prior to display, so we log it before
@@ -417,7 +423,7 @@ class MultiImageDisplay(object):
                                       step=1,
                                       value = int((sz-1)/2),
                                       width='20em')
-            slider.on_trait_change(self.update_display,'value')
+            slider.observe(self.on_slice_slider_value_change, names='value')
             self.slider_list = [slider]*len(self.npa_list)
             ui = widgets.Box(padding=7, children=[slider])
         else:
@@ -429,7 +435,7 @@ class MultiImageDisplay(object):
                                            step=1,
                                            value = int((npa.shape[self.axis]-1)/2),
                                            width='20em')
-                slider.on_trait_change(self.update_display,'value')
+                slider.observe(self.on_slice_slider_value_change, names='value')
                 self.slider_list.append(slider)
             ui = widgets.Box(padding=7, children=self.slider_list)
         return ui
@@ -442,6 +448,9 @@ class MultiImageDisplay(object):
         else:
             self.min_intensity_list = list(map(lambda x: x[1]-x[0]/2.0, window_level_list))
             self.max_intensity_list = list(map(lambda x: x[1]+x[0]/2.0, window_level_list))
+
+    def on_slice_slider_value_change(self, change):
+        self.update_display()
 
     def update_display(self):
 
