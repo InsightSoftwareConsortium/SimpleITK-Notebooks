@@ -262,4 +262,6 @@ Args
 lapply
 resamples
 ReadImage
+ROIs
+toolbar
 
