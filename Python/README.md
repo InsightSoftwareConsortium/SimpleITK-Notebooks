@@ -1,49 +1,46 @@
 # SimpleITK Python Notebooks
 
+As of this writing, SimpleITK version >=0.10.0 is required to run these notebooks. This version is available from [Source Forge](http://sourceforge.net/projects/simpleitk/files/SimpleITK/0.10.0/Python/)
 
 ## Setting Up a Python Environment
 
 We recommend setting up a separate Python virtual environment to run through these notebooks as a tutorial.
 
-If you are working with [Anaconda](https://www.continuum.io/) then you can set up the environment (named sitkpy) and install all dependencies and SimpleITK using a single command:
+## Anaconda
+With [Anaconda](https://www.continuum.io/) you can set up a virtual environment, named sitkpy, and install all dependencies including SimpleITK using a single command:
 
     conda env create -f environment.yml
 
-You can then skip the next two steps which deal with a vanilla installation of Python.
 
-### Install Dependencies
+## Plain Python
 
-Under the best of circumstances (tested on OSX 10.8 and 10.7.5, RH6, Ubuntu 12) this environment can be setup with the following:
+Install virtualenv and create the environment called sitkpy.
 
     sudo pip install virtualenv
     virtualenv ~/sitkpy --no-site-packages
+
+Install all of the required packages and SimpleITK, and activate the ipywidgets notebook extension.
+
     ~/sitkpy/bin/pip install -r Python/requirements.txt
+    jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 The requirements.txt file just lists the required packages ([see](requirements.txt)).
 
-### Install SimpleITK
-
-For many common platforms, a binary distribution is available as a Python wheel. This can be downloaded and installed with the following command:
-
-    ~/sitkpy/bin/pip install SimpleITK
-
-
-As of this writing, SimpleITK version >=0.10.0 is required to run these notebooks. This version is available from [Source Forge](http://sourceforge.net/projects/simpleitk/files/SimpleITK/0.10.0/Python/)
 
 ### Downloading Data
 
-The data can be automatically downloaded to the "Data" directory when you execute the notebooks.
+The data is automatically downloaded to the "Data" directory when you execute the notebooks.
 
 Alternatively, to download all the data before hand:
 
     cd SimpleITK-Notebooks
-    ./downloaddata.py Data/ Data/manifest.json
+    Utilities/downloaddata.py Data/ Data/manifest.json
 
-### Run the environment
+### Run the notebooks
 
 To launch:
 
-    cd SimpleITK-Notebooks
+    cd SimpleITK-Notebooks/Python
     ~/sitkpy/bin/jupyter notebook
 
 ### Working offline
