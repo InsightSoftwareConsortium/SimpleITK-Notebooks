@@ -93,7 +93,7 @@ class RegistrationPointDataAquisition(object):
         Get the numpy array representation of the image and the min and max of the intensities
         used for display.
         """
-        npa = sitk.GetArrayFromImage(image)
+        npa = sitk.GetArrayViewFromImage(image)
         if not window_level:
             return npa, npa.min(), npa.max()
         else:
@@ -283,7 +283,7 @@ class PointDataAquisition(object):
         return widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3]),bx0])
         
     def get_window_level_numpy_array(self, image, window_level):
-        npa = sitk.GetArrayFromImage(image)
+        npa = sitk.GetArrayViewFromImage(image)
         if not window_level:
             return npa, npa.min(), npa.max()
         else:
@@ -441,6 +441,9 @@ class MultiImageDisplay(object):
         return ui
 
     def get_window_level_numpy_array(self, image_list, window_level_list):
+        # Using GetArray and not GetArrayView because we don't keep references
+        # to the original images. If they are deleted outside the view would become
+        # invalid, so we use a copy wich guarentees that the gui is consistent.
         self.npa_list = list(map(sitk.GetArrayFromImage, image_list))
         if not window_level_list:
             self.min_intensity_list = list(map(np.min, self.npa_list))
@@ -569,7 +572,7 @@ class ROIDataAquisition(object):
 
 
     def get_window_level_numpy_array(self, image, window_level):
-        npa = sitk.GetArrayFromImage(image)
+        npa = sitk.GetArrayViewFromImage(image)
         # We don't take the minimum/maximum values, just in case there are outliers (top/bottom 2%)
         if not window_level:
             min_max = np.percentile(npa.flatten(), [2,98])

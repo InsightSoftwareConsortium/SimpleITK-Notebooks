@@ -264,4 +264,6 @@ resamples
 ReadImage
 ROIs
 toolbar
+GetArrayFromImage
+GetArrayViewFromImage
 

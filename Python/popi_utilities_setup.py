@@ -71,7 +71,7 @@ def display_coronal_with_overlay(temporal_slice, coronal_slice, images, masks, l
 
     overlay_img = overlay_binary_segmentation_contours(img, msk, window_min, window_max)    
     # Flip the image so that corresponds to correct radiological view.
-    plt.imshow(np.flipud(sitk.GetArrayFromImage(overlay_img)))
+    plt.imshow(np.flipud(sitk.GetArrayViewFromImage(overlay_img)))
     plt.axis('off')
     plt.show()
 
@@ -86,6 +86,6 @@ def display_coronal_with_label_maps_overlay(coronal_slice, mask_index, image, ma
 
     overlay_img = overlay_binary_segmentation_contours(img, msk, window_min, window_max)
     # Flip the image so that corresponds to correct radiological view.
-    plt.imshow(np.flipud(sitk.GetArrayFromImage(overlay_img)))
+    plt.imshow(np.flipud(sitk.GetArrayViewFromImage(overlay_img)))
     plt.axis('off')
     plt.show()
