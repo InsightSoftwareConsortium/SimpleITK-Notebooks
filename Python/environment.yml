@@ -11,4 +11,4 @@ dependencies:
   - numpy
   - scipy
   - pandas
-  - SimpleITK>=0.10.0
+  - SimpleITK>=1.0.0
