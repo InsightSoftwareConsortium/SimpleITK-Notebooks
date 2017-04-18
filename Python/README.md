@@ -1,6 +1,6 @@
 # SimpleITK Python Notebooks
 
-As of this writing, SimpleITK version >=0.10.0 is required to run these notebooks. This version is available from [Source Forge](http://sourceforge.net/projects/simpleitk/files/SimpleITK/0.10.0/Python/)
+As of this writing, SimpleITK version >=1.0.0 is required to run these notebooks. This version is available from [PyPi](https://pypi.python.org/pypi/SimpleITK) and [Source Forge](http://sourceforge.net/projects/simpleitk/files/SimpleITK/1.0.0/Python/).
 
 ## Setting Up a Python Environment
 
