@@ -94,6 +94,33 @@ def generate_random_pointset(image, num_points):
     return [image.TransformContinuousIndexToPhysicalPoint(point_index) \
             for point_index in pointset_list]
 
+def generate_random_pointset_from_mask(image_mask, num_points):
+    """
+    Generate a random set (uniform sample) of points in the given mask domain.
+    Pixel values for the mask are expected to be 1 .
+    Note that the point set is limited to pixel/voxel locations.
+
+    Args:
+        image_mask (SimpleITK.Image): Domain in which points are created, only
+                                      use voxels whose value is equal to 1.
+        num_points (int): Number of points to generate.
+
+    Returns:
+        A list of points (tuples). The number of points is either num_points or
+        less if the number of mask voxels equal to 1 is smaller than num_points.
+    """
+    npa_image_mask = sitk.GetArrayViewFromImage(image_mask)
+    # Get all of the point indexes where the mask is set (we reverse this because numpy works in
+    # z,y,x order)
+    all_point_indexes = np.stack(np.where(npa_image_mask==1)[::-1])
+    random_point_indexes = all_point_indexes[:, np.random.randint(0, all_point_indexes.shape[1],
+                                                                  min(num_points, all_point_indexes.shape[1]))]
+
+    pointset_list = (random_point_indexes.T).tolist()
+    # Get the list of physical points corresponding to the indexes.
+    return [image_mask.TransformContinuousIndexToPhysicalPoint(point_index) \
+            for point_index in pointset_list]
+
 
 def registration_errors(tx, reference_fixed_point_list, reference_moving_point_list, 
                         display_errors = False, min_err= None, max_err=None, figure_size=(8,6)):
