@@ -392,6 +392,10 @@ class Test_notebooks(object):
         self.evaluate_notebook(self.absolute_path_r('33_Segmentation_Thresholding_Edge_Detection.ipynb'), 'ir')
 
     @pytest.mark.r_notebook
+    def test_34_Segmentation_Evaluation_r(self):
+        self.evaluate_notebook(self.absolute_path_r('34_Segmentation_Evaluation.ipynb'), 'ir')
+
+    @pytest.mark.r_notebook
     def test_22_Transforms_r(self):
         self.evaluate_notebook(self.absolute_path_r('22_Transforms.ipynb'), 'ir')
 

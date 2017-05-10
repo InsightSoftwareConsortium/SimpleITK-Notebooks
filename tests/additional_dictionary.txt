@@ -266,4 +266,9 @@ ROIs
 toolbar
 GetArrayFromImage
 GetArrayViewFromImage
-
+frac
+greyscale
+honours
+tidyr
+ggplot
+xtable
