@@ -272,3 +272,9 @@ honours
 tidyr
 ggplot
 xtable
+geq
+vdots
+argmin
+mathbb
+CBCT
+Yaniv
