@@ -211,5 +211,8 @@
  },
  "liverTumorSegmentations/Patient01Homo_Rad03.mha" : {
  "md5sum" : "7a156c16e859d3eeb8ad31f59f4b2d96"
+ },
+ "Control.tif" : {
+ "md5sum" : "52d9a7339118abc7d320113bd8dd9300"
  }
 }
