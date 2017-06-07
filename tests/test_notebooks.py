@@ -396,6 +396,10 @@ class Test_notebooks(object):
         self.evaluate_notebook(self.absolute_path_r('34_Segmentation_Evaluation.ipynb'), 'ir')
 
     @pytest.mark.r_notebook
+    def test_35_Cell_Segmentation_r(self):
+        self.evaluate_notebook(self.absolute_path_r('35_Cell_Segmentation.ipynb'), 'ir')
+
+    @pytest.mark.r_notebook
     def test_22_Transforms_r(self):
         self.evaluate_notebook(self.absolute_path_r('22_Transforms.ipynb'), 'ir')
 
