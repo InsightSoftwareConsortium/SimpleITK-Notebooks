@@ -3,7 +3,14 @@
 
 [SimpleITK](https://itk.org/Wiki/SimpleITK) is an abstraction layer and wrapper around the Insight Segmentation and Registration Toolkit [(ITK)](http://www.itk.org). It is available in the following programming languages: C++, Python, R, Java, C#, Lua, Tcl and Ruby.
 
-This repository contains a collection of Jupyter Notebooks, designed for tutorials and  presentations. The notebooks demonstrate the use of SimpleITK for interactive image analysis using the Python and R programming languages.
+This repository contains a collection of Jupyter Notebooks illustrating the use of SimpleITK for educational and research activities. The notebooks demonstrate the use of SimpleITK for interactive image analysis using the Python and R programming languages.
+
+The repository and its contents can be used for:
+1. Learning SimpleITK.
+2. As a basis for your teaching activities.
+3. As a basis for your research activities.
+
+For the latter two use cases you can take advantage of the the repository's infrastructure which supports remote data downloads and notebook testing. These readily facilitate collaborative research.
 
 The animation below is a visualization of a rigid CT/MR registration process
 created with SimpleITK and Python (the [script](Utilities/intro_animation.py) used to generate the frames for the animated gif is found in the repository's Utilities directory).
