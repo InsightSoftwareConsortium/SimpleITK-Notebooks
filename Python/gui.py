@@ -374,7 +374,7 @@ class PointDataAquisition(object):
 
 class MultiImageDisplay(object):
 
-    def __init__(self, image_list, axis=0, shared_slider=False, title_list=None, window_level_list= None, figure_size=(10,8)):
+    def __init__(self, image_list, axis=0, shared_slider=False, title_list=None, window_level_list= None, figure_size=(10,8), horizontal=True):
 
         self.get_window_level_numpy_array(image_list, window_level_list)
         if title_list:
@@ -387,7 +387,8 @@ class MultiImageDisplay(object):
         self.axis = axis
 
         # Create a figure.
-        self.fig, self.axes = plt.subplots(1,len(image_list),figsize=figure_size)
+        col_num, row_num = (len(image_list), 1)  if horizontal else (1, len(image_list))
+        self.fig, self.axes = plt.subplots(row_num,col_num,figsize=figure_size)
         if len(image_list)==1:
             self.axes = [self.axes]
 
