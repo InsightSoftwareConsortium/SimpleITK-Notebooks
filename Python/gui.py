@@ -381,6 +381,8 @@ class MultiImageDisplay(object):
             if len(image_list)!=len(title_list):
                 raise ValueError('Title list and image list lengths do not match')
             self.title_list = list(title_list)
+        else:
+            self.title_list = ['']*len(image_list)
 
         # Our dynamic slice, based on the axis the user specifies
         self.slc = [slice(None)]*3
