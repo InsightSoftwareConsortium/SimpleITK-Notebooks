@@ -1,0 +1,49 @@
+version: 2
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-2.7
+
+jobs:
+  test-2.7:
+    docker:
+      - image: circleci/python:2.7
+    environment:
+      ExternalData_OBJECT_STORES: /home/circleci/.ExternalData
+      SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: external-data
+
+      - run:
+          name: Data setup (if cache is not empty then symbolic link to it)
+          command: |
+            mkdir -p "${ExternalData_OBJECT_STORES}"
+            if [ ! -z "$(ls -A ${ExternalData_OBJECT_STORES})" ]; then
+              cp -as /home/circleci/.ExternalData/* Data
+            fi
+            python Utilities/downloaddata.py "${ExternalData_OBJECT_STORES}" Data/manifest.json
+
+      - run:
+          name: Setup of Python environment
+          command: |
+            sudo apt-get update; sudo apt-get install enchant
+            sudo pip install virtualenv
+            virtualenv ~/sitkpy --no-site-packages
+            ~/sitkpy/bin/pip install -r requirements_dev.txt
+            ~/sitkpy/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
+
+      - run:
+          name: Activate environment and run the test
+          command: |
+            source ~/sitkpy/bin/activate
+
+      - save_cache:
+          key: external-data
+          paths: 
+            - /home/circleci/.ExternalData
+
