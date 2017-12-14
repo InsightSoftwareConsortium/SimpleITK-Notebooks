@@ -104,7 +104,8 @@ class Test_notebooks(object):
                               '64_Registration_Memory_Time_Tradeoff.ipynb',
                               '65_Registration_FFD.ipynb',
                               '66_Registration_Demons.ipynb',
-                              '67_Registration_Semiautomatic_Homework.ipynb'])
+                              '67_Registration_Semiautomatic_Homework.ipynb',
+                              '70_Data_Augmentation.ipynb'])
     def test_python_notebook(self, notebook_file_name):
        self.evaluate_notebook(self.absolute_path_python(notebook_file_name), 'python')
 
