@@ -42,7 +42,7 @@ jobs:
           name: Activate environment and run the test
           command: |
             source ~/sitkpy/bin/activate
-            ~/sitkpy/bin/pytest -v -m "python_notebook" --tb=short tests/test_notebooks.py
+            ~/sitkpy/bin/pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
 
       - save_cache:
           key: notebook-data-{{ checksum "Data/manifest.json" }}
