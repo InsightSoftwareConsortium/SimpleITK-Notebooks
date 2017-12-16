@@ -5,8 +5,8 @@ workflows:
   test:
     jobs:
       - test-2.7
-      - test-3.4
       - test-3.5
+      - test-3.6
 jobs:
   test-2.7: &test-template
     docker:
@@ -42,19 +42,19 @@ jobs:
           name: Activate environment and run the test
           command: |
             source ~/sitkpy/bin/activate
-            ~/sitkpy/bin/pytest -v -m "python_notebook" --tb=short tests/test_notebooks.py
+            ~/sitkpy/bin/pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
 
       - save_cache:
           key: notebook-data-{{ checksum "Data/manifest.json" }}
           paths: 
             - /home/circleci/.ExternalData
-  test-3.4:
-    <<: *test-template
-    docker:
-      - image: circleci/python:3.4
   test-3.5:
     <<: *test-template
     docker:
       - image: circleci/python:3.5
+  test-3.6:
+    <<: *test-template
+    docker:
+      - image: circleci/python:3.6
 
   
