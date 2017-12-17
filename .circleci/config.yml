@@ -18,7 +18,9 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: notebook-data-{{ checksum "Data/manifest.json" }}
+          keys:
+            - notebook-data-{{ checksum "Data/manifest.json" }}
+            - notebook-data- #use previous cache when the manifest changes
 
       - run:
           name: Data setup (if cache is not empty then symbolic link to it)
