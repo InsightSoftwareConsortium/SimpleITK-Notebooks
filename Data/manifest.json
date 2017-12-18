@@ -214,5 +214,8 @@
  },
  "Control.tif" : {
  "md5sum" : "52d9a7339118abc7d320113bd8dd9300"
+ },
+ "head_mr_oriented.mha" : {
+ "md5sum" : "1a58fc7d994b7013585d1d71b21dbb0a"
  }
 }
