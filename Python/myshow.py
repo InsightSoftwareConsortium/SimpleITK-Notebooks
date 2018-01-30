@@ -5,7 +5,7 @@ from ipywidgets import interact, interactive
 from ipywidgets import widgets
 
 def myshow(img, title=None, margin=0.05, dpi=80 ):
-    nda = sitk.GetArrayViewFromImage(img)
+    nda = sitk.GetArrayFromImage(img)
 
     spacing = img.GetSpacing()
     slicer = False
