@@ -186,6 +186,8 @@ def get_midas_servers():
         # Insight journal data server
         "http://www.insight-journal.org/midas/api/rest?method=midas.bitstream.by.hash&hash=%(hash)"
         ])
+    # Backup data server using raw https
+    midas_servers.append( "https://erie.nlm.nih.gov/SimpleITKNotebooksData/MD5/%(hash)" )
     return midas_servers
 
 
