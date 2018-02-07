@@ -111,7 +111,8 @@ class Test_notebooks(object):
 
 
     @pytest.mark.parametrize('notebook_file_name',
-                             ['Image_Basics.ipynb',
+                             ['00_Setup.ipynb',
+                              'Image_Basics.ipynb',
                               'R_style_image.ipynb',
                               '33_Segmentation_Thresholding_Edge_Detection.ipynb',
                               '34_Segmentation_Evaluation.ipynb',

@@ -1,4 +1,3 @@
-
 ANTSNeighborhoodCorrelation
 Acknowledgements
 AffineTransform
@@ -186,7 +185,9 @@ convergenceMinimumValue
 convergenceWindowSize
 cryosectioning
 cthead
+ctrl
 dataframe
+debugOn
 dev
 disp
 documentclass
@@ -211,6 +212,7 @@ interpolator
 interpolators
 ipywidgets
 jn
+jupyter
 labelForUndecidedPixels
 labelled
 labelling
@@ -228,6 +230,7 @@ multiscale
 myshow
 nD
 nbagg
+nbextension
 np
 num
 numberOfIterations
@@ -294,6 +297,7 @@ transform's
 truediv
 ttest
 tx
+txt
 ty
 usepackage
 vdots
@@ -302,6 +306,7 @@ vertices
 voxel
 voxel's
 voxels
+widgetsnbextension
 wikimedia
 xpixels
 xtable
