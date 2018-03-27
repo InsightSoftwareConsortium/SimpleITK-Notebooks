@@ -93,6 +93,7 @@ class Test_notebooks(object):
                               '32_Watersheds_Segmentation.ipynb',
                               '33_Segmentation_Thresholding_Edge_Detection.ipynb',
                               '34_Segmentation_Evaluation.ipynb',
+                              '35_Segmentation_Shape_Analysis.ipynb',
                               #'41_Progress.ipynb', # This notebook times out when run with nbconvert, due to javascript issues, so not tested.
                               '51_VH_Segmentation1.ipynb',
                               '55_VH_Resample.ipynb',
