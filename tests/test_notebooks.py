@@ -123,7 +123,8 @@ class Test_notebooks(object):
                               '60_Registration_Introduction.ipynb',
                               '61_Registration_Introduction_Continued.ipynb',
                               '65_Registration_FFD.ipynb',
-                              '66_Registration_Demons.ipynb'])
+                              '66_Registration_Demons.ipynb',
+                              '70_Data_Augmentation.ipynb'])
     def test_r_notebook(self, notebook_file_name):
        self.evaluate_notebook(self.absolute_path_r(notebook_file_name), 'ir')
 
