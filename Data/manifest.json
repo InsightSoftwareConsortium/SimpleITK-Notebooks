@@ -217,5 +217,8 @@
  },
  "head_mr_oriented.mha" : {
  "md5sum" : "1a58fc7d994b7013585d1d71b21dbb0a"
+ },
+ "fib_sem_bacillus_subtilis.mha" : {
+     "md5sum" : "0f249f48ee671d79367e831d734840e8"
  }
 }
