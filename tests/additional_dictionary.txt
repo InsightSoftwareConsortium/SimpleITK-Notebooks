@@ -51,6 +51,7 @@ FRE
 FREs
 FastMarchingImageFilter
 FastSymmetricForcesDemonsRegistrationFilter
+FilterName
 FixedParameters
 Flickr
 FlipImageFilter
@@ -60,6 +61,7 @@ GeodesicActiveContour
 GetArrayFromImage
 GetArrayViewFromImage
 GetCenter
+GetHeight
 GetPixel
 Goldfarb
 GradientDescent
@@ -138,6 +140,7 @@ SetOptimizerScalesFromIndexShift
 SetOptimizerScalesFromJacobian
 SetOptimizerScalesFromPhysicalShift
 SetOrigin
+SetParameters
 SetPixel
 SetProbability
 SetScale
@@ -174,7 +177,10 @@ ZYX
 al
 app
 argmin
+atol
 aug
+ay
+az
 behaviour
 booktabs
 bspline
@@ -250,10 +256,13 @@ overfit
 overfitting
 param
 pixelated
+pn
 pre
+prefixi
 pretrained
 py
 pyplot
+qs
 recognised
 resample
 resampled
@@ -295,6 +304,9 @@ supersampling
 sz
 textrm
 tfm
+thetaX
+thetaY
+thetaZ
 ticklabels
 tidyr
 timeit
@@ -306,6 +318,7 @@ ttest
 tx
 txt
 ty
+tz
 usepackage
 vdots
 versor
@@ -313,6 +326,9 @@ vertices
 voxel
 voxel's
 voxels
+vx
+vy
+vz
 widgetsnbextension
 wikimedia
 xpixels
