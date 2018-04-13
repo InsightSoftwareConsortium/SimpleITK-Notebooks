@@ -24,6 +24,9 @@ class RegistrationPointDataAquisition(object):
         self.known_transformation = known_transformation # If the transformation is valid (not None) then corresponding points are automatically added.
         self.text_and_marker_color = 'red'
 
+        ui = self.create_ui()
+        display(ui)
+
         # Create a figure with two axes for the fixed and moving images.        
         self.fig, axes = plt.subplots(1,2,figsize=figure_size)
         #self.fig.canvas.set_window_title('Registration Points Acquisition') 
@@ -32,7 +35,6 @@ class RegistrationPointDataAquisition(object):
         # Connect the mouse button press to the canvas (__call__ method is the invoked callback).
         self.fig.canvas.mpl_connect('button_press_event', self)
 
-        ui = self.create_ui()
         
         # Display the data and the controls, first time we display the images is outside the "update_display" method
         # as that method relies on the previous zoom factor which doesn't exist yet.
@@ -45,7 +47,7 @@ class RegistrationPointDataAquisition(object):
                                 vmin=self.moving_min_intensity,
                                 vmax=self.moving_max_intensity)
         self.update_display()
-        display(ui)
+
     
     def create_ui(self):
         # Create the active UI components. Height and width are specified in 'em' units. This is
@@ -197,7 +199,7 @@ class RegistrationPointDataAquisition(object):
         # We add points only in 'edit' mode. If the spatial transformation between the two images is known, self.known_transformation was set,
         # then every button_press_event will generate a point in each of the images. Finally, we enforce that all points have a corresponding
         # point in the other image by not allowing the user to add multiple points in the same image, they have to add points by switching between
-        # the two images.
+        # the two images.
         if self.viewing_checkbox.value == 'edit':
             if event.inaxes==self.fixed_axes:
                 if len(self.fixed_point_indexes) - len(self.moving_point_indexes)<=0:                            
@@ -420,13 +422,15 @@ class MultiImageDisplay(object):
         self.slc = [slice(None)]*3
         self.axis = axis
 
+        ui = self.create_ui(shared_slider)
+        display(ui)
+
         # Create a figure.
         col_num, row_num = (len(image_list), 1)  if horizontal else (1, len(image_list))
         self.fig, self.axes = plt.subplots(row_num,col_num,figsize=figure_size)
         if len(image_list)==1:
             self.axes = [self.axes]
 
-        ui = self.create_ui(shared_slider)
 
         # Display the data and the controls, first time we display the image is outside the "update_display" method
         # as that method relies on the previous zoom factor which doesn't exist yet.
@@ -438,7 +442,8 @@ class MultiImageDisplay(object):
                       vmin=min_intensity,
                       vmax=max_intensity)
         self.update_display()
-        display(ui)
+        plt.tight_layout()
+
 
     def create_ui(self, shared_slider):
         # Create the active UI components. Height and width are specified in 'em' units. This is

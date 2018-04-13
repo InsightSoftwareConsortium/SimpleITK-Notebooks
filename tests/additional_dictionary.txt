@@ -206,6 +206,7 @@ dataframe
 debugOn
 dev
 disp
+displaystyle
 documentclass
 dropdown
 eikonal
@@ -223,6 +224,7 @@ greyscale
 honours
 iff
 img
+init
 initialNeighborhoodRadius
 inline
 inlined
@@ -255,6 +257,7 @@ numberOfIterations
 numberOfSteps
 numpy
 offline
+optimizerScales
 originalControlPointDisplacements
 originalDisplacements
 otsu
