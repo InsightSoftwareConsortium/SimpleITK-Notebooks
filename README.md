@@ -27,6 +27,26 @@ Note that currently SimpleITK with R is only available on Linux and Mac.
 
 3. Learn the general concepts underlying the implementations of segmentation and registration by reading the ([ITK book](https://itk.org/ItkSoftwareGuide)). The relevant portion is "Book 2: Design and Functionality". The ITK API is significantly different from the SimpleITK one, but the general concepts are the same (e.g. combination of optimizer and similarity metric for registration).     
 
+# Kicking the Tires
+
+Before you clone the repository to your computer you may want to try it out, kick the tires so to speak.
+
+Thanks to the awesome people from the [Binder Project](https://github.com/jupyterhub/binderhub)
+you can try out the Python notebooks without installing a thing.
+
+Some caveats:
+
+1. This free service is currently in beta, so may not always be available.
+2. Some of our notebooks require significant computational
+   resources which may not be available.
+3. All cells that use the sitk.Show() command will generate an exception because they
+   require a Fiji installation. Either ignore this or modify the code
+   for the session.
+
+After you launch binder, go to the Python directory and select the notebook of interest:
+
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/master)
+
 # Contributions from the Community
 
 We encourage contributions from the community!!!
