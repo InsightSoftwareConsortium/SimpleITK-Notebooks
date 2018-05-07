@@ -51,13 +51,13 @@ After you launch binder, go to the Python directory and select the notebook of i
 
 We encourage contributions from the community!!!
 
-1. Report issues you encounter (compatibility/bugs) using the [GitHub issue reporting system](https://guides.github.com/features/issues/).
-2. Contribute:
+1. Ask questions on the [ITK discourse](https://discourse.itk.org/).
+2. Report issues you encounter (compatibility/bugs) using the
+   [GitHub issue reporting system](https://guides.github.com/features/issues/).
+2. Contribute code ([instructions](CONTRIBUTING.md)):
    1. bug fixes.
    2. improved versions of existing notebooks, both text and code.
    3. new notebooks.
-
-Just follow the [standard GitHub workflow](https://guides.github.com/activities/forking/).
 
 # How to Cite
 
