@@ -86,7 +86,7 @@ For the interested readers, the relevant code is found in [setup_for_testing.py]
 
 ## Adding data
 
-Add an entry to the [manifest.json](../Data/manifest.json) file found in the `Data` directory. Each entry consists of the file name which is referenced in the notebook
+Add an entry to the [manifest.json](Data/manifest.json) file found in the `Data` directory. Each entry consists of the file name which is referenced in the notebook
 and the md5 hash number of that file. You can also use an archive file (tar or zip), in which case you need to indicate it as an archive. Archives are automatically unarchived
 after download. For files stored in a MIDAS
 data repository this is all that is needed. Raw urls are also supported with the
