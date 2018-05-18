@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>01_Image_Basics</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>01_Image_Basics</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -13,8 +11,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1109,7 +1107,6 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2538,7 +2535,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3029,7 +3025,6 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8760,6 +8755,9 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
+[dir="rtl"] #ipython_notebook {
+  float: right !important;
+}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8962,8 +8960,14 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
+[dir="rtl"] #tabs li {
+  float: right;
+}
 ul#tabs {
   margin-bottom: 4px;
+}
+[dir="rtl"] ul#tabs {
+  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8986,6 +8990,16 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
+}
+[dir="rtl"] .list_toolbar .tree-buttons {
+  float: left !important;
+}
+[dir="rtl"] .list_toolbar .pull-right {
+  padding-top: 1px;
+  float: left !important;
+}
+[dir="rtl"] .list_toolbar .pull-left {
+  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9122,6 +9136,9 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
+[dir="rtl"] #tree-selector a {
+  float: right;
+}
 #button-select-all {
   min-width: 50px;
 }
@@ -9211,6 +9228,9 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
+[dir="rtl"] #new-menu {
+  text-align: right;
+}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9255,6 +9275,9 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
+}
+[dir="rtl"] #running .col-sm-8 {
+  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9551,6 +9574,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9571,11 +9595,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11246,7 +11265,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 20ex;
+  width: 21ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11558,6 +11577,7 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
+  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11571,6 +11591,9 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
+}
+.terminal-app .terminal .xterm-rows {
+  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11631,8 +11654,10 @@ ul.typeahead-list > li > a {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -11643,9 +11668,11 @@ ul.typeahead-list > li > a {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
 <style type="text/css">
@@ -11699,9 +11726,7 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}
-
-@media print {
+}@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11722,7 +11747,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11746,8 +11771,7 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11774,8 +11798,7 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11800,8 +11823,7 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11839,8 +11861,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11865,7 +11886,11 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Help on Image in module SimpleITK.SimpleITK object:
 
@@ -12206,10 +12231,12 @@ class Image(builtins.object)
  |  __div__(self, other)
  |  
  |  __eq__(self, other)
+ |      Return self==value.
  |  
  |  __floordiv__(self, other)
  |  
  |  __ge__(self, other)
+ |      Return self&gt;=value.
  |  
  |  __getattr__ lambda self, name
  |  
@@ -12236,6 +12263,7 @@ class Image(builtins.object)
  |      one argument being an integer instead of a slice.
  |  
  |  __gt__(self, other)
+ |      Return self&gt;value.
  |  
  |  __iadd__(self, other)
  |      # NOTE: the __i*__ methods are not implemented because there
@@ -12255,16 +12283,19 @@ class Image(builtins.object)
  |  __iter__(self)
  |  
  |  __le__(self, other)
+ |      Return self&lt;=value.
  |  
  |  __len__(self)
  |  
  |  __lt__(self, other)
+ |      Return self&lt;value.
  |  
  |  __mod__(self, other)
  |  
  |  __mul__(self, other)
  |  
  |  __ne__(self, other)
+ |      Return self!=value.
  |  
  |  __neg__(self)
  |  
@@ -12341,8 +12372,7 @@ class Image(builtins.object)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12371,7 +12401,11 @@ class Image(builtins.object)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>(256, 128, 64)
 (0.0, 0.0, 0.0)
@@ -12386,8 +12420,7 @@ class Image(builtins.object)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12415,7 +12448,11 @@ class Image(builtins.object)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>256
 128
@@ -12428,8 +12465,7 @@ class Image(builtins.object)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12456,7 +12492,11 @@ class Image(builtins.object)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>3
 2
@@ -12469,8 +12509,7 @@ class Image(builtins.object)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12496,7 +12535,11 @@ class Image(builtins.object)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>(32, 32)
 0
@@ -12508,8 +12551,7 @@ class Image(builtins.object)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12535,7 +12577,11 @@ class Image(builtins.object)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>2
 (128, 128)
@@ -12563,7 +12609,11 @@ class Image(builtins.object)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>3
 </pre>
@@ -12574,8 +12624,7 @@ class Image(builtins.object)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12598,8 +12647,7 @@ class Image(builtins.object)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12624,7 +12672,11 @@ class Image(builtins.object)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Help on method GetPixel in module SimpleITK.SimpleITK:
 
@@ -12660,7 +12712,11 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>0
 1
@@ -12690,7 +12746,11 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1
 10
@@ -12702,8 +12762,7 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12728,7 +12787,11 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[[[10  0  0 ...,  0  0  0]
   [ 0  0  0 ...,  0  0  0]
@@ -12802,7 +12865,11 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Help on function GetArrayFromImage in module SimpleITK.SimpleITK:
 
@@ -12851,7 +12918,11 @@ GetArrayFromImage(image)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[17]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12880,7 +12951,11 @@ GetArrayFromImage(image)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Help on function GetImageFromArray in module SimpleITK.SimpleITK:
 
@@ -12912,12 +12987,16 @@ GetImageFromArray(arr, isVector=False)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>VectorImage (0x1041674b0)
+<pre>VectorImage (0x7feeb0787820)
   RTTI typeinfo:   itk::VectorImage&lt;unsigned char, 2u&gt;
   Reference Count: 1
-  Modified Time: 799
+  Modified Time: 803
   Debug: Off
   Object Name: 
   Observers: 
@@ -12962,15 +13041,15 @@ GetImageFromArray(arr, isVector=False)
 
   VectorLength: 3
   PixelContainer: 
-    ImportImageContainer (0x10b516720)
+    ImportImageContainer (0x7feeb07879f0)
       RTTI typeinfo:   itk::ImportImageContainer&lt;unsigned long, unsigned char&gt;
       Reference Count: 1
-      Modified Time: 800
+      Modified Time: 804
       Debug: Off
       Object Name: 
       Observers: 
         none
-      Pointer: 0x102490800
+      Pointer: 0x7feeafb63600
       Container manages memory: true
       Size: 49152
       Capacity: 49152
@@ -12983,13 +13062,11 @@ GetImageFromArray(arr, isVector=False)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-order-of-index-and-dimensions-need-careful-attention-during-conversion">The order of index and dimensions need careful attention during conversion<a class="anchor-link" href="#The-order-of-index-and-dimensions-need-careful-attention-during-conversion">&#182;</a></h2><p>ITK's Image class does not have a bracket operator. It has a GetPixel which takes an ITK Index object as an argument, which is an array ordered as <code>(x,y,z)</code>. This is the convention that SimpleITK's Image class uses for the GetPixel method as well.</p>
-<p>While in numpy, an array is indexed in the opposite order <code>(z,y,x)</code>.</p>
+<h2 id="The-order-of-index-and-dimensions-need-careful-attention-during-conversion">The order of index and dimensions need careful attention during conversion<a class="anchor-link" href="#The-order-of-index-and-dimensions-need-careful-attention-during-conversion">&#182;</a></h2><p>ITK's Image class does not have a bracket operator. It has a GetPixel which takes an ITK Index object as an argument, which is ordered as <code>(x,y,z)</code>. This is the convention that SimpleITK's Image class uses for the GetPixel method and slicing operator as well. In numpy, an array is indexed in the <strong>opposite</strong> order <code>(z,y,x)</code>. Also note that the access to channels is different. In SimpleITK you do not access the channel directly, rather the pixel value representing all channels for the specific pixel is returned and you then access the channel for that pixel. In the numpy array you are accessing the channel directly.</p>
 
 </div>
 </div>
@@ -12999,9 +13076,22 @@ GetImageFromArray(arr, isVector=False)
 <div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">GetSize</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">nda</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">nda</span><span class="o">.</span><span class="n">shape</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">multi_channel_3Dimage</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">Image</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span> <span class="n">sitk</span><span class="o">.</span><span class="n">sitkVectorFloat32</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">multi_channel_3Dimage</span><span class="o">.</span><span class="n">GetWidth</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">multi_channel_3Dimage</span><span class="o">.</span><span class="n">GetHeight</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">multi_channel_3Dimage</span><span class="o">.</span><span class="n">GetDepth</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">multi_channel_3Dimage</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">multi_channel_3Dimage</span><span class="o">.</span><span class="n">GetNumberOfComponentsPerPixel</span><span class="p">())</span>
+
+<span class="n">nda</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">(</span><span class="n">multi_channel_3Dimage</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Image size: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">multi_channel_3Dimage</span><span class="o">.</span><span class="n">GetSize</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Numpy array size: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nda</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+<span class="c1"># Notice the index order and channel access are different:</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First channel value in image: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">multi_channel_3Dimage</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First channel value in numpy array: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nda</span><span class="p">[</span><span class="n">z</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
 </pre></div>
 
 </div>
@@ -13012,11 +13102,16 @@ GetImageFromArray(arr, isVector=False)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(128, 128)
-(128, 128, 3)
-(3, 128, 128)
+<pre>Image size: (2, 4, 8)
+Numpy array size: (8, 4, 2, 5)
+First channel value in image: 0.878961443901062
+First channel value in numpy array: 0.878961
 </pre>
 </div>
 </div>
@@ -13025,8 +13120,7 @@ GetImageFromArray(arr, isVector=False)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13061,8 +13155,7 @@ GetImageFromArray(arr, isVector=False)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13103,80 +13196,91 @@ GetImageFromArray(arr, isVector=False)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[24]:</div>
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[24]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.image.AxesImage at 0x1180de6a0&gt;</pre>
+<pre>&lt;matplotlib.image.AxesImage at 0x10dd39b00&gt;</pre>
 </div>
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,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
-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
-AElFTkSuQmCC
+AAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMS4wLCBo
+dHRwOi8vbWF0cGxvdGxpYi5vcmcvpW3flQAADWhJREFUeJzt3X/sXXV9x/Hna20pA2VQENK1ZJSl
+2cbMNppvkA1DjN0mVGNZIknNMhvXpFmCG84to4w/8E/ZD91MNpJOmHUhIKkYyMI2a4cx+4NKQQRK
+hVZw8LUdxQhINClF3/vjns7vmu+P9p57e+unz0fyzTnncz/n3vf55Hxf33M/33tzUlVIktr1M5Mu
+QJI0Xga9JDXOoJekxhn0ktQ4g16SGmfQS1Ljxhb0Sa5J8kyS/Um2jOt1JEnzyzg+R59kEfAs8DvA
+NPAI8MGqenrkLyZJmte4ruivAPZX1XNV9QZwD7B+TK8lSZrH4jE97wrgxRnb08A75up8wbJF9cYr
+PzemUiSpTa/zyner6m0L9RtX0GeWtv83R5RkM7AZ4EzO4p1ZO6ZSJKlNX67t/308/cY1dTMNXDxj
+eyVwYGaHqtpaVVNVNbWEpWMqQ5I0rqB/BFidZFWSM4ANwANjei1J0jzGMnVTVW8m+QjwH8Ai4M6q
+2jOO15IkzW9cc/RU1YPAg+N6fknS8fGbsZLUOINekhpn0EtS4wx6SWqcQS9JjTPoJalxBr0kNc6g
+l6TGGfSS1DiDXpIaZ9BLUuMMeklqnEEvSY0z6CWpcQa9JDXOoJekxhn0ktQ4g16SGjd00Ce5OMlD
+SfYm2ZPkxq59WZIdSfZ1y/NGV64k6UT1uaJ/E/izqvoV4ErghiSXAVuAnVW1GtjZbUuSJmTooK+q
+g1X1WLf+OrAXWAGsB7Z13bYB1/UtUpI0vJHM0Se5BLgc2AVcVFUHYfDHALhwjn02J9mdZPcRDo+i
+DEnSLHoHfZK3AF8APlpV3z/e/apqa1VNVdXUEpb2LUOSNIdeQZ9kCYOQv6uq7uuaX0qyvHt8OXCo
+X4mSpD76fOomwB3A3qr65IyHHgA2dusbgfuHL0+S1NfiHvteBfwB8GSSx7u2vwQ+AdybZBPwAnB9
+vxIlSX0MHfRV9V9A5nh47bDPK0kaLb8ZK0mNM+glqXEGvSQ1zqCXpMYZ9JLUOINekhpn0EtS4wx6
+SWqcQS9JjTPoJalxBr0kNc6gl6TGGfSS1DiDXpIaZ9BLUuMMeklqnEEvSY3rHfRJFiX5epJ/7bZX
+JdmVZF+Szyc5o3+ZkqRhjeKK/kZg74zt24BPVdVq4BVg0wheQ5I0pF5Bn2Ql8F7gM912gHcD27su
+24Dr+ryGJKmfvlf0fwf8BfDjbvt84NWqerPbngZWzLZjks1JdifZfYTDPcuQJM1l6KBP8j7gUFU9
+OrN5lq412/5VtbWqpqpqaglLhy1DkrSAxT32vQp4f5J1wJnAOQyu8M9Nsri7ql8JHOhfpiRpWENf
+0VfVzVW1sqouATYA/1lVvw88BHyg67YRuL93lZKkoY3jc/Q3AR9Lsp/BnP0dY3gNSdJx6jN183+q
+6ivAV7r154ArRvG8kqT+/GasJDXOoJekxhn0ktQ4g16SGmfQS1LjDHpJapxBL0mNM+glqXEGvSQ1
+zqCXpMYZ9JLUOINekhpn0EtS4wx6SWqcQS9JjTPoJalxBr0kNa5X0Cc5N8n2JN9MsjfJbyZZlmRH
+kn3d8rxRFStJOnF9r+j/Hvj3qvpl4NeBvcAWYGdVrQZ2dtuSpAkZOuiTnANcTXfz76p6o6peBdYD
+27pu24Dr+hYpSRpenyv6S4GXgX9O8vUkn0lyNnBRVR0E6JYXjqBOSdKQ+gT9YmANcHtVXQ78gBOY
+pkmyOcnuJLuPcLhHGZKk+fQJ+mlguqp2ddvbGQT/S0mWA3TLQ7PtXFVbq2qqqqaWsLRHGZKk+Qwd
+9FX1P8CLSX6pa1oLPA08AGzs2jYC9/eqUJLUy+Ke+/8xcFeSM4DngA8z+ONxb5JNwAvA9T1fQ5LU
+Q6+gr6rHgalZHlrb53klSaPjN2MlqXEGvSQ1zqCXpMYZ9JLUOINekhpn0EtS4wx6SWqcQS9JjTPo
+JalxBr0kNc6gl6TGGfSS1DiDXpIaZ9BLUuMMeklqnEEvSY0z6CWpcb2CPsmfJtmT5Kkkdyc5M8mq
+JLuS7Evy+e42g5KkCRk66JOsAP4EmKqqtwOLgA3AbcCnqmo18AqwaRSFSpKG03fqZjHws0kWA2cB
+B4F3A9u7x7cB1/V8DUlSD0MHfVV9B/gb4AUGAf8a8CjwalW92XWbBlb0LVKSNLw+UzfnAeuBVcDP
+A2cD187StebYf3OS3Ul2H+HwsGVIkhbQZ+rmt4Hnq+rlqjoC3Af8FnBuN5UDsBI4MNvOVbW1qqaq
+amoJS3uUIUmaT5+gfwG4MslZSQKsBZ4GHgI+0PXZCNzfr0RJUh995uh3Mfin62PAk91zbQVuAj6W
+ZD9wPnDHCOqUJA1p8cJd5lZVtwK3HtP8HHBFn+eVJI2O34yVpMYZ9JLUOINekhpn0EtS4wx6SWqc
+QS9JjTPoJalxBr0kNc6gl6TGGfSS1DiDXpIaZ9BLUuMMeklqnEEvSY0z6CWpcQa9JDXOoJekxi0Y
+9EnuTHIoyVMz2pYl2ZFkX7c8r2tPkk8n2Z/kiSRrxlm8JGlhx3NF/1ngmmPatgA7q2o1sLPbBrgW
+WN39bAZuH02ZkqRhLRj0VfVV4HvHNK8HtnXr24DrZrR/rgYeBs5NsnxUxUqSTtywc/QXVdVBgG55
+Yde+AnhxRr/prk2SNCGLR/x8maWtZu2YbGYwvcOZnDXiMiRJRw17Rf/S0SmZbnmoa58GLp7RbyVw
+YLYnqKqtVTVVVVNLWDpkGZKkhQwb9A8AG7v1jcD9M9o/1H365krgtaNTPJKkyVhw6ibJ3cC7gAuS
+TAO3Ap8A7k2yCXgBuL7r/iCwDtgP/BD48BhqliSdgAWDvqo+OMdDa2fpW8ANfYuSJI2O34yVpMYZ
+9JLUOINekhpn0EtS4wx6SWqcQS9JjTPoJalxBr0kNc6gl6TGGfSS1DiDXpIaZ9BLUuMMeklqnEEv
+SY0z6CWpcQa9JDXOoJekxi0Y9EnuTHIoyVMz2v46yTeTPJHki0nOnfHYzUn2J3kmyXvGVbgk6fgc
+zxX9Z4FrjmnbAby9qn4NeBa4GSDJZcAG4Fe7ff4xyaKRVStJOmELBn1VfRX43jFtX6qqN7vNh4GV
+3fp64J6qOlxVzzO4SfgVI6xXknSCRjFH/4fAv3XrK4AXZzw23bVJkiZkcZ+dk9wCvAncdbRplm41
+x76bgc0AZ3JWnzIkSfMYOuiTbATeB6ytqqNhPg1cPKPbSuDAbPtX1VZgK8A5WTbrHwNJUn9DTd0k
+uQa4CXh/Vf1wxkMPABuSLE2yClgNfK1/mZKkYS14RZ/kbuBdwAVJpoFbGXzKZimwIwnAw1X1R1W1
+J8m9wNMMpnRuqKofjat4SdLC8pNZl8k5J8vqHVk76TIk6afKl2v7o1U1tVA/vxkrSY0z6CWpcQa9
+JDXOoJekxhn0ktS4U+JTN0leBn4AfHfStUzYBTgG4DiAYwCOwVHzjcMvVNXbFnqCUyLoAZLsPp6P
+CbXMMRhwHBwDcAyOGsU4OHUjSY0z6CWpcadS0G+ddAGnAMdgwHFwDMAxOKr3OJwyc/SSpPE4la7o
+JUljMPGgT3JNdyPx/Um2TLqekynJt5M8meTxJLu7tmVJdiTZ1y3Pm3SdozTHzeZnPeYMfLo7N55I
+smZylY/WHOPw8STf6c6Hx5Osm/HYzd04PJPkPZOperSSXJzkoSR7k+xJcmPXftqcD/OMwWjPhaqa
+2A+wCPgWcClwBvAN4LJJ1nSSj//bwAXHtP0VsKVb3wLcNuk6R3zMVwNrgKcWOmZgHYPbVAa4Etg1
+6frHPA4fB/58lr6Xdb8bS4FV3e/MokkfwwjGYDmwplt/K/Bsd6ynzfkwzxiM9FyY9BX9FcD+qnqu
+qt4A7mFwg/HT2XpgW7e+DbhugrWMXM1ys3nmPub1wOdq4GHg3CTLT06l4zXHOMxlPXBPVR2uqueB
+/Qx+d36qVdXBqnqsW38d2MvgHtOnzfkwzxjMZahzYdJBf7rfTLyALyV5tLuHLsBFVXUQBicBcOHE
+qjt55jrm0/H8+Eg3LXHnjGm75schySXA5cAuTtPz4ZgxgBGeC5MO+uO+mXijrqqqNcC1wA1Jrp50
+QaeY0+38uB34ReA3gIPA33btTY9DkrcAXwA+WlXfn6/rLG1NjMMsYzDSc2HSQX/cNxNvUVUd6JaH
+gC8yeAv20tG3o93y0OQqPGnmOubT6vyoqpeq6kdV9WPgn/jJW/JmxyHJEgYBd1dV3dc1n1bnw2xj
+MOpzYdJB/wiwOsmqJGcAGxjcYLx5Sc5O8taj68DvAk8xOP6NXbeNwP2TqfCkmuuYHwA+1H3a4krg
+taNv6Vt0zHzz7zE4H2AwDhuSLE2yClgNfO1k1zdqGdxw+g5gb1V9csZDp835MNcYjPxcOAX+67yO
+wX+avwXcMul6TuJxX8rgv+ffAPYcPXbgfGAnsK9bLpt0rSM+7rsZvBU9wuDqZNNcx8zgbeo/dOfG
+k8DUpOsf8zj8S3ecT3S/0Mtn9L+lG4dngGsnXf+IxuCdDKYdngAe737WnU7nwzxjMNJzwW/GSlLj
+Jj11I0kaM4Nekhpn0EtS4wx6SWqcQS9JjTPoJalxBr0kNc6gl6TG/S9toxLEiNgFHQAAAABJRU5E
+rkJggg==
 "
 >
 </div>
@@ -13190,4 +13294,8 @@ AElFTkSuQmCC
     </div>
   </div>
 </body>
+
+ 
+
+
 </html>

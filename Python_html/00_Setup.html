@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>00_Setup</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>00_Setup</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -13,8 +11,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1109,7 +1107,6 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2538,7 +2535,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3029,7 +3025,6 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8760,6 +8755,9 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
+[dir="rtl"] #ipython_notebook {
+  float: right !important;
+}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8962,8 +8960,14 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
+[dir="rtl"] #tabs li {
+  float: right;
+}
 ul#tabs {
   margin-bottom: 4px;
+}
+[dir="rtl"] ul#tabs {
+  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8986,6 +8990,16 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
+}
+[dir="rtl"] .list_toolbar .tree-buttons {
+  float: left !important;
+}
+[dir="rtl"] .list_toolbar .pull-right {
+  padding-top: 1px;
+  float: left !important;
+}
+[dir="rtl"] .list_toolbar .pull-left {
+  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9122,6 +9136,9 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
+[dir="rtl"] #tree-selector a {
+  float: right;
+}
 #button-select-all {
   min-width: 50px;
 }
@@ -9211,6 +9228,9 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
+[dir="rtl"] #new-menu {
+  text-align: right;
+}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9255,6 +9275,9 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
+}
+[dir="rtl"] #running .col-sm-8 {
+  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9551,6 +9574,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9571,11 +9595,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11246,7 +11265,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 20ex;
+  width: 21ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11558,6 +11577,7 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
+  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11571,6 +11591,9 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
+}
+.terminal-app .terminal .xterm-rows {
+  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11631,8 +11654,10 @@ ul.typeahead-list > li > a {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -11643,9 +11668,11 @@ ul.typeahead-list > li > a {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
 <style type="text/css">
@@ -11699,9 +11726,7 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}
-
-@media print {
+}@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11722,7 +11747,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11746,13 +11771,27 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 align="center">Testing SimpleITK Setup</h1><p>Check that SimpleITK and auxiliary program(s) are correctly installed in your environment, and that you have the SimpleITK version which you expect (<b>requires network connectivity</b>).</p>
+<h1 align="center">Welcome to SimpleITK Jupyter Notebooks</h1><h2 id="Newcomers-to-Jupyter-Notebooks:">Newcomers to Jupyter Notebooks:<a class="anchor-link" href="#Newcomers-to-Jupyter-Notebooks:">&#182;</a></h2><ol>
+<li>We use two types of cells, code and markdown.</li>
+<li>To run a code cell, select it (mouse or arrow key so that it is highlighted) and then press shift+enter which also moves focus to the next cell or ctrl+enter which doesn't.</li>
+<li>Closing the browser window does not close the Jupyter server. To close the server, go to the terminal where you ran it and press ctrl+c twice.</li>
+</ol>
+<p>For additional details see the <a href="https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/index.html">Jupyter Notebook Quick Start Guide</a>.</p>
+<h2 id="SimpleITK-Environment-Setup">SimpleITK Environment Setup<a class="anchor-link" href="#SimpleITK-Environment-Setup">&#182;</a></h2><p>Check that SimpleITK and auxiliary program(s) are correctly installed in your environment, and that you have the SimpleITK version which you expect (<b>requires network connectivity</b>).</p>
 <p>You can optionally download all of the data used in the notebooks in advance. This step is only necessary if you expect to run the notebooks without network connectivity.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The following cell checks that all expected packages are installed.</p>
 
 </div>
 </div>
@@ -11762,78 +11801,26 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">SimpleITK</span> <span class="k">as</span> <span class="nn">sitk</span>
-
-<span class="o">%</span><span class="k">run</span> update_path_to_download_script
-<span class="kn">from</span> <span class="nn">downloaddata</span> <span class="k">import</span> <span class="n">fetch_data</span><span class="p">,</span> <span class="n">fetch_data_all</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">Version</span><span class="p">())</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>SimpleITK Version: 1.0.0 (ITK 4.11)
-Compiled: Apr  7 2017 13:57:13
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The following cell checks that all expected packages and correct versions are installed. SimpleITK may possibly work with other versions of these packages, but these are the ones we rely on.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">importlib</span>
 <span class="kn">from</span> <span class="nn">distutils.version</span> <span class="k">import</span> <span class="n">LooseVersion</span>
 
-<span class="n">required_packages</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;IPython&#39;</span> <span class="p">:</span> <span class="s1">&#39;4.0.0&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;numpy&#39;</span> <span class="p">:</span> <span class="s1">&#39;1.9.2&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;matplotlib&#39;</span> <span class="p">:</span> <span class="s1">&#39;1.4.2&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;ipywidgets&#39;</span> <span class="p">:</span> <span class="s1">&#39;4.0.x&#39;</span> 
+<span class="c1"># check that all packages are installed (see requirements.txt file)</span>
+<span class="n">required_packages</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;jupyter&#39;</span><span class="p">,</span> 
+                     <span class="s1">&#39;numpy&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;ipywidgets&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;scipy&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;pandas&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;SimpleITK&#39;</span>
                     <span class="p">}</span>
 
 <span class="n">problem_packages</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 <span class="c1"># Iterate over the required packages: If the package is not installed</span>
-<span class="c1"># ignore the exception. If it is installed check the version and remove</span>
-<span class="c1"># from dictionary. In the end the dictionary contains the packages</span>
-<span class="c1"># that are not installed.</span>
-<span class="k">for</span> <span class="n">package</span><span class="p">,</span> <span class="n">required_version</span> <span class="ow">in</span> <span class="n">required_packages</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="c1"># ignore the exception. </span>
+<span class="k">for</span> <span class="n">package</span> <span class="ow">in</span> <span class="n">required_packages</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">p</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>        
-        <span class="c1"># Current release of ipywidgets has a bug with the __version__</span>
-        <span class="c1"># attribute. This was fixed in master, so for now we do not</span>
-        <span class="c1"># check ipywidgets version.</span>
-        <span class="k">if</span> <span class="n">package</span> <span class="o">!=</span> <span class="s1">&#39;ipywidgets&#39;</span><span class="p">:</span>
-            <span class="n">installed_version</span> <span class="o">=</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-            <span class="n">required_version</span> <span class="o">=</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">required_version</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">installed_version</span> <span class="o">&lt;</span> <span class="n">required_version</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> - required version: </span><span class="si">{1}</span><span class="s1"> installed version: </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">p</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">required_version</span><span class="p">,</span> <span class="n">installed_version</span><span class="p">))</span>
-                <span class="n">problem_packages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>    
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
         <span class="n">problem_packages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
     
@@ -11852,7 +11839,11 @@ Compiled: Apr  7 2017 13:57:13
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>All is well.
 </pre>
@@ -11863,12 +11854,51 @@ Compiled: Apr  7 2017 13:57:13
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">SimpleITK</span> <span class="k">as</span> <span class="nn">sitk</span>
+
+<span class="o">%</span><span class="k">run</span> update_path_to_download_script
+<span class="kn">from</span> <span class="nn">downloaddata</span> <span class="k">import</span> <span class="n">fetch_data</span><span class="p">,</span> <span class="n">fetch_data_all</span>
+
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="n">interact</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">Version</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>SimpleITK Version: 1.1.0 (ITK 4.13)
+Compiled: Mar 22 2018 15:26:38
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We expect that you have an external image viewer installed. The default viewer is <a href="http://imagej.net/Welcome">ImageJ</a>. If you have another viewer (i.e. ITK-SNAP or 3D Slicer) you will need to set an environment variable to point to it. This can be done from within a notebook as shown below.</p>
+<p>We expect that you have an external image viewer installed. The default viewer is <a href="https://fiji.sc/#download">Fiji</a>. If you have another viewer (i.e. ITK-SNAP or 3D Slicer) you will need to set an environment variable to point to it. This can be done from within a notebook as shown below.</p>
 
 </div>
 </div>
@@ -11881,8 +11911,12 @@ Compiled: Apr  7 2017 13:57:13
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Uncomment the line below to change the default external viewer to your viewer of choice and test that it works.</span>
 <span class="c1">#%env SITK_SHOW_COMMAND /Applications/ITK-SNAP.app/Contents/MacOS/ITK-SNAP </span>
 
-<span class="c1"># Retrieve an image from the network, read it and display using the external viewer</span>
-<span class="n">sitk</span><span class="o">.</span><span class="n">Show</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">ReadImage</span><span class="p">(</span><span class="n">fetch_data</span><span class="p">(</span><span class="s2">&quot;SimpleITK.jpg&quot;</span><span class="p">)))</span>
+<span class="c1"># Retrieve an image from the network, read it and display using the external viewer. </span>
+<span class="c1"># The show method will also set the display window&#39;s title and by setting debugOn to True, </span>
+<span class="c1"># will also print information with respect to the command it is attempting to invoke.</span>
+<span class="c1"># NOTE: The debug information is printed to the terminal from which you launched the notebook</span>
+<span class="c1">#       server.</span>
+<span class="n">sitk</span><span class="o">.</span><span class="n">Show</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">ReadImage</span><span class="p">(</span><span class="n">fetch_data</span><span class="p">(</span><span class="s2">&quot;SimpleITK.jpg&quot;</span><span class="p">)),</span> <span class="s2">&quot;SimpleITK Logo&quot;</span><span class="p">,</span> <span class="n">debugOn</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11893,7 +11927,11 @@ Compiled: Apr  7 2017 13:57:13
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fetching SimpleITK.jpg
 </pre>
@@ -11904,8 +11942,60 @@ Compiled: Apr  7 2017 13:57:13
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we check that the ipywidgets will display correctly. When you run the following cell you should see a slider.</p>
+<p>If you don't see a slider please shutdown the Jupyter server, at the command line prompt press Control-c twice, and then run the following command:</p>
+<p><code>jupyter nbextension enable --py --sys-prefix widgetsnbextension</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">interact</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">));</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="0fd7d6bc-6b3c-40a5-874e-b45bbe881dd7"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#0fd7d6bc-6b3c-40a5-874e-b45bbe881dd7');
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "0f7b4f0cab5045f883287d1b5ea7a383", "version_major": 2, "version_minor": 0}
+</script>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11916,7 +12006,7 @@ Compiled: Apr  7 2017 13:57:13
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fetch_data_all</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Data&#39;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span><span class="s1">&#39;manifest.json&#39;</span><span class="p">))</span>
@@ -11930,63 +12020,69 @@ Compiled: Apr  7 2017 13:57:13
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Fetching ct_T1.standard
-Fetching POPI/masks/50-air-body-lungs.mhd
-Fetching SimpleITK.jpg
-Fetching B1_fixed_B2_moving0GenericAffine.mat
-Fetching POPI/masks/80-air-body-lungs.mhd
-Fetching POPI/masks/10-air-body-lungs.mhd
-Fetching Control.tif
-Fetching liverTumorSegmentations/Patient01Homo_Rad03.mha
-Fetching CIRS057A_MR_CT_DICOM/readme.txt
-Fetching training_001_mr_T1.mha
-Fetching POPI/masks/30-air-body-lungs.mhd
-Fetching 2th_cthead1.png
-Fetching POPI/meta/40-P.mhd
-Fetching POPI/landmarks/20-Landmarks.pts
-Fetching nac-hncma-atlas2013-Slicer4Version/Data/A1_grayT2.nrrd
-Fetching liverTumorSegmentations/Patient01Homo_Rad02.mha
-Fetching POPI/masks/40-air-body-lungs.mhd
-Fetching POPI/meta/00-P.mhd
-Fetching POPI/masks/20-air-body-lungs.mhd
-Fetching B2.tiff
-Fetching POPI/meta/20-P.mhd
-Fetching POPI/landmarks/10-Landmarks.pts
-Fetching POPI/landmarks/40-Landmarks.pts
-Fetching POPI/meta/60-P.mhd
-Fetching a_vm1108.png
-Fetching POPI/meta/50-P.mhd
-Fetching POPI/meta/90-P.mhd
-Fetching POPI/masks/90-air-body-lungs.mhd
-Fetching vm_head_mri.mha
-Fetching POPI/meta/30-P.mhd
-Fetching B1.tiff
-Fetching POPI/landmarks/60-Landmarks.pts
-Fetching POPI/meta/10-P.mhd
-Fetching POPI/landmarks/50-Landmarks.pts
-Fetching POPI/meta/70-P.mhd
-Fetching liverTumorSegmentations/Patient01Homo.mha
-Fetching POPI/landmarks/00-Landmarks.pts
-Fetching liverTumorSegmentations/Patient01Homo_Rad01.mha
-Fetching cthead1.png
-Fetching POPI/landmarks/70-Landmarks.pts
-Fetching POPI/masks/60-air-body-lungs.mhd
-Fetching B1_fixed_B2_movingComposite.h5
-Fetching POPI/masks/00-air-body-lungs.mhd
-Fetching nac-hncma-atlas2013-Slicer4Version/Data/hncma-atlas.nrrd
-Fetching POPI/masks/70-air-body-lungs.mhd
-Fetching POPI/landmarks/90-Landmarks.pts
-Fetching coins.png
-Fetching POPI/landmarks/30-Landmarks.pts
-Fetching nac-hncma-atlas2013-Slicer4Version/Data/A1_grayT1.nrrd
-Fetching training_001_ct.mha
+<pre>Fetching cthead1.png
 Fetching VM1111Shrink-RGB.png
-Fetching POPI/meta/80-P.mhd
-Fetching spherical_fiducials.mha
+Fetching 2th_cthead1.png
+Fetching nac-hncma-atlas2013-Slicer4Version/Data/A1_grayT1.nrrd
+Fetching nac-hncma-atlas2013-Slicer4Version/Data/A1_grayT2.nrrd
+Fetching nac-hncma-atlas2013-Slicer4Version/Data/hncma-atlas.nrrd
+Fetching B1.tiff
+Fetching B2.tiff
+Fetching B1_fixed_B2_moving0GenericAffine.mat
+Fetching B1_fixed_B2_movingComposite.h5
+Fetching coins.png
+Fetching a_vm1108.png
 Fetching vm_head_rgb.mha
+Fetching vm_head_mri.mha
+Fetching training_001_ct.mha
+Fetching training_001_mr_T1.mha
+Fetching ct_T1.standard
+Fetching CIRS057A_MR_CT_DICOM/readme.txt
+Fetching SimpleITK.jpg
+Fetching spherical_fiducials.mha
+Fetching POPI/meta/00-P.mhd
+Fetching POPI/meta/10-P.mhd
+Fetching POPI/meta/20-P.mhd
+Fetching POPI/meta/30-P.mhd
+Fetching POPI/meta/40-P.mhd
+Fetching POPI/meta/50-P.mhd
+Fetching POPI/meta/60-P.mhd
+Fetching POPI/meta/70-P.mhd
+Fetching POPI/meta/80-P.mhd
+Fetching POPI/meta/90-P.mhd
+Fetching POPI/landmarks/00-Landmarks.pts
+Fetching POPI/landmarks/10-Landmarks.pts
+Fetching POPI/landmarks/20-Landmarks.pts
+Fetching POPI/landmarks/30-Landmarks.pts
+Fetching POPI/landmarks/40-Landmarks.pts
+Fetching POPI/landmarks/50-Landmarks.pts
+Fetching POPI/landmarks/60-Landmarks.pts
+Fetching POPI/landmarks/70-Landmarks.pts
 Fetching POPI/landmarks/80-Landmarks.pts
+Fetching POPI/landmarks/90-Landmarks.pts
+Fetching POPI/masks/00-air-body-lungs.mhd
+Fetching POPI/masks/10-air-body-lungs.mhd
+Fetching POPI/masks/20-air-body-lungs.mhd
+Fetching POPI/masks/30-air-body-lungs.mhd
+Fetching POPI/masks/40-air-body-lungs.mhd
+Fetching POPI/masks/50-air-body-lungs.mhd
+Fetching POPI/masks/60-air-body-lungs.mhd
+Fetching POPI/masks/70-air-body-lungs.mhd
+Fetching POPI/masks/80-air-body-lungs.mhd
+Fetching POPI/masks/90-air-body-lungs.mhd
+Fetching liverTumorSegmentations/Patient01Homo.mha
+Fetching liverTumorSegmentations/Patient01Homo_Rad01.mha
+Fetching liverTumorSegmentations/Patient01Homo_Rad02.mha
+Fetching liverTumorSegmentations/Patient01Homo_Rad03.mha
+Fetching Control.tif
+Fetching head_mr_oriented.mha
+Fetching fib_sem_bacillus_subtilis.mha
 </pre>
 </div>
 </div>
@@ -11998,4 +12094,8 @@ Fetching POPI/landmarks/80-Landmarks.pts
     </div>
   </div>
 </body>
+
+ 
+
+
 </html>
