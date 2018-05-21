@@ -7,6 +7,12 @@
     <meta name="description" content="SimpleITK Notebooks : IPython Notebooks for learning how to use SimpleITK">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+     <script language="JavaScript">
+   	function expandCollapse(elementID){
+   	document.getElementById(elementID).style.display =
+   	(document.getElementById(elementID).style.display=='none')? 'block':'none';
+   	}
+   </script>
 
     <title>SimpleITK Notebooks</title>
   </head>
@@ -17,9 +23,11 @@
     <div id="header_wrap" class="outer">
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks">View on GitHub</a>
-
           <h1 id="project_title">SimpleITK Notebooks</h1>
-          <h2 id="project_tagline">SimpleITK Jupyter Notebooks for Education and Research</h2>
+<h2 id="project_tagline">SimpleITK Jupyter Notebooks for Education and Research</h2>
+
+          <input type="button" style="background-color:rgb(40,87,165);color:rgb(247,148,30);width:150px;
+height:40px;float:left;border:outset;border-color:rgb(247,148,30);font-weight:bold;font-size:20px;" onclick="window.location.href = 'https://mybinder.org/v2/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/master';" value="Try Now &raquo;">          
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/zipball/master">Download this project as a .zip file</a>
@@ -34,7 +42,8 @@
         <h1>
 <a id="simpleitk-notebooks" class="anchor" href="#simpleitk-notebooks" aria-hidden="true"><span class="octicon octicon-link"></span></a>SimpleITK Notebooks</h1>
 
-<p><a href="https://itk.org/Wiki/SimpleITK">SimpleITK</a> is an abstraction layer and wrapper around the Insight 
+<p><a href="https://simpleitk.readthedocs.io/en/master/">SimpleITK</a> is an abstraction layer and 
+wrapper around the Insight 
 Segmentation and Registration Toolkit (<a href="https://www.itk.org">ITK</a>). It is available in the following programming languages: C++, Python, R, Java, C#, Lua, Tcl and Ruby.</p>
 
 <p>This repository contains a collection of Jupyter Notebooks illustrating the use of SimpleITK for educational and research activities. The notebooks demonstrate the use of SimpleITK for interactive image analysis using the Python and R programming languages.
@@ -59,54 +68,144 @@ found in the repository's Utilities directory.</p>
 <a id="view-static-converted-pages" class="anchor" href="#view-static-converted-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>View Static Converted Pages</h1>
 
 <h2> Python </h2>
-<ul>
+
+<a href = "javascript:expandCollapse('fundamentals_py');">Setup and fundamental concepts...</a><br>
+<ul id="fundamentals_py" style = "display: none;">
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/00_Setup.html">00 Setup</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/01_Image_Basics.html">01 Image Basics</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/02_Pythonic_Image.html">02 Pythonic Image</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/03_Image_Details.html">03 Image Details</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/10_matplotlib&apos;s_imshow.html">10 matplotlib&#39;s imshow</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/20_Expand_With_Interpolators.html">20 Expand With Interpolators</a></li>
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/04_Image_Display.html">04
+ Image Display</a></li>
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/05_Results_Visualization.html">05
+Results Visualization</a></li>
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/10_matplotlib&apos;s_imshow.html">10
+ matplotlib&#39;s imshow</a></li>
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/11_Progress.html">11
+ Progress</a></li>
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/20_Expand_With_Interpolators.html">20
+ Expand With Interpolators</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/21_Transforms_and_Resampling.html">21 Transforms and Resampling</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/22_Transforms.html">22 Transforms</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/300_Segmentation_Overview.html">300 Segmentation Overview</a></li>
+</ul>
+
+<a href = "javascript:expandCollapse('segmentation_py');">Segmentation...</a><br>
+<ul id="segmentation_py" style = "display: none;">
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/300_Segmentation_Overview.html">300
+ Segmentation Overview</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/30_Segmentation_Region_Growing.html">30 Segmentation Region Growing</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/31_Levelset_Segmentation.html">31 Levelset Segmentation</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/32_Watersheds_Segmentation.html">32 Watersheds Segmentation</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/33_Segmentation_Thresholding_Edge_Detection.html">33 Segmentation Thresholding Edge Detection</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/34_Segmentation_Evaluation.html">34 Segmentation Evaluation</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/35_Segmentation_Shape_Analysis.html">35 Segmentation Shape Analysis</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/41_Progress.html">41 Progress</a></li>
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/36_Microscopy_Colocalization_Distance_Analysis.html">36
+ Microscopy Colocalization Distance Analysis</a></li>
+</ul>
+
+<a href = "javascript:expandCollapse('registration_py');">Registration...</a><br>
+<ul id="registration_py" style = "display: none;">
+	<li><a 
+	href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/60_Registration_Introduction.html">60
+	 Registration Introduction</a></li>
+	<li><a 
+	href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/61_Registration_Introduction_Continued.html">61
+	 Registration Introduction Continued</a></li>
+	<li><a 
+	href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/62_Registration_Tuning.html">62
+	 Registration Tuning</a></li>
+	<li><a 
+	href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/63_Registration_Initialization.html">63
+	 Registration Initialization</a></li>
+	<li><a 
+	href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/64_Registration_Memory_Time_Tradeoff.html">64
+	 Registration Memory Time Tradeoff</a></li>
+	<li><a 
+	href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/65_Registration_FFD.html">65
+	 Registration FFD</a></li>
+	<li><a 
+	href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/66_Registration_Demons.html">66
+	 Registration Demons</a></li>
+	<li><a 
+	href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/67_Registration_Semiautomatic_Homework.html">67
+	 Registration Semiautomatic Homework</a></li>
+	<li><a 
+		href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/68_Registration_Errors.html">68
+		 Registration Errors (FLE, FRE, TRE)</a></li>
+	<li><a 
+		href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/69_x-ray-panorama.html">69
+		x-ray panorama</a></li>
+</ul>
+
+<a href = "javascript:expandCollapse('misc_py');">Misc. (visible human, data augmentation)...</a><br>
+<ul id="misc_py" style = "display: none;">
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/51_VH_Segmentation1.html">51 VH Segmentation1</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/55_VH_Resample.html">55 VH Resample</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/56_VH_Registration1.html">56 VH Registration1</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/60_Registration_Introduction.html">60 Registration Introduction</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/61_Registration_Introduction_Continued.html">61 Registration Introduction Continued</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/62_Registration_Tuning.html">62 Registration Tuning</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/63_Registration_Initialization.html">63 Registration Initialization</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/64_Registration_Memory_Time_Tradeoff.html">64 Registration Memory Time Tradeoff</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/65_Registration_FFD.html">65 Registration FFD</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/66_Registration_Demons.html">66 Registration Demons</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/67_Registration_Semiautomatic_Homework.html">67 Registration Semiautomatic Homework</a></li>
+
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/70_Data_Augmentation.html">70 Data Augmentation</a></li>
 </ul>
 
 <h2> R </h2>
 
-<ul>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/00_Setup.html">00 Setup</a></li>  
+<a href = "javascript:expandCollapse('fundamentals_r');">Setup and fundamental concepts...</a><br>
+<ul id="fundamentals_r" style = "display: none;">
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/00_Setup.html">00 
+Setup</a></li>  
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/Image_Basics.html">Image Basics</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/R_style_image.html">R style image</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/22_Transforms.html">22 Transforms</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/300_Segmentation_Overview.html">300 Segmentation Overview</a></li>
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/22_Transforms.html">22
+ Transforms</a></li>
+</ul>
+
+<a href = "javascript:expandCollapse('segmentation_r');">Segmentation...</a><br>
+<ul id="segmentation_r" style = "display: none;">
+<li><a 
+	href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/300_Segmentation_Overview.html">300
+	 Segmentation Overview</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/33_Segmentation_Thresholding_Edge_Detection.html">33 Segmentation Thresholding Edge Detection</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/34_Segmentation_Evaluation.html">34 Segmentation Evaluation</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/35_Cell_Segmentation.html">35 Cell Segmentation</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/60_Registration_Introduction.html">60 Registration Introduction</a></li>
+</ul>
+
+<a href = "javascript:expandCollapse('registration_r');">Registration...</a><br>
+<ul id="registration_r" style = "display: none;">
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/60_Registration_Introduction.html">60
+ Registration Introduction</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/61_Registration_Introduction_Continued.html">61 Registration Introduction Continued</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/65_Registration_FFD.html">65 Registration FFD</a></li>
 <li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/66_Registration_Demons.html">66 Registration Demons</a></li>
-<li><a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/70_Data_Augmentation.html">70 Data Augmentation</a></li>
 </ul>
+
+<a href = "javascript:expandCollapse('misc_r');">Misc...</a><br>
+<ul id="misc_r" style = "display: none;">
+<li><a 
+href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/R_html/70_Data_Augmentation.html">70
+ Data Augmentation</a></li>
+</ul>
+
+
+<h2>How to Cite</h2>
+
+
+<p>If you find these notebooks or the notebook testing infrastructure useful in your research, support our efforts by citing it as:</p>
+
+<p>
+Z. Yaniv, B. C. Lowekamp, H. J. Johnson, R. Beare, "SimpleITK Image-Analysis Notebooks: a 
+Collaborative Environment for Education and Reproducible Research", J Digit Imaging.,  
+31(3): 290-303, 2018, <a 
+	href="https://doi.org/10.1007/s10278-017-0037-8">https://doi.org/10.1007/s10278-017-0037-8</a>.
+</p>
 
   </body>
 </html>

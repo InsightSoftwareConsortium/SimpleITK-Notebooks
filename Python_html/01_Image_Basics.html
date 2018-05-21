@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>01_Image_Basics</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+
+<title>01_Image_Basics</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
 
 <style type="text/css">
     /*!
@@ -199,7 +204,6 @@ th {
   *:before,
   *:after {
     background: transparent !important;
-    color: #000 !important;
     box-shadow: none !important;
     text-shadow: none !important;
   }
@@ -6744,15 +6748,15 @@ button.close {
 *
 */
 /*!
- *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 /* FONT PATH
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?v=4.2.0');
-  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), url('../components/font-awesome/fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'), url('../components/font-awesome/fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), url('../components/font-awesome/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');
+  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../components/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../components/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../components/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../components/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -6809,6 +6813,19 @@ button.close {
   border: solid 0.08em #eee;
   border-radius: .1em;
 }
+.fa-pull-left {
+  float: left;
+}
+.fa-pull-right {
+  float: right;
+}
+.fa.fa-pull-left {
+  margin-right: .3em;
+}
+.fa.fa-pull-right {
+  margin-left: .3em;
+}
+/* Deprecated as of 4.4.0 */
 .pull-right {
   float: right;
 }
@@ -6824,6 +6841,10 @@ button.close {
 .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
+}
+.fa-pulse {
+  -webkit-animation: fa-spin 1s infinite steps(8);
+  animation: fa-spin 1s infinite steps(8);
 }
 @-webkit-keyframes fa-spin {
   0% {
@@ -6846,31 +6867,31 @@ button.close {
   }
 }
 .fa-rotate-90 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 .fa-rotate-180 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 .fa-rotate-270 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg);
   -ms-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 .fa-flip-horizontal {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   -webkit-transform: scale(-1, 1);
   -ms-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
 .fa-flip-vertical {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(1, -1);
   -ms-transform: scale(1, -1);
   transform: scale(1, -1);
@@ -7355,6 +7376,7 @@ button.close {
 .fa-twitter:before {
   content: "\f099";
 }
+.fa-facebook-f:before,
 .fa-facebook:before {
   content: "\f09a";
 }
@@ -7367,6 +7389,7 @@ button.close {
 .fa-credit-card:before {
   content: "\f09d";
 }
+.fa-feed:before,
 .fa-rss:before {
   content: "\f09e";
 }
@@ -8004,7 +8027,8 @@ button.close {
 .fa-male:before {
   content: "\f183";
 }
-.fa-gittip:before {
+.fa-gittip:before,
+.fa-gratipay:before {
   content: "\f184";
 }
 .fa-sun-o:before {
@@ -8108,7 +8132,7 @@ button.close {
 .fa-digg:before {
   content: "\f1a6";
 }
-.fa-pied-piper:before {
+.fa-pied-piper-pp:before {
   content: "\f1a7";
 }
 .fa-pied-piper-alt:before {
@@ -8234,6 +8258,7 @@ button.close {
   content: "\f1ce";
 }
 .fa-ra:before,
+.fa-resistance:before,
 .fa-rebel:before {
   content: "\f1d0";
 }
@@ -8247,6 +8272,8 @@ button.close {
 .fa-git:before {
   content: "\f1d3";
 }
+.fa-y-combinator-square:before,
+.fa-yc-square:before,
 .fa-hacker-news:before {
   content: "\f1d4";
 }
@@ -8414,6 +8441,657 @@ button.close {
 }
 .fa-meanpath:before {
   content: "\f20c";
+}
+.fa-buysellads:before {
+  content: "\f20d";
+}
+.fa-connectdevelop:before {
+  content: "\f20e";
+}
+.fa-dashcube:before {
+  content: "\f210";
+}
+.fa-forumbee:before {
+  content: "\f211";
+}
+.fa-leanpub:before {
+  content: "\f212";
+}
+.fa-sellsy:before {
+  content: "\f213";
+}
+.fa-shirtsinbulk:before {
+  content: "\f214";
+}
+.fa-simplybuilt:before {
+  content: "\f215";
+}
+.fa-skyatlas:before {
+  content: "\f216";
+}
+.fa-cart-plus:before {
+  content: "\f217";
+}
+.fa-cart-arrow-down:before {
+  content: "\f218";
+}
+.fa-diamond:before {
+  content: "\f219";
+}
+.fa-ship:before {
+  content: "\f21a";
+}
+.fa-user-secret:before {
+  content: "\f21b";
+}
+.fa-motorcycle:before {
+  content: "\f21c";
+}
+.fa-street-view:before {
+  content: "\f21d";
+}
+.fa-heartbeat:before {
+  content: "\f21e";
+}
+.fa-venus:before {
+  content: "\f221";
+}
+.fa-mars:before {
+  content: "\f222";
+}
+.fa-mercury:before {
+  content: "\f223";
+}
+.fa-intersex:before,
+.fa-transgender:before {
+  content: "\f224";
+}
+.fa-transgender-alt:before {
+  content: "\f225";
+}
+.fa-venus-double:before {
+  content: "\f226";
+}
+.fa-mars-double:before {
+  content: "\f227";
+}
+.fa-venus-mars:before {
+  content: "\f228";
+}
+.fa-mars-stroke:before {
+  content: "\f229";
+}
+.fa-mars-stroke-v:before {
+  content: "\f22a";
+}
+.fa-mars-stroke-h:before {
+  content: "\f22b";
+}
+.fa-neuter:before {
+  content: "\f22c";
+}
+.fa-genderless:before {
+  content: "\f22d";
+}
+.fa-facebook-official:before {
+  content: "\f230";
+}
+.fa-pinterest-p:before {
+  content: "\f231";
+}
+.fa-whatsapp:before {
+  content: "\f232";
+}
+.fa-server:before {
+  content: "\f233";
+}
+.fa-user-plus:before {
+  content: "\f234";
+}
+.fa-user-times:before {
+  content: "\f235";
+}
+.fa-hotel:before,
+.fa-bed:before {
+  content: "\f236";
+}
+.fa-viacoin:before {
+  content: "\f237";
+}
+.fa-train:before {
+  content: "\f238";
+}
+.fa-subway:before {
+  content: "\f239";
+}
+.fa-medium:before {
+  content: "\f23a";
+}
+.fa-yc:before,
+.fa-y-combinator:before {
+  content: "\f23b";
+}
+.fa-optin-monster:before {
+  content: "\f23c";
+}
+.fa-opencart:before {
+  content: "\f23d";
+}
+.fa-expeditedssl:before {
+  content: "\f23e";
+}
+.fa-battery-4:before,
+.fa-battery:before,
+.fa-battery-full:before {
+  content: "\f240";
+}
+.fa-battery-3:before,
+.fa-battery-three-quarters:before {
+  content: "\f241";
+}
+.fa-battery-2:before,
+.fa-battery-half:before {
+  content: "\f242";
+}
+.fa-battery-1:before,
+.fa-battery-quarter:before {
+  content: "\f243";
+}
+.fa-battery-0:before,
+.fa-battery-empty:before {
+  content: "\f244";
+}
+.fa-mouse-pointer:before {
+  content: "\f245";
+}
+.fa-i-cursor:before {
+  content: "\f246";
+}
+.fa-object-group:before {
+  content: "\f247";
+}
+.fa-object-ungroup:before {
+  content: "\f248";
+}
+.fa-sticky-note:before {
+  content: "\f249";
+}
+.fa-sticky-note-o:before {
+  content: "\f24a";
+}
+.fa-cc-jcb:before {
+  content: "\f24b";
+}
+.fa-cc-diners-club:before {
+  content: "\f24c";
+}
+.fa-clone:before {
+  content: "\f24d";
+}
+.fa-balance-scale:before {
+  content: "\f24e";
+}
+.fa-hourglass-o:before {
+  content: "\f250";
+}
+.fa-hourglass-1:before,
+.fa-hourglass-start:before {
+  content: "\f251";
+}
+.fa-hourglass-2:before,
+.fa-hourglass-half:before {
+  content: "\f252";
+}
+.fa-hourglass-3:before,
+.fa-hourglass-end:before {
+  content: "\f253";
+}
+.fa-hourglass:before {
+  content: "\f254";
+}
+.fa-hand-grab-o:before,
+.fa-hand-rock-o:before {
+  content: "\f255";
+}
+.fa-hand-stop-o:before,
+.fa-hand-paper-o:before {
+  content: "\f256";
+}
+.fa-hand-scissors-o:before {
+  content: "\f257";
+}
+.fa-hand-lizard-o:before {
+  content: "\f258";
+}
+.fa-hand-spock-o:before {
+  content: "\f259";
+}
+.fa-hand-pointer-o:before {
+  content: "\f25a";
+}
+.fa-hand-peace-o:before {
+  content: "\f25b";
+}
+.fa-trademark:before {
+  content: "\f25c";
+}
+.fa-registered:before {
+  content: "\f25d";
+}
+.fa-creative-commons:before {
+  content: "\f25e";
+}
+.fa-gg:before {
+  content: "\f260";
+}
+.fa-gg-circle:before {
+  content: "\f261";
+}
+.fa-tripadvisor:before {
+  content: "\f262";
+}
+.fa-odnoklassniki:before {
+  content: "\f263";
+}
+.fa-odnoklassniki-square:before {
+  content: "\f264";
+}
+.fa-get-pocket:before {
+  content: "\f265";
+}
+.fa-wikipedia-w:before {
+  content: "\f266";
+}
+.fa-safari:before {
+  content: "\f267";
+}
+.fa-chrome:before {
+  content: "\f268";
+}
+.fa-firefox:before {
+  content: "\f269";
+}
+.fa-opera:before {
+  content: "\f26a";
+}
+.fa-internet-explorer:before {
+  content: "\f26b";
+}
+.fa-tv:before,
+.fa-television:before {
+  content: "\f26c";
+}
+.fa-contao:before {
+  content: "\f26d";
+}
+.fa-500px:before {
+  content: "\f26e";
+}
+.fa-amazon:before {
+  content: "\f270";
+}
+.fa-calendar-plus-o:before {
+  content: "\f271";
+}
+.fa-calendar-minus-o:before {
+  content: "\f272";
+}
+.fa-calendar-times-o:before {
+  content: "\f273";
+}
+.fa-calendar-check-o:before {
+  content: "\f274";
+}
+.fa-industry:before {
+  content: "\f275";
+}
+.fa-map-pin:before {
+  content: "\f276";
+}
+.fa-map-signs:before {
+  content: "\f277";
+}
+.fa-map-o:before {
+  content: "\f278";
+}
+.fa-map:before {
+  content: "\f279";
+}
+.fa-commenting:before {
+  content: "\f27a";
+}
+.fa-commenting-o:before {
+  content: "\f27b";
+}
+.fa-houzz:before {
+  content: "\f27c";
+}
+.fa-vimeo:before {
+  content: "\f27d";
+}
+.fa-black-tie:before {
+  content: "\f27e";
+}
+.fa-fonticons:before {
+  content: "\f280";
+}
+.fa-reddit-alien:before {
+  content: "\f281";
+}
+.fa-edge:before {
+  content: "\f282";
+}
+.fa-credit-card-alt:before {
+  content: "\f283";
+}
+.fa-codiepie:before {
+  content: "\f284";
+}
+.fa-modx:before {
+  content: "\f285";
+}
+.fa-fort-awesome:before {
+  content: "\f286";
+}
+.fa-usb:before {
+  content: "\f287";
+}
+.fa-product-hunt:before {
+  content: "\f288";
+}
+.fa-mixcloud:before {
+  content: "\f289";
+}
+.fa-scribd:before {
+  content: "\f28a";
+}
+.fa-pause-circle:before {
+  content: "\f28b";
+}
+.fa-pause-circle-o:before {
+  content: "\f28c";
+}
+.fa-stop-circle:before {
+  content: "\f28d";
+}
+.fa-stop-circle-o:before {
+  content: "\f28e";
+}
+.fa-shopping-bag:before {
+  content: "\f290";
+}
+.fa-shopping-basket:before {
+  content: "\f291";
+}
+.fa-hashtag:before {
+  content: "\f292";
+}
+.fa-bluetooth:before {
+  content: "\f293";
+}
+.fa-bluetooth-b:before {
+  content: "\f294";
+}
+.fa-percent:before {
+  content: "\f295";
+}
+.fa-gitlab:before {
+  content: "\f296";
+}
+.fa-wpbeginner:before {
+  content: "\f297";
+}
+.fa-wpforms:before {
+  content: "\f298";
+}
+.fa-envira:before {
+  content: "\f299";
+}
+.fa-universal-access:before {
+  content: "\f29a";
+}
+.fa-wheelchair-alt:before {
+  content: "\f29b";
+}
+.fa-question-circle-o:before {
+  content: "\f29c";
+}
+.fa-blind:before {
+  content: "\f29d";
+}
+.fa-audio-description:before {
+  content: "\f29e";
+}
+.fa-volume-control-phone:before {
+  content: "\f2a0";
+}
+.fa-braille:before {
+  content: "\f2a1";
+}
+.fa-assistive-listening-systems:before {
+  content: "\f2a2";
+}
+.fa-asl-interpreting:before,
+.fa-american-sign-language-interpreting:before {
+  content: "\f2a3";
+}
+.fa-deafness:before,
+.fa-hard-of-hearing:before,
+.fa-deaf:before {
+  content: "\f2a4";
+}
+.fa-glide:before {
+  content: "\f2a5";
+}
+.fa-glide-g:before {
+  content: "\f2a6";
+}
+.fa-signing:before,
+.fa-sign-language:before {
+  content: "\f2a7";
+}
+.fa-low-vision:before {
+  content: "\f2a8";
+}
+.fa-viadeo:before {
+  content: "\f2a9";
+}
+.fa-viadeo-square:before {
+  content: "\f2aa";
+}
+.fa-snapchat:before {
+  content: "\f2ab";
+}
+.fa-snapchat-ghost:before {
+  content: "\f2ac";
+}
+.fa-snapchat-square:before {
+  content: "\f2ad";
+}
+.fa-pied-piper:before {
+  content: "\f2ae";
+}
+.fa-first-order:before {
+  content: "\f2b0";
+}
+.fa-yoast:before {
+  content: "\f2b1";
+}
+.fa-themeisle:before {
+  content: "\f2b2";
+}
+.fa-google-plus-circle:before,
+.fa-google-plus-official:before {
+  content: "\f2b3";
+}
+.fa-fa:before,
+.fa-font-awesome:before {
+  content: "\f2b4";
+}
+.fa-handshake-o:before {
+  content: "\f2b5";
+}
+.fa-envelope-open:before {
+  content: "\f2b6";
+}
+.fa-envelope-open-o:before {
+  content: "\f2b7";
+}
+.fa-linode:before {
+  content: "\f2b8";
+}
+.fa-address-book:before {
+  content: "\f2b9";
+}
+.fa-address-book-o:before {
+  content: "\f2ba";
+}
+.fa-vcard:before,
+.fa-address-card:before {
+  content: "\f2bb";
+}
+.fa-vcard-o:before,
+.fa-address-card-o:before {
+  content: "\f2bc";
+}
+.fa-user-circle:before {
+  content: "\f2bd";
+}
+.fa-user-circle-o:before {
+  content: "\f2be";
+}
+.fa-user-o:before {
+  content: "\f2c0";
+}
+.fa-id-badge:before {
+  content: "\f2c1";
+}
+.fa-drivers-license:before,
+.fa-id-card:before {
+  content: "\f2c2";
+}
+.fa-drivers-license-o:before,
+.fa-id-card-o:before {
+  content: "\f2c3";
+}
+.fa-quora:before {
+  content: "\f2c4";
+}
+.fa-free-code-camp:before {
+  content: "\f2c5";
+}
+.fa-telegram:before {
+  content: "\f2c6";
+}
+.fa-thermometer-4:before,
+.fa-thermometer:before,
+.fa-thermometer-full:before {
+  content: "\f2c7";
+}
+.fa-thermometer-3:before,
+.fa-thermometer-three-quarters:before {
+  content: "\f2c8";
+}
+.fa-thermometer-2:before,
+.fa-thermometer-half:before {
+  content: "\f2c9";
+}
+.fa-thermometer-1:before,
+.fa-thermometer-quarter:before {
+  content: "\f2ca";
+}
+.fa-thermometer-0:before,
+.fa-thermometer-empty:before {
+  content: "\f2cb";
+}
+.fa-shower:before {
+  content: "\f2cc";
+}
+.fa-bathtub:before,
+.fa-s15:before,
+.fa-bath:before {
+  content: "\f2cd";
+}
+.fa-podcast:before {
+  content: "\f2ce";
+}
+.fa-window-maximize:before {
+  content: "\f2d0";
+}
+.fa-window-minimize:before {
+  content: "\f2d1";
+}
+.fa-window-restore:before {
+  content: "\f2d2";
+}
+.fa-times-rectangle:before,
+.fa-window-close:before {
+  content: "\f2d3";
+}
+.fa-times-rectangle-o:before,
+.fa-window-close-o:before {
+  content: "\f2d4";
+}
+.fa-bandcamp:before {
+  content: "\f2d5";
+}
+.fa-grav:before {
+  content: "\f2d6";
+}
+.fa-etsy:before {
+  content: "\f2d7";
+}
+.fa-imdb:before {
+  content: "\f2d8";
+}
+.fa-ravelry:before {
+  content: "\f2d9";
+}
+.fa-eercast:before {
+  content: "\f2da";
+}
+.fa-microchip:before {
+  content: "\f2db";
+}
+.fa-snowflake-o:before {
+  content: "\f2dc";
+}
+.fa-superpowers:before {
+  content: "\f2dd";
+}
+.fa-wpexplorer:before {
+  content: "\f2de";
+}
+.fa-meetup:before {
+  content: "\f2e0";
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
 }
 /*!
 *
@@ -8694,6 +9372,10 @@ div.traceback-wrapper {
   max-width: 800px;
   margin: auto;
 }
+div.traceback-wrapper pre.traceback {
+  max-height: 600px;
+  overflow: auto;
+}
 /**
  * Primary styles
  *
@@ -8719,6 +9401,10 @@ body > #header {
   z-index: 100;
 }
 body > #header #header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
   padding-bottom: 5px;
   padding-top: 5px;
   box-sizing: border-box;
@@ -8750,13 +9436,16 @@ body > #header .header-bar {
   padding-top: 1px;
   padding-bottom: 1px;
 }
-@media (max-width: 991px) {
-  #ipython_notebook {
-    margin-left: 10px;
-  }
-}
 [dir="rtl"] #ipython_notebook {
+  margin-right: 10px;
+  margin-left: 0;
+}
+[dir="rtl"] #ipython_notebook.pull-left {
   float: right !important;
+  float: right;
+}
+.flex-spacer {
+  flex: 1;
 }
 #noscript {
   width: auto;
@@ -8791,8 +9480,14 @@ body > #header .header-bar {
 input.ui-button {
   padding: 0.3em 0.9em;
 }
+span#kernel_logo_widget {
+  margin: 0 10px;
+}
 span#login_widget {
   float: right;
+}
+[dir="rtl"] span#login_widget {
+  float: left;
 }
 span#login_widget > .button,
 #logout {
@@ -8908,6 +9603,9 @@ span#login_widget > .button .badge,
   overflow: auto;
   flex: 1;
 }
+.modal-header {
+  cursor: move;
+}
 @media (min-width: 768px) {
   .modal .modal-dialog {
     width: 700px;
@@ -8928,6 +9626,19 @@ span#login_widget > .button .badge,
   display: inline-block;
   margin-bottom: -4px;
 }
+[dir="rtl"] .center-nav form.pull-left {
+  float: right !important;
+  float: right;
+}
+[dir="rtl"] .center-nav .navbar-text {
+  float: right;
+}
+[dir="rtl"] .navbar-inner {
+  text-align: right;
+}
+[dir="rtl"] div.text-left {
+  text-align: right;
+}
 /*!
 *
 * IPython tree view
@@ -8944,34 +9655,42 @@ span#login_widget > .button .badge,
   margin: 0;
 }
 .alternate_upload input.fileinput {
-  text-align: center;
-  vertical-align: middle;
-  display: inline;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
   opacity: 0;
   z-index: 2;
-  width: 12ex;
-  margin-right: -12ex;
+}
+.alternate_upload .btn-xs > input.fileinput {
+  margin: -1px -5px;
 }
 .alternate_upload .btn-upload {
+  position: relative;
   height: 22px;
+}
+::-webkit-file-upload-button {
+  cursor: pointer;
 }
 /**
  * Primary styles
  *
  * Author: Jupyter Development Team
  */
-[dir="rtl"] #tabs li {
-  float: right;
-}
 ul#tabs {
   margin-bottom: 4px;
-}
-[dir="rtl"] ul#tabs {
-  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
   padding-bottom: 4px;
+}
+[dir="rtl"] ul#tabs.nav-tabs > li {
+  float: right;
+}
+[dir="rtl"] ul#tabs.nav.nav-tabs {
+  padding-right: 0;
 }
 ul.breadcrumb a:focus,
 ul.breadcrumb a:hover {
@@ -8991,15 +9710,13 @@ ul.breadcrumb span {
 .list_toolbar .tree-buttons {
   padding-top: 1px;
 }
-[dir="rtl"] .list_toolbar .tree-buttons {
+[dir="rtl"] .list_toolbar .tree-buttons .pull-right {
   float: left !important;
+  float: left;
 }
-[dir="rtl"] .list_toolbar .pull-right {
-  padding-top: 1px;
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-left {
-  float: right !important;
+[dir="rtl"] .list_toolbar .col-sm-4,
+[dir="rtl"] .list_toolbar .col-sm-8 {
+  float: right;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9055,7 +9772,7 @@ ul.breadcrumb span {
 .list_item > div input {
   margin-right: 7px;
   margin-left: 14px;
-  vertical-align: baseline;
+  vertical-align: text-bottom;
   line-height: 22px;
   position: relative;
   top: -1px;
@@ -9065,6 +9782,9 @@ ul.breadcrumb span {
   margin-left: -1px;
   vertical-align: baseline;
   line-height: 22px;
+}
+[dir="rtl"] .list_item > div input {
+  margin-right: 0;
 }
 .new-file input[type=checkbox] {
   visibility: hidden;
@@ -9080,6 +9800,14 @@ ul.breadcrumb span {
   margin-left: 7px;
   line-height: 22px;
   vertical-align: baseline;
+}
+.item_modified {
+  margin-right: 7px;
+  margin-left: 7px;
+}
+[dir="rtl"] .item_modified.pull-right {
+  float: left !important;
+  float: left;
 }
 .item_buttons {
   line-height: 1em;
@@ -9108,6 +9836,14 @@ ul.breadcrumb span {
   margin-right: 7px;
   float: left;
 }
+[dir="rtl"] .item_buttons.pull-right {
+  float: left !important;
+  float: left;
+}
+[dir="rtl"] .item_buttons .kernel-name {
+  margin-left: 7px;
+  float: right;
+}
 .toolbar_info {
   height: 24px;
   line-height: 24px;
@@ -9133,18 +9869,32 @@ ul.breadcrumb span {
   background-color: transparent;
   font-weight: bold;
 }
+.sort_button {
+  display: inline-block;
+  padding-left: 7px;
+}
+[dir="rtl"] .sort_button.pull-right {
+  float: left !important;
+  float: left;
+}
 #tree-selector {
   padding-right: 0px;
-}
-[dir="rtl"] #tree-selector a {
-  float: right;
 }
 #button-select-all {
   min-width: 50px;
 }
+[dir="rtl"] #button-select-all.btn {
+  float: right ;
+}
 #select-all {
   margin-left: 7px;
   margin-right: 2px;
+  margin-top: 2px;
+  height: 16px;
+}
+[dir="rtl"] #select-all.pull-left {
+  float: right !important;
+  float: right;
 }
 .menu_icon {
   margin-right: 2px;
@@ -9162,6 +9912,12 @@ ul.breadcrumb span {
   -moz-osx-font-smoothing: grayscale;
   content: "\f114";
 }
+.folder_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.folder_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .folder_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -9178,6 +9934,12 @@ ul.breadcrumb span {
   content: "\f02d";
   position: relative;
   top: -1px;
+}
+.notebook_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.notebook_icon:before.fa-pull-right {
+  margin-left: .3em;
 }
 .notebook_icon:before.pull-left {
   margin-right: .3em;
@@ -9197,6 +9959,12 @@ ul.breadcrumb span {
   top: -1px;
   color: #5cb85c;
 }
+.running_notebook_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.running_notebook_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .running_notebook_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -9214,6 +9982,12 @@ ul.breadcrumb span {
   position: relative;
   top: -2px;
 }
+.file_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.file_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .file_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -9228,8 +10002,11 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
-[dir="rtl"] #new-menu {
-  text-align: right;
+#new-menu .dropdown-header {
+  font-size: 10px;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 0 3px;
+  margin: -3px 20px 0;
 }
 .kernel-menu-icon {
   padding-right: 12px;
@@ -9276,9 +10053,6 @@ ul#new-menu {
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
 }
-[dir="rtl"] #running .col-sm-8 {
-  float: right !important;
-}
 .delete-button {
   display: none;
 }
@@ -9286,6 +10060,12 @@ ul#new-menu {
   display: none;
 }
 .rename-button {
+  display: none;
+}
+.move-button {
+  display: none;
+}
+.download-button {
   display: none;
 }
 .shutdown-button {
@@ -9328,6 +10108,12 @@ ul#new-menu {
   -moz-osx-font-smoothing: grayscale;
   width: 20px;
 }
+.dirty-indicator.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator.fa-pull-right {
+  margin-left: .3em;
+}
 .dirty-indicator.pull-left {
   margin-right: .3em;
 }
@@ -9342,6 +10128,12 @@ ul#new-menu {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 20px;
+}
+.dirty-indicator-dirty.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator-dirty.fa-pull-right {
+  margin-left: .3em;
 }
 .dirty-indicator-dirty.pull-left {
   margin-right: .3em;
@@ -9358,6 +10150,12 @@ ul#new-menu {
   -moz-osx-font-smoothing: grayscale;
   width: 20px;
 }
+.dirty-indicator-clean.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator-clean.fa-pull-right {
+  margin-left: .3em;
+}
 .dirty-indicator-clean.pull-left {
   margin-right: .3em;
 }
@@ -9372,6 +10170,12 @@ ul#new-menu {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f00c";
+}
+.dirty-indicator-clean:before.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator-clean:before.fa-pull-right {
+  margin-left: .3em;
 }
 .dirty-indicator-clean:before.pull-left {
   margin-right: .3em;
@@ -9417,14 +10221,132 @@ ul#new-menu {
     box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
   }
 }
+.CodeMirror-dialog {
+  background-color: #fff;
+}
 /*!
 *
 * IPython notebook
 *
 */
-/* CSS font colors for translated ANSI colors. */
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
 .ansibold {
   font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
 }
 /* use dark versions for foreground, to improve visibility */
 .ansiblack {
@@ -9503,12 +10425,20 @@ div.cell {
   /* This acts as a spacer between cells, that is outside the border */
   margin: 0px;
   outline: none;
-  border-left-width: 1px;
-  padding-left: 5px;
-  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
 }
 div.cell.jupyter-soft-selected {
-  border-left-color: #90CAF9;
   border-left-color: #E3F2FD;
   border-left-width: 1px;
   padding-left: 5px;
@@ -9521,27 +10451,39 @@ div.cell.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected {
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
   border-color: #ababab;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
 }
 @media print {
-  div.cell.selected {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected.jupyter-soft-selected {
-  border-left-width: 0;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
-}
 .edit_mode div.cell.selected {
   border-color: #66BB6A;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
 }
 @media print {
   .edit_mode div.cell.selected {
@@ -9737,7 +10679,9 @@ div.input_area > div.highlight > pre {
 .CodeMirror-lines {
   /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
   /* we have set a different line-height and want this to scale with that. */
-  padding: 0.4em;
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
 }
 .CodeMirror-linenumber {
   padding: 0 8px 0 4px;
@@ -9747,11 +10691,24 @@ div.input_area > div.highlight > pre {
   border-top-left-radius: 2px;
 }
 .CodeMirror pre {
-  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
-  /* .CodeMirror-lines */
-  padding: 0;
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
   border: 0;
   border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
 }
 /*
 
@@ -10005,6 +10962,9 @@ div.output_area img.unconfined,
 div.output_area svg.unconfined {
   max-width: none;
 }
+div.output_area .mglyph > img {
+  max-width: none;
+}
 /* This is needed to protect the pre formating from global settings such
    as that of bootstrap */
 .output {
@@ -10043,7 +11003,7 @@ div.output_area svg.unconfined {
 }
 div.output_area pre {
   margin: 0;
-  padding: 0;
+  padding: 1px 0 1px 0;
   border: 0;
   vertical-align: baseline;
   color: black;
@@ -10203,39 +11163,35 @@ div.output_unrecognized a:hover {
 .rendered_html h6:first-child {
   margin-top: 1em;
 }
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
 .rendered_html ul {
   list-style: disc;
-  margin: 0em 2em;
-  padding-left: 0px;
 }
 .rendered_html ul ul {
   list-style: square;
-  margin: 0em 2em;
+  margin-top: 0;
 }
 .rendered_html ul ul ul {
   list-style: circle;
-  margin: 0em 2em;
 }
 .rendered_html ol {
   list-style: decimal;
-  margin: 0em 2em;
-  padding-left: 0px;
 }
 .rendered_html ol ol {
   list-style: upper-alpha;
-  margin: 0em 2em;
+  margin-top: 0;
 }
 .rendered_html ol ol ol {
   list-style: lower-alpha;
-  margin: 0em 2em;
 }
 .rendered_html ol ol ol ol {
   list-style: lower-roman;
-  margin: 0em 2em;
 }
 .rendered_html ol ol ol ol ol {
   list-style: decimal;
-  margin: 0em 2em;
 }
 .rendered_html * + ul {
   margin-top: 1em;
@@ -10249,14 +11205,23 @@ div.output_unrecognized a:hover {
 }
 .rendered_html pre {
   margin: 1em 2em;
+  padding: 0px;
+  background-color: #fff;
+}
+.rendered_html code {
+  background-color: #eff0f1;
+}
+.rendered_html p code {
+  padding: 1px 5px;
+}
+.rendered_html pre code {
+  background-color: #fff;
 }
 .rendered_html pre,
 .rendered_html code {
   border: 0;
-  background-color: #fff;
   color: #000;
   font-size: 100%;
-  padding: 0px;
 }
 .rendered_html blockquote {
   margin: 1em 2em;
@@ -10264,24 +11229,36 @@ div.output_unrecognized a:hover {
 .rendered_html table {
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid black;
+  border: none;
   border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
 }
 .rendered_html tr,
 .rendered_html th,
 .rendered_html td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  margin: 1em 2em;
-}
-.rendered_html td,
-.rendered_html th {
-  text-align: left;
+  text-align: right;
   vertical-align: middle;
-  padding: 4px;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
 }
 .rendered_html th {
   font-weight: bold;
+}
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
 }
 .rendered_html * + table {
   margin-top: 1em;
@@ -10308,6 +11285,15 @@ div.output_unrecognized a:hover {
 .rendered_html img.unconfined,
 .rendered_html svg.unconfined {
   max-width: none;
+}
+.rendered_html .alert {
+  margin-bottom: initial;
+}
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] .rendered_html p {
+  text-align: right;
 }
 div.text_cell {
   /* Old browsers */
@@ -10362,8 +11348,17 @@ h6:hover .anchor-link {
   overflow-x: auto;
   overflow-y: hidden;
 }
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered .rendered_html td {
+  max-width: none;
+}
 .text_cell.unrendered .text_cell_render {
   display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
 }
 .cm-header-1,
 .cm-header-2,
@@ -10500,6 +11495,28 @@ kbd {
   padding-top: 1px;
   padding-bottom: 1px;
 }
+.jupyter-keybindings {
+  padding: 1px;
+  line-height: 24px;
+  border-bottom: 1px solid gray;
+}
+.jupyter-keybindings input {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.jupyter-keybindings i {
+  padding: 6px;
+}
+.well code {
+  background-color: #ffffff;
+  border-color: #ababab;
+  border-width: 1px;
+  border-style: solid;
+  padding: 2px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
 /* CSS for the cell toolbar */
 .celltoolbar {
   border: thin solid #CFCFCF;
@@ -10632,6 +11649,152 @@ select[multiple].celltoolbar select {
   margin-left: 5px;
   margin-right: 5px;
 }
+.tags_button_container {
+  width: 100%;
+  display: flex;
+}
+.tag-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+.tag-container > * {
+  margin: 0 4px;
+}
+.remove-tag-btn {
+  margin-left: 4px;
+}
+.tags-input {
+  display: flex;
+}
+.cell-tag:last-child:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  /* Fade to background color of cell toolbar */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), #EEE);
+}
+.tags-input > * {
+  margin-left: 4px;
+}
+.cell-tag,
+.tags-input input,
+.tags-input button {
+  display: block;
+  width: 100%;
+  height: 32px;
+  padding: 6px 12px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 1px;
+  box-shadow: none;
+  width: inherit;
+  font-size: inherit;
+  height: 22px;
+  line-height: 22px;
+  padding: 0px 4px;
+  display: inline-block;
+}
+.cell-tag:focus,
+.tags-input input:focus,
+.tags-input button:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.cell-tag::-moz-placeholder,
+.tags-input input::-moz-placeholder,
+.tags-input button::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+.cell-tag:-ms-input-placeholder,
+.tags-input input:-ms-input-placeholder,
+.tags-input button:-ms-input-placeholder {
+  color: #999;
+}
+.cell-tag::-webkit-input-placeholder,
+.tags-input input::-webkit-input-placeholder,
+.tags-input button::-webkit-input-placeholder {
+  color: #999;
+}
+.cell-tag::-ms-expand,
+.tags-input input::-ms-expand,
+.tags-input button::-ms-expand {
+  border: 0;
+  background-color: transparent;
+}
+.cell-tag[disabled],
+.tags-input input[disabled],
+.tags-input button[disabled],
+.cell-tag[readonly],
+.tags-input input[readonly],
+.tags-input button[readonly],
+fieldset[disabled] .cell-tag,
+fieldset[disabled] .tags-input input,
+fieldset[disabled] .tags-input button {
+  background-color: #eeeeee;
+  opacity: 1;
+}
+.cell-tag[disabled],
+.tags-input input[disabled],
+.tags-input button[disabled],
+fieldset[disabled] .cell-tag,
+fieldset[disabled] .tags-input input,
+fieldset[disabled] .tags-input button {
+  cursor: not-allowed;
+}
+textarea.cell-tag,
+textarea.tags-input input,
+textarea.tags-input button {
+  height: auto;
+}
+select.cell-tag,
+select.tags-input input,
+select.tags-input button {
+  height: 30px;
+  line-height: 30px;
+}
+textarea.cell-tag,
+textarea.tags-input input,
+textarea.tags-input button,
+select[multiple].cell-tag,
+select[multiple].tags-input input,
+select[multiple].tags-input button {
+  height: auto;
+}
+.cell-tag,
+.tags-input button {
+  padding: 0px 4px;
+}
+.cell-tag {
+  background-color: #fff;
+  white-space: nowrap;
+}
+.tags-input input[type=text]:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #ccc;
+}
 .completions {
   position: absolute;
   z-index: 110;
@@ -10657,16 +11820,28 @@ select[multiple].celltoolbar select {
 .completions select option.context {
   color: #286090;
 }
-#kernel_logo_widget {
-  float: right !important;
-  float: right;
-}
 #kernel_logo_widget .current_kernel_logo {
   display: none;
   margin-top: -1px;
   margin-bottom: -1px;
   width: 32px;
   height: 32px;
+}
+[dir="rtl"] #kernel_logo_widget {
+  float: left !important;
+  float: left;
+}
+.modal .modal-body .move-path {
+  display: flex;
+  flex-direction: row;
+  justify-content: space;
+  align-items: center;
+}
+.modal .modal-body .move-path .server-root {
+  padding-right: 20px;
+}
+.modal .modal-body .move-path .path-input {
+  flex: 1;
 }
 #menubar {
   box-sizing: border-box;
@@ -10688,11 +11863,41 @@ select[multiple].celltoolbar select {
 #menubar .navbar-collapse {
   clear: left;
 }
+[dir="rtl"] #menubar .navbar-toggle {
+  float: right;
+}
+[dir="rtl"] #menubar .navbar-collapse {
+  clear: right;
+}
+[dir="rtl"] #menubar .navbar-nav {
+  float: right;
+}
+[dir="rtl"] #menubar .nav {
+  padding-right: 0px;
+}
+[dir="rtl"] #menubar .navbar-nav > li {
+  float: right;
+}
+[dir="rtl"] #menubar .navbar-right {
+  float: left !important;
+}
+[dir="rtl"] ul.dropdown-menu {
+  text-align: right;
+  left: auto;
+}
+[dir="rtl"] ul#new-menu.dropdown-menu {
+  right: auto;
+  left: 0;
+}
 .nav-wrapper {
   border-bottom: 1px solid #e7e7e7;
 }
 i.menu-icon {
   padding-top: 4px;
+}
+[dir="rtl"] i.menu-icon.pull-right {
+  float: left !important;
+  float: left;
 }
 ul#help_menu li a {
   overflow: hidden;
@@ -10700,6 +11905,17 @@ ul#help_menu li a {
 }
 ul#help_menu li a i {
   margin-right: -1.2em;
+}
+[dir="rtl"] ul#help_menu li a {
+  padding-left: 2.2em;
+}
+[dir="rtl"] ul#help_menu li a i {
+  margin-right: 0;
+  margin-left: -1.2em;
+}
+[dir="rtl"] ul#help_menu li a i.pull-right {
+  float: left !important;
+  float: left;
 }
 .dropdown-submenu {
   position: relative;
@@ -10709,6 +11925,10 @@ ul#help_menu li a i {
   left: 100%;
   margin-top: -6px;
   margin-left: -1px;
+}
+[dir="rtl"] .dropdown-submenu > .dropdown-menu {
+  right: 100%;
+  margin-right: -1px;
 }
 .dropdown-submenu:hover > .dropdown-menu {
   display: block;
@@ -10727,11 +11947,23 @@ ul#help_menu li a i {
   margin-top: 2px;
   margin-right: -10px;
 }
+.dropdown-submenu > a:after.fa-pull-left {
+  margin-right: .3em;
+}
+.dropdown-submenu > a:after.fa-pull-right {
+  margin-left: .3em;
+}
 .dropdown-submenu > a:after.pull-left {
   margin-right: .3em;
 }
 .dropdown-submenu > a:after.pull-right {
   margin-left: .3em;
+}
+[dir="rtl"] .dropdown-submenu > a:after {
+  float: left;
+  content: "\f0d9";
+  margin-right: 0;
+  margin-left: -10px;
 }
 .dropdown-submenu:hover > a:after {
   color: #262626;
@@ -10748,6 +11980,10 @@ ul#help_menu li a i {
   float: right;
   z-index: 10;
 }
+[dir="rtl"] #notification_area {
+  float: left !important;
+  float: left;
+}
 .indicator_area {
   float: right !important;
   float: right;
@@ -10758,6 +11994,10 @@ ul#help_menu li a i {
   z-index: 10;
   text-align: center;
   width: auto;
+}
+[dir="rtl"] .indicator_area {
+  float: left !important;
+  float: left;
 }
 #kernel_indicator {
   float: right !important;
@@ -10775,6 +12015,12 @@ ul#help_menu li a i {
   padding-left: 5px;
   padding-right: 5px;
 }
+[dir="rtl"] #kernel_indicator {
+  float: left !important;
+  float: left;
+  border-left: 0;
+  border-right: 1px solid;
+}
 #modal_indicator {
   float: right !important;
   float: right;
@@ -10785,6 +12031,10 @@ ul#help_menu li a i {
   z-index: 10;
   text-align: center;
   width: auto;
+}
+[dir="rtl"] #modal_indicator {
+  float: left !important;
+  float: left;
 }
 #readonly-indicator {
   float: right !important;
@@ -10815,6 +12065,12 @@ ul#help_menu li a i {
   -moz-osx-font-smoothing: grayscale;
   content: "\f040";
 }
+.edit_mode .modal_indicator:before.fa-pull-left {
+  margin-right: .3em;
+}
+.edit_mode .modal_indicator:before.fa-pull-right {
+  margin-left: .3em;
+}
 .edit_mode .modal_indicator:before.pull-left {
   margin-right: .3em;
 }
@@ -10829,6 +12085,12 @@ ul#help_menu li a i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: ' ';
+}
+.command_mode .modal_indicator:before.fa-pull-left {
+  margin-right: .3em;
+}
+.command_mode .modal_indicator:before.fa-pull-right {
+  margin-left: .3em;
 }
 .command_mode .modal_indicator:before.pull-left {
   margin-right: .3em;
@@ -10845,6 +12107,12 @@ ul#help_menu li a i {
   -moz-osx-font-smoothing: grayscale;
   content: "\f10c";
 }
+.kernel_idle_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_idle_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .kernel_idle_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -10859,6 +12127,12 @@ ul#help_menu li a i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f111";
+}
+.kernel_busy_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_busy_icon:before.fa-pull-right {
+  margin-left: .3em;
 }
 .kernel_busy_icon:before.pull-left {
   margin-right: .3em;
@@ -10875,6 +12149,12 @@ ul#help_menu li a i {
   -moz-osx-font-smoothing: grayscale;
   content: "\f1e2";
 }
+.kernel_dead_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_dead_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .kernel_dead_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -10889,6 +12169,12 @@ ul#help_menu li a i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f127";
+}
+.kernel_disconnected_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_disconnected_icon:before.fa-pull-right {
+  margin-left: .3em;
 }
 .kernel_disconnected_icon:before.pull-left {
   margin-right: .3em;
@@ -11279,27 +12565,46 @@ div#pager .ui-resizable-handle::after {
   flex: 1;
 }
 span.save_widget {
-  margin-top: 6px;
+  height: 30px;
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  width: 50%;
+  flex: 1;
 }
 span.save_widget span.filename {
-  height: 1em;
+  height: 100%;
   line-height: 1em;
-  padding: 3px;
   margin-left: 16px;
   border: none;
   font-size: 146.5%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   border-radius: 2px;
 }
 span.save_widget span.filename:hover {
   background-color: #e6e6e6;
 }
+[dir="rtl"] span.save_widget.pull-left {
+  float: right !important;
+  float: right;
+}
+[dir="rtl"] span.save_widget span.filename {
+  margin-left: 0;
+  margin-right: 16px;
+}
 span.checkpoint_status,
 span.autosave_status {
   font-size: small;
+  white-space: nowrap;
+  padding: 0 5px;
 }
 @media (max-width: 767px) {
   span.save_widget {
     font-size: small;
+    padding: 0 0 0 5px;
   }
   span.checkpoint_status,
   span.autosave_status {
@@ -11343,6 +12648,9 @@ span.autosave_status {
   margin-top: 0px;
   margin-left: 5px;
 }
+.toolbar-btn-label {
+  margin-left: 6px;
+}
 #maintoolbar {
   margin-bottom: -3px;
   margin-top: -8px;
@@ -11362,6 +12670,10 @@ span.autosave_status {
 }
 .select-xs {
   height: 24px;
+}
+[dir="rtl"] .btn-group > .btn,
+.btn-group-vertical > .btn {
+  float: right;
 }
 .pulse,
 .dropdown-menu > li > a.pulse,
@@ -11512,6 +12824,10 @@ ul.typeahead-list i {
   margin-left: -10px;
   width: 18px;
 }
+[dir="rtl"] ul.typeahead-list i {
+  margin-left: 0;
+  margin-right: -10px;
+}
 ul.typeahead-list {
   max-height: 80vh;
   overflow: auto;
@@ -11520,6 +12836,13 @@ ul.typeahead-list > li > a {
   /** Firefox bug **/
   /* see https://github.com/jupyter/notebook/issues/559 */
   white-space: normal;
+}
+ul.typeahead-list  > li > a.pull-right {
+  float: left !important;
+  float: left;
+}
+[dir="rtl"] .typeahead-list {
+  text-align: right;
 }
 .cmd-palette .modal-body {
   padding: 7px;
@@ -11531,10 +12854,19 @@ ul.typeahead-list > li > a {
   outline: none;
 }
 .no-shortcut {
-  display: none;
+  min-width: 20px;
+  color: transparent;
+}
+[dir="rtl"] .no-shortcut.pull-right {
+  float: left !important;
+  float: left;
+}
+[dir="rtl"] .command-shortcut.pull-right {
+  float: left !important;
+  float: left;
 }
 .command-shortcut:before {
-  content: "(command)";
+  content: "(command mode)";
   padding-right: 3px;
   color: #777777;
 }
@@ -11543,6 +12875,10 @@ ul.typeahead-list > li > a {
   padding-right: 3px;
   color: #777777;
 }
+[dir="rtl"] .edit-shortcut.pull-right {
+  float: left !important;
+  float: left;
+}
 #find-and-replace #replace-preview .match,
 #find-and-replace #replace-preview .insert {
   background-color: #BBDEFB;
@@ -11550,6 +12886,12 @@ ul.typeahead-list > li > a {
   border-style: solid;
   border-width: 1px;
   border-radius: 0px;
+}
+[dir="ltr"] #find-and-replace .input-group-btn + .form-control {
+  border-left: none;
+}
+[dir="rtl"] #find-and-replace .input-group-btn + .form-control {
+  border-right: none;
 }
 #find-and-replace #replace-preview .replace .match {
   background-color: #FFCDD2;
@@ -11675,45 +13017,6 @@ ul.typeahead-list > li > a {
 .highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
-<style type="text/css">
-    
-/* Temporary definitions which will become obsolete with Notebook release 5.0 */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-bold { font-weight: bold; }
-
-    </style>
 
 
 <style type="text/css">
@@ -11747,7 +13050,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11772,8 +13075,7 @@ div#notebook {
     <div class="container" id="notebook-container">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Welcome-to-the-first-SimpleITK-Notebook-demo:">Welcome to the first SimpleITK Notebook demo:<a class="anchor-link" href="#Welcome-to-the-first-SimpleITK-Notebook-demo:">&#182;</a></h1><h1 id="SimpleITK-Image-Basics">SimpleITK Image Basics<a class="anchor-link" href="#SimpleITK-Image-Basics">&#182;</a></h1><p>This document will give a brief orientation to the SimpleITK Image class.</p>
 <p>First we import the SimpleITK Python module. By convention our module is imported into the shorter and more Pythonic "sitk" local name.</p>
@@ -11786,21 +13088,19 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">SimpleITK</span> <span class="k">as</span> <span class="nn">sitk</span>
-
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Image-Construction">Image Construction<a class="anchor-link" href="#Image-Construction">&#182;</a></h2><p>There are a variety of ways to create an image. All images' initial value is well defined as zero.</p>
 
@@ -11818,14 +13118,13 @@ div#notebook {
 <span class="n">image_RGB</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">Image</span><span class="p">([</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">],</span> <span class="n">sitk</span><span class="o">.</span><span class="n">sitkVectorUInt8</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Pixel-Types">Pixel Types<a class="anchor-link" href="#Pixel-Types">&#182;</a></h3><p>The pixel type is represented as an enumerated type. The following is a table of the enumerated list.</p>
 <table>
@@ -11862,8 +13161,7 @@ div#notebook {
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="More-Information-about-the-Image-class-be-obtained-in-the-Docstring">More Information about the Image class be obtained in the Docstring<a class="anchor-link" href="#More-Information-about-the-Image-class-be-obtained-in-the-Docstring">&#182;</a></h3><p>SimpleITK classes and functions have the Docstrings derived from the C++ definitions and the Doxygen documentation.</p>
 
@@ -11878,7 +13176,7 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -11888,14 +13186,38 @@ div#notebook {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Help on Image in module SimpleITK.SimpleITK object:
 
 class Image(builtins.object)
- |  The main Image class for SimpleITK.
+ |  Image(*args)
+ |  
+ |  The Image class for SimpleITK.
+ |  
+ |  
+ |  This Image class can represent 2D, 3D, and 4D images. The pixel types may be a
+ |  scalar, a multi-component vector or a run-length-encoded (RLE)
+ |  &#34;label&#34;. The dimension, pixel type and size is specified at
+ |  construction.
+ |  
+ |  A fundamental concept of ITK images is that they occupy physical space
+ |  where the image is defined by an origin, spacing, and direction cosine
+ |  matrix. The attributes are taken into consideration when doing most
+ |  operations on an image. A meta-data dictionary is also associated with
+ |  the image, which may contain additional fields from reading but these
+ |  attributes are not propagated by image filters.
+ |  
+ |  The SimpleITK Image provides a single facade interface to several ITK image types.
+ |  Internally, the SimpleITK Image maintains a pointer to the ITK image class, and performs reference
+ |  counting and lazy copying. This means that deep copying of an image
+ |  including it&#39;s buffer is delayed until the image is modified. This
+ |  removes the need to use pointers to SimpleITK Image class, as copying and returning by value do not unnecessarily
+ |  duplicate the data.
+ |  
+ |  /sa itk::Image itk::VectorImage itk::LabelMap itk::ImageBase
  |  
  |  C++ includes: sitkImage.h
  |  
@@ -11928,15 +13250,32 @@ class Image(builtins.object)
  |  
  |  GetDepth(self)
  |      GetDepth(Image self) -&gt; unsigned int
+ |      
+ |      
+ |      
+ |      Get the number of pixels the Image is in the third dimension or 0 if the Image is only 2D
  |  
  |  GetDimension(self)
  |      GetDimension(Image self) -&gt; unsigned int
+ |      
+ |      
+ |      
+ |      Get the number of physical dimensions.
+ |      
+ |      Only the spatial dimensions are considered here. These are the
+ |      dimensions the origin, spacing and direction cosine matrix are
+ |      applicable to. This does not include the pixels&#39; vector index as a
+ |      dimension.
  |  
  |  GetDirection(self)
  |      GetDirection(Image self) -&gt; VectorDouble
  |  
  |  GetHeight(self)
  |      GetHeight(Image self) -&gt; unsigned int
+ |      
+ |      
+ |      
+ |      Get the number of pixels the Image is in the second dimension
  |  
  |  GetITKBase(self, *args)
  |      GetITKBase(Image self) -&gt; itk::DataObject
@@ -12004,21 +13343,41 @@ class Image(builtins.object)
  |  
  |  GetPixelID(self)
  |      GetPixelID(Image self) -&gt; itk::simple::PixelIDValueEnum
+ |      
+ |      
+ |      
+ |      Get the pixel type
+ |      
+ |      The pixel type is set at construction type and can not be manually
+ |      changed, unless by assignment. The value may be -1 or &#34;Unknown&#34;.
  |  
  |  GetPixelIDTypeAsString(self)
  |      GetPixelIDTypeAsString(Image self) -&gt; std::string
+ |      
+ |      
+ |      
+ |      Return the pixel type as a human readable string value.
  |  
  |  GetPixelIDValue(self)
  |      GetPixelIDValue(Image self) -&gt; itk::simple::PixelIDValueType
  |  
  |  GetSize(self)
  |      GetSize(Image self) -&gt; VectorUInt32
+ |      
+ |      
+ |      
+ |      Get the number of pixels the Image is in each dimension as a std::vector. The size of the vector is
+ |      equal to the number of dimensions for the image.
  |  
  |  GetSpacing(self)
  |      GetSpacing(Image self) -&gt; VectorDouble
  |  
  |  GetWidth(self)
  |      GetWidth(Image self) -&gt; unsigned int
+ |      
+ |      
+ |      
+ |      Get the number of pixels the Image is in the first dimension
  |  
  |  HasMetaDataKey(self, key)
  |      HasMetaDataKey(Image self, std::string const &amp; key) -&gt; bool
@@ -12339,12 +13698,15 @@ class Image(builtins.object)
  |  
  |  __sub__(self, other)
  |  
- |  __swig_destroy__ = delete_Image(...)
- |      delete_Image(Image self)
- |  
  |  __truediv__(self, other)
  |  
  |  __xor__(self, other)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods defined here:
+ |  
+ |  __swig_destroy__ = delete_Image(...)
+ |      delete_Image(Image self)
  |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
@@ -12373,8 +13735,7 @@ class Image(builtins.object)
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Accessing-Attributes">Accessing Attributes<a class="anchor-link" href="#Accessing-Attributes">&#182;</a></h2><p>If you are familiar with ITK, then these methods will follow your expectations:</p>
 
@@ -12393,7 +13754,7 @@ class Image(builtins.object)
 <span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">GetNumberOfComponentsPerPixel</span><span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12403,7 +13764,7 @@ class Image(builtins.object)
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -12421,8 +13782,7 @@ class Image(builtins.object)
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Note: The starting index of a SimpleITK Image is always 0. If the output of an ITK filter has non-zero starting index, then the index will be set to 0, and the origin adjusted accordingly.</p>
 <p>The size of the image's dimensions have explicit accessors:</p>
@@ -12440,7 +13800,7 @@ class Image(builtins.object)
 <span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">GetDepth</span><span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12450,7 +13810,7 @@ class Image(builtins.object)
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -12466,8 +13826,7 @@ class Image(builtins.object)
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Since the dimension  and pixel type of a SimpleITK image is determined at run-time accessors are needed.</p>
 
@@ -12484,7 +13843,7 @@ class Image(builtins.object)
 <span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">GetPixelIDTypeAsString</span><span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12494,7 +13853,7 @@ class Image(builtins.object)
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -12510,8 +13869,7 @@ class Image(builtins.object)
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>What is the depth of a 2D image?</p>
 
@@ -12527,7 +13885,7 @@ class Image(builtins.object)
 <span class="nb">print</span><span class="p">(</span><span class="n">image_2D</span><span class="o">.</span><span class="n">GetDepth</span><span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12537,7 +13895,7 @@ class Image(builtins.object)
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -12552,8 +13910,7 @@ class Image(builtins.object)
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>What is the dimension and size of a Vector image?</p>
 
@@ -12569,7 +13926,7 @@ class Image(builtins.object)
 <span class="nb">print</span><span class="p">(</span><span class="n">image_RGB</span><span class="o">.</span><span class="n">GetSize</span><span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12579,7 +13936,7 @@ class Image(builtins.object)
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -12601,7 +13958,7 @@ class Image(builtins.object)
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">image_RGB</span><span class="o">.</span><span class="n">GetNumberOfComponentsPerPixel</span><span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12611,7 +13968,7 @@ class Image(builtins.object)
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -12625,8 +13982,7 @@ class Image(builtins.object)
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>For certain file types such as DICOM, additional information about the image is contained in the meta-data dictionary.</p>
 
@@ -12642,14 +13998,13 @@ class Image(builtins.object)
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">{0}</span><span class="se">\&quot;</span><span class="s2">:</span><span class="se">\&quot;</span><span class="si">{1}</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">GetMetaData</span><span class="p">(</span><span class="n">key</span><span class="p">)))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Accessing-Pixels">Accessing Pixels<a class="anchor-link" href="#Accessing-Pixels">&#182;</a></h2><p>There are the member functions <code>GetPixel</code> and <code>SetPixel</code> which provides an ITK-like interface for pixel access.</p>
 
@@ -12664,7 +14019,7 @@ class Image(builtins.object)
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">GetPixel</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12674,7 +14029,7 @@ class Image(builtins.object)
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -12704,7 +14059,7 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 <span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">GetPixel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12714,7 +14069,7 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -12738,7 +14093,7 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 <span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12748,7 +14103,7 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -12763,8 +14118,7 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Conversion-between-numpy-and-SimpleITK">Conversion between numpy and SimpleITK<a class="anchor-link" href="#Conversion-between-numpy-and-SimpleITK">&#182;</a></h2>
 </div>
@@ -12779,7 +14133,7 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 <span class="nb">print</span><span class="p">(</span><span class="n">nda</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12789,58 +14143,59 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[[[10  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]
+<pre>[[[10  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  ...
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]]
 
- [[ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]
+ [[ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  ...
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]]
 
- [[ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]
+ [[ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  ...
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]]
 
- ..., 
- [[ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]
+ ...
 
- [[ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]
+ [[ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  ...
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]]
 
- [[ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  ..., 
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]
-  [ 0  0  0 ...,  0  0  0]]]
+ [[ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  ...
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]]
+
+ [[ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  ...
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]
+  [ 0  0  0 ...  0  0  0]]]
 </pre>
 </div>
 </div>
@@ -12857,7 +14212,7 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayFromImage</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12867,7 +14222,7 @@ GetPixel(*idx) method of SimpleITK.SimpleITK.Image instance
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -12895,7 +14250,7 @@ GetArrayFromImage(image)
 <span class="n">nda</span> <span class="o">=</span> <span class="n">sitk</span><span class="o">.</span><span class="n">GetArrayViewFromImage</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12910,7 +14265,7 @@ GetArrayFromImage(image)
 <span class="n">img</span><span class="o">.</span><span class="n">GetSize</span><span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12920,7 +14275,7 @@ GetArrayFromImage(image)
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[17]:</div>
+    <div class="prompt output_prompt">Out[17]:</div>
 
 
 
@@ -12943,7 +14298,7 @@ GetArrayFromImage(image)
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">GetImageFromArray</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12953,14 +14308,14 @@ GetArrayFromImage(image)
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Help on function GetImageFromArray in module SimpleITK.SimpleITK:
 
-GetImageFromArray(arr, isVector=False)
-    Get a SimpleITK Image from a numpy array. If isVector is True, then a 3D array will be treated as a 2D vector image, otherwise it will be treated as a 3D image
+GetImageFromArray(arr, isVector=None)
+    Get a SimpleITK Image from a numpy array. If isVector is True, then the Image will have a Vector pixel type, and the last dimension of the array will be considered the component index. By default when isVector is None, 4D images are automatically considered 3D vector images.
 
 </pre>
 </div>
@@ -12979,7 +14334,7 @@ GetImageFromArray(arr, isVector=False)
 <span class="nb">print</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12989,11 +14344,11 @@ GetImageFromArray(arr, isVector=False)
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>VectorImage (0x7feeb0787820)
+<pre>VectorImage (0x7f9112f17580)
   RTTI typeinfo:   itk::VectorImage&lt;unsigned char, 2u&gt;
   Reference Count: 1
   Modified Time: 803
@@ -13041,7 +14396,7 @@ GetImageFromArray(arr, isVector=False)
 
   VectorLength: 3
   PixelContainer: 
-    ImportImageContainer (0x7feeb07879f0)
+    ImportImageContainer (0x7f9112f17750)
       RTTI typeinfo:   itk::ImportImageContainer&lt;unsigned long, unsigned char&gt;
       Reference Count: 1
       Modified Time: 804
@@ -13049,7 +14404,7 @@ GetImageFromArray(arr, isVector=False)
       Object Name: 
       Observers: 
         none
-      Pointer: 0x7feeafb63600
+      Pointer: 0x120f22000
       Container manages memory: true
       Size: 49152
       Capacity: 49152
@@ -13063,8 +14418,7 @@ GetImageFromArray(arr, isVector=False)
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="The-order-of-index-and-dimensions-need-careful-attention-during-conversion">The order of index and dimensions need careful attention during conversion<a class="anchor-link" href="#The-order-of-index-and-dimensions-need-careful-attention-during-conversion">&#182;</a></h2><p>ITK's Image class does not have a bracket operator. It has a GetPixel which takes an ITK Index object as an argument, which is ordered as <code>(x,y,z)</code>. This is the convention that SimpleITK's Image class uses for the GetPixel method and slicing operator as well. In numpy, an array is indexed in the <strong>opposite</strong> order <code>(z,y,x)</code>. Also note that the access to channels is different. In SimpleITK you do not access the channel directly, rather the pixel value representing all channels for the specific pixel is returned and you then access the channel for that pixel. In the numpy array you are accessing the channel directly.</p>
 
@@ -13094,7 +14448,7 @@ GetImageFromArray(arr, isVector=False)
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First channel value in numpy array: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nda</span><span class="p">[</span><span class="n">z</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -13104,14 +14458,14 @@ GetImageFromArray(arr, isVector=False)
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Image size: (2, 4, 8)
 Numpy array size: (8, 4, 2, 5)
-First channel value in image: 0.878961443901062
-First channel value in numpy array: 0.878961
+First channel value in image: 0.710931658744812
+First channel value in numpy array: 0.71093166
 </pre>
 </div>
 </div>
@@ -13121,8 +14475,7 @@ First channel value in numpy array: 0.878961
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Are-we-still-dealing-with-Image,-because-I-haven't-seen-one-yet...">Are we still dealing with Image, because I haven't seen one yet...<a class="anchor-link" href="#Are-we-still-dealing-with-Image,-because-I-haven't-seen-one-yet...">&#182;</a></h3><p>While SimpleITK does not do visualization, it does contain a built in <code>Show</code> method. This function writes the image out to disk and than launches a program for visualization. By default it is configured to use ImageJ, because it is readily supports all the image types which SimpleITK has and load very quickly. However, it's easily customizable by setting environment variables.</p>
 
@@ -13137,7 +14490,7 @@ First channel value in numpy array: 0.878961
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sitk</span><span class="o">.</span><span class="n">Show</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -13150,14 +14503,13 @@ First channel value in numpy array: 0.878961
 <div class=" highlight hl-ipython3"><pre><span></span>sitk.Show<span class="o">?</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>By converting into a numpy array, matplotlib can be used for visualization for integration into the scientific python environment.</p>
 
@@ -13173,7 +14525,7 @@ First channel value in numpy array: 0.878961
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -13188,7 +14540,7 @@ First channel value in numpy array: 0.878961
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="nb">slice</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -13198,89 +14550,26 @@ First channel value in numpy array: 0.878961
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[24]:</div>
+    <div class="prompt output_prompt">Out[24]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.image.AxesImage at 0x10dd39b00&gt;</pre>
+<pre>&lt;matplotlib.image.AxesImage at 0x103abaf98&gt;</pre>
 </div>
 
 </div>
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-rkJggg==
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXkAAADKCAYAAABAKjBSAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADh0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uMy4xLjEsIGh0dHA6Ly9tYXRwbG90bGliLm9yZy8QZhcZAAANaUlEQVR4nO3dbYxc1X3H8e+vtjGFhIIhINdGxVRWWxq1xVoRWiIUxW0DJIqpFCRHVWOllqxKpCVNq2LKC/Iy9CFpI7VIbqBxKgRBhMioom0clyjqCxwMITw5YAdS2OBiogBBicRD8u+LuW621s4unjvjcc5+P9Jq7j1z7tz/Pbr72ztnZ3RTVUiS2vQz0y5AkjQ5hrwkNcyQl6SGGfKS1DBDXpIaZshLUsMmFvJJLkvyRJKDSbZPaj+SpOEyic/JJ1kGPAn8DjAL3A98sKoeH/vOJElDTepK/iLgYFU9VVWvAbcDmya0L0nSEMsn9LprgGfnrM8C7xjW+axVy+q1F39uQqVIUpte4cXvVtXbFuozqZDPPG3/b14oyTZgG8DJnMI7s3FCpUhSm75cd/73Yn0mNV0zC5w7Z30t8NzcDlW1o6pmqmpmBSsnVIYkLW2TCvn7gfVJ1iU5CdgM3D2hfUmShpjIdE1VvZHkI8B/AMuAW6rqsUnsS5I03KTm5Kmqe4B7JvX6kqTF+Y1XSWqYIS9JDTPkJalhhrwkNcyQl6SGGfKS1DBDXpIaZshLUsMMeUlqmCEvSQ0z5CWpYYa8JDXMkJekhhnyktQwQ16SGmbIS1LDDHlJatjIIZ/k3CT3Jtmf5LEk13Ttq5LsTnKgezxjfOVKko5Fnyv5N4A/q6pfAS4Grk5yAbAd2FNV64E93bokaQpGDvmqOlRVD3bLrwD7gTXAJmBn120ncGXfIiVJoxnLnHyS84ALgb3AOVV1CAZ/CICzx7EPSdKx6x3ySd4CfAH4aFV9/xi225ZkX5J9r/Nq3zIkSfPoFfJJVjAI+Fur6q6u+fkkq7vnVwOH59u2qnZU1UxVzaxgZZ8yJElD9Pl0TYCbgf1V9ck5T90NbOmWtwC7Ri9PktTH8h7bXgL8AfBIkoe6tr8EPgHckWQr8AxwVb8SJUmjGjnkq+q/gAx5euOorytJGh+/8SpJDTPkJalhhrwkNcyQl6SGGfKS1DBDXpIaZshLUsMMeUlqmCEvSQ0z5CWpYYa8JDXMkJekhhnyktQwQ16SGmbIS1LDDHlJapghL0kNM+QlqWG9Qz7JsiRfT/Kv3fq6JHuTHEjy+SQn9S9TkjSKcVzJXwPsn7N+I/CpqloPvAhsHcM+JEkj6BXySdYC7wU+060HeDdwZ9dlJ3Bln31IkkbX90r+74C/AH7crZ8JvFRVb3Trs8Ca+TZMsi3JviT7XufVnmVIkuYzcsgneR9wuKoemNs8T9eab/uq2lFVM1U1s4KVo5YhSVrA8h7bXgK8P8kVwMnAaQyu7E9Psry7ml8LPNe/TEnSKEa+kq+q66pqbVWdB2wG/rOqfh+4F/hA120LsKt3lZKkkUzic/LXAh9LcpDBHP3NE9iHJOlN6DNd83+q6ivAV7rlp4CLxvG6kqR+/MarJDXMkJekhhnyktQwQ16SGmbIS1LDDHlJapghL0kNM+QlqWGGvCQ1zJCXpIYZ8pLUMENekhpmyEtSwwx5SWqYIS9JDTPkJalhhrwkNaxXyCc5PcmdSb6ZZH+S30yyKsnuJAe6xzPGVawk6dj0vZL/e+Dfq+qXgV8H9gPbgT1VtR7Y061LkqZg5JBPchpwKd2Nuqvqtap6CdgE7Oy67QSu7FukJGk0fa7kzwdeAP45ydeTfCbJqcA5VXUIoHs8ewx1SpJG0CfklwMbgJuq6kLgBxzD1EySbUn2Jdn3Oq/2KEOSNEyfkJ8FZqtqb7d+J4PQfz7JaoDu8fB8G1fVjqqaqaqZFazsUYYkaZiRQ76q/gd4NskvdU0bgceBu4EtXdsWYFevCiVJI1vec/s/Bm5NchLwFPBhBn847kiyFXgGuKrnPiRJI+oV8lX1EDAzz1Mb+7yuJGk8/MarJDXMkJekhhnyktQwQ16SGmbIS1LDDHlJapghL0kNM+QlqWGGvCQ1zJCXpIYZ8pLUMENekhpmyEtSwwx5SWqYIS9JDTPkJalhhrwkNaxXyCf50ySPJXk0yW1JTk6yLsneJAeSfL67NaAkaQpGDvkka4A/AWaq6u3AMmAzcCPwqapaD7wIbB1HoZKkY9d3umY58LNJlgOnAIeAdwN3ds/vBK7suQ9J0ohGDvmq+g7wN8AzDML9ZeAB4KWqeqPrNgus6VukJGk0faZrzgA2AeuAnwdOBS6fp2sN2X5bkn1J9r3Oq6OWIUlaQJ/pmt8Gnq6qF6rqdeAu4LeA07vpG4C1wHPzbVxVO6pqpqpmVrCyRxmSpGH6hPwzwMVJTkkSYCPwOHAv8IGuzxZgV78SJUmj6jMnv5fBP1gfBB7pXmsHcC3wsSQHgTOBm8dQpyRpBMsX7zJcVd0A3HBU81PARX1eV5I0Hn7jVZIaZshLUsMMeUlqmCEvSQ0z5CWpYYa8JDXMkJekhhnyktQwQ16SGmbIS1LDDHlJapghL0kNM+QlqWGGvCQ1zJCXpIYZ8pLUMENekhq2aMgnuSXJ4SSPzmlblWR3kgPd4xlde5J8OsnBJA8n2TDJ4iVJC3szV/KfBS47qm07sKeq1gN7unWAy4H13c824KbxlClJGsWiIV9VXwW+d1TzJmBnt7wTuHJO++dq4D7g9CSrx1WsJOnYjDonf05VHQLoHs/u2tcAz87pN9u1SZKmYPmYXy/ztNW8HZNtDKZ0OJlTxlyGJAlGv5J//sg0TPd4uGufBc6d028t8Nx8L1BVO6pqpqpmVrByxDIkSQsZNeTvBrZ0y1uAXXPaP9R9yuZi4OUj0zqSpONv0emaJLcB7wLOSjIL3AB8ArgjyVbgGeCqrvs9wBXAQeCHwIcnULMk6U1aNOSr6oNDnto4T98Cru5blCRpPPzGqyQ1zJCXpIYZ8pLUMENekhpmyEtSwwx5SWqYIS9JDTPkJalhhrwkNcyQl6SGGfKS1DBDXpIaZshLUsMMeUlqmCEvSQ0z5CWpYYa8JDVs0ZBPckuSw0kendP210m+meThJF9Mcvqc565LcjDJE0neM6nCJUmLezNX8p8FLjuqbTfw9qr6NeBJ4DqAJBcAm4Ff7bb5xyTLxlatJOmYLBryVfVV4HtHtX2pqt7oVu8D1nbLm4Dbq+rVqnqawQ29LxpjvZKkYzCOOfk/BP6tW14DPDvnudmuTZI0Bcv7bJzkeuAN4NYjTfN0qyHbbgO2AZzMKX3KkCQNMXLIJ9kCvA/YWFVHgnwWOHdOt7XAc/NtX1U7gB0Ap2XVvH8IJEn9jDRdk+Qy4Frg/VX1wzlP3Q1sTrIyyTpgPfC1/mVKkkax6JV8ktuAdwFnJZkFbmDwaZqVwO4kAPdV1R9V1WNJ7gAeZzCNc3VV/WhSxUuSFpafzLRMz2lZVe/IxmmXIUk/Vb5cdz5QVTML9fEbr5LUMENekhpmyEtSwwx5SWqYIS9JDTshPl2T5AXgB8B3p13LlJ2FYwCOAzgG4BgcsdA4/EJVvW2hjU+IkAdIsm+xjwK1zjEYcBwcA3AMjug7Dk7XSFLDDHlJatiJFPI7pl3ACcAxGHAcHANwDI7oNQ4nzJy8JGn8TqQreUnSmE095JNc1t30+2CS7dOu53hK8u0kjyR5KMm+rm1Vkt1JDnSPZ0y7znEacmP4eY85A5/uzo2Hk2yYXuXjNWQcPp7kO9358FCSK+Y8d103Dk8kec90qh6vJOcmuTfJ/iSPJbmma18y58MCYzC+c6GqpvYDLAO+BZwPnAR8A7hgmjUd5+P/NnDWUW1/BWzvlrcDN067zjEf86XABuDRxY4ZuILBrSUDXAzsnXb9Ex6HjwN/Pk/fC7rfjZXAuu53Ztm0j2EMY7Aa2NAtvxV4sjvWJXM+LDAGYzsXpn0lfxFwsKqeqqrXgNsZ3Ax8KdsE7OyWdwJXTrGWsat5bgzP8GPeBHyuBu4DTk+y+vhUOllDxmGYTcDtVfVqVT0NHGTwu/NTraoOVdWD3fIrwH4G94ReMufDAmMwzDGfC9MO+aV+4+8CvpTkge6etwDnVNUhGJwAwNlTq+74GXbMS/H8+Eg3FXHLnKm65schyXnAhcBeluj5cNQYwJjOhWmH/Ju+8XejLqmqDcDlwNVJLp12QSeYpXZ+3AT8IvAbwCHgb7v2pschyVuALwAfrarvL9R1nrYmxmGeMRjbuTDtkH/TN/5uUVU91z0eBr7I4G3X80fegnaPh6dX4XEz7JiX1PlRVc9X1Y+q6sfAP/GTt+HNjkOSFQzC7daquqtrXlLnw3xjMM5zYdohfz+wPsm6JCcBmxncDLx5SU5N8tYjy8DvAo8yOP4tXbctwK7pVHhcDTvmu4EPdZ+quBh4+cjb+BYdNb/8ewzOBxiMw+YkK5OsA9YDXzve9Y1bBjeIvhnYX1WfnPPUkjkfho3BWM+FE+C/y1cw+I/yt4Drp13PcTzu8xn8l/wbwGNHjh04E9gDHOgeV0271jEf920M3n6+zuCqZOuwY2bw1vQfunPjEWBm2vVPeBz+pTvOh7tf5tVz+l/fjcMTwOXTrn9MY/BOBlMNDwMPdT9XLKXzYYExGNu54DdeJalh056ukSRNkCEvSQ0z5CWpYYa8JDXMkJekhhnyktQwQ16SGmbIS1LD/hdvzAzKZK7xBwAAAABJRU5ErkJggg==
 "
 >
 </div>

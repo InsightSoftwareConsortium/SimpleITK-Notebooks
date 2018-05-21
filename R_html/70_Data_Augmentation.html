@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>70_Data_Augmentation</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+
+<title>70_Data_Augmentation</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
 
 <style type="text/css">
     /*!
@@ -199,7 +204,6 @@ th {
   *:before,
   *:after {
     background: transparent !important;
-    color: #000 !important;
     box-shadow: none !important;
     text-shadow: none !important;
   }
@@ -6744,15 +6748,15 @@ button.close {
 *
 */
 /*!
- *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 /* FONT PATH
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?v=4.2.0');
-  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), url('../components/font-awesome/fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'), url('../components/font-awesome/fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), url('../components/font-awesome/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');
+  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../components/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../components/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../components/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../components/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -6809,6 +6813,19 @@ button.close {
   border: solid 0.08em #eee;
   border-radius: .1em;
 }
+.fa-pull-left {
+  float: left;
+}
+.fa-pull-right {
+  float: right;
+}
+.fa.fa-pull-left {
+  margin-right: .3em;
+}
+.fa.fa-pull-right {
+  margin-left: .3em;
+}
+/* Deprecated as of 4.4.0 */
 .pull-right {
   float: right;
 }
@@ -6824,6 +6841,10 @@ button.close {
 .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
+}
+.fa-pulse {
+  -webkit-animation: fa-spin 1s infinite steps(8);
+  animation: fa-spin 1s infinite steps(8);
 }
 @-webkit-keyframes fa-spin {
   0% {
@@ -6846,31 +6867,31 @@ button.close {
   }
 }
 .fa-rotate-90 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 .fa-rotate-180 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 .fa-rotate-270 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg);
   -ms-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 .fa-flip-horizontal {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   -webkit-transform: scale(-1, 1);
   -ms-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
 .fa-flip-vertical {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(1, -1);
   -ms-transform: scale(1, -1);
   transform: scale(1, -1);
@@ -7355,6 +7376,7 @@ button.close {
 .fa-twitter:before {
   content: "\f099";
 }
+.fa-facebook-f:before,
 .fa-facebook:before {
   content: "\f09a";
 }
@@ -7367,6 +7389,7 @@ button.close {
 .fa-credit-card:before {
   content: "\f09d";
 }
+.fa-feed:before,
 .fa-rss:before {
   content: "\f09e";
 }
@@ -8004,7 +8027,8 @@ button.close {
 .fa-male:before {
   content: "\f183";
 }
-.fa-gittip:before {
+.fa-gittip:before,
+.fa-gratipay:before {
   content: "\f184";
 }
 .fa-sun-o:before {
@@ -8108,7 +8132,7 @@ button.close {
 .fa-digg:before {
   content: "\f1a6";
 }
-.fa-pied-piper:before {
+.fa-pied-piper-pp:before {
   content: "\f1a7";
 }
 .fa-pied-piper-alt:before {
@@ -8234,6 +8258,7 @@ button.close {
   content: "\f1ce";
 }
 .fa-ra:before,
+.fa-resistance:before,
 .fa-rebel:before {
   content: "\f1d0";
 }
@@ -8247,6 +8272,8 @@ button.close {
 .fa-git:before {
   content: "\f1d3";
 }
+.fa-y-combinator-square:before,
+.fa-yc-square:before,
 .fa-hacker-news:before {
   content: "\f1d4";
 }
@@ -8414,6 +8441,657 @@ button.close {
 }
 .fa-meanpath:before {
   content: "\f20c";
+}
+.fa-buysellads:before {
+  content: "\f20d";
+}
+.fa-connectdevelop:before {
+  content: "\f20e";
+}
+.fa-dashcube:before {
+  content: "\f210";
+}
+.fa-forumbee:before {
+  content: "\f211";
+}
+.fa-leanpub:before {
+  content: "\f212";
+}
+.fa-sellsy:before {
+  content: "\f213";
+}
+.fa-shirtsinbulk:before {
+  content: "\f214";
+}
+.fa-simplybuilt:before {
+  content: "\f215";
+}
+.fa-skyatlas:before {
+  content: "\f216";
+}
+.fa-cart-plus:before {
+  content: "\f217";
+}
+.fa-cart-arrow-down:before {
+  content: "\f218";
+}
+.fa-diamond:before {
+  content: "\f219";
+}
+.fa-ship:before {
+  content: "\f21a";
+}
+.fa-user-secret:before {
+  content: "\f21b";
+}
+.fa-motorcycle:before {
+  content: "\f21c";
+}
+.fa-street-view:before {
+  content: "\f21d";
+}
+.fa-heartbeat:before {
+  content: "\f21e";
+}
+.fa-venus:before {
+  content: "\f221";
+}
+.fa-mars:before {
+  content: "\f222";
+}
+.fa-mercury:before {
+  content: "\f223";
+}
+.fa-intersex:before,
+.fa-transgender:before {
+  content: "\f224";
+}
+.fa-transgender-alt:before {
+  content: "\f225";
+}
+.fa-venus-double:before {
+  content: "\f226";
+}
+.fa-mars-double:before {
+  content: "\f227";
+}
+.fa-venus-mars:before {
+  content: "\f228";
+}
+.fa-mars-stroke:before {
+  content: "\f229";
+}
+.fa-mars-stroke-v:before {
+  content: "\f22a";
+}
+.fa-mars-stroke-h:before {
+  content: "\f22b";
+}
+.fa-neuter:before {
+  content: "\f22c";
+}
+.fa-genderless:before {
+  content: "\f22d";
+}
+.fa-facebook-official:before {
+  content: "\f230";
+}
+.fa-pinterest-p:before {
+  content: "\f231";
+}
+.fa-whatsapp:before {
+  content: "\f232";
+}
+.fa-server:before {
+  content: "\f233";
+}
+.fa-user-plus:before {
+  content: "\f234";
+}
+.fa-user-times:before {
+  content: "\f235";
+}
+.fa-hotel:before,
+.fa-bed:before {
+  content: "\f236";
+}
+.fa-viacoin:before {
+  content: "\f237";
+}
+.fa-train:before {
+  content: "\f238";
+}
+.fa-subway:before {
+  content: "\f239";
+}
+.fa-medium:before {
+  content: "\f23a";
+}
+.fa-yc:before,
+.fa-y-combinator:before {
+  content: "\f23b";
+}
+.fa-optin-monster:before {
+  content: "\f23c";
+}
+.fa-opencart:before {
+  content: "\f23d";
+}
+.fa-expeditedssl:before {
+  content: "\f23e";
+}
+.fa-battery-4:before,
+.fa-battery:before,
+.fa-battery-full:before {
+  content: "\f240";
+}
+.fa-battery-3:before,
+.fa-battery-three-quarters:before {
+  content: "\f241";
+}
+.fa-battery-2:before,
+.fa-battery-half:before {
+  content: "\f242";
+}
+.fa-battery-1:before,
+.fa-battery-quarter:before {
+  content: "\f243";
+}
+.fa-battery-0:before,
+.fa-battery-empty:before {
+  content: "\f244";
+}
+.fa-mouse-pointer:before {
+  content: "\f245";
+}
+.fa-i-cursor:before {
+  content: "\f246";
+}
+.fa-object-group:before {
+  content: "\f247";
+}
+.fa-object-ungroup:before {
+  content: "\f248";
+}
+.fa-sticky-note:before {
+  content: "\f249";
+}
+.fa-sticky-note-o:before {
+  content: "\f24a";
+}
+.fa-cc-jcb:before {
+  content: "\f24b";
+}
+.fa-cc-diners-club:before {
+  content: "\f24c";
+}
+.fa-clone:before {
+  content: "\f24d";
+}
+.fa-balance-scale:before {
+  content: "\f24e";
+}
+.fa-hourglass-o:before {
+  content: "\f250";
+}
+.fa-hourglass-1:before,
+.fa-hourglass-start:before {
+  content: "\f251";
+}
+.fa-hourglass-2:before,
+.fa-hourglass-half:before {
+  content: "\f252";
+}
+.fa-hourglass-3:before,
+.fa-hourglass-end:before {
+  content: "\f253";
+}
+.fa-hourglass:before {
+  content: "\f254";
+}
+.fa-hand-grab-o:before,
+.fa-hand-rock-o:before {
+  content: "\f255";
+}
+.fa-hand-stop-o:before,
+.fa-hand-paper-o:before {
+  content: "\f256";
+}
+.fa-hand-scissors-o:before {
+  content: "\f257";
+}
+.fa-hand-lizard-o:before {
+  content: "\f258";
+}
+.fa-hand-spock-o:before {
+  content: "\f259";
+}
+.fa-hand-pointer-o:before {
+  content: "\f25a";
+}
+.fa-hand-peace-o:before {
+  content: "\f25b";
+}
+.fa-trademark:before {
+  content: "\f25c";
+}
+.fa-registered:before {
+  content: "\f25d";
+}
+.fa-creative-commons:before {
+  content: "\f25e";
+}
+.fa-gg:before {
+  content: "\f260";
+}
+.fa-gg-circle:before {
+  content: "\f261";
+}
+.fa-tripadvisor:before {
+  content: "\f262";
+}
+.fa-odnoklassniki:before {
+  content: "\f263";
+}
+.fa-odnoklassniki-square:before {
+  content: "\f264";
+}
+.fa-get-pocket:before {
+  content: "\f265";
+}
+.fa-wikipedia-w:before {
+  content: "\f266";
+}
+.fa-safari:before {
+  content: "\f267";
+}
+.fa-chrome:before {
+  content: "\f268";
+}
+.fa-firefox:before {
+  content: "\f269";
+}
+.fa-opera:before {
+  content: "\f26a";
+}
+.fa-internet-explorer:before {
+  content: "\f26b";
+}
+.fa-tv:before,
+.fa-television:before {
+  content: "\f26c";
+}
+.fa-contao:before {
+  content: "\f26d";
+}
+.fa-500px:before {
+  content: "\f26e";
+}
+.fa-amazon:before {
+  content: "\f270";
+}
+.fa-calendar-plus-o:before {
+  content: "\f271";
+}
+.fa-calendar-minus-o:before {
+  content: "\f272";
+}
+.fa-calendar-times-o:before {
+  content: "\f273";
+}
+.fa-calendar-check-o:before {
+  content: "\f274";
+}
+.fa-industry:before {
+  content: "\f275";
+}
+.fa-map-pin:before {
+  content: "\f276";
+}
+.fa-map-signs:before {
+  content: "\f277";
+}
+.fa-map-o:before {
+  content: "\f278";
+}
+.fa-map:before {
+  content: "\f279";
+}
+.fa-commenting:before {
+  content: "\f27a";
+}
+.fa-commenting-o:before {
+  content: "\f27b";
+}
+.fa-houzz:before {
+  content: "\f27c";
+}
+.fa-vimeo:before {
+  content: "\f27d";
+}
+.fa-black-tie:before {
+  content: "\f27e";
+}
+.fa-fonticons:before {
+  content: "\f280";
+}
+.fa-reddit-alien:before {
+  content: "\f281";
+}
+.fa-edge:before {
+  content: "\f282";
+}
+.fa-credit-card-alt:before {
+  content: "\f283";
+}
+.fa-codiepie:before {
+  content: "\f284";
+}
+.fa-modx:before {
+  content: "\f285";
+}
+.fa-fort-awesome:before {
+  content: "\f286";
+}
+.fa-usb:before {
+  content: "\f287";
+}
+.fa-product-hunt:before {
+  content: "\f288";
+}
+.fa-mixcloud:before {
+  content: "\f289";
+}
+.fa-scribd:before {
+  content: "\f28a";
+}
+.fa-pause-circle:before {
+  content: "\f28b";
+}
+.fa-pause-circle-o:before {
+  content: "\f28c";
+}
+.fa-stop-circle:before {
+  content: "\f28d";
+}
+.fa-stop-circle-o:before {
+  content: "\f28e";
+}
+.fa-shopping-bag:before {
+  content: "\f290";
+}
+.fa-shopping-basket:before {
+  content: "\f291";
+}
+.fa-hashtag:before {
+  content: "\f292";
+}
+.fa-bluetooth:before {
+  content: "\f293";
+}
+.fa-bluetooth-b:before {
+  content: "\f294";
+}
+.fa-percent:before {
+  content: "\f295";
+}
+.fa-gitlab:before {
+  content: "\f296";
+}
+.fa-wpbeginner:before {
+  content: "\f297";
+}
+.fa-wpforms:before {
+  content: "\f298";
+}
+.fa-envira:before {
+  content: "\f299";
+}
+.fa-universal-access:before {
+  content: "\f29a";
+}
+.fa-wheelchair-alt:before {
+  content: "\f29b";
+}
+.fa-question-circle-o:before {
+  content: "\f29c";
+}
+.fa-blind:before {
+  content: "\f29d";
+}
+.fa-audio-description:before {
+  content: "\f29e";
+}
+.fa-volume-control-phone:before {
+  content: "\f2a0";
+}
+.fa-braille:before {
+  content: "\f2a1";
+}
+.fa-assistive-listening-systems:before {
+  content: "\f2a2";
+}
+.fa-asl-interpreting:before,
+.fa-american-sign-language-interpreting:before {
+  content: "\f2a3";
+}
+.fa-deafness:before,
+.fa-hard-of-hearing:before,
+.fa-deaf:before {
+  content: "\f2a4";
+}
+.fa-glide:before {
+  content: "\f2a5";
+}
+.fa-glide-g:before {
+  content: "\f2a6";
+}
+.fa-signing:before,
+.fa-sign-language:before {
+  content: "\f2a7";
+}
+.fa-low-vision:before {
+  content: "\f2a8";
+}
+.fa-viadeo:before {
+  content: "\f2a9";
+}
+.fa-viadeo-square:before {
+  content: "\f2aa";
+}
+.fa-snapchat:before {
+  content: "\f2ab";
+}
+.fa-snapchat-ghost:before {
+  content: "\f2ac";
+}
+.fa-snapchat-square:before {
+  content: "\f2ad";
+}
+.fa-pied-piper:before {
+  content: "\f2ae";
+}
+.fa-first-order:before {
+  content: "\f2b0";
+}
+.fa-yoast:before {
+  content: "\f2b1";
+}
+.fa-themeisle:before {
+  content: "\f2b2";
+}
+.fa-google-plus-circle:before,
+.fa-google-plus-official:before {
+  content: "\f2b3";
+}
+.fa-fa:before,
+.fa-font-awesome:before {
+  content: "\f2b4";
+}
+.fa-handshake-o:before {
+  content: "\f2b5";
+}
+.fa-envelope-open:before {
+  content: "\f2b6";
+}
+.fa-envelope-open-o:before {
+  content: "\f2b7";
+}
+.fa-linode:before {
+  content: "\f2b8";
+}
+.fa-address-book:before {
+  content: "\f2b9";
+}
+.fa-address-book-o:before {
+  content: "\f2ba";
+}
+.fa-vcard:before,
+.fa-address-card:before {
+  content: "\f2bb";
+}
+.fa-vcard-o:before,
+.fa-address-card-o:before {
+  content: "\f2bc";
+}
+.fa-user-circle:before {
+  content: "\f2bd";
+}
+.fa-user-circle-o:before {
+  content: "\f2be";
+}
+.fa-user-o:before {
+  content: "\f2c0";
+}
+.fa-id-badge:before {
+  content: "\f2c1";
+}
+.fa-drivers-license:before,
+.fa-id-card:before {
+  content: "\f2c2";
+}
+.fa-drivers-license-o:before,
+.fa-id-card-o:before {
+  content: "\f2c3";
+}
+.fa-quora:before {
+  content: "\f2c4";
+}
+.fa-free-code-camp:before {
+  content: "\f2c5";
+}
+.fa-telegram:before {
+  content: "\f2c6";
+}
+.fa-thermometer-4:before,
+.fa-thermometer:before,
+.fa-thermometer-full:before {
+  content: "\f2c7";
+}
+.fa-thermometer-3:before,
+.fa-thermometer-three-quarters:before {
+  content: "\f2c8";
+}
+.fa-thermometer-2:before,
+.fa-thermometer-half:before {
+  content: "\f2c9";
+}
+.fa-thermometer-1:before,
+.fa-thermometer-quarter:before {
+  content: "\f2ca";
+}
+.fa-thermometer-0:before,
+.fa-thermometer-empty:before {
+  content: "\f2cb";
+}
+.fa-shower:before {
+  content: "\f2cc";
+}
+.fa-bathtub:before,
+.fa-s15:before,
+.fa-bath:before {
+  content: "\f2cd";
+}
+.fa-podcast:before {
+  content: "\f2ce";
+}
+.fa-window-maximize:before {
+  content: "\f2d0";
+}
+.fa-window-minimize:before {
+  content: "\f2d1";
+}
+.fa-window-restore:before {
+  content: "\f2d2";
+}
+.fa-times-rectangle:before,
+.fa-window-close:before {
+  content: "\f2d3";
+}
+.fa-times-rectangle-o:before,
+.fa-window-close-o:before {
+  content: "\f2d4";
+}
+.fa-bandcamp:before {
+  content: "\f2d5";
+}
+.fa-grav:before {
+  content: "\f2d6";
+}
+.fa-etsy:before {
+  content: "\f2d7";
+}
+.fa-imdb:before {
+  content: "\f2d8";
+}
+.fa-ravelry:before {
+  content: "\f2d9";
+}
+.fa-eercast:before {
+  content: "\f2da";
+}
+.fa-microchip:before {
+  content: "\f2db";
+}
+.fa-snowflake-o:before {
+  content: "\f2dc";
+}
+.fa-superpowers:before {
+  content: "\f2dd";
+}
+.fa-wpexplorer:before {
+  content: "\f2de";
+}
+.fa-meetup:before {
+  content: "\f2e0";
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
 }
 /*!
 *
@@ -8694,6 +9372,10 @@ div.traceback-wrapper {
   max-width: 800px;
   margin: auto;
 }
+div.traceback-wrapper pre.traceback {
+  max-height: 600px;
+  overflow: auto;
+}
 /**
  * Primary styles
  *
@@ -8719,6 +9401,10 @@ body > #header {
   z-index: 100;
 }
 body > #header #header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
   padding-bottom: 5px;
   padding-top: 5px;
   box-sizing: border-box;
@@ -8750,13 +9436,16 @@ body > #header .header-bar {
   padding-top: 1px;
   padding-bottom: 1px;
 }
-@media (max-width: 991px) {
-  #ipython_notebook {
-    margin-left: 10px;
-  }
-}
 [dir="rtl"] #ipython_notebook {
+  margin-right: 10px;
+  margin-left: 0;
+}
+[dir="rtl"] #ipython_notebook.pull-left {
   float: right !important;
+  float: right;
+}
+.flex-spacer {
+  flex: 1;
 }
 #noscript {
   width: auto;
@@ -8791,8 +9480,14 @@ body > #header .header-bar {
 input.ui-button {
   padding: 0.3em 0.9em;
 }
+span#kernel_logo_widget {
+  margin: 0 10px;
+}
 span#login_widget {
   float: right;
+}
+[dir="rtl"] span#login_widget {
+  float: left;
 }
 span#login_widget > .button,
 #logout {
@@ -8908,6 +9603,9 @@ span#login_widget > .button .badge,
   overflow: auto;
   flex: 1;
 }
+.modal-header {
+  cursor: move;
+}
 @media (min-width: 768px) {
   .modal .modal-dialog {
     width: 700px;
@@ -8928,6 +9626,19 @@ span#login_widget > .button .badge,
   display: inline-block;
   margin-bottom: -4px;
 }
+[dir="rtl"] .center-nav form.pull-left {
+  float: right !important;
+  float: right;
+}
+[dir="rtl"] .center-nav .navbar-text {
+  float: right;
+}
+[dir="rtl"] .navbar-inner {
+  text-align: right;
+}
+[dir="rtl"] div.text-left {
+  text-align: right;
+}
 /*!
 *
 * IPython tree view
@@ -8944,34 +9655,42 @@ span#login_widget > .button .badge,
   margin: 0;
 }
 .alternate_upload input.fileinput {
-  text-align: center;
-  vertical-align: middle;
-  display: inline;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
   opacity: 0;
   z-index: 2;
-  width: 12ex;
-  margin-right: -12ex;
+}
+.alternate_upload .btn-xs > input.fileinput {
+  margin: -1px -5px;
 }
 .alternate_upload .btn-upload {
+  position: relative;
   height: 22px;
+}
+::-webkit-file-upload-button {
+  cursor: pointer;
 }
 /**
  * Primary styles
  *
  * Author: Jupyter Development Team
  */
-[dir="rtl"] #tabs li {
-  float: right;
-}
 ul#tabs {
   margin-bottom: 4px;
-}
-[dir="rtl"] ul#tabs {
-  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
   padding-bottom: 4px;
+}
+[dir="rtl"] ul#tabs.nav-tabs > li {
+  float: right;
+}
+[dir="rtl"] ul#tabs.nav.nav-tabs {
+  padding-right: 0;
 }
 ul.breadcrumb a:focus,
 ul.breadcrumb a:hover {
@@ -8991,15 +9710,13 @@ ul.breadcrumb span {
 .list_toolbar .tree-buttons {
   padding-top: 1px;
 }
-[dir="rtl"] .list_toolbar .tree-buttons {
+[dir="rtl"] .list_toolbar .tree-buttons .pull-right {
   float: left !important;
+  float: left;
 }
-[dir="rtl"] .list_toolbar .pull-right {
-  padding-top: 1px;
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-left {
-  float: right !important;
+[dir="rtl"] .list_toolbar .col-sm-4,
+[dir="rtl"] .list_toolbar .col-sm-8 {
+  float: right;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9055,7 +9772,7 @@ ul.breadcrumb span {
 .list_item > div input {
   margin-right: 7px;
   margin-left: 14px;
-  vertical-align: baseline;
+  vertical-align: text-bottom;
   line-height: 22px;
   position: relative;
   top: -1px;
@@ -9065,6 +9782,9 @@ ul.breadcrumb span {
   margin-left: -1px;
   vertical-align: baseline;
   line-height: 22px;
+}
+[dir="rtl"] .list_item > div input {
+  margin-right: 0;
 }
 .new-file input[type=checkbox] {
   visibility: hidden;
@@ -9080,6 +9800,14 @@ ul.breadcrumb span {
   margin-left: 7px;
   line-height: 22px;
   vertical-align: baseline;
+}
+.item_modified {
+  margin-right: 7px;
+  margin-left: 7px;
+}
+[dir="rtl"] .item_modified.pull-right {
+  float: left !important;
+  float: left;
 }
 .item_buttons {
   line-height: 1em;
@@ -9108,6 +9836,14 @@ ul.breadcrumb span {
   margin-right: 7px;
   float: left;
 }
+[dir="rtl"] .item_buttons.pull-right {
+  float: left !important;
+  float: left;
+}
+[dir="rtl"] .item_buttons .kernel-name {
+  margin-left: 7px;
+  float: right;
+}
 .toolbar_info {
   height: 24px;
   line-height: 24px;
@@ -9133,18 +9869,32 @@ ul.breadcrumb span {
   background-color: transparent;
   font-weight: bold;
 }
+.sort_button {
+  display: inline-block;
+  padding-left: 7px;
+}
+[dir="rtl"] .sort_button.pull-right {
+  float: left !important;
+  float: left;
+}
 #tree-selector {
   padding-right: 0px;
-}
-[dir="rtl"] #tree-selector a {
-  float: right;
 }
 #button-select-all {
   min-width: 50px;
 }
+[dir="rtl"] #button-select-all.btn {
+  float: right ;
+}
 #select-all {
   margin-left: 7px;
   margin-right: 2px;
+  margin-top: 2px;
+  height: 16px;
+}
+[dir="rtl"] #select-all.pull-left {
+  float: right !important;
+  float: right;
 }
 .menu_icon {
   margin-right: 2px;
@@ -9162,6 +9912,12 @@ ul.breadcrumb span {
   -moz-osx-font-smoothing: grayscale;
   content: "\f114";
 }
+.folder_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.folder_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .folder_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -9178,6 +9934,12 @@ ul.breadcrumb span {
   content: "\f02d";
   position: relative;
   top: -1px;
+}
+.notebook_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.notebook_icon:before.fa-pull-right {
+  margin-left: .3em;
 }
 .notebook_icon:before.pull-left {
   margin-right: .3em;
@@ -9197,6 +9959,12 @@ ul.breadcrumb span {
   top: -1px;
   color: #5cb85c;
 }
+.running_notebook_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.running_notebook_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .running_notebook_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -9214,6 +9982,12 @@ ul.breadcrumb span {
   position: relative;
   top: -2px;
 }
+.file_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.file_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .file_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -9228,8 +10002,11 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
-[dir="rtl"] #new-menu {
-  text-align: right;
+#new-menu .dropdown-header {
+  font-size: 10px;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 0 3px;
+  margin: -3px 20px 0;
 }
 .kernel-menu-icon {
   padding-right: 12px;
@@ -9276,9 +10053,6 @@ ul#new-menu {
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
 }
-[dir="rtl"] #running .col-sm-8 {
-  float: right !important;
-}
 .delete-button {
   display: none;
 }
@@ -9286,6 +10060,12 @@ ul#new-menu {
   display: none;
 }
 .rename-button {
+  display: none;
+}
+.move-button {
+  display: none;
+}
+.download-button {
   display: none;
 }
 .shutdown-button {
@@ -9328,6 +10108,12 @@ ul#new-menu {
   -moz-osx-font-smoothing: grayscale;
   width: 20px;
 }
+.dirty-indicator.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator.fa-pull-right {
+  margin-left: .3em;
+}
 .dirty-indicator.pull-left {
   margin-right: .3em;
 }
@@ -9342,6 +10128,12 @@ ul#new-menu {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 20px;
+}
+.dirty-indicator-dirty.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator-dirty.fa-pull-right {
+  margin-left: .3em;
 }
 .dirty-indicator-dirty.pull-left {
   margin-right: .3em;
@@ -9358,6 +10150,12 @@ ul#new-menu {
   -moz-osx-font-smoothing: grayscale;
   width: 20px;
 }
+.dirty-indicator-clean.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator-clean.fa-pull-right {
+  margin-left: .3em;
+}
 .dirty-indicator-clean.pull-left {
   margin-right: .3em;
 }
@@ -9372,6 +10170,12 @@ ul#new-menu {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f00c";
+}
+.dirty-indicator-clean:before.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator-clean:before.fa-pull-right {
+  margin-left: .3em;
 }
 .dirty-indicator-clean:before.pull-left {
   margin-right: .3em;
@@ -9417,14 +10221,132 @@ ul#new-menu {
     box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
   }
 }
+.CodeMirror-dialog {
+  background-color: #fff;
+}
 /*!
 *
 * IPython notebook
 *
 */
-/* CSS font colors for translated ANSI colors. */
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
 .ansibold {
   font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
 }
 /* use dark versions for foreground, to improve visibility */
 .ansiblack {
@@ -9503,12 +10425,20 @@ div.cell {
   /* This acts as a spacer between cells, that is outside the border */
   margin: 0px;
   outline: none;
-  border-left-width: 1px;
-  padding-left: 5px;
-  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
 }
 div.cell.jupyter-soft-selected {
-  border-left-color: #90CAF9;
   border-left-color: #E3F2FD;
   border-left-width: 1px;
   padding-left: 5px;
@@ -9521,27 +10451,39 @@ div.cell.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected {
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
   border-color: #ababab;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
 }
 @media print {
-  div.cell.selected {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected.jupyter-soft-selected {
-  border-left-width: 0;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
-}
 .edit_mode div.cell.selected {
   border-color: #66BB6A;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
 }
 @media print {
   .edit_mode div.cell.selected {
@@ -9737,7 +10679,9 @@ div.input_area > div.highlight > pre {
 .CodeMirror-lines {
   /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
   /* we have set a different line-height and want this to scale with that. */
-  padding: 0.4em;
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
 }
 .CodeMirror-linenumber {
   padding: 0 8px 0 4px;
@@ -9747,11 +10691,24 @@ div.input_area > div.highlight > pre {
   border-top-left-radius: 2px;
 }
 .CodeMirror pre {
-  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
-  /* .CodeMirror-lines */
-  padding: 0;
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
   border: 0;
   border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
 }
 /*
 
@@ -10005,6 +10962,9 @@ div.output_area img.unconfined,
 div.output_area svg.unconfined {
   max-width: none;
 }
+div.output_area .mglyph > img {
+  max-width: none;
+}
 /* This is needed to protect the pre formating from global settings such
    as that of bootstrap */
 .output {
@@ -10043,7 +11003,7 @@ div.output_area svg.unconfined {
 }
 div.output_area pre {
   margin: 0;
-  padding: 0;
+  padding: 1px 0 1px 0;
   border: 0;
   vertical-align: baseline;
   color: black;
@@ -10203,39 +11163,35 @@ div.output_unrecognized a:hover {
 .rendered_html h6:first-child {
   margin-top: 1em;
 }
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
 .rendered_html ul {
   list-style: disc;
-  margin: 0em 2em;
-  padding-left: 0px;
 }
 .rendered_html ul ul {
   list-style: square;
-  margin: 0em 2em;
+  margin-top: 0;
 }
 .rendered_html ul ul ul {
   list-style: circle;
-  margin: 0em 2em;
 }
 .rendered_html ol {
   list-style: decimal;
-  margin: 0em 2em;
-  padding-left: 0px;
 }
 .rendered_html ol ol {
   list-style: upper-alpha;
-  margin: 0em 2em;
+  margin-top: 0;
 }
 .rendered_html ol ol ol {
   list-style: lower-alpha;
-  margin: 0em 2em;
 }
 .rendered_html ol ol ol ol {
   list-style: lower-roman;
-  margin: 0em 2em;
 }
 .rendered_html ol ol ol ol ol {
   list-style: decimal;
-  margin: 0em 2em;
 }
 .rendered_html * + ul {
   margin-top: 1em;
@@ -10249,14 +11205,23 @@ div.output_unrecognized a:hover {
 }
 .rendered_html pre {
   margin: 1em 2em;
+  padding: 0px;
+  background-color: #fff;
+}
+.rendered_html code {
+  background-color: #eff0f1;
+}
+.rendered_html p code {
+  padding: 1px 5px;
+}
+.rendered_html pre code {
+  background-color: #fff;
 }
 .rendered_html pre,
 .rendered_html code {
   border: 0;
-  background-color: #fff;
   color: #000;
   font-size: 100%;
-  padding: 0px;
 }
 .rendered_html blockquote {
   margin: 1em 2em;
@@ -10264,24 +11229,36 @@ div.output_unrecognized a:hover {
 .rendered_html table {
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid black;
+  border: none;
   border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
 }
 .rendered_html tr,
 .rendered_html th,
 .rendered_html td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  margin: 1em 2em;
-}
-.rendered_html td,
-.rendered_html th {
-  text-align: left;
+  text-align: right;
   vertical-align: middle;
-  padding: 4px;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
 }
 .rendered_html th {
   font-weight: bold;
+}
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
 }
 .rendered_html * + table {
   margin-top: 1em;
@@ -10308,6 +11285,15 @@ div.output_unrecognized a:hover {
 .rendered_html img.unconfined,
 .rendered_html svg.unconfined {
   max-width: none;
+}
+.rendered_html .alert {
+  margin-bottom: initial;
+}
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] .rendered_html p {
+  text-align: right;
 }
 div.text_cell {
   /* Old browsers */
@@ -10362,8 +11348,17 @@ h6:hover .anchor-link {
   overflow-x: auto;
   overflow-y: hidden;
 }
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered .rendered_html td {
+  max-width: none;
+}
 .text_cell.unrendered .text_cell_render {
   display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
 }
 .cm-header-1,
 .cm-header-2,
@@ -10500,6 +11495,28 @@ kbd {
   padding-top: 1px;
   padding-bottom: 1px;
 }
+.jupyter-keybindings {
+  padding: 1px;
+  line-height: 24px;
+  border-bottom: 1px solid gray;
+}
+.jupyter-keybindings input {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.jupyter-keybindings i {
+  padding: 6px;
+}
+.well code {
+  background-color: #ffffff;
+  border-color: #ababab;
+  border-width: 1px;
+  border-style: solid;
+  padding: 2px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
 /* CSS for the cell toolbar */
 .celltoolbar {
   border: thin solid #CFCFCF;
@@ -10632,6 +11649,152 @@ select[multiple].celltoolbar select {
   margin-left: 5px;
   margin-right: 5px;
 }
+.tags_button_container {
+  width: 100%;
+  display: flex;
+}
+.tag-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+.tag-container > * {
+  margin: 0 4px;
+}
+.remove-tag-btn {
+  margin-left: 4px;
+}
+.tags-input {
+  display: flex;
+}
+.cell-tag:last-child:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  /* Fade to background color of cell toolbar */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), #EEE);
+}
+.tags-input > * {
+  margin-left: 4px;
+}
+.cell-tag,
+.tags-input input,
+.tags-input button {
+  display: block;
+  width: 100%;
+  height: 32px;
+  padding: 6px 12px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 1px;
+  box-shadow: none;
+  width: inherit;
+  font-size: inherit;
+  height: 22px;
+  line-height: 22px;
+  padding: 0px 4px;
+  display: inline-block;
+}
+.cell-tag:focus,
+.tags-input input:focus,
+.tags-input button:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.cell-tag::-moz-placeholder,
+.tags-input input::-moz-placeholder,
+.tags-input button::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+.cell-tag:-ms-input-placeholder,
+.tags-input input:-ms-input-placeholder,
+.tags-input button:-ms-input-placeholder {
+  color: #999;
+}
+.cell-tag::-webkit-input-placeholder,
+.tags-input input::-webkit-input-placeholder,
+.tags-input button::-webkit-input-placeholder {
+  color: #999;
+}
+.cell-tag::-ms-expand,
+.tags-input input::-ms-expand,
+.tags-input button::-ms-expand {
+  border: 0;
+  background-color: transparent;
+}
+.cell-tag[disabled],
+.tags-input input[disabled],
+.tags-input button[disabled],
+.cell-tag[readonly],
+.tags-input input[readonly],
+.tags-input button[readonly],
+fieldset[disabled] .cell-tag,
+fieldset[disabled] .tags-input input,
+fieldset[disabled] .tags-input button {
+  background-color: #eeeeee;
+  opacity: 1;
+}
+.cell-tag[disabled],
+.tags-input input[disabled],
+.tags-input button[disabled],
+fieldset[disabled] .cell-tag,
+fieldset[disabled] .tags-input input,
+fieldset[disabled] .tags-input button {
+  cursor: not-allowed;
+}
+textarea.cell-tag,
+textarea.tags-input input,
+textarea.tags-input button {
+  height: auto;
+}
+select.cell-tag,
+select.tags-input input,
+select.tags-input button {
+  height: 30px;
+  line-height: 30px;
+}
+textarea.cell-tag,
+textarea.tags-input input,
+textarea.tags-input button,
+select[multiple].cell-tag,
+select[multiple].tags-input input,
+select[multiple].tags-input button {
+  height: auto;
+}
+.cell-tag,
+.tags-input button {
+  padding: 0px 4px;
+}
+.cell-tag {
+  background-color: #fff;
+  white-space: nowrap;
+}
+.tags-input input[type=text]:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #ccc;
+}
 .completions {
   position: absolute;
   z-index: 110;
@@ -10657,16 +11820,28 @@ select[multiple].celltoolbar select {
 .completions select option.context {
   color: #286090;
 }
-#kernel_logo_widget {
-  float: right !important;
-  float: right;
-}
 #kernel_logo_widget .current_kernel_logo {
   display: none;
   margin-top: -1px;
   margin-bottom: -1px;
   width: 32px;
   height: 32px;
+}
+[dir="rtl"] #kernel_logo_widget {
+  float: left !important;
+  float: left;
+}
+.modal .modal-body .move-path {
+  display: flex;
+  flex-direction: row;
+  justify-content: space;
+  align-items: center;
+}
+.modal .modal-body .move-path .server-root {
+  padding-right: 20px;
+}
+.modal .modal-body .move-path .path-input {
+  flex: 1;
 }
 #menubar {
   box-sizing: border-box;
@@ -10688,11 +11863,41 @@ select[multiple].celltoolbar select {
 #menubar .navbar-collapse {
   clear: left;
 }
+[dir="rtl"] #menubar .navbar-toggle {
+  float: right;
+}
+[dir="rtl"] #menubar .navbar-collapse {
+  clear: right;
+}
+[dir="rtl"] #menubar .navbar-nav {
+  float: right;
+}
+[dir="rtl"] #menubar .nav {
+  padding-right: 0px;
+}
+[dir="rtl"] #menubar .navbar-nav > li {
+  float: right;
+}
+[dir="rtl"] #menubar .navbar-right {
+  float: left !important;
+}
+[dir="rtl"] ul.dropdown-menu {
+  text-align: right;
+  left: auto;
+}
+[dir="rtl"] ul#new-menu.dropdown-menu {
+  right: auto;
+  left: 0;
+}
 .nav-wrapper {
   border-bottom: 1px solid #e7e7e7;
 }
 i.menu-icon {
   padding-top: 4px;
+}
+[dir="rtl"] i.menu-icon.pull-right {
+  float: left !important;
+  float: left;
 }
 ul#help_menu li a {
   overflow: hidden;
@@ -10700,6 +11905,17 @@ ul#help_menu li a {
 }
 ul#help_menu li a i {
   margin-right: -1.2em;
+}
+[dir="rtl"] ul#help_menu li a {
+  padding-left: 2.2em;
+}
+[dir="rtl"] ul#help_menu li a i {
+  margin-right: 0;
+  margin-left: -1.2em;
+}
+[dir="rtl"] ul#help_menu li a i.pull-right {
+  float: left !important;
+  float: left;
 }
 .dropdown-submenu {
   position: relative;
@@ -10709,6 +11925,10 @@ ul#help_menu li a i {
   left: 100%;
   margin-top: -6px;
   margin-left: -1px;
+}
+[dir="rtl"] .dropdown-submenu > .dropdown-menu {
+  right: 100%;
+  margin-right: -1px;
 }
 .dropdown-submenu:hover > .dropdown-menu {
   display: block;
@@ -10727,11 +11947,23 @@ ul#help_menu li a i {
   margin-top: 2px;
   margin-right: -10px;
 }
+.dropdown-submenu > a:after.fa-pull-left {
+  margin-right: .3em;
+}
+.dropdown-submenu > a:after.fa-pull-right {
+  margin-left: .3em;
+}
 .dropdown-submenu > a:after.pull-left {
   margin-right: .3em;
 }
 .dropdown-submenu > a:after.pull-right {
   margin-left: .3em;
+}
+[dir="rtl"] .dropdown-submenu > a:after {
+  float: left;
+  content: "\f0d9";
+  margin-right: 0;
+  margin-left: -10px;
 }
 .dropdown-submenu:hover > a:after {
   color: #262626;
@@ -10748,6 +11980,10 @@ ul#help_menu li a i {
   float: right;
   z-index: 10;
 }
+[dir="rtl"] #notification_area {
+  float: left !important;
+  float: left;
+}
 .indicator_area {
   float: right !important;
   float: right;
@@ -10758,6 +11994,10 @@ ul#help_menu li a i {
   z-index: 10;
   text-align: center;
   width: auto;
+}
+[dir="rtl"] .indicator_area {
+  float: left !important;
+  float: left;
 }
 #kernel_indicator {
   float: right !important;
@@ -10775,6 +12015,12 @@ ul#help_menu li a i {
   padding-left: 5px;
   padding-right: 5px;
 }
+[dir="rtl"] #kernel_indicator {
+  float: left !important;
+  float: left;
+  border-left: 0;
+  border-right: 1px solid;
+}
 #modal_indicator {
   float: right !important;
   float: right;
@@ -10785,6 +12031,10 @@ ul#help_menu li a i {
   z-index: 10;
   text-align: center;
   width: auto;
+}
+[dir="rtl"] #modal_indicator {
+  float: left !important;
+  float: left;
 }
 #readonly-indicator {
   float: right !important;
@@ -10815,6 +12065,12 @@ ul#help_menu li a i {
   -moz-osx-font-smoothing: grayscale;
   content: "\f040";
 }
+.edit_mode .modal_indicator:before.fa-pull-left {
+  margin-right: .3em;
+}
+.edit_mode .modal_indicator:before.fa-pull-right {
+  margin-left: .3em;
+}
 .edit_mode .modal_indicator:before.pull-left {
   margin-right: .3em;
 }
@@ -10829,6 +12085,12 @@ ul#help_menu li a i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: ' ';
+}
+.command_mode .modal_indicator:before.fa-pull-left {
+  margin-right: .3em;
+}
+.command_mode .modal_indicator:before.fa-pull-right {
+  margin-left: .3em;
 }
 .command_mode .modal_indicator:before.pull-left {
   margin-right: .3em;
@@ -10845,6 +12107,12 @@ ul#help_menu li a i {
   -moz-osx-font-smoothing: grayscale;
   content: "\f10c";
 }
+.kernel_idle_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_idle_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .kernel_idle_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -10859,6 +12127,12 @@ ul#help_menu li a i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f111";
+}
+.kernel_busy_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_busy_icon:before.fa-pull-right {
+  margin-left: .3em;
 }
 .kernel_busy_icon:before.pull-left {
   margin-right: .3em;
@@ -10875,6 +12149,12 @@ ul#help_menu li a i {
   -moz-osx-font-smoothing: grayscale;
   content: "\f1e2";
 }
+.kernel_dead_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_dead_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .kernel_dead_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -10889,6 +12169,12 @@ ul#help_menu li a i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f127";
+}
+.kernel_disconnected_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_disconnected_icon:before.fa-pull-right {
+  margin-left: .3em;
 }
 .kernel_disconnected_icon:before.pull-left {
   margin-right: .3em;
@@ -11279,27 +12565,46 @@ div#pager .ui-resizable-handle::after {
   flex: 1;
 }
 span.save_widget {
-  margin-top: 6px;
+  height: 30px;
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  width: 50%;
+  flex: 1;
 }
 span.save_widget span.filename {
-  height: 1em;
+  height: 100%;
   line-height: 1em;
-  padding: 3px;
   margin-left: 16px;
   border: none;
   font-size: 146.5%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   border-radius: 2px;
 }
 span.save_widget span.filename:hover {
   background-color: #e6e6e6;
 }
+[dir="rtl"] span.save_widget.pull-left {
+  float: right !important;
+  float: right;
+}
+[dir="rtl"] span.save_widget span.filename {
+  margin-left: 0;
+  margin-right: 16px;
+}
 span.checkpoint_status,
 span.autosave_status {
   font-size: small;
+  white-space: nowrap;
+  padding: 0 5px;
 }
 @media (max-width: 767px) {
   span.save_widget {
     font-size: small;
+    padding: 0 0 0 5px;
   }
   span.checkpoint_status,
   span.autosave_status {
@@ -11343,6 +12648,9 @@ span.autosave_status {
   margin-top: 0px;
   margin-left: 5px;
 }
+.toolbar-btn-label {
+  margin-left: 6px;
+}
 #maintoolbar {
   margin-bottom: -3px;
   margin-top: -8px;
@@ -11362,6 +12670,10 @@ span.autosave_status {
 }
 .select-xs {
   height: 24px;
+}
+[dir="rtl"] .btn-group > .btn,
+.btn-group-vertical > .btn {
+  float: right;
 }
 .pulse,
 .dropdown-menu > li > a.pulse,
@@ -11512,6 +12824,10 @@ ul.typeahead-list i {
   margin-left: -10px;
   width: 18px;
 }
+[dir="rtl"] ul.typeahead-list i {
+  margin-left: 0;
+  margin-right: -10px;
+}
 ul.typeahead-list {
   max-height: 80vh;
   overflow: auto;
@@ -11520,6 +12836,13 @@ ul.typeahead-list > li > a {
   /** Firefox bug **/
   /* see https://github.com/jupyter/notebook/issues/559 */
   white-space: normal;
+}
+ul.typeahead-list  > li > a.pull-right {
+  float: left !important;
+  float: left;
+}
+[dir="rtl"] .typeahead-list {
+  text-align: right;
 }
 .cmd-palette .modal-body {
   padding: 7px;
@@ -11531,10 +12854,19 @@ ul.typeahead-list > li > a {
   outline: none;
 }
 .no-shortcut {
-  display: none;
+  min-width: 20px;
+  color: transparent;
+}
+[dir="rtl"] .no-shortcut.pull-right {
+  float: left !important;
+  float: left;
+}
+[dir="rtl"] .command-shortcut.pull-right {
+  float: left !important;
+  float: left;
 }
 .command-shortcut:before {
-  content: "(command)";
+  content: "(command mode)";
   padding-right: 3px;
   color: #777777;
 }
@@ -11543,6 +12875,10 @@ ul.typeahead-list > li > a {
   padding-right: 3px;
   color: #777777;
 }
+[dir="rtl"] .edit-shortcut.pull-right {
+  float: left !important;
+  float: left;
+}
 #find-and-replace #replace-preview .match,
 #find-and-replace #replace-preview .insert {
   background-color: #BBDEFB;
@@ -11550,6 +12886,12 @@ ul.typeahead-list > li > a {
   border-style: solid;
   border-width: 1px;
   border-radius: 0px;
+}
+[dir="ltr"] #find-and-replace .input-group-btn + .form-control {
+  border-left: none;
+}
+[dir="rtl"] #find-and-replace .input-group-btn + .form-control {
+  border-right: none;
 }
 #find-and-replace #replace-preview .replace .match {
   background-color: #FFCDD2;
@@ -11675,45 +13017,6 @@ ul.typeahead-list > li > a {
 .highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
-<style type="text/css">
-    
-/* Temporary definitions which will become obsolete with Notebook release 5.0 */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-bold { font-weight: bold; }
-
-    </style>
 
 
 <style type="text/css">
@@ -11747,7 +13050,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11772,8 +13075,7 @@ div#notebook {
     <div class="container" id="notebook-container">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 align="center">Data Augmentation for Deep Learning</h1><p><strong>Summary:</strong></p>
 <ol>
@@ -11793,14 +13095,14 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kn">library</span><span class="p">(</span>SimpleITK<span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">SimpleITK</span><span class="p">)</span>
 
-<span class="kn">source</span><span class="p">(</span><span class="s">&quot;downloaddata.R&quot;</span><span class="p">)</span>
+<span class="nf">source</span><span class="p">(</span><span class="s">&quot;downloaddata.R&quot;</span><span class="p">)</span>
 
-OUTPUT_DIR <span class="o">&lt;-</span> <span class="s">&#39;Output&#39;</span>
+<span class="n">OUTPUT_DIR</span> <span class="o">&lt;-</span> <span class="s">&#39;Output&#39;</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -11810,12 +13112,14 @@ OUTPUT_DIR <span class="o">&lt;-</span> <span class="s">&#39;Output&#39;</span>
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Loading required package: rPython
+
 Loading required package: RJSONIO
+
 </pre>
 </div>
 </div>
@@ -11825,8 +13129,7 @@ Loading required package: RJSONIO
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Before-we-start,-a-word-of-caution">Before we start, a word of caution<a class="anchor-link" href="#Before-we-start,-a-word-of-caution">&#182;</a></h1><p><strong>Whenever you sample there is potential for aliasing (Nyquist theorem).</strong></p>
 <p>In many cases, data prepared for use with a deep learning network is resampled to a fixed size. When we perform data augmentation via spatial transformations we also perform resampling.</p>
@@ -11841,32 +13144,31 @@ Loading required package: RJSONIO
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># The image we will resample (a grid).</span>
-grid_image <span class="o">&lt;-</span> GridSource<span class="p">(</span>outputPixelType<span class="o">=</span><span class="s">&quot;sitkUInt16&quot;</span><span class="p">,</span> size<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">512</span><span class="p">,</span><span class="m">512</span><span class="p">),</span> 
-                             sigma<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0.1</span><span class="p">),</span> gridSpacing<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">20.0</span><span class="p">,</span><span class="m">20.0</span><span class="p">))</span>
-Show<span class="p">(</span>grid_image<span class="p">,</span> <span class="s">&quot;original grid image&quot;</span><span class="p">)</span>
+<span class="n">grid_image</span> <span class="o">&lt;-</span> <span class="nf">GridSource</span><span class="p">(</span><span class="n">outputPixelType</span><span class="o">=</span><span class="s">&quot;sitkUInt16&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">512</span><span class="p">,</span><span class="m">512</span><span class="p">),</span> 
+                             <span class="n">sigma</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0.1</span><span class="p">),</span> <span class="n">gridSpacing</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">20.0</span><span class="p">,</span><span class="m">20.0</span><span class="p">))</span>
+<span class="nf">Show</span><span class="p">(</span><span class="n">grid_image</span><span class="p">,</span> <span class="s">&quot;original grid image&quot;</span><span class="p">)</span>
 
 <span class="c1"># The spatial definition of the images we want to use in a deep learning framework (smaller than the original). </span>
-new_size <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
-reference_image <span class="o">&lt;-</span> Image<span class="p">(</span>new_size<span class="p">,</span> grid_image<span class="o">$</span>GetPixelID<span class="p">())</span>
-reference_image<span class="o">$</span>SetOrigin<span class="p">(</span>grid_image<span class="o">$</span>GetOrigin<span class="p">())</span>
-reference_image<span class="o">$</span>SetDirection<span class="p">(</span>grid_image<span class="o">$</span>GetDirection<span class="p">())</span>
-reference_image<span class="o">$</span>SetSpacing<span class="p">(</span>grid_image<span class="o">$</span>GetSize<span class="p">()</span><span class="o">*</span>grid_image<span class="o">$</span>GetSpacing<span class="p">()</span><span class="o">/</span>new_size<span class="p">)</span>
+<span class="n">new_size</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
+<span class="n">reference_image</span> <span class="o">&lt;-</span> <span class="nf">Image</span><span class="p">(</span><span class="n">new_size</span><span class="p">,</span> <span class="n">grid_image</span><span class="o">$</span><span class="nf">GetPixelID</span><span class="p">())</span>
+<span class="n">reference_image</span><span class="o">$</span><span class="nf">SetOrigin</span><span class="p">(</span><span class="n">grid_image</span><span class="o">$</span><span class="nf">GetOrigin</span><span class="p">())</span>
+<span class="n">reference_image</span><span class="o">$</span><span class="nf">SetDirection</span><span class="p">(</span><span class="n">grid_image</span><span class="o">$</span><span class="nf">GetDirection</span><span class="p">())</span>
+<span class="n">reference_image</span><span class="o">$</span><span class="nf">SetSpacing</span><span class="p">(</span><span class="n">grid_image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span><span class="o">*</span><span class="n">grid_image</span><span class="o">$</span><span class="nf">GetSpacing</span><span class="p">()</span><span class="o">/</span><span class="n">new_size</span><span class="p">)</span>
 
 <span class="c1"># Resample without any smoothing.</span>
-Show<span class="p">(</span>Resample<span class="p">(</span>grid_image<span class="p">,</span> reference_image<span class="p">)</span> <span class="p">,</span> <span class="s">&quot;resampled without smoothing&quot;</span><span class="p">)</span>
+<span class="nf">Show</span><span class="p">(</span><span class="nf">Resample</span><span class="p">(</span><span class="n">grid_image</span><span class="p">,</span> <span class="n">reference_image</span><span class="p">)</span> <span class="p">,</span> <span class="s">&quot;resampled without smoothing&quot;</span><span class="p">)</span>
 
 <span class="c1"># Resample after Gaussian smoothing.</span>
-Show<span class="p">(</span>Resample<span class="p">(</span>SmoothingRecursiveGaussian<span class="p">(</span>grid_image<span class="p">,</span> <span class="m">2.0</span><span class="p">),</span> reference_image<span class="p">),</span> <span class="s">&quot;resampled with smoothing&quot;</span><span class="p">)</span>
+<span class="nf">Show</span><span class="p">(</span><span class="nf">Resample</span><span class="p">(</span><span class="nf">SmoothingRecursiveGaussian</span><span class="p">(</span><span class="n">grid_image</span><span class="p">,</span> <span class="m">2.0</span><span class="p">),</span> <span class="n">reference_image</span><span class="p">),</span> <span class="s">&quot;resampled with smoothing&quot;</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Load-data">Load data<a class="anchor-link" href="#Load-data">&#182;</a></h1><p>Load the images. You can work through the notebook using either the original 3D images or 2D slices from the original volumes.</p>
 
@@ -11878,24 +13180,23 @@ Show<span class="p">(</span>Resample<span class="p">(</span>SmoothingRecursiveGa
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>data <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span>ReadImage<span class="p">(</span>fetch_data<span class="p">(</span><span class="s">&quot;nac-hncma-atlas2013-Slicer4Version/Data/A1_grayT1.nrrd&quot;</span><span class="p">),</span> <span class="s">&quot;sitkFloat32&quot;</span><span class="p">),</span>
-             ReadImage<span class="p">(</span>fetch_data<span class="p">(</span><span class="s">&quot;vm_head_mri.mha&quot;</span><span class="p">),</span> <span class="s">&quot;sitkFloat32&quot;</span><span class="p">))</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">list</span><span class="p">(</span><span class="nf">ReadImage</span><span class="p">(</span><span class="nf">fetch_data</span><span class="p">(</span><span class="s">&quot;nac-hncma-atlas2013-Slicer4Version/Data/A1_grayT1.nrrd&quot;</span><span class="p">),</span> <span class="s">&quot;sitkFloat32&quot;</span><span class="p">),</span>
+             <span class="nf">ReadImage</span><span class="p">(</span><span class="nf">fetch_data</span><span class="p">(</span><span class="s">&quot;vm_head_mri.mha&quot;</span><span class="p">),</span> <span class="s">&quot;sitkFloat32&quot;</span><span class="p">))</span>
 
 <span class="c1"># Comment out the following line if you want to work in 3D. Note that in 3D some of the notebook visualizations are </span>
 <span class="c1"># disabled. </span>
-data <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span>data<span class="p">[[</span><span class="m">1</span><span class="p">]][,</span><span class="m">161</span><span class="p">,],</span> data<span class="p">[[</span><span class="m">2</span><span class="p">]][,,</span><span class="m">18</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">list</span><span class="p">(</span><span class="n">data[[1]][</span><span class="p">,</span><span class="m">161</span><span class="p">,</span><span class="n">]</span><span class="p">,</span> <span class="n">data[[2]][</span><span class="p">,,</span><span class="m">18</span><span class="n">]</span><span class="p">)</span>
 
-<span class="kp">invisible</span><span class="p">(</span><span class="kp">lapply</span><span class="p">(</span>data<span class="p">,</span> Show<span class="p">))</span>
+<span class="nf">invisible</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Show</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The original data often needs to be modified. In this example we would like to crop the images so that we only keep the informative regions. We can readily separate the foreground and background using an appropriate threshold, in our case we use Otsu's threshold selection method.</p>
 
@@ -11914,32 +13215,31 @@ data <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(<
 <span class="c1">#                           (the assumption underlying Otsu&#39;s method.)</span>
 <span class="c1"># Return:</span>
 <span class="c1">#   Cropped image based on foreground&#39;s axis aligned bounding box.  </span>
-threshold_based_crop <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>image<span class="p">)</span> <span class="p">{</span>
+<span class="n">threshold_based_crop</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1"># Set pixels that are in [min_intensity,otsu_threshold] to inside_value, values above otsu_threshold are</span>
   <span class="c1"># set to outside_value. The anatomy has higher intensity values than the background, so it is outside.</span>
-  inside_value <span class="o">&lt;-</span> <span class="m">0</span>
-  outside_value <span class="o">&lt;-</span> <span class="m">255</span>
-  label_shape_filter <span class="o">&lt;-</span> LabelShapeStatisticsImageFilter<span class="p">()</span>
-  label_shape_filter<span class="o">$</span>Execute<span class="p">(</span> OtsuThreshold<span class="p">(</span>image<span class="p">,</span> inside_value<span class="p">,</span> outside_value<span class="p">)</span> <span class="p">)</span>
-  bounding_box <span class="o">&lt;-</span> label_shape_filter<span class="o">$</span>GetBoundingBox<span class="p">(</span>outside_value<span class="p">)</span>
+  <span class="n">inside_value</span> <span class="o">&lt;-</span> <span class="m">0</span>
+  <span class="n">outside_value</span> <span class="o">&lt;-</span> <span class="m">255</span>
+  <span class="n">label_shape_filter</span> <span class="o">&lt;-</span> <span class="nf">LabelShapeStatisticsImageFilter</span><span class="p">()</span>
+  <span class="n">label_shape_filter</span><span class="o">$</span><span class="nf">Execute</span><span class="p">(</span> <span class="nf">OtsuThreshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">inside_value</span><span class="p">,</span> <span class="n">outside_value</span><span class="p">)</span> <span class="p">)</span>
+  <span class="n">bounding_box</span> <span class="o">&lt;-</span> <span class="n">label_shape_filter</span><span class="o">$</span><span class="nf">GetBoundingBox</span><span class="p">(</span><span class="n">outside_value</span><span class="p">)</span>
   <span class="c1"># The bounding box&#39;s first &quot;dim&quot; entries are the starting index and last &quot;dim&quot; entries the size</span>
-  vec_len <span class="o">&lt;-</span> <span class="kp">length</span><span class="p">(</span>bounding_box<span class="p">)</span>
-  <span class="kr">return</span><span class="p">(</span>RegionOfInterest<span class="p">(</span>image<span class="p">,</span> bounding_box<span class="p">[(</span>vec_len<span class="o">/</span><span class="m">2</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span> <span class="o">:</span> vec_len<span class="p">],</span> bounding_box<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">(</span>vec_len<span class="o">/</span><span class="m">2</span><span class="p">)]))</span>
+  <span class="n">vec_len</span> <span class="o">&lt;-</span> <span class="nf">length</span><span class="p">(</span><span class="n">bounding_box</span><span class="p">)</span>
+  <span class="nf">return</span><span class="p">(</span><span class="nf">RegionOfInterest</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">bounding_box</span><span class="nf">[</span><span class="p">(</span><span class="n">vec_len</span><span class="o">/</span><span class="m">2</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span> <span class="o">:</span> <span class="n">vec_len]</span><span class="p">,</span> <span class="n">bounding_box[1</span><span class="o">:</span><span class="p">(</span><span class="n">vec_len</span><span class="o">/</span><span class="m">2</span><span class="p">)</span><span class="n">]</span><span class="p">))</span>
 <span class="p">}</span>
     
-modified_data <span class="o">&lt;-</span> <span class="kp">lapply</span><span class="p">(</span>data<span class="p">,</span> threshold_based_crop<span class="p">)</span>
+<span class="n">modified_data</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">threshold_based_crop</span><span class="p">)</span>
 
-<span class="kp">invisible</span><span class="p">(</span><span class="kp">lapply</span><span class="p">(</span>modified_data<span class="p">,</span> Show<span class="p">))</span>
+<span class="nf">invisible</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">modified_data</span><span class="p">,</span> <span class="n">Show</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>At this point we select the images we want to work with, skip the following cell if you want to work with the original data.</p>
 
@@ -11951,17 +13251,16 @@ modified_data <span class="o">&lt;-</span> <span class="kp">lapply</span><span c
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>data <span class="o">=</span> modified_data
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">modified_data</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Augmentation-using-spatial-transformations">Augmentation using spatial transformations<a class="anchor-link" href="#Augmentation-using-spatial-transformations">&#182;</a></h1><p>We next illustrate the generation of images by specifying a list of transformation parameter values representing a sampling of the transformation's parameter space.</p>
 <p>The code below is agnostic to the specific transformation and it is up to the user to specify a valid list of transformation parameters (correct number of parameters and correct order).</p>
@@ -11971,8 +13270,7 @@ modified_data <span class="o">&lt;-</span> <span class="kp">lapply</span><span c
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Utility-methods">Utility methods<a class="anchor-link" href="#Utility-methods">&#182;</a></h2><p>Utilities for sampling a parameter space using a regular grid in a convenient manner (special care for 3D similarity).</p>
 
@@ -11990,9 +13288,9 @@ modified_data <span class="o">&lt;-</span> <span class="kp">lapply</span><span c
 <span class="c1">#      parameterization (e.g. Similarity2DTransform: scaling, rotation, tx, ty)</span>
 <span class="c1"># Return:</span>
 <span class="c1"># List of  vectors representing the regular grid sampling.</span>
-parameter_space_regular_grid_sampling <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span><span class="kc">...</span><span class="p">)</span> <span class="p">{</span>
-    df <span class="o">&lt;-</span> <span class="kp">expand.grid</span><span class="p">(</span><span class="kt">list</span><span class="p">(</span><span class="kc">...</span><span class="p">))</span>
-    <span class="kr">return</span><span class="p">(</span><span class="kp">lapply</span><span class="p">(</span><span class="kp">split</span><span class="p">(</span>df<span class="p">,</span><span class="kp">seq_along</span><span class="p">(</span>df<span class="p">[,</span><span class="m">1</span><span class="p">])),</span> <span class="kp">as.vector</span><span class="p">))</span>
+<span class="n">parameter_space_regular_grid_sampling</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="kc">...</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">expand.grid</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="kc">...</span><span class="p">))</span>
+    <span class="nf">return</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="nf">split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="nf">seq_along</span><span class="p">(</span><span class="n">df[</span><span class="p">,</span><span class="m">1</span><span class="n">]</span><span class="p">)),</span> <span class="n">as.vector</span><span class="p">))</span>
 <span class="p">}</span>
 
 
@@ -12006,15 +13304,15 @@ parameter_space_regular_grid_sampling <span class="o">&lt;-</span> <span class="
 <span class="c1">#   scale: vector with the scale values to use.</span>
 <span class="c1">#    Return:</span>
 <span class="c1">#        List of vectors representing the parameter space sampling (vx,vy,vz,tx,ty,tz,s).</span>
-similarity3D_parameter_space_regular_sampling <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>thetaX<span class="p">,</span> thetaY<span class="p">,</span> thetaZ<span class="p">,</span> tx<span class="p">,</span> ty<span class="p">,</span> tz<span class="p">,</span> <span class="kp">scale</span><span class="p">)</span> <span class="p">{</span>
-  euler_sampling <span class="o">&lt;-</span> parameter_space_regular_grid_sampling<span class="p">(</span>thetaX<span class="p">,</span> thetaY<span class="p">,</span> thetaZ<span class="p">,</span> tx<span class="p">,</span> ty<span class="p">,</span> tz<span class="p">,</span> <span class="kp">scale</span><span class="p">)</span>
+<span class="n">similarity3D_parameter_space_regular_sampling</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">thetaX</span><span class="p">,</span> <span class="n">thetaY</span><span class="p">,</span> <span class="n">thetaZ</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">,</span> <span class="n">tz</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">euler_sampling</span> <span class="o">&lt;-</span> <span class="nf">parameter_space_regular_grid_sampling</span><span class="p">(</span><span class="n">thetaX</span><span class="p">,</span> <span class="n">thetaY</span><span class="p">,</span> <span class="n">thetaZ</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">,</span> <span class="n">tz</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
   <span class="c1"># replace Euler angles with quaternion vector</span>
-  <span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq_along</span><span class="p">(</span>euler_sampling<span class="p">))</span> <span class="p">{</span>
-    euler_sampling<span class="p">[[</span>i<span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">]</span> <span class="o">&lt;-</span> eul2quat<span class="p">(</span><span class="kp">as.double</span><span class="p">(</span>euler_sampling<span class="p">[[</span>i<span class="p">]][</span><span class="m">1</span><span class="p">]),</span>
-                                         <span class="kp">as.double</span><span class="p">(</span>euler_sampling<span class="p">[[</span>i<span class="p">]][</span><span class="m">2</span><span class="p">]),</span>
-                                         <span class="kp">as.double</span><span class="p">(</span>euler_sampling<span class="p">[[</span>i<span class="p">]][</span><span class="m">3</span><span class="p">]))</span>
+  <span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="nf">seq_along</span><span class="p">(</span><span class="n">euler_sampling</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">euler_sampling[[i]][1</span><span class="o">:</span><span class="m">3</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="nf">eul2quat</span><span class="p">(</span><span class="nf">as.double</span><span class="p">(</span><span class="n">euler_sampling[[i]][1]</span><span class="p">),</span>
+                                         <span class="nf">as.double</span><span class="p">(</span><span class="n">euler_sampling[[i]][2]</span><span class="p">),</span>
+                                         <span class="nf">as.double</span><span class="p">(</span><span class="n">euler_sampling[[i]][3]</span><span class="p">))</span>
   <span class="p">}</span>
-  <span class="kr">return</span><span class="p">(</span>euler_sampling<span class="p">)</span>
+  <span class="nf">return</span><span class="p">(</span><span class="n">euler_sampling</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="c1"># Translate between Euler angle (ZYX) order and quaternion representation of a rotation.</span>
@@ -12025,58 +13323,57 @@ similarity3D_parameter_space_regular_sampling <span class="o">&lt;-</span> <span
 <span class="c1">#   atol: tolerance used for stable quaternion computation (qs==0 within this tolerance).</span>
 <span class="c1"># Return:</span>
 <span class="c1">#      Vector with three entries representing the vectorial component of the quaternion.</span>
-eul2quat <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>ax<span class="p">,</span> ay<span class="p">,</span> az<span class="p">,</span> atol<span class="o">=</span><span class="m">1e-8</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">eul2quat</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">az</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="m">1e-8</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1"># Create rotation matrix using ZYX Euler angles and then compute quaternion using entries.</span>
-    cx <span class="o">&lt;-</span> <span class="kp">cos</span><span class="p">(</span>ax<span class="p">)</span>
-    cy <span class="o">&lt;-</span> <span class="kp">cos</span><span class="p">(</span>ay<span class="p">)</span>
-    cz <span class="o">&lt;-</span> <span class="kp">cos</span><span class="p">(</span>az<span class="p">)</span>
-    sx <span class="o">&lt;-</span> <span class="kp">sin</span><span class="p">(</span>ax<span class="p">)</span>
-    sy <span class="o">&lt;-</span> <span class="kp">sin</span><span class="p">(</span>ay<span class="p">)</span>
-    sz <span class="o">&lt;-</span> <span class="kp">sin</span><span class="p">(</span>az<span class="p">)</span>
-    r <span class="o">&lt;-</span> <span class="kt">array</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">))</span>
-    r<span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> cz<span class="o">*</span>cy
-    r<span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">]</span> <span class="o">&lt;-</span> cz<span class="o">*</span>sy<span class="o">*</span>sx <span class="o">-</span> sz<span class="o">*</span>cx
-    r<span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">]</span> <span class="o">&lt;-</span> cz<span class="o">*</span>sy<span class="o">*</span>cx<span class="o">+</span>sz<span class="o">*</span>sx
+    <span class="n">cx</span> <span class="o">&lt;-</span> <span class="nf">cos</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">cy</span> <span class="o">&lt;-</span> <span class="nf">cos</span><span class="p">(</span><span class="n">ay</span><span class="p">)</span>
+    <span class="n">cz</span> <span class="o">&lt;-</span> <span class="nf">cos</span><span class="p">(</span><span class="n">az</span><span class="p">)</span>
+    <span class="n">sx</span> <span class="o">&lt;-</span> <span class="nf">sin</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sy</span> <span class="o">&lt;-</span> <span class="nf">sin</span><span class="p">(</span><span class="n">ay</span><span class="p">)</span>
+    <span class="n">sz</span> <span class="o">&lt;-</span> <span class="nf">sin</span><span class="p">(</span><span class="n">az</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">&lt;-</span> <span class="nf">array</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">))</span>
+    <span class="n">r[1</span><span class="p">,</span><span class="m">1</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="n">cz</span><span class="o">*</span><span class="n">cy</span>
+    <span class="n">r[1</span><span class="p">,</span><span class="m">2</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="n">cz</span><span class="o">*</span><span class="n">sy</span><span class="o">*</span><span class="n">sx</span> <span class="o">-</span> <span class="n">sz</span><span class="o">*</span><span class="n">cx</span>
+    <span class="n">r[1</span><span class="p">,</span><span class="m">3</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="n">cz</span><span class="o">*</span><span class="n">sy</span><span class="o">*</span><span class="n">cx</span><span class="o">+</span><span class="n">sz</span><span class="o">*</span><span class="n">sx</span>
 
-    r<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> sz<span class="o">*</span>cy
-    r<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">]</span> <span class="o">&lt;-</span> sz<span class="o">*</span>sy<span class="o">*</span>sx <span class="o">+</span> cz<span class="o">*</span>cx
-    r<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">]</span> <span class="o">&lt;-</span> sz<span class="o">*</span>sy<span class="o">*</span>cx <span class="o">-</span> cz<span class="o">*</span>sx
+    <span class="n">r[2</span><span class="p">,</span><span class="m">1</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="n">sz</span><span class="o">*</span><span class="n">cy</span>
+    <span class="n">r[2</span><span class="p">,</span><span class="m">2</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="n">sz</span><span class="o">*</span><span class="n">sy</span><span class="o">*</span><span class="n">sx</span> <span class="o">+</span> <span class="n">cz</span><span class="o">*</span><span class="n">cx</span>
+    <span class="n">r[2</span><span class="p">,</span><span class="m">3</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="n">sz</span><span class="o">*</span><span class="n">sy</span><span class="o">*</span><span class="n">cx</span> <span class="o">-</span> <span class="n">cz</span><span class="o">*</span><span class="n">sx</span>
 
-    r<span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="o">-</span>sy
-    r<span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="m">2</span><span class="p">]</span> <span class="o">&lt;-</span> cy<span class="o">*</span>sx
-    r<span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">]</span> <span class="o">&lt;-</span> cy<span class="o">*</span>cx
+    <span class="n">r[3</span><span class="p">,</span><span class="m">1</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="o">-</span><span class="n">sy</span>
+    <span class="n">r[3</span><span class="p">,</span><span class="m">2</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="n">cy</span><span class="o">*</span><span class="n">sx</span>
+    <span class="n">r[3</span><span class="p">,</span><span class="m">3</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="n">cy</span><span class="o">*</span><span class="n">cx</span>
 
     <span class="c1"># Compute quaternion:</span>
-    qs <span class="o">&lt;-</span> <span class="m">0.5</span><span class="o">*</span><span class="kp">sqrt</span><span class="p">(</span>r<span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">]</span> <span class="o">+</span> r<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">]</span> <span class="o">+</span> r<span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">]</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span>
-    qv <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">)</span>
+    <span class="n">qs</span> <span class="o">&lt;-</span> <span class="m">0.5</span><span class="o">*</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">r[1</span><span class="p">,</span><span class="m">1</span><span class="n">]</span> <span class="o">+</span> <span class="n">r[2</span><span class="p">,</span><span class="m">2</span><span class="n">]</span> <span class="o">+</span> <span class="n">r[3</span><span class="p">,</span><span class="m">3</span><span class="n">]</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span>
+    <span class="n">qv</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">)</span>
     <span class="c1"># If the scalar component of the quaternion is close to zero, we</span>
     <span class="c1"># compute the vector part using a numerically stable approach</span>
-    <span class="kr">if</span><span class="p">(</span><span class="kp">abs</span><span class="p">(</span>qs <span class="o">-</span> <span class="m">0.0</span><span class="p">)</span> <span class="o">&lt;</span> atol<span class="p">)</span> <span class="p">{</span>
-        i <span class="o">&lt;-</span> <span class="kp">which.max</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span>r<span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">],</span> r<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">],</span> r<span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">]))</span>
-        j <span class="o">&lt;-</span> <span class="p">(</span>i<span class="m">+1</span><span class="p">)</span><span class="o">%%</span><span class="m">3</span> <span class="o">+</span> <span class="m">1</span>
-        k <span class="o">&lt;-</span> <span class="p">(</span>j<span class="m">+1</span><span class="p">)</span><span class="o">%%</span><span class="m">3</span> <span class="o">+</span> <span class="m">1</span>
-        w <span class="o">&lt;-</span> <span class="kp">sqrt</span><span class="p">(</span>r<span class="p">[</span>i<span class="p">,</span>i<span class="p">]</span> <span class="o">-</span> r<span class="p">[</span>j<span class="p">,</span>j<span class="p">]</span> <span class="o">-</span> r<span class="p">[</span>k<span class="p">,</span>k<span class="p">]</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span>
-        qv<span class="p">[</span>i<span class="p">]</span> <span class="o">&lt;-</span> <span class="m">0.5</span><span class="o">*</span>w
-        qv<span class="p">[</span>j<span class="p">]</span> <span class="o">&lt;-</span> <span class="p">(</span>r<span class="p">[</span>i<span class="p">,</span>j<span class="p">]</span> <span class="o">+</span> r<span class="p">[</span>j<span class="p">,</span>i<span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="m">2</span><span class="o">*</span>w<span class="p">)</span>
-        qv<span class="p">[</span>k<span class="p">]</span> <span class="o">&lt;-</span> <span class="p">(</span>r<span class="p">[</span>i<span class="p">,</span>k<span class="p">]</span> <span class="o">+</span> r<span class="p">[</span>k<span class="p">,</span>i<span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="m">2</span><span class="o">*</span>w<span class="p">)</span>
-    <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
-        denom <span class="o">&lt;-</span> <span class="m">4</span><span class="o">*</span>qs
-        qv<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="p">(</span>r<span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="m">2</span><span class="p">]</span> <span class="o">-</span> r<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">])</span><span class="o">/</span>denom<span class="p">;</span>
-        qv<span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="p">(</span>r<span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">]</span> <span class="o">-</span> r<span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">])</span><span class="o">/</span>denom<span class="p">;</span>
-        qv<span class="p">[</span><span class="m">3</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="p">(</span>r<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">]</span> <span class="o">-</span> r<span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">])</span><span class="o">/</span>denom<span class="p">;</span>
+    <span class="nf">if</span><span class="p">(</span><span class="nf">abs</span><span class="p">(</span><span class="n">qs</span> <span class="o">-</span> <span class="m">0.0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">atol</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">i</span> <span class="o">&lt;-</span> <span class="nf">which.max</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">r[1</span><span class="p">,</span><span class="m">1</span><span class="n">]</span><span class="p">,</span> <span class="n">r[2</span><span class="p">,</span><span class="m">2</span><span class="n">]</span><span class="p">,</span> <span class="n">r[3</span><span class="p">,</span><span class="m">3</span><span class="n">]</span><span class="p">))</span>
+        <span class="n">j</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">i</span><span class="m">+1</span><span class="p">)</span><span class="o">%%</span><span class="m">3</span> <span class="o">+</span> <span class="m">1</span>
+        <span class="n">k</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">j</span><span class="m">+1</span><span class="p">)</span><span class="o">%%</span><span class="m">3</span> <span class="o">+</span> <span class="m">1</span>
+        <span class="n">w</span> <span class="o">&lt;-</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">r[i</span><span class="p">,</span><span class="n">i]</span> <span class="o">-</span> <span class="n">r[j</span><span class="p">,</span><span class="n">j]</span> <span class="o">-</span> <span class="n">r[k</span><span class="p">,</span><span class="n">k]</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span>
+        <span class="n">qv[i]</span> <span class="o">&lt;-</span> <span class="m">0.5</span><span class="o">*</span><span class="n">w</span>
+        <span class="n">qv[j]</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">r[i</span><span class="p">,</span><span class="n">j]</span> <span class="o">+</span> <span class="n">r[j</span><span class="p">,</span><span class="n">i]</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">qv[k]</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">r[i</span><span class="p">,</span><span class="n">k]</span> <span class="o">+</span> <span class="n">r[k</span><span class="p">,</span><span class="n">i]</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="n">w</span><span class="p">)</span>
+    <span class="p">}</span> <span class="n">else</span> <span class="p">{</span>
+        <span class="n">denom</span> <span class="o">&lt;-</span> <span class="m">4</span><span class="o">*</span><span class="n">qs</span>
+        <span class="n">qv[1]</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">r[3</span><span class="p">,</span><span class="m">2</span><span class="n">]</span> <span class="o">-</span> <span class="n">r[2</span><span class="p">,</span><span class="m">3</span><span class="n">]</span><span class="p">)</span><span class="o">/</span><span class="n">denom</span><span class="p">;</span>
+        <span class="n">qv[2]</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">r[1</span><span class="p">,</span><span class="m">3</span><span class="n">]</span> <span class="o">-</span> <span class="n">r[3</span><span class="p">,</span><span class="m">1</span><span class="n">]</span><span class="p">)</span><span class="o">/</span><span class="n">denom</span><span class="p">;</span>
+        <span class="n">qv[3]</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">r[2</span><span class="p">,</span><span class="m">1</span><span class="n">]</span> <span class="o">-</span> <span class="n">r[1</span><span class="p">,</span><span class="m">2</span><span class="n">]</span><span class="p">)</span><span class="o">/</span><span class="n">denom</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="kr">return</span><span class="p">(</span>qv<span class="p">)</span>
+    <span class="nf">return</span><span class="p">(</span><span class="n">qv</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Create-reference-domain">Create reference domain<a class="anchor-link" href="#Create-reference-domain">&#182;</a></h2><p>All input images will be resampled onto the reference domain.</p>
 <p>This domain is defined by two constraints: the number of pixels per dimension and the physical size we want the reference domain to occupy. The former is associated with the computational constraints of deep learning where using a small number of pixels is desired. The later is associated with the SimpleITK concept of an image, it occupies a  region in physical space which should be large enough to encompass the object of interest.</p>
@@ -12089,22 +13386,22 @@ eul2quat <span class="o">&lt;-</span> <span class="kr">function</span><span clas
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>dimension <span class="o">&lt;-</span> data<span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="o">$</span>GetDimension<span class="p">()</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">dimension</span> <span class="o">&lt;-</span> <span class="n">data[[1]]</span><span class="o">$</span><span class="nf">GetDimension</span><span class="p">()</span>
 
 <span class="c1"># Physical image size corresponds to the largest physical size in the training set, or any other arbitrary size.</span>
-reference_physical_size <span class="o">&lt;-</span> <span class="kt">numeric</span><span class="p">(</span>dimension<span class="p">)</span>
-physical_sizes <span class="o">&lt;-</span> <span class="kp">lapply</span><span class="p">(</span>data<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>image<span class="p">){</span><span class="kr">return</span> <span class="p">((</span>image<span class="o">$</span>GetSize<span class="p">()</span><span class="m">-1</span><span class="p">)</span><span class="o">*</span>image<span class="o">$</span>GetSpacing<span class="p">())})</span>
-reference_physical_size <span class="o">&lt;-</span> <span class="kp">apply</span><span class="p">(</span><span class="kp">do.call</span><span class="p">(</span><span class="kp">rbind</span><span class="p">,</span>physical_sizes<span class="p">),</span><span class="m">2</span><span class="p">,</span><span class="kp">max</span><span class="p">)</span>
+<span class="n">reference_physical_size</span> <span class="o">&lt;-</span> <span class="nf">numeric</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+<span class="n">physical_sizes</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">image</span><span class="p">){</span><span class="nf">return </span><span class="p">((</span><span class="n">image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span><span class="m">-1</span><span class="p">)</span><span class="o">*</span><span class="n">image</span><span class="o">$</span><span class="nf">GetSpacing</span><span class="p">())})</span>
+<span class="n">reference_physical_size</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="nf">do.call</span><span class="p">(</span><span class="n">rbind</span><span class="p">,</span><span class="n">physical_sizes</span><span class="p">),</span><span class="m">2</span><span class="p">,</span><span class="n">max</span><span class="p">)</span>
 
 <span class="c1"># Create the reference image with a zero origin, identity direction cosine matrix and dimension     </span>
-reference_origin <span class="o">&lt;-</span> <span class="kt">numeric</span><span class="p">(</span>dimension<span class="p">)</span>
-reference_direction <span class="o">&lt;-</span> <span class="kp">as.vector</span><span class="p">(</span><span class="kp">t</span><span class="p">(</span><span class="kp">diag</span><span class="p">(</span>dimension<span class="p">)))</span>
+<span class="n">reference_origin</span> <span class="o">&lt;-</span> <span class="nf">numeric</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+<span class="n">reference_direction</span> <span class="o">&lt;-</span> <span class="nf">as.vector</span><span class="p">(</span><span class="nf">t</span><span class="p">(</span><span class="nf">diag</span><span class="p">(</span><span class="n">dimension</span><span class="p">)))</span>
 
 <span class="c1"># Select arbitrary number of pixels per dimension, smallest size that yields desired results </span>
 <span class="c1"># or the required size of a pretrained network (e.g. VGG-16 224x224), transfer learning. This will </span>
 <span class="c1"># often result in non-isotropic pixel spacing.</span>
-reference_size <span class="o">&lt;-</span> <span class="kp">rep</span><span class="p">(</span><span class="m">128</span><span class="p">,</span> dimension<span class="p">)</span>
-reference_spacing <span class="o">&lt;-</span> reference_physical_size <span class="o">/</span> <span class="p">(</span>reference_size<span class="m">-1</span><span class="p">)</span>
+<span class="n">reference_size</span> <span class="o">&lt;-</span> <span class="nf">rep</span><span class="p">(</span><span class="m">128</span><span class="p">,</span> <span class="n">dimension</span><span class="p">)</span>
+<span class="n">reference_spacing</span> <span class="o">&lt;-</span> <span class="n">reference_physical_size</span> <span class="o">/</span> <span class="p">(</span><span class="n">reference_size</span><span class="m">-1</span><span class="p">)</span>
 
 <span class="c1"># Another possibility is that you want isotropic pixels, then you can specify the image size for one of</span>
 <span class="c1"># the axes and the others are determined by this choice. Below we choose to set the x axis to 128 and the</span>
@@ -12114,26 +13411,25 @@ reference_spacing <span class="o">&lt;-</span> reference_physical_size <span cla
 <span class="c1">#reference_spacing &lt;- rep(reference_physical_size[1]/(reference_size_x-1),dimension)</span>
 <span class="c1">#reference_size &lt;- as.integer(reference_physical_size / reference_spacing + 1)</span>
 
-reference_image <span class="o">&lt;-</span> Image<span class="p">(</span>reference_size<span class="p">,</span> data<span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="o">$</span>GetPixelID<span class="p">())</span>
-reference_image<span class="o">$</span>SetOrigin<span class="p">(</span>reference_origin<span class="p">)</span>
-reference_image<span class="o">$</span>SetSpacing<span class="p">(</span>reference_spacing<span class="p">)</span>
-reference_image<span class="o">$</span>SetDirection<span class="p">(</span>reference_direction<span class="p">)</span>
+<span class="n">reference_image</span> <span class="o">&lt;-</span> <span class="nf">Image</span><span class="p">(</span><span class="n">reference_size</span><span class="p">,</span> <span class="n">data[[1]]</span><span class="o">$</span><span class="nf">GetPixelID</span><span class="p">())</span>
+<span class="n">reference_image</span><span class="o">$</span><span class="nf">SetOrigin</span><span class="p">(</span><span class="n">reference_origin</span><span class="p">)</span>
+<span class="n">reference_image</span><span class="o">$</span><span class="nf">SetSpacing</span><span class="p">(</span><span class="n">reference_spacing</span><span class="p">)</span>
+<span class="n">reference_image</span><span class="o">$</span><span class="nf">SetDirection</span><span class="p">(</span><span class="n">reference_direction</span><span class="p">)</span>
 
 <span class="c1"># Always use the TransformContinuousIndexToPhysicalPoint to compute an indexed point&#39;s physical coordinates as </span>
 <span class="c1"># this takes into account size, spacing and direction cosines. For the vast majority of images the direction </span>
 <span class="c1"># cosines are the identity matrix, but when this isn&#39;t the case simply multiplying the central index by the </span>
 <span class="c1"># spacing will not yield the correct coordinates resulting in a long debugging session. </span>
-reference_center <span class="o">&lt;-</span> reference_image<span class="o">$</span>TransformContinuousIndexToPhysicalPoint<span class="p">(</span>reference_image<span class="o">$</span>GetSize<span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">)</span>
+<span class="n">reference_center</span> <span class="o">&lt;-</span> <span class="n">reference_image</span><span class="o">$</span><span class="nf">TransformContinuousIndexToPhysicalPoint</span><span class="p">(</span><span class="n">reference_image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Data-generation">Data generation<a class="anchor-link" href="#Data-generation">&#182;</a></h2><p>Once we have a reference domain we can augment the data using any of the SimpleITK global domain transformations. In this notebook we use a similarity transformation (the generate_images function is agnostic to this specific choice).</p>
 <p>Note that you also need to create the labels for your augmented images. If these are just classes then your processing is minimal. If you are dealing with segmentation you will also need to transform the segmentation labels so that they match the transformed image. The following function easily accommodates for this, just provide the labeled image as input and use the sitk.sitkNearestNeighbor interpolator so that you do not introduce labels that were not in the original segmentation.</p>
@@ -12160,35 +13456,34 @@ reference_center <span class="o">&lt;-</span> reference_image<span class="o">$</
 <span class="c1">#    output_suffix (string): output file name suffix (file name: output_prefix_p1_p2_..pn_.output_suffix).</span>
 <span class="c1">#    interpolator: One of the SimpleITK interpolators.</span>
 <span class="c1">#    default_intensity_value: The value to return if a point is mapped outside the original_image domain</span>
-augment_images_spatial <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>original_image<span class="p">,</span> reference_image<span class="p">,</span> T0<span class="p">,</span> T_aug<span class="p">,</span> transformation_parameters<span class="p">,</span>
-                    output_prefix<span class="p">,</span> output_suffix<span class="p">,</span>
-                    interpolator <span class="o">=</span> <span class="s">&quot;sitkLinear&quot;</span><span class="p">,</span> default_intensity_value <span class="o">=</span> <span class="m">0.0</span><span class="p">)</span> <span class="p">{</span>
-    all_images <span class="o">&lt;-</span> <span class="kp">lapply</span><span class="p">(</span>transformation_parameters<span class="p">,</span> 
-                         <span class="kr">function</span><span class="p">(</span>current_parameters<span class="p">)</span> <span class="p">{</span>
-                           T_aug<span class="o">$</span>SetParameters<span class="p">(</span>current_parameters<span class="p">)</span>
+<span class="n">augment_images_spatial</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">original_image</span><span class="p">,</span> <span class="n">reference_image</span><span class="p">,</span> <span class="n">T0</span><span class="p">,</span> <span class="n">T_aug</span><span class="p">,</span> <span class="n">transformation_parameters</span><span class="p">,</span>
+                    <span class="n">output_prefix</span><span class="p">,</span> <span class="n">output_suffix</span><span class="p">,</span>
+                    <span class="n">interpolator</span> <span class="o">=</span> <span class="s">&quot;sitkLinear&quot;</span><span class="p">,</span> <span class="n">default_intensity_value</span> <span class="o">=</span> <span class="m">0.0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">all_images</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">transformation_parameters</span><span class="p">,</span> 
+                         <span class="nf">function</span><span class="p">(</span><span class="n">current_parameters</span><span class="p">)</span> <span class="p">{</span>
+                           <span class="n">T_aug</span><span class="o">$</span><span class="nf">SetParameters</span><span class="p">(</span><span class="n">current_parameters</span><span class="p">)</span>
                            <span class="c1"># Augmentation is done in the reference image space, so we first map the points from </span>
                            <span class="c1"># the reference image space back onto itself T_aug (e.g. rotate the reference image)</span>
                            <span class="c1"># and then we map to the original image space T0.</span>
-                           T_all <span class="o">&lt;-</span> Transform<span class="p">(</span>T0<span class="p">)</span>
-                           T_all<span class="o">$</span>AddTransform<span class="p">(</span>T_aug<span class="p">)</span>
-                           aug_image <span class="o">&lt;-</span> Resample<span class="p">(</span>original_image<span class="p">,</span> reference_image<span class="p">,</span> T_all<span class="p">,</span>
-                                                 interpolator<span class="p">,</span> default_intensity_value<span class="p">)</span>
-                           WriteImage<span class="p">(</span>aug_image<span class="p">,</span> <span class="kp">paste0</span><span class="p">(</span>output_prefix<span class="p">,</span><span class="s">&quot;_&quot;</span><span class="p">,</span><span class="kp">paste0</span><span class="p">(</span>current_parameters<span class="p">,</span> collapse<span class="o">=</span><span class="s">&quot;_&quot;</span><span class="p">),</span>
-                                                        <span class="s">&quot;_.&quot;</span><span class="p">,</span>output_suffix<span class="p">))</span>
-                           <span class="kr">return</span><span class="p">(</span>aug_image<span class="p">)</span>
+                           <span class="n">T_all</span> <span class="o">&lt;-</span> <span class="nf">Transform</span><span class="p">(</span><span class="n">T0</span><span class="p">)</span>
+                           <span class="n">T_all</span><span class="o">$</span><span class="nf">AddTransform</span><span class="p">(</span><span class="n">T_aug</span><span class="p">)</span>
+                           <span class="n">aug_image</span> <span class="o">&lt;-</span> <span class="nf">Resample</span><span class="p">(</span><span class="n">original_image</span><span class="p">,</span> <span class="n">reference_image</span><span class="p">,</span> <span class="n">T_all</span><span class="p">,</span>
+                                                 <span class="n">interpolator</span><span class="p">,</span> <span class="n">default_intensity_value</span><span class="p">)</span>
+                           <span class="nf">WriteImage</span><span class="p">(</span><span class="n">aug_image</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">output_prefix</span><span class="p">,</span><span class="s">&quot;_&quot;</span><span class="p">,</span><span class="nf">paste0</span><span class="p">(</span><span class="n">current_parameters</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s">&quot;_&quot;</span><span class="p">),</span>
+                                                        <span class="s">&quot;_.&quot;</span><span class="p">,</span><span class="n">output_suffix</span><span class="p">))</span>
+                           <span class="nf">return</span><span class="p">(</span><span class="n">aug_image</span><span class="p">)</span>
                          <span class="p">})</span>
-    <span class="kr">return</span><span class="p">(</span>all_images<span class="p">)</span> <span class="c1"># Used only for display purposes in this notebook.</span>
+    <span class="nf">return</span><span class="p">(</span><span class="n">all_images</span><span class="p">)</span> <span class="c1"># Used only for display purposes in this notebook.</span>
 <span class="p">}</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Before we can use the generate_images function we need to compute the transformation which will map points between the reference image and the current image as shown in the code cell below.</p>
 <p>Note that it is very easy to generate large amounts of data, the calls to np.linspace with $m$ parameters each having $n$ values results in $n^m$ images, so don't forget that these images are also saved to disk. <strong>If you run the code below for 3D data you will generate 6561 volumes ($3^7$ parameter combinations times 3 volumes).</strong></p>
@@ -12201,62 +13496,61 @@ augment_images_spatial <span class="o">&lt;-</span> <span class="kr">function</s
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kr">if</span><span class="p">(</span>dimension <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">if</span><span class="p">(</span><span class="n">dimension</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1"># The parameters are scale (+-10%), rotation angle (+-10 degrees), x translation, y translation</span>
-  transformation_parameters_list <span class="o">=</span> parameter_space_regular_grid_sampling<span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="m">0.9</span><span class="p">,</span><span class="m">1.1</span><span class="p">,</span><span class="m">0.1</span><span class="p">),</span>
-                                                                         <span class="kp">seq</span><span class="p">(</span><span class="o">-</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">),</span>
-                                                                         <span class="kp">seq</span><span class="p">(</span><span class="o">-</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">),</span>
-                                                                         <span class="kp">seq</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
-                                                                         <span class="kp">seq</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">))</span>
-  aug_transform <span class="o">&lt;-</span> Similarity2DTransform<span class="p">()</span>
-<span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>   
-  transformation_parameters_list <span class="o">=</span> similarity3D_parameter_space_regular_sampling<span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="o">-</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">),</span>
-                                                                                 <span class="kp">seq</span><span class="p">(</span><span class="o">-</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">),</span>
-                                                                                 <span class="kp">seq</span><span class="p">(</span><span class="o">-</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">),</span>
-                                                                                 <span class="kp">seq</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
-                                                                                 <span class="kp">seq</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
-                                                                                 <span class="kp">seq</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
-                                                                                 <span class="kp">seq</span><span class="p">(</span><span class="m">0.9</span><span class="p">,</span><span class="m">1.1</span><span class="p">,</span><span class="m">0.1</span><span class="p">))</span>        
-  aug_transform <span class="o">&lt;-</span> Similarity3DTransform<span class="p">()</span>
+  <span class="n">transformation_parameters_list</span> <span class="o">=</span> <span class="nf">parameter_space_regular_grid_sampling</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">0.9</span><span class="p">,</span><span class="m">1.1</span><span class="p">,</span><span class="m">0.1</span><span class="p">),</span>
+                                                                         <span class="nf">seq</span><span class="p">(</span><span class="o">-</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">),</span>
+                                                                         <span class="nf">seq</span><span class="p">(</span><span class="o">-</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">),</span>
+                                                                         <span class="nf">seq</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
+                                                                         <span class="nf">seq</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">))</span>
+  <span class="n">aug_transform</span> <span class="o">&lt;-</span> <span class="nf">Similarity2DTransform</span><span class="p">()</span>
+<span class="p">}</span> <span class="n">else</span> <span class="p">{</span>   
+  <span class="n">transformation_parameters_list</span> <span class="o">=</span> <span class="nf">similarity3D_parameter_space_regular_sampling</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="o">-</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">),</span>
+                                                                                 <span class="nf">seq</span><span class="p">(</span><span class="o">-</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">),</span>
+                                                                                 <span class="nf">seq</span><span class="p">(</span><span class="o">-</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">,</span><span class="kc">pi</span><span class="o">/</span><span class="m">18.0</span><span class="p">),</span>
+                                                                                 <span class="nf">seq</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
+                                                                                 <span class="nf">seq</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
+                                                                                 <span class="nf">seq</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
+                                                                                 <span class="nf">seq</span><span class="p">(</span><span class="m">0.9</span><span class="p">,</span><span class="m">1.1</span><span class="p">,</span><span class="m">0.1</span><span class="p">))</span>        
+  <span class="n">aug_transform</span> <span class="o">&lt;-</span> <span class="nf">Similarity3DTransform</span><span class="p">()</span>
 <span class="p">}</span>
         
-all_images <span class="o">&lt;-</span> <span class="kp">lapply</span><span class="p">(</span><span class="kp">seq_along</span><span class="p">(</span>data<span class="p">),</span> 
-                     <span class="kr">function</span><span class="p">(</span>i<span class="p">,</span> images<span class="p">){</span>
-                       img <span class="o">&lt;-</span> images<span class="p">[[</span>i<span class="p">]]</span>
+<span class="n">all_images</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="nf">seq_along</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> 
+                     <span class="nf">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">images</span><span class="p">){</span>
+                       <span class="n">img</span> <span class="o">&lt;-</span> <span class="n">images[[i]]</span>
                        <span class="c1"># Transform which maps from the reference_image to the current img with the translation mapping the image</span>
                        <span class="c1"># origins to each other.</span>
-                       transform <span class="o">&lt;-</span> AffineTransform<span class="p">(</span>dimension<span class="p">)</span>
-                       <span class="kp">transform</span><span class="o">$</span>SetMatrix<span class="p">(</span>img<span class="o">$</span>GetDirection<span class="p">())</span>
-                       <span class="kp">transform</span><span class="o">$</span>SetTranslation<span class="p">(</span>img<span class="o">$</span>GetOrigin<span class="p">()</span> <span class="o">-</span> reference_origin<span class="p">)</span>
+                       <span class="n">transform</span> <span class="o">&lt;-</span> <span class="nf">AffineTransform</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+                       <span class="n">transform</span><span class="o">$</span><span class="nf">SetMatrix</span><span class="p">(</span><span class="n">img</span><span class="o">$</span><span class="nf">GetDirection</span><span class="p">())</span>
+                       <span class="n">transform</span><span class="o">$</span><span class="nf">SetTranslation</span><span class="p">(</span><span class="n">img</span><span class="o">$</span><span class="nf">GetOrigin</span><span class="p">()</span> <span class="o">-</span> <span class="n">reference_origin</span><span class="p">)</span>
                        <span class="c1"># Modify the transformation to align the centers of the original and reference image instead </span>
                        <span class="c1"># of their origins.</span>
-                       centering_transform <span class="o">&lt;-</span> TranslationTransform<span class="p">(</span>dimension<span class="p">)</span>
-                       img_center <span class="o">&lt;-</span> img<span class="o">$</span>TransformContinuousIndexToPhysicalPoint<span class="p">(</span>img<span class="o">$</span>GetSize<span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">)</span>
-                       centering_transform<span class="o">$</span>SetOffset<span class="p">(</span><span class="kp">transform</span><span class="o">$</span>GetInverse<span class="p">()</span><span class="o">$</span>TransformPoint<span class="p">(</span>img_center<span class="p">)</span> <span class="o">-</span> 
-                                                     reference_center<span class="p">)</span>
-                       centered_transform <span class="o">&lt;-</span> Transform<span class="p">(</span><span class="kp">transform</span><span class="p">)</span>
-                       centered_transform<span class="o">$</span>AddTransform<span class="p">(</span>centering_transform<span class="p">)</span>
+                       <span class="n">centering_transform</span> <span class="o">&lt;-</span> <span class="nf">TranslationTransform</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+                       <span class="n">img_center</span> <span class="o">&lt;-</span> <span class="n">img</span><span class="o">$</span><span class="nf">TransformContinuousIndexToPhysicalPoint</span><span class="p">(</span><span class="n">img</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">)</span>
+                       <span class="n">centering_transform</span><span class="o">$</span><span class="nf">SetOffset</span><span class="p">(</span><span class="n">transform</span><span class="o">$</span><span class="nf">GetInverse</span><span class="p">()</span><span class="o">$</span><span class="nf">TransformPoint</span><span class="p">(</span><span class="n">img_center</span><span class="p">)</span> <span class="o">-</span> 
+                                                     <span class="n">reference_center</span><span class="p">)</span>
+                       <span class="n">centered_transform</span> <span class="o">&lt;-</span> <span class="nf">Transform</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
+                       <span class="n">centered_transform</span><span class="o">$</span><span class="nf">AddTransform</span><span class="p">(</span><span class="n">centering_transform</span><span class="p">)</span>
 
                        <span class="c1"># Set the augmenting transform&#39;s center so that rotation is around the image center.</span>
-                       aug_transform<span class="o">$</span>SetCenter<span class="p">(</span>reference_center<span class="p">)</span>
-                       <span class="kr">return</span><span class="p">(</span>augment_images_spatial<span class="p">(</span>img<span class="p">,</span> reference_image<span class="p">,</span> centered_transform<span class="p">,</span> 
-                                                     aug_transform<span class="p">,</span> transformation_parameters_list<span class="p">,</span> 
-                                                     <span class="kp">file.path</span><span class="p">(</span>OUTPUT_DIR<span class="p">,</span> <span class="kp">paste0</span><span class="p">(</span><span class="s">&#39;spatial_aug&#39;</span><span class="p">,</span>i<span class="p">)),</span> <span class="s">&#39;mha&#39;</span><span class="p">))</span>
+                       <span class="n">aug_transform</span><span class="o">$</span><span class="nf">SetCenter</span><span class="p">(</span><span class="n">reference_center</span><span class="p">)</span>
+                       <span class="nf">return</span><span class="p">(</span><span class="nf">augment_images_spatial</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">reference_image</span><span class="p">,</span> <span class="n">centered_transform</span><span class="p">,</span> 
+                                                     <span class="n">aug_transform</span><span class="p">,</span> <span class="n">transformation_parameters_list</span><span class="p">,</span> 
+                                                     <span class="nf">file.path</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&#39;spatial_aug&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">)),</span> <span class="s">&#39;mha&#39;</span><span class="p">))</span>
                      <span class="p">},</span> 
-                     data<span class="p">)</span>
-<span class="kr">if</span><span class="p">(</span>dimension<span class="o">==</span><span class="m">2</span><span class="p">)</span>
+                     <span class="n">data</span><span class="p">)</span>
+<span class="nf">if</span><span class="p">(</span><span class="n">dimension</span><span class="o">==</span><span class="m">2</span><span class="p">)</span>
   <span class="c1"># For each 2D image,stack the augmentation images into a 3D volume and display.</span>
-  <span class="kp">invisible</span><span class="p">(</span><span class="kp">lapply</span><span class="p">(</span>all_images<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>images<span class="p">)</span> <span class="p">{</span>Show<span class="p">(</span>JoinSeries<span class="p">(</span>images<span class="p">))}))</span>
+  <span class="nf">invisible</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">all_images</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="p">{</span><span class="nf">Show</span><span class="p">(</span><span class="nf">JoinSeries</span><span class="p">(</span><span class="n">images</span><span class="p">))}))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="What-about-flipping">What about flipping<a class="anchor-link" href="#What-about-flipping">&#182;</a></h2><p>Reflection using SimpleITK can be done in one of several ways:</p>
 <ol>
@@ -12279,41 +13573,40 @@ all_images <span class="o">&lt;-</span> <span class="kp">lapply</span><span clas
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>flipped_images <span class="o">&lt;-</span> <span class="kp">lapply</span><span class="p">(</span>data<span class="p">,</span> 
-       <span class="kr">function</span><span class="p">(</span>img<span class="p">)</span> <span class="p">{</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">flipped_images</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> 
+       <span class="nf">function</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="p">{</span>
          <span class="c1"># Compute the transformation which maps between the reference and current image (same as done above).</span>
-         transform <span class="o">&lt;-</span> AffineTransform<span class="p">(</span>dimension<span class="p">)</span>
-         <span class="kp">transform</span><span class="o">$</span>SetMatrix<span class="p">(</span>img<span class="o">$</span>GetDirection<span class="p">())</span>
-         <span class="kp">transform</span><span class="o">$</span>SetTranslation<span class="p">(</span>img<span class="o">$</span>GetOrigin<span class="p">()</span> <span class="o">-</span> reference_origin<span class="p">)</span>
-         centering_transform <span class="o">&lt;-</span> TranslationTransform<span class="p">(</span>dimension<span class="p">)</span>
-         img_center <span class="o">&lt;-</span> img<span class="o">$</span>TransformContinuousIndexToPhysicalPoint<span class="p">(</span>img<span class="o">$</span>GetSize<span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">)</span>
-         centering_transform<span class="o">$</span>SetOffset<span class="p">(</span><span class="kp">transform</span><span class="o">$</span>GetInverse<span class="p">()</span><span class="o">$</span>TransformPoint<span class="p">(</span>img_center<span class="p">)</span> <span class="o">-</span> reference_center<span class="p">)</span>
-         centered_transform <span class="o">&lt;-</span> Transform<span class="p">(</span><span class="kp">transform</span><span class="p">)</span>
-         centered_transform<span class="o">$</span>AddTransform<span class="p">(</span>centering_transform<span class="p">)</span>
+         <span class="n">transform</span> <span class="o">&lt;-</span> <span class="nf">AffineTransform</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+         <span class="n">transform</span><span class="o">$</span><span class="nf">SetMatrix</span><span class="p">(</span><span class="n">img</span><span class="o">$</span><span class="nf">GetDirection</span><span class="p">())</span>
+         <span class="n">transform</span><span class="o">$</span><span class="nf">SetTranslation</span><span class="p">(</span><span class="n">img</span><span class="o">$</span><span class="nf">GetOrigin</span><span class="p">()</span> <span class="o">-</span> <span class="n">reference_origin</span><span class="p">)</span>
+         <span class="n">centering_transform</span> <span class="o">&lt;-</span> <span class="nf">TranslationTransform</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+         <span class="n">img_center</span> <span class="o">&lt;-</span> <span class="n">img</span><span class="o">$</span><span class="nf">TransformContinuousIndexToPhysicalPoint</span><span class="p">(</span><span class="n">img</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">)</span>
+         <span class="n">centering_transform</span><span class="o">$</span><span class="nf">SetOffset</span><span class="p">(</span><span class="n">transform</span><span class="o">$</span><span class="nf">GetInverse</span><span class="p">()</span><span class="o">$</span><span class="nf">TransformPoint</span><span class="p">(</span><span class="n">img_center</span><span class="p">)</span> <span class="o">-</span> <span class="n">reference_center</span><span class="p">)</span>
+         <span class="n">centered_transform</span> <span class="o">&lt;-</span> <span class="nf">Transform</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
+         <span class="n">centered_transform</span><span class="o">$</span><span class="nf">AddTransform</span><span class="p">(</span><span class="n">centering_transform</span><span class="p">)</span>
     
-         flipped_transform <span class="o">&lt;-</span> AffineTransform<span class="p">(</span>dimension<span class="p">)</span>    
-         flipped_transform<span class="o">$</span>SetCenter<span class="p">(</span>reference_image<span class="o">$</span>TransformContinuousIndexToPhysicalPoint<span class="p">(</span>reference_image<span class="o">$</span>GetSize<span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">))</span>
-         <span class="kr">if</span><span class="p">(</span>dimension<span class="o">==</span><span class="m">2</span><span class="p">)</span> <span class="p">{</span> <span class="c1"># matrices in SimpleITK specified in row major order</span>
-           flipped_transform<span class="o">$</span>SetMatrix<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">-1</span><span class="p">))</span>
-         <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
-           flipped_transform<span class="o">$</span>SetMatrix<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">-1</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+         <span class="n">flipped_transform</span> <span class="o">&lt;-</span> <span class="nf">AffineTransform</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>    
+         <span class="n">flipped_transform</span><span class="o">$</span><span class="nf">SetCenter</span><span class="p">(</span><span class="n">reference_image</span><span class="o">$</span><span class="nf">TransformContinuousIndexToPhysicalPoint</span><span class="p">(</span><span class="n">reference_image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">))</span>
+         <span class="nf">if</span><span class="p">(</span><span class="n">dimension</span><span class="o">==</span><span class="m">2</span><span class="p">)</span> <span class="p">{</span> <span class="c1"># matrices in SimpleITK specified in row major order</span>
+           <span class="n">flipped_transform</span><span class="o">$</span><span class="nf">SetMatrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">-1</span><span class="p">))</span>
+         <span class="p">}</span> <span class="n">else</span> <span class="p">{</span>
+           <span class="n">flipped_transform</span><span class="o">$</span><span class="nf">SetMatrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">-1</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
          <span class="p">}</span>
-         centered_transform<span class="o">$</span>AddTransform<span class="p">(</span>flipped_transform<span class="p">)</span>    
+         <span class="n">centered_transform</span><span class="o">$</span><span class="nf">AddTransform</span><span class="p">(</span><span class="n">flipped_transform</span><span class="p">)</span>    
          <span class="c1"># Resample onto the reference image </span>
-         <span class="kr">return</span><span class="p">(</span>Resample<span class="p">(</span>img<span class="p">,</span> reference_image<span class="p">,</span> centered_transform<span class="p">,</span> <span class="s">&quot;sitkLinear&quot;</span><span class="p">,</span> <span class="m">0.0</span><span class="p">))</span>
+         <span class="nf">return</span><span class="p">(</span><span class="nf">Resample</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">reference_image</span><span class="p">,</span> <span class="n">centered_transform</span><span class="p">,</span> <span class="s">&quot;sitkLinear&quot;</span><span class="p">,</span> <span class="m">0.0</span><span class="p">))</span>
        <span class="p">}</span>
       <span class="p">)</span>
-<span class="kp">invisible</span><span class="p">(</span><span class="kp">lapply</span><span class="p">(</span>flipped_images<span class="p">,</span>Show<span class="p">))</span>
+<span class="nf">invisible</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">flipped_images</span><span class="p">,</span><span class="n">Show</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Radial-Distortion">Radial Distortion<a class="anchor-link" href="#Radial-Distortion">&#182;</a></h2><p>Some 2D medical imaging modalities, such as endoscopic video and X-ray images acquired with C-arms using image intensifiers, exhibit radial distortion. The common model for such distortion was described by Brown ["Close-range camera calibration", Photogrammetric Engineering, 37(8):855–866, 1971]:
 $$
@@ -12337,47 +13630,46 @@ $$</p>
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>radial_distort <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>image<span class="p">,</span> k1<span class="p">,</span> k2<span class="p">,</span> k3<span class="p">,</span> distortion_center<span class="o">=</span><span class="kc">NULL</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">c</span> <span class="o">&lt;-</span> distortion_center
-  <span class="kr">if</span><span class="p">(</span><span class="kp">is.null</span><span class="p">(</span><span class="kt">c</span><span class="p">))</span> <span class="p">{</span> <span class="c1"># The default distortion center coincides with the image center</span>
-    <span class="kt">c</span> <span class="o">&lt;-</span> image<span class="o">$</span>TransformContinuousIndexToPhysicalPoint<span class="p">(</span>image<span class="o">$</span>GetSize<span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">radial_distort</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">k3</span><span class="p">,</span> <span class="n">distortion_center</span><span class="o">=</span><span class="kc">NULL</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">c</span> <span class="o">&lt;-</span> <span class="n">distortion_center</span>
+  <span class="nf">if</span><span class="p">(</span><span class="nf">is.null</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span> <span class="c1"># The default distortion center coincides with the image center</span>
+    <span class="n">c</span> <span class="o">&lt;-</span> <span class="n">image</span><span class="o">$</span><span class="nf">TransformContinuousIndexToPhysicalPoint</span><span class="p">(</span><span class="n">image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">)</span>
   <span class="p">}</span>
   <span class="c1"># Compute the vector image (p_d - p_c) </span>
-  delta_image <span class="o">&lt;-</span> PhysicalPointSource<span class="p">(</span> <span class="s">&quot;sitkVectorFloat64&quot;</span><span class="p">,</span> image<span class="o">$</span>GetSize<span class="p">(),</span> image<span class="o">$</span>GetOrigin<span class="p">(),</span> image<span class="o">$</span>GetSpacing<span class="p">(),</span> image<span class="o">$</span>GetDirection<span class="p">())</span>
-  delta_image_list <span class="o">&lt;-</span> <span class="kp">lapply</span><span class="p">(</span><span class="kp">seq_along</span><span class="p">(</span><span class="kt">c</span><span class="p">),</span> <span class="kr">function</span><span class="p">(</span>i<span class="p">,</span>center<span class="p">)</span> <span class="p">{</span><span class="kr">return</span><span class="p">(</span>VectorIndexSelectionCast<span class="p">(</span>delta_image<span class="p">,</span>i<span class="m">-1</span><span class="p">)</span> <span class="o">-</span> center<span class="p">[</span>i<span class="p">])},</span><span class="kt">c</span><span class="p">)</span>
+  <span class="n">delta_image</span> <span class="o">&lt;-</span> <span class="nf">PhysicalPointSource</span><span class="p">(</span> <span class="s">&quot;sitkVectorFloat64&quot;</span><span class="p">,</span> <span class="n">image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">(),</span> <span class="n">image</span><span class="o">$</span><span class="nf">GetOrigin</span><span class="p">(),</span> <span class="n">image</span><span class="o">$</span><span class="nf">GetSpacing</span><span class="p">(),</span> <span class="n">image</span><span class="o">$</span><span class="nf">GetDirection</span><span class="p">())</span>
+  <span class="n">delta_image_list</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="nf">seq_along</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="nf">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">center</span><span class="p">)</span> <span class="p">{</span><span class="nf">return</span><span class="p">(</span><span class="nf">VectorIndexSelectionCast</span><span class="p">(</span><span class="n">delta_image</span><span class="p">,</span><span class="n">i</span><span class="m">-1</span><span class="p">)</span> <span class="o">-</span> <span class="n">center[i]</span><span class="p">)},</span><span class="n">c</span><span class="p">)</span>
 
   <span class="c1"># Compute the radial distortion expression  </span>
-  r2_image <span class="o">&lt;-</span> NaryAdd<span class="p">(</span><span class="kp">lapply</span><span class="p">(</span>delta_image_list<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>img<span class="p">){</span><span class="kr">return</span><span class="p">(</span>img<span class="o">**</span><span class="m">2</span><span class="p">)}))</span>
-  r4_image <span class="o">&lt;-</span> r2_image<span class="o">**</span><span class="m">2</span>
-  r6_image <span class="o">&lt;-</span> r2_image<span class="o">*</span>r4_image
-  disp_image <span class="o">&lt;-</span> k1<span class="o">*</span>r2_image <span class="o">+</span> k2<span class="o">*</span>r4_image <span class="o">+</span> k3<span class="o">*</span>r6_image
-  displacement_image <span class="o">&lt;-</span> Compose<span class="p">(</span><span class="kp">lapply</span><span class="p">(</span>delta_image_list<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>img<span class="p">){</span><span class="kr">return</span><span class="p">(</span>img<span class="o">*</span>disp_image<span class="p">)}))</span>
+  <span class="n">r2_image</span> <span class="o">&lt;-</span> <span class="nf">NaryAdd</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">delta_image_list</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">img</span><span class="p">){</span><span class="nf">return</span><span class="p">(</span><span class="n">img</span><span class="o">**</span><span class="m">2</span><span class="p">)}))</span>
+  <span class="n">r4_image</span> <span class="o">&lt;-</span> <span class="n">r2_image</span><span class="o">**</span><span class="m">2</span>
+  <span class="n">r6_image</span> <span class="o">&lt;-</span> <span class="n">r2_image</span><span class="o">*</span><span class="n">r4_image</span>
+  <span class="n">disp_image</span> <span class="o">&lt;-</span> <span class="n">k1</span><span class="o">*</span><span class="n">r2_image</span> <span class="o">+</span> <span class="n">k2</span><span class="o">*</span><span class="n">r4_image</span> <span class="o">+</span> <span class="n">k3</span><span class="o">*</span><span class="n">r6_image</span>
+  <span class="n">displacement_image</span> <span class="o">&lt;-</span> <span class="nf">Compose</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">delta_image_list</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">img</span><span class="p">){</span><span class="nf">return</span><span class="p">(</span><span class="n">img</span><span class="o">*</span><span class="n">disp_image</span><span class="p">)}))</span>
 
-  displacement_field_transform <span class="o">&lt;-</span> DisplacementFieldTransform<span class="p">(</span>displacement_image<span class="p">)</span>
-  <span class="kr">return</span><span class="p">(</span>Resample<span class="p">(</span>image<span class="p">,</span> image<span class="p">,</span> displacement_field_transform<span class="p">))</span>
+  <span class="n">displacement_field_transform</span> <span class="o">&lt;-</span> <span class="nf">DisplacementFieldTransform</span><span class="p">(</span><span class="n">displacement_image</span><span class="p">)</span>
+  <span class="nf">return</span><span class="p">(</span><span class="nf">Resample</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">displacement_field_transform</span><span class="p">))</span>
 <span class="p">}</span>
                                        
-k1 <span class="o">=</span> <span class="m">0.00001</span>
-k2 <span class="o">=</span> <span class="m">0.0000000000001</span>
-k3 <span class="o">=</span> <span class="m">0.0000000000001</span>
-original_image <span class="o">&lt;-</span> data<span class="p">[[</span><span class="m">1</span><span class="p">]]</span>
-distorted_image <span class="o">&lt;-</span> radial_distort<span class="p">(</span>original_image<span class="p">,</span> k1<span class="p">,</span> k2<span class="p">,</span> k3<span class="p">)</span>
+<span class="n">k1</span> <span class="o">=</span> <span class="m">0.00001</span>
+<span class="n">k2</span> <span class="o">=</span> <span class="m">0.0000000000001</span>
+<span class="n">k3</span> <span class="o">=</span> <span class="m">0.0000000000001</span>
+<span class="n">original_image</span> <span class="o">&lt;-</span> <span class="n">data[[1]]</span>
+<span class="n">distorted_image</span> <span class="o">&lt;-</span> <span class="nf">radial_distort</span><span class="p">(</span><span class="n">original_image</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">k3</span><span class="p">)</span>
 <span class="c1"># Use a grid image to highlight the distortion.</span>
-grid_image <span class="o">&lt;-</span> GridSource<span class="p">(</span>outputPixelType<span class="o">=</span>original_image<span class="o">$</span>GetPixelID<span class="p">(),</span> size<span class="o">=</span>original_image<span class="o">$</span>GetSize<span class="p">(),</span> 
-                         sigma<span class="o">=</span><span class="kp">rep</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span> dimension<span class="p">),</span> gridSpacing<span class="o">=</span><span class="kp">rep</span><span class="p">(</span><span class="m">20.0</span><span class="p">,</span>dimension<span class="p">))</span>
-grid_image<span class="o">$</span>CopyInformation<span class="p">(</span>original_image<span class="p">)</span>
-distorted_grid <span class="o">&lt;-</span> radial_distort<span class="p">(</span>grid_image<span class="p">,</span> k1<span class="p">,</span> k2<span class="p">,</span> k3<span class="p">)</span>
-Show<span class="p">(</span>Tile<span class="p">(</span><span class="kt">c</span><span class="p">(</span>original_image<span class="p">,</span> distorted_image<span class="p">,</span> distorted_grid<span class="p">)))</span>
+<span class="n">grid_image</span> <span class="o">&lt;-</span> <span class="nf">GridSource</span><span class="p">(</span><span class="n">outputPixelType</span><span class="o">=</span><span class="n">original_image</span><span class="o">$</span><span class="nf">GetPixelID</span><span class="p">(),</span> <span class="n">size</span><span class="o">=</span><span class="n">original_image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">(),</span> 
+                         <span class="n">sigma</span><span class="o">=</span><span class="nf">rep</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span> <span class="n">dimension</span><span class="p">),</span> <span class="n">gridSpacing</span><span class="o">=</span><span class="nf">rep</span><span class="p">(</span><span class="m">20.0</span><span class="p">,</span><span class="n">dimension</span><span class="p">))</span>
+<span class="n">grid_image</span><span class="o">$</span><span class="nf">CopyInformation</span><span class="p">(</span><span class="n">original_image</span><span class="p">)</span>
+<span class="n">distorted_grid</span> <span class="o">&lt;-</span> <span class="nf">radial_distort</span><span class="p">(</span><span class="n">grid_image</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">k3</span><span class="p">)</span>
+<span class="nf">Show</span><span class="p">(</span><span class="nf">Tile</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">original_image</span><span class="p">,</span> <span class="n">distorted_image</span><span class="p">,</span> <span class="n">distorted_grid</span><span class="p">)))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Transferring-deformations---exercise-for-the-interested-reader">Transferring deformations - exercise for the interested reader<a class="anchor-link" href="#Transferring-deformations---exercise-for-the-interested-reader">&#182;</a></h3><p>Using SimpleITK we can readily transfer deformations from a spatio-temporal data set to another spatial data set to simulate temporal behavior. Case in point, using a 4D (3D+time) CT of the thorax we can estimate the respiratory motion using non-rigid registration and Free Form Deformation or displacement field transformations. We can then register a new spatial data set to the original spatial CT (non-rigidly) followed by application of the temporal deformations.</p>
 <p>Note that unlike the arbitrary spatial transformations we used for data-augmentation above this approach is more computationally expensive as it involves multiple non-rigid registrations. Also note that as the goal is to use the estimated transformations to create plausible deformations you may be able to relax the required registration accuracy.</p>
@@ -12386,33 +13678,32 @@ Show<span class="p">(</span>Tile<span class="p">(</span><span class="kt">c</span
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Augmentation-using-intensity-modifications">Augmentation using intensity modifications<a class="anchor-link" href="#Augmentation-using-intensity-modifications">&#182;</a></h1><p>SimpleITK has many filters that are potentially relevant for data augmentation via modification of intensities. For example:</p>
 <ul>
 <li><p>Image smoothing, always read the documentation carefully, similar filters use use different parametrization $\sigma$ vs. variance ($\sigma^2$):</p>
 <ul>
-<li><a href="https://itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1DiscreteGaussianImageFilter.html">Discrete Gaussian</a></li>
-<li><a href="https://itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1RecursiveGaussianImageFilter.html">Recursive Gaussian</a></li>
-<li><a href="https://itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1SmoothingRecursiveGaussianImageFilter.html">Smoothing Recursive Gaussian</a></li>
+<li><a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1DiscreteGaussianImageFilter.html">Discrete Gaussian</a></li>
+<li><a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1RecursiveGaussianImageFilter.html">Recursive Gaussian</a></li>
+<li><a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1SmoothingRecursiveGaussianImageFilter.html">Smoothing Recursive Gaussian</a></li>
 </ul>
 </li>
 <li><p>Edge preserving image smoothing:</p>
 <ul>
-<li><a href="https://itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1BilateralImageFilter.html">Bilateral image filtering</a>, edge preserving smoothing.</li>
-<li><a href="https://itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1MedianImageFilter.html">Median filtering</a></li>
+<li><a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1BilateralImageFilter.html">Bilateral image filtering</a>, edge preserving smoothing.</li>
+<li><a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1MedianImageFilter.html">Median filtering</a></li>
 </ul>
 </li>
 <li><p>Adding noise to your images:</p>
 <ul>
-<li><a href="https://itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1AdditiveGaussianNoiseImageFilter.html">Additive Gaussian</a></li>
-<li><a href="https://itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1SaltAndPepperNoiseImageFilter.html">Salt and Pepper / Impulse</a></li>
-<li><a href="https://itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1ShotNoiseImageFilter.html">Shot/Poisson</a></li>
-<li><a href="https://itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1SpeckleNoiseImageFilter.html">Speckle/multiplicative</a></li>
+<li><a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1AdditiveGaussianNoiseImageFilter.html">Additive Gaussian</a></li>
+<li><a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1SaltAndPepperNoiseImageFilter.html">Salt and Pepper / Impulse</a></li>
+<li><a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1ShotNoiseImageFilter.html">Shot/Poisson</a></li>
+<li><a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1SpeckleNoiseImageFilter.html">Speckle/multiplicative</a></li>
 </ul>
 </li>
-<li><p><a href="https://itk.org/SimpleITKDoxygen/html/classitk_1_1simple_1_1AdaptiveHistogramEqualizationImageFilter.html">Adaptive Histogram Equalization</a></p>
+<li><p><a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1AdaptiveHistogramEqualizationImageFilter.html">Adaptive Histogram Equalization</a></p>
 </li>
 </ul>
 
@@ -12429,80 +13720,79 @@ Show<span class="p">(</span>Tile<span class="p">(</span><span class="kt">c</span
 <span class="c1">#   image_list (containing SimpleITK images): The images whose intensities we modify.</span>
 <span class="c1">#   output_prefix (string): output file name prefix (file name: output_prefixi_FilterName.output_suffix).</span>
 <span class="c1">#   output_suffix (string): output file name suffix (file name: output_prefixi_FilterName.output_suffix).</span>
-augment_images_intensity <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>image_list<span class="p">,</span> output_prefix<span class="p">,</span> output_suffix<span class="p">)</span> <span class="p">{</span>
+<span class="n">augment_images_intensity</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">image_list</span><span class="p">,</span> <span class="n">output_prefix</span><span class="p">,</span> <span class="n">output_suffix</span><span class="p">)</span> <span class="p">{</span>
 
   <span class="c1"># Create a list of intensity modifying filters, which we apply to the given images</span>
-  num_filters <span class="o">&lt;-</span> <span class="m">10</span>
-  index <span class="o">&lt;-</span> <span class="m">1</span>
-  filter_list <span class="o">&lt;-</span> <span class="kt">vector</span><span class="p">(</span><span class="s">&quot;list&quot;</span><span class="p">,</span>num_filters<span class="p">)</span>
+  <span class="n">num_filters</span> <span class="o">&lt;-</span> <span class="m">10</span>
+  <span class="n">index</span> <span class="o">&lt;-</span> <span class="m">1</span>
+  <span class="n">filter_list</span> <span class="o">&lt;-</span> <span class="nf">vector</span><span class="p">(</span><span class="s">&quot;list&quot;</span><span class="p">,</span><span class="n">num_filters</span><span class="p">)</span>
     
   <span class="c1"># Smoothing filters</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span> <span class="o">&lt;-</span> SmoothingRecursiveGaussianImageFilter<span class="p">()</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span><span class="o">$</span>SetSigma<span class="p">(</span><span class="m">2.0</span><span class="p">)</span>
-  index <span class="o">=</span> index <span class="o">+</span> <span class="m">1</span>
+  <span class="n">filter_list[[index]]</span> <span class="o">&lt;-</span> <span class="nf">SmoothingRecursiveGaussianImageFilter</span><span class="p">()</span>
+  <span class="n">filter_list[[index]]</span><span class="o">$</span><span class="nf">SetSigma</span><span class="p">(</span><span class="m">2.0</span><span class="p">)</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="m">1</span>
     
-  filter_list<span class="p">[[</span>index<span class="p">]]</span> <span class="o">&lt;-</span> DiscreteGaussianImageFilter<span class="p">()</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span><span class="o">$</span>SetVariance<span class="p">(</span><span class="m">4.0</span><span class="p">)</span>
-  index <span class="o">=</span> index <span class="o">+</span> <span class="m">1</span>
+  <span class="n">filter_list[[index]]</span> <span class="o">&lt;-</span> <span class="nf">DiscreteGaussianImageFilter</span><span class="p">()</span>
+  <span class="n">filter_list[[index]]</span><span class="o">$</span><span class="nf">SetVariance</span><span class="p">(</span><span class="m">4.0</span><span class="p">)</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="m">1</span>
     
-  filter_list<span class="p">[[</span>index<span class="p">]]</span> <span class="o">&lt;-</span> BilateralImageFilter<span class="p">()</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span><span class="o">$</span>SetDomainSigma<span class="p">(</span><span class="m">4.0</span><span class="p">)</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span><span class="o">$</span>SetRangeSigma<span class="p">(</span><span class="m">8.0</span><span class="p">)</span>
-  index <span class="o">=</span> index <span class="o">+</span> <span class="m">1</span>
+  <span class="n">filter_list[[index]]</span> <span class="o">&lt;-</span> <span class="nf">BilateralImageFilter</span><span class="p">()</span>
+  <span class="n">filter_list[[index]]</span><span class="o">$</span><span class="nf">SetDomainSigma</span><span class="p">(</span><span class="m">4.0</span><span class="p">)</span>
+  <span class="n">filter_list[[index]]</span><span class="o">$</span><span class="nf">SetRangeSigma</span><span class="p">(</span><span class="m">8.0</span><span class="p">)</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="m">1</span>
   
-  filter_list<span class="p">[[</span>index<span class="p">]]</span> <span class="o">&lt;-</span> MedianImageFilter<span class="p">()</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span><span class="o">$</span>SetRadius<span class="p">(</span><span class="m">8</span><span class="p">)</span>
-  index <span class="o">=</span> index <span class="o">+</span> <span class="m">1</span>
+  <span class="n">filter_list[[index]]</span> <span class="o">&lt;-</span> <span class="nf">MedianImageFilter</span><span class="p">()</span>
+  <span class="n">filter_list[[index]]</span><span class="o">$</span><span class="nf">SetRadius</span><span class="p">(</span><span class="m">8</span><span class="p">)</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="m">1</span>
     
   <span class="c1"># Noise filters using default settings</span>
     
   <span class="c1"># Filter control via SetMean, SetStandardDeviation.</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span> <span class="o">&lt;-</span> AdditiveGaussianNoiseImageFilter<span class="p">()</span>
-  index <span class="o">=</span> index <span class="o">+</span> <span class="m">1</span>
+  <span class="n">filter_list[[index]]</span> <span class="o">&lt;-</span> <span class="nf">AdditiveGaussianNoiseImageFilter</span><span class="p">()</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="m">1</span>
     
   <span class="c1"># Filter control via SetProbability</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span> <span class="o">&lt;-</span> SaltAndPepperNoiseImageFilter<span class="p">()</span>
-  index <span class="o">=</span> index <span class="o">+</span> <span class="m">1</span>
+  <span class="n">filter_list[[index]]</span> <span class="o">&lt;-</span> <span class="nf">SaltAndPepperNoiseImageFilter</span><span class="p">()</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="m">1</span>
     
   <span class="c1"># Filter control via SetScale</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span> <span class="o">&lt;-</span> ShotNoiseImageFilter<span class="p">()</span>
-  index <span class="o">=</span> index <span class="o">+</span> <span class="m">1</span>
+  <span class="n">filter_list[[index]]</span> <span class="o">&lt;-</span> <span class="nf">ShotNoiseImageFilter</span><span class="p">()</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="m">1</span>
     
   <span class="c1"># Filter control via SetStandardDeviation</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span> <span class="o">&lt;-</span> SpeckleNoiseImageFilter<span class="p">()</span>
-  index <span class="o">=</span> index <span class="o">+</span> <span class="m">1</span>
+  <span class="n">filter_list[[index]]</span> <span class="o">&lt;-</span> <span class="nf">SpeckleNoiseImageFilter</span><span class="p">()</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="m">1</span>
     
-  filter_list<span class="p">[[</span>index<span class="p">]]</span> <span class="o">&lt;-</span> AdaptiveHistogramEqualizationImageFilter<span class="p">()</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span><span class="o">$</span>SetAlpha<span class="p">(</span><span class="m">1.0</span><span class="p">)</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span><span class="o">$</span>SetBeta<span class="p">(</span><span class="m">0.0</span><span class="p">)</span>
-  index <span class="o">=</span> index <span class="o">+</span> <span class="m">1</span>
+  <span class="n">filter_list[[index]]</span> <span class="o">&lt;-</span> <span class="nf">AdaptiveHistogramEqualizationImageFilter</span><span class="p">()</span>
+  <span class="n">filter_list[[index]]</span><span class="o">$</span><span class="nf">SetAlpha</span><span class="p">(</span><span class="m">1.0</span><span class="p">)</span>
+  <span class="n">filter_list[[index]]</span><span class="o">$</span><span class="nf">SetBeta</span><span class="p">(</span><span class="m">0.0</span><span class="p">)</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="m">1</span>
     
-  filter_list<span class="p">[[</span>index<span class="p">]]</span> <span class="o">&lt;-</span> AdaptiveHistogramEqualizationImageFilter<span class="p">()</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span><span class="o">$</span>SetAlpha<span class="p">(</span><span class="m">0.0</span><span class="p">)</span>
-  filter_list<span class="p">[[</span>index<span class="p">]]</span><span class="o">$</span>SetBeta<span class="p">(</span><span class="m">1.0</span><span class="p">)</span>
-  index <span class="o">=</span> index <span class="o">+</span> <span class="m">1</span>
+  <span class="n">filter_list[[index]]</span> <span class="o">&lt;-</span> <span class="nf">AdaptiveHistogramEqualizationImageFilter</span><span class="p">()</span>
+  <span class="n">filter_list[[index]]</span><span class="o">$</span><span class="nf">SetAlpha</span><span class="p">(</span><span class="m">0.0</span><span class="p">)</span>
+  <span class="n">filter_list[[index]]</span><span class="o">$</span><span class="nf">SetBeta</span><span class="p">(</span><span class="m">1.0</span><span class="p">)</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="m">1</span>
   
   <span class="c1"># Used only for display purposes in this notebook.</span>
-  aug_image_lists <span class="o">&lt;-</span> <span class="kp">lapply</span><span class="p">(</span><span class="kp">seq_along</span><span class="p">(</span>image_list<span class="p">),</span> <span class="kr">function</span><span class="p">(</span>i<span class="p">,</span> images<span class="p">)</span> <span class="p">{</span>
-                       <span class="kp">lapply</span><span class="p">(</span>filter_list<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>filter<span class="p">)</span> <span class="p">{</span>
-                         aug_image<span class="o">&lt;-</span> filter<span class="o">$</span>Execute<span class="p">(</span>images<span class="p">[[</span>i<span class="p">]])</span>
-                         WriteImage<span class="p">(</span>aug_image<span class="p">,</span> <span class="kp">paste0</span><span class="p">(</span>output_prefix<span class="p">,</span> i<span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span>
-                                    filter<span class="o">$</span>GetName<span class="p">(),</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> output_suffix<span class="p">))</span>
-                         <span class="kr">return</span><span class="p">(</span>aug_image<span class="p">)</span>
+  <span class="n">aug_image_lists</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="nf">seq_along</span><span class="p">(</span><span class="n">image_list</span><span class="p">),</span> <span class="nf">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">images</span><span class="p">)</span> <span class="p">{</span>
+                       <span class="nf">lapply</span><span class="p">(</span><span class="n">filter_list</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">filter</span><span class="p">)</span> <span class="p">{</span>
+                         <span class="n">aug_image</span><span class="o">&lt;-</span> <span class="n">filter</span><span class="o">$</span><span class="nf">Execute</span><span class="p">(</span><span class="n">images[[i]]</span><span class="p">)</span>
+                         <span class="nf">WriteImage</span><span class="p">(</span><span class="n">aug_image</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">output_prefix</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span>
+                                    <span class="n">filter</span><span class="o">$</span><span class="nf">GetName</span><span class="p">(),</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="n">output_suffix</span><span class="p">))</span>
+                         <span class="nf">return</span><span class="p">(</span><span class="n">aug_image</span><span class="p">)</span>
                        <span class="p">})</span>
                       <span class="p">},</span>
-                      image_list<span class="p">)</span>  
+                      <span class="n">image_list</span><span class="p">)</span>  
 <span class="p">}</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Modify the intensities of the original images using the set of SimpleITK filters described above. If we are working with 2D images the results will be displayed inline.</p>
 
@@ -12514,27 +13804,26 @@ augment_images_intensity <span class="o">&lt;-</span> <span class="kr">function<
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>intensity_augmented_images <span class="o">&lt;-</span> augment_images_intensity<span class="p">(</span>data<span class="p">,</span> <span class="kp">file.path</span><span class="p">(</span>OUTPUT_DIR<span class="p">,</span> <span class="s">&#39;intensity_aug&#39;</span><span class="p">),</span> <span class="s">&#39;mha&#39;</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">intensity_augmented_images</span> <span class="o">&lt;-</span> <span class="nf">augment_images_intensity</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nf">file.path</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s">&#39;intensity_aug&#39;</span><span class="p">),</span> <span class="s">&#39;mha&#39;</span><span class="p">)</span>
 
 <span class="c1"># in 2D we join all of the images into 3D volumes which we use for display.</span>
-<span class="kr">if</span><span class="p">(</span>dimension<span class="o">==</span><span class="m">2</span><span class="p">)</span> <span class="p">{</span>
-    all_volumes <span class="o">&lt;-</span> <span class="kp">lapply</span><span class="p">(</span>intensity_augmented_images<span class="p">,</span> 
-                          <span class="kr">function</span><span class="p">(</span>image_list<span class="p">){</span>
-                            JoinSeries<span class="p">(</span><span class="kp">lapply</span><span class="p">(</span>image_list<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>img<span class="p">){</span>Cast<span class="p">(</span>img<span class="p">,</span> <span class="s">&quot;sitkFloat32&quot;</span><span class="p">)}))</span>      
+<span class="nf">if</span><span class="p">(</span><span class="n">dimension</span><span class="o">==</span><span class="m">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">all_volumes</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">intensity_augmented_images</span><span class="p">,</span> 
+                          <span class="nf">function</span><span class="p">(</span><span class="n">image_list</span><span class="p">){</span>
+                            <span class="nf">JoinSeries</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">image_list</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">img</span><span class="p">){</span><span class="nf">Cast</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="s">&quot;sitkFloat32&quot;</span><span class="p">)}))</span>      
                           <span class="p">}</span>
                          <span class="p">)</span>
-    <span class="kp">invisible</span><span class="p">(</span><span class="kp">lapply</span><span class="p">(</span>all_volumes<span class="p">,</span> Show<span class="p">))</span>
+    <span class="nf">invisible</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">all_volumes</span><span class="p">,</span> <span class="n">Show</span><span class="p">))</span>
 <span class="p">}</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Finally, you can easily create intensity variations that are specific to your domain, such as the spatially varying multiplicative and additive transformation shown below.</p>
 
@@ -12549,35 +13838,48 @@ augment_images_intensity <span class="o">&lt;-</span> <span class="kr">function<
 <div class=" highlight hl-r"><pre><span></span><span class="c1">#</span>
 <span class="c1">#Modify the intensities using multiplicative and additive Gaussian bias fields.</span>
 <span class="c1">#</span>
-mult_and_add_intensity_fields <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>original_image<span class="p">)</span> <span class="p">{</span>
+<span class="n">mult_and_add_intensity_fields</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">original_image</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1"># Gaussian image with same meta-information as original (size, spacing, direction cosine)</span>
   <span class="c1"># Sigma is half the image&#39;s physical size and mean is the center of the image. </span>
-  g_mult <span class="o">=</span> GaussianSource<span class="p">(</span>original_image<span class="o">$</span>GetPixelID<span class="p">(),</span>
-                          original_image<span class="o">$</span>GetSize<span class="p">(),</span>
-                          <span class="p">(</span>original_image<span class="o">$</span>GetSize<span class="p">()</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span><span class="o">*</span>original_image<span class="o">$</span>GetSpacing<span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">,</span>
-                          original_image<span class="o">$</span>TransformContinuousIndexToPhysicalPoint<span class="p">(</span>original_image<span class="o">$</span>GetSize<span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">),</span>
+  <span class="n">g_mult</span> <span class="o">=</span> <span class="nf">GaussianSource</span><span class="p">(</span><span class="n">original_image</span><span class="o">$</span><span class="nf">GetPixelID</span><span class="p">(),</span>
+                          <span class="n">original_image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">(),</span>
+                          <span class="p">(</span><span class="n">original_image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span><span class="o">*</span><span class="n">original_image</span><span class="o">$</span><span class="nf">GetSpacing</span><span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">,</span>
+                          <span class="n">original_image</span><span class="o">$</span><span class="nf">TransformContinuousIndexToPhysicalPoint</span><span class="p">(</span><span class="n">original_image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span><span class="o">/</span><span class="m">2.0</span><span class="p">),</span>
                           <span class="m">25</span><span class="p">,</span>
-                          original_image<span class="o">$</span>GetOrigin<span class="p">(),</span>
-                          original_image<span class="o">$</span>GetSpacing<span class="p">(),</span>
-                          original_image<span class="o">$</span>GetDirection<span class="p">())</span>
+                          <span class="n">original_image</span><span class="o">$</span><span class="nf">GetOrigin</span><span class="p">(),</span>
+                          <span class="n">original_image</span><span class="o">$</span><span class="nf">GetSpacing</span><span class="p">(),</span>
+                          <span class="n">original_image</span><span class="o">$</span><span class="nf">GetDirection</span><span class="p">())</span>
 
   <span class="c1"># Gaussian image with same meta-information as original (size, spacing, direction cosine)</span>
   <span class="c1"># Sigma is 1/8 the image&#39;s physical size and mean is at 1/16 of the size </span>
-  g_add <span class="o">=</span> GaussianSource<span class="p">(</span>original_image<span class="o">$</span>GetPixelID<span class="p">(),</span>
-                         original_image<span class="o">$</span>GetSize<span class="p">(),</span>
-                         <span class="p">(</span>original_image<span class="o">$</span>GetSize<span class="p">()</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span><span class="o">*</span>original_image<span class="o">$</span>GetSpacing<span class="p">()</span><span class="o">/</span><span class="m">8.0</span><span class="p">,</span>
-                         original_image<span class="o">$</span>TransformContinuousIndexToPhysicalPoint<span class="p">(</span>original_image<span class="o">$</span>GetSize<span class="p">()</span><span class="o">/</span><span class="m">16.0</span><span class="p">),</span>
+  <span class="n">g_add</span> <span class="o">=</span> <span class="nf">GaussianSource</span><span class="p">(</span><span class="n">original_image</span><span class="o">$</span><span class="nf">GetPixelID</span><span class="p">(),</span>
+                         <span class="n">original_image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">(),</span>
+                         <span class="p">(</span><span class="n">original_image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span><span class="o">*</span><span class="n">original_image</span><span class="o">$</span><span class="nf">GetSpacing</span><span class="p">()</span><span class="o">/</span><span class="m">8.0</span><span class="p">,</span>
+                         <span class="n">original_image</span><span class="o">$</span><span class="nf">TransformContinuousIndexToPhysicalPoint</span><span class="p">(</span><span class="n">original_image</span><span class="o">$</span><span class="nf">GetSize</span><span class="p">()</span><span class="o">/</span><span class="m">16.0</span><span class="p">),</span>
                          <span class="m">25</span><span class="p">,</span>
-                         original_image<span class="o">$</span>GetOrigin<span class="p">(),</span>
-                         original_image<span class="o">$</span>GetSpacing<span class="p">(),</span>
-                         original_image<span class="o">$</span>GetDirection<span class="p">())</span>
+                         <span class="n">original_image</span><span class="o">$</span><span class="nf">GetOrigin</span><span class="p">(),</span>
+                         <span class="n">original_image</span><span class="o">$</span><span class="nf">GetSpacing</span><span class="p">(),</span>
+                         <span class="n">original_image</span><span class="o">$</span><span class="nf">GetDirection</span><span class="p">())</span>
     
-  <span class="kr">return</span><span class="p">(</span>g_mult<span class="o">*</span>original_image<span class="o">+</span>g_add<span class="p">)</span>
+  <span class="nf">return</span><span class="p">(</span><span class="n">g_mult</span><span class="o">*</span><span class="n">original_image</span><span class="o">+</span><span class="n">g_add</span><span class="p">)</span>
 <span class="p">}</span>
-<span class="kp">invisible</span><span class="p">(</span><span class="kp">lapply</span><span class="p">(</span>data<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>img<span class="p">){</span>Show<span class="p">(</span>mult_and_add_intensity_fields<span class="p">(</span>img<span class="p">))}))</span>
+<span class="nf">invisible</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">img</span><span class="p">){</span><span class="nf">Show</span><span class="p">(</span><span class="nf">mult_and_add_intensity_fields</span><span class="p">(</span><span class="n">img</span><span class="p">))}))</span>
 </pre></div>
 
+    </div>
 </div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
