@@ -1,11 +1,14 @@
 import SimpleITK as sitk
 import matplotlib.pyplot as plt
 import ipywidgets as widgets
-from IPython.display import display
+from IPython.display import display, clear_output
 import numpy as np
 from matplotlib.widgets import  RectangleSelector
 import matplotlib.patches as patches
-
+from registration_utilities import registration_errors
+import matplotlib.cm as cm
+from matplotlib.ticker import MaxNLocator
+import copy
 
 class RegistrationPointDataAquisition(object):
     """
@@ -406,6 +409,7 @@ def multi_image_display2D(image_list, title_list=None, window_level_list= None, 
         ax.set_axis_off()
     fig.tight_layout()
 
+
 class MultiImageDisplay(object):
 
     def __init__(self, image_list, axis=0, shared_slider=False, title_list=None, window_level_list= None, figure_size=(10,8), horizontal=True):
@@ -519,7 +523,6 @@ class MultiImageDisplay(object):
             ax.set_ylim(ylim)
 
         self.fig.canvas.draw_idle()
-
 
 
 class ROIDataAquisition(object):
@@ -737,3 +740,402 @@ class ROIDataAquisition(object):
             self.roi_selector.set_visible(True)
             self.addroi_button.disabled = False
             self.update_display()
+
+
+
+class PairedPointDataManipulation(object):
+    '''
+    This class provides a GUI for paired point creation, to illustrate the use of the
+    SimpleITK LandmarkBasedTransformInitializer. The GUI displays a region of size
+    [0,data_scale]X[0,data_scale] in which the user can select points. The user can
+    then translate and rotate the point configuration. The points are either fiducials
+    (used in registration) or targets (not used in registration). The transformation
+    estimated by the component can be either rigid or affine.
+    The UI allows the user to add noise, bias,... to the moving fiducials and perform
+    registration.
+    '''
+    def __init__(self, transform=sitk.Euler2DTransform(), data_scale=100.0, figure_size=(8,6)):
+        self.figure_size = figure_size
+
+        # Properties of the glyphs used to display the fixed/moving fiducials/targets and rotation centroid.
+        self.FIXED_FIDUCIAL_CONFIG = {'marker':'x', 'markersize':6, 'color':"#ff8888"}
+        self.FIXED_TARGET_CONFIG = {'marker':'s', 'markerfacecolor':'none', 'markersize':6, 'color':"#88ff88"}
+        self.MOVING_FIDUCIAL_CONFIG = {'marker':'+', 'markersize':8, 'color':"#ffdddd"}
+        self.MOVING_TARGET_CONFIG = {'marker':'o', 'markerfacecolor':'none', 'markersize':8, 'color':"#ddffdd"}
+        self.CENTROID_CONFIG = {'marker':'.', 'markersize':4, 'color':"#58d8ff"}
+
+        # The fixed fiducials/targets do not have noise added to them.
+        self.fixed_fiducials = []
+        self.fixed_targets = []
+        # The moving fiducials will have noise, bias added to their coordinates. Noise
+        # model is zero mean Gaussian, isotropic and homogenous.
+        self.moving_fiducials = []
+        self.moving_targets = []
+        # This list will contain the FLE vectors, not the FLE. Allows us to
+        # accumulate the error as the user adds errors multiple times.
+        self.FLE = []
+        # Centroid of the moving fiducials and targets.
+        self.centroid = []
+
+        # Fiducials can only be added before any noise/bias is added to the existing fiducials
+        self.can_add_fiducials = True
+
+        # The transformation type that will be used by the LandmarkBasedTransformInitializer
+        # this component supports, Rigid2DTransform, AffineTransform, BSplineTransform
+        self.transform = transform
+
+        # The point data will be in [0,data_scale]x[0,data_scale]
+        self.scale = data_scale
+
+        self.ui = self.create_ui()
+        display(self.ui)
+        
+        # Create a figure. 
+        self.fig, self.axes = plt.subplots(1,1,True, True, figsize=self.figure_size)
+        
+        self.fig.canvas.mpl_connect('button_press_event', self.on_press)
+        self.fig.canvas.mpl_connect('motion_notify_event', self.on_motion)
+        self.fig.canvas.mpl_connect('button_release_event', self.on_release)
+        
+        self.update_display()
+        
+
+    def create_ui(self):
+        # Create the active UI components. Height and width are specified in 'em' units. This is
+        # a html size specification, size relative to current font size.
+        self.viewing_checkbox = widgets.RadioButtons(description= 'Mode:', 
+                                                     options= ['edit', 'translate', 'rotate'],
+                                                     value = 'edit')
+        self.viewing_checkbox.observe(self.update_centroid_and_display)
+
+        self.noise_button = widgets.Button(description= 'Add Noise', 
+                                              width= '7em', 
+                                              height= '3em') 
+        self.noise_button.on_click(self.noise)
+
+        self.outlier_button = widgets.Button(description= 'Add Outlier', 
+                                              width= '7em', 
+                                              height= '3em') 
+        self.outlier_button.on_click(self.outlier)
+        
+        self.bias1_button = widgets.Button(description= 'Bias (FRE<TRE)', 
+                                               width= '7em', 
+                                               height= '3em')
+        self.bias1_button.on_click(self.bias_1)
+
+        self.bias2_button = widgets.Button(description= 'Bias (FRE>TRE)', 
+                                              width= '7em', 
+                                              height= '3em') 
+        self.bias2_button.on_click(self.bias_2)
+        
+        self.clear_fiducial_button = widgets.Button(description= 'Clear Fiducials', 
+                                               width= '7em', 
+                                               height= '3em')
+        self.clear_fiducial_button.on_click(self.clear_fiducials)
+
+        self.clear_target_button = widgets.Button(description= 'Clear Targets', 
+                                               width= '7em', 
+                                               height= '3em')
+        self.clear_target_button.on_click(self.clear_targets)
+        
+        self.reset_button = widgets.Button(description= 'Reset', 
+                                               width= '7em', 
+                                               height= '3em')
+        self.reset_button.on_click(self.reset)
+        
+        self.register_button = widgets.Button(description= 'Register', 
+                                               width= '7em', 
+                                               height= '3em')
+        self.register_button.on_click(self.register)
+
+        
+        # Layout of UI components. This is pure ugliness because we are not using a UI toolkit. Layout is done
+        # using the box widget and padding so that the visible UI components are spaced nicely.
+        bx0 = widgets.Box(padding = 2, children = [self.viewing_checkbox])
+        bx1 = widgets.Box(padding = 15, children = [self.noise_button])
+        bx2 = widgets.Box(padding = 15, children = [self.outlier_button])
+        bx3 = widgets.Box(padding = 15, children = [self.bias1_button])
+        bx4 = widgets.Box(padding = 15, children = [self.bias2_button])
+        bx5 = widgets.Box(padding = 15, children = [self.clear_fiducial_button])
+        bx6 = widgets.Box(padding = 15, children = [self.clear_target_button])
+        bx7 = widgets.Box(padding = 15, children = [self.reset_button])
+        bx8 = widgets.Box(padding = 15, children = [self.register_button])
+        return widgets.HBox(children=[bx0, widgets.VBox(children=[widgets.HBox([bx1, bx2, bx3, bx4]), widgets.HBox(children=[bx5, bx6, bx7, bx8])])])
+
+    
+    def update_display(self):
+
+        self.axes.clear()
+
+        # Draw the fixed and moving fiducials and targets using the glyph specifications defined in
+        # the class constructor.
+        self.moving_fiducials_glyphs = []
+        self.moving_targets_glyphs = []
+        for fixed_fiducial, moving_fiducial in zip(self.fixed_fiducials, self.moving_fiducials):
+            self.axes.plot(fixed_fiducial[0], fixed_fiducial[1], **(self.FIXED_FIDUCIAL_CONFIG))
+            self.moving_fiducials_glyphs += self.axes.plot(moving_fiducial[0], moving_fiducial[1], **(self.MOVING_FIDUCIAL_CONFIG))
+        for fixed_target, moving_target in zip(self.fixed_targets, self.moving_targets):
+            self.axes.plot(fixed_target[0], fixed_target[1], **(self.FIXED_TARGET_CONFIG))
+            self.moving_targets_glyphs += self.axes.plot(moving_target[0], moving_target[1], **(self.MOVING_TARGET_CONFIG))
+        if self.centroid:
+            self.axes.plot(self.centroid[0], self.centroid[1], **(self.CENTROID_CONFIG))
+
+        self.axes.set_title('Registration Error Demonstration')
+        self.axes.get_xaxis().set_visible(False)
+        self.axes.get_yaxis().set_visible(False)
+        
+        self.axes.set_facecolor((0, 0, 0))
+        
+        # Set the data range back to what it was before we cleared the axes, and rendered our data.
+        self.axes.set_xlim([0, self.scale])
+        self.axes.set_ylim([0, self.scale])
+
+        self.fig.canvas.draw_idle()
+    
+    
+    def update_centroid_and_display(self, button):
+        self.update_centroid()
+        self.update_display()
+
+    def update_centroid(self):
+        if self.viewing_checkbox.value == 'rotate' and (self.moving_targets or self.moving_fiducials):
+            n = len(self.moving_fiducials) + len(self.moving_targets)
+            x,y = zip(*(self.moving_fiducials+self.moving_targets))
+            self.centroid = [sum(x)/n, sum(y)/n]
+        else:
+            self.centroid = []
+
+
+    def noise(self, button):
+        if self.moving_fiducials:
+            self.can_add_fiducials = False
+            for fiducial,fle in zip(self.moving_fiducials, self.FLE):
+                dx = float(np.random.normal(scale=0.02*self.scale))
+                dy = float(np.random.normal(scale=0.02*self.scale))
+                fiducial[0] += dx
+                fiducial[1] += dy
+                fle[0] += dx
+                fle[1] += dy
+        self.update_display()
+
+    def outlier(self, button):
+        if self.moving_fiducials:
+            self.can_add_fiducials = False
+            index = np.random.randint(low=0, high=len(self.moving_fiducials))
+            new_x = max(min(self.moving_fiducials[index][0]+0.1*self.scale, self.scale), 0)
+            new_y = max(min(self.moving_fiducials[index][1]+0.1*self.scale, self.scale), 0)
+            self.FLE[index][0] += new_x - self.moving_fiducials[index][0]
+            self.FLE[index][1] += new_y - self.moving_fiducials[index][1]
+            self.moving_fiducials[index][0] = new_x
+            self.moving_fiducials[index][1] = new_y
+            self.update_display()
+
+    def bias_1(self, button):
+        if self.moving_fiducials:
+            self.can_add_fiducials = False
+            for fiducial,fle in zip(self.moving_fiducials,self.FLE):
+                fiducial[0]+= 0.015*self.scale
+                fiducial[1]+= 0.015*self.scale
+                fle[0]+=0.015*self.scale
+                fle[1]+=0.015*self.scale
+        self.update_display()
+    
+    def bias_2(self, button):
+        if self.moving_fiducials:
+            self.can_add_fiducials = False
+            pol=1
+            for fiducial,fle in zip(self.moving_fiducials,self.FLE):
+                fiducial[0] += 0.015*pol*self.scale
+                fiducial[1] += 0.015*pol*self.scale
+                fle[0] += 0.015*pol*self.scale
+                fle[1] += 0.015*pol*self.scale
+                pol*=-1
+        self.update_display()
+    
+    def clear_fiducials(self, button):
+        self.fixed_fiducials = []
+        self.moving_fiducials = []
+        self.FLE = []
+        self.can_add_fiducials = True
+        self.update_centroid()
+        self.update_display()
+
+    def clear_targets(self, button):
+        self.fixed_targets = []
+        self.moving_targets = []
+        self.update_centroid()
+        self.update_display()
+
+    def reset(self, button):
+        self.moving_fiducials = copy.deepcopy(self.fixed_fiducials)
+        self.moving_targets = copy.deepcopy(self.fixed_targets)
+        self.FLE = [[0.0,0.0]]*len(self.moving_fiducials)
+        self.can_add_fiducials = True
+        self.update_centroid()
+        self.update_display()
+        
+    def register(self, button):
+        fixed_points = [c for p in self.fixed_fiducials for c in p]
+        moving_points = [c for p in self.moving_fiducials for c in p]
+        transform = sitk.LandmarkBasedTransformInitializer(self.transform, fixed_points, moving_points)
+
+        # For display purposes we want to transform the moving points to the
+        # fixed ones, so using the inverse transformation
+        inverse_transform = transform.GetInverse()
+
+        for pnt in self.moving_fiducials + self.moving_targets:
+            transformed_pnt = inverse_transform.TransformPoint(pnt)
+            pnt[0] = transformed_pnt[0]
+            pnt[1] = transformed_pnt[1]
+        self.update_centroid()
+        self.update_display()
+    
+    
+    def on_press(self, event):
+        if self.viewing_checkbox.value == 'edit':
+            if self.can_add_fiducials:
+                if event.button ==1: #left click
+                    if event.inaxes==self.axes:
+                        self.fixed_fiducials.append([event.xdata, event.ydata])
+                        self.moving_fiducials.append([event.xdata, event.ydata])
+                        self.FLE.append([0.0,0.0])
+                        self.update_display()
+                elif event.button ==3: #right click
+                    if event.inaxes==self.axes:
+                        self.fixed_targets.append([event.xdata, event.ydata])
+                        self.moving_targets.append([event.xdata, event.ydata])
+                        self.update_display()
+        elif event.button == 1: #left click
+            if event.inaxes==self.axes:
+                if self.viewing_checkbox.value == 'translate':
+                    self.previousx = event.xdata
+                    self.previousy = event.ydata
+                elif self.viewing_checkbox.value == 'rotate' and self.centroid:
+                    self.previous = [event.xdata - self.centroid[0],
+                                     event.ydata - self.centroid[1]]
+                    
+    def on_motion(self, event):
+        if event.button == 1: #left click
+            if self.viewing_checkbox.value == 'translate':
+                dx = event.xdata-self.previousx
+                dy = event.ydata-self.previousy
+                for glyph in self.moving_fiducials_glyphs + self.moving_targets_glyphs:
+                    glyph.set_data(glyph.get_xdata()+dx,
+                                   glyph.get_ydata()+dy)
+                self.previousx = event.xdata
+                self.previousy = event.ydata
+                self.fig.canvas.draw_idle()
+                self.fig.canvas.flush_events()
+            elif self.viewing_checkbox.value == 'rotate' and self.centroid:
+                ox = self.centroid[0]
+                oy = self.centroid[1]
+                v1 = self.previous
+                v2 = [event.xdata-ox, event.ydata-oy]
+                
+                cosang = v1[0]*v2[0]+v1[1]*v2[1]                
+                sinang = v1[0]*v2[1]-v1[1]*v2[0]
+                angle = np.arctan2(sinang, cosang)                
+
+                for glyph in self.moving_fiducials_glyphs + self.moving_targets_glyphs:
+                    px = glyph.get_xdata()
+                    py = glyph.get_ydata()
+                    glyph.set_data(ox + np.cos(angle) * (px - ox) - np.sin(angle) * (py - oy),
+                                   oy + np.sin(angle) * (px - ox) + np.cos(angle) * (py - oy))
+                self.previous = v2
+                self.fig.canvas.draw_idle()
+                self.fig.canvas.flush_events()
+                    
+    def on_release(self, event):
+        if event.button == 1: #left click
+            if self.viewing_checkbox.value == 'translate' or self.viewing_checkbox.value == 'rotate':
+                # Update the actual data using the glyphs (modified during translation/rotation)
+                for glyph,fiducial in zip(self.moving_fiducials_glyphs, self.moving_fiducials):
+                    fiducial[0] = float(glyph.get_xdata())
+                    fiducial[1] = float(glyph.get_ydata())
+                for glyph,target in zip(self.moving_targets_glyphs, self.moving_targets):
+                    target[0] = float(glyph.get_xdata())
+                    target[1] = float(glyph.get_ydata())
+        
+
+    def get_fixed_fiducials(self):
+        return self.fixed_fiducials
+        
+    def get_fixed_targets(self):
+        return self.fixed_targets
+
+    def get_moving_fiducials(self):
+        return self.moving_fiducials
+
+    def get_moving_targets(self):
+        return self.moving_targets
+
+    def get_FLE(self):
+        return [np.sqrt(fle_vec[0]**2 + fle_vec[1]**2) for fle_vec in self.FLE]
+
+    def get_all_data(self):
+        return (self.fixed_fiducials, self.fixed_targets, self.moving_fiducials,
+                self.moving_targets, self.get_FLE())
+
+    def set_fiducials(self, fiducials):
+        self.set_points(fiducials)
+        self.FLE = [[0.0,0.0]]*len(self.moving_fiducials)
+
+    def set_targets(self, targets):
+        self.set_points(targets, are_fiducials=False)
+
+    def set_points(self, points, are_fiducials=True):
+        # Validate the points are inside the expected range.
+        all_coords = [coord for pnt in points for coord in pnt]
+        if min(all_coords)<0 or max(all_coords)>self.scale:
+            raise ValueError('One of the points is outside the image bounds, [0,{0}]X[0,{0}].'.format(self.scale))
+        # Copy the data in and coerce points to lists. The coercion to list
+        # allows us to accept tuples, as internally we need the points to be mutable.
+        fill_lists = [self.fixed_fiducials, self.moving_fiducials] if are_fiducials else [self.fixed_targets, self.moving_targets]
+        for p in points:
+            fill_lists[0].append(list(p))
+            fill_lists[1].append(list(p))
+        self.update_display()
+
+
+
+def display_errors(fixed_fiducials, fixed_targets, FLE_errors, FRE_errors, TRE_errors,
+                   min_err= None, max_err=None, title="Registration Errors"):
+    if not min_err:
+        min_err = min(FRE_errors[2], TRE_errors[2])
+    if not max_err:
+        max_err = max(FRE_errors[3], TRE_errors[3])
+
+    print("Mean FLE %.6f\t STD FLE %.6f\t Min FLE %.6f\t Max FLE %.6f" %FLE_errors[0:4])
+    print("Mean FRE %.6f\t STD FRE %.6f\t Min FRE %.6f\t Max FRE %.6f" %FRE_errors[0:4])
+    print("Mean TRE %.6f\t STD TRE %.6f\t Min TRE %.6f\t Max TRE %.6f" %TRE_errors[0:4])
+    fig = plt.figure(figsize=(9, 3.5), num=title)
+    ax1 = plt.subplot(1, 2, 1)
+    ax1.set_title('Registration Errors Distributions')
+    ax1.yaxis.set_major_locator(MaxNLocator(integer=True))
+    bins = np.linspace(min(FLE_errors[2], FRE_errors[2], TRE_errors[2]), max(FLE_errors[3], FRE_errors[3], TRE_errors[3]), 20)
+    plt.hist(FLE_errors[4], bins, alpha=0.3, label='FLE')
+    plt.hist(FRE_errors[4], bins, alpha=0.3, label='FRE')
+    plt.hist(TRE_errors[4], bins, alpha=0.3, label='TRE')
+    plt.legend(loc='upper right')
+
+    ax2 = plt.subplot(1, 2, 2)
+    ax2.get_xaxis().set_visible(False)
+    ax2.get_yaxis().set_visible(False)
+    ax2.set_facecolor((0.8, 0.8, 0.8))
+    ax2.set_title('Spatial Variability of Registration Errors')
+    collection = ax2.scatter(list(np.array(fixed_fiducials).T)[0],
+                            list(np.array(fixed_fiducials).T)[1],
+                            marker = 'o',
+                            c = FRE_errors[4],
+                            vmin = min_err,
+                            vmax = max_err,
+                            cmap = cm.hot)
+    ax2.scatter(list(np.array(fixed_targets).T)[0],
+                            list(np.array(fixed_targets).T)[1],
+                            marker = 's',
+                            c = TRE_errors[4],
+                            vmin = min_err,
+                            vmax = max_err,
+                            cmap = cm.hot)
+    plt.colorbar(collection, shrink=0.8)
+    plt.show()

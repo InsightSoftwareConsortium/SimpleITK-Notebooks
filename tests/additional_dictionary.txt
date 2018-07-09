@@ -47,6 +47,7 @@ FFDR
 FFF
 FFP
 FFS
+FLE
 FRE
 FREs
 FastMarchingImageFilter
@@ -104,6 +105,7 @@ Mahalanobis
 Malpica
 Marschner
 MattesMutualInformation
+Maurer
 MaximumEntropy
 MeanSquares
 MetaDataDictionaryArrayUpdateOn
@@ -113,6 +115,7 @@ Nelder
 Otsu's
 PNG
 POPI
+PairedPointDataManipulation
 Photogrammetric
 Popa
 Proc
@@ -261,6 +264,7 @@ optimizerScales
 originalControlPointDisplacements
 originalDisplacements
 otsu
+outlier
 outputfile
 overcomplete
 overfit
@@ -342,12 +346,14 @@ vy
 vz
 widgetsnbextension
 wikimedia
+xn
 xpixels
 xtable
 xx
 xxx
 xy
 xz
+yn
 ypixels
 yy
 yyy
