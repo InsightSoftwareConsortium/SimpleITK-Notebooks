@@ -45,6 +45,7 @@ jobs:
           command: |
             source ~/sitkpy/bin/activate
             ~/sitkpy/bin/pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
+          no_output_timeout: 30m
 
       - save_cache:
           key: notebook-data-{{ checksum "Data/manifest.json" }}
