@@ -269,7 +269,7 @@ class Test_notebooks(object):
                     '--execute',
                     '--ExecutePreprocessor.kernel_name='+kernel_name, 
                     '--ExecutePreprocessor.allow_errors=True',
-                    '--ExecutePreprocessor.timeout=600', # seconds till timeout 
+                    '--ExecutePreprocessor.timeout=1800', # seconds till timeout
                     '--output', fout.name, path]
             subprocess.check_call(args)
             nb = nbformat.read(fout.name, nbformat.current_nbformat)
