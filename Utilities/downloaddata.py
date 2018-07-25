@@ -176,16 +176,6 @@ def get_midas_servers():
         local_object_stores = os.environ['ExternalData_OBJECT_STORES']
         for local_object_store in local_object_stores.split(";"):
           midas_servers.append( "file://{0}/MD5/%(hash)".format(local_object_store) )
-    midas_servers.extend( [
-        # Data published by MIDAS
-        "http://midas3.kitware.com/midas/api/rest?method=midas.bitstream.download&checksum=%(hash)&algorithm=%(algo)",
-        # Data published by developers using git-gerrit-push.
-        "http://www.itk.org/files/ExternalData/%(algo)/%(hash)",
-        # Mirror supported by the Slicer community.
-        "http://slicer.kitware.com/midas3/api/rest?method=midas.bitstream.download&checksum=%(hash)&algorithm=%(algo)",
-        # Insight journal data server
-        "http://www.insight-journal.org/midas/api/rest?method=midas.bitstream.by.hash&hash=%(hash)"
-        ])
     # Backup data server using raw https
     midas_servers.append( "https://erie.nlm.nih.gov/SimpleITKNotebooksData/MD5/%(hash)" )
     return midas_servers
