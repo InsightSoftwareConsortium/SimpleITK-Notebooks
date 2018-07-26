@@ -1,224 +1,224 @@
 {
  "cthead1.png": {
-  "md5sum": "0641790321a36d63bd735ad27d9caca1"
+  "sha512": "77a04ad77c192978e9bba0a1b3acf6d59b73120e87c4a2a3f92a44ff2f84c60890ea32401fb583448b5c36285ba5881fe70afecea9d57af0f30f510927cd2429"
  },
  "VM1111Shrink-RGB.png": {
-  "md5sum": "34f4278eb68d77e3a5a9a93bb8aaf585"
+  "sha512": "425d2e05e58b6f89ebebaca6731772c56d0813974c9a5b0eb0a67919867547abd912ea7c6ee55e047559c0707ee214d4a0436d76e5f97db4766b1bfa49fed992"
  },
  "2th_cthead1.png": {
-  "md5sum": "be688230b2ed67097039385cc13b04a8"
+  "sha512": "c7e0eba27f3c93061503294dd4881111da357dba5e35bba73e0b4114d5f4737ac9493e240ef1dd3b83aa2df33b6828981dcc9878209b79989e3dcbd42469c135"
  },
  "nac-hncma-atlas2013-Slicer4Version/Data/A1_grayT1.nrrd": {
-  "md5sum": "84e9629e61f0fde86e6c7044524ad9b9"
+  "sha512": "efabe7530747723c2539e507ec9deef9a83ab5de88e9b671ced94ea8c982e71619351daed84dcf64b62617d5808025abe3e57f94c48da2c84070f79a86c405dd"
  },
  "nac-hncma-atlas2013-Slicer4Version/Data/A1_grayT2.nrrd": {
-  "md5sum": "e9e19286a7abe36099a1f322a5dc378c"
+  "sha512": "5ed38ae30b6824d8d51690b37c8b5caadf07c860eac1d0f4e714bebafd108ffb744b80f31a35749ed71fd574ebdca97a81e68c551d3c1948c2f102bb39b692ee"
  },
  "nac-hncma-atlas2013-Slicer4Version/Data/hncma-atlas.nrrd": {
-  "md5sum": "fe7a497192de0e48a3f0b00266fcd213"
+  "sha512": "968e3a05df5e5c21d7f7ac4e75e04405696a30f2f80b1ced0f538ebc57af9f9229449095c221a9274d16dc9599632175ba16125519264940884184bbcac867eb"
  },
  "B1.tiff": {
-  "md5sum": "d50be7f1c451bf832c534206842b2d37"
+  "sha512": "c3cbec2bfd0a9a0a961992e90da61e01ba7e595f1d2d3a7f441ef4cb2b49a49473f2db827edcf3359d8706d96df36ede4b1c1988da64eedf1b5447dadb23b66b"
  },
  "B2.tiff": {
-  "md5sum": "08ee0426072d1444706889ba66988cf1"
+  "sha512": "0777090599087e2246739119bdd1175b592114cc5139132eae9f029be8fa9908ccc4b647a9090599995354f9d14693fc355e3faab3b85fdd09a0edb7d990d69f"
  },
  "B1_fixed_B2_moving0GenericAffine.mat": {
-  "md5sum": "19d6df34fba46b3109ea6c103bbcf733"
+  "sha512": "09eaa8e86eb2fdf4617887ac330da1c8b26c2a25ef69e53a89d69f81b350ec9461635c93eb22f011cbd4256e4a915c40c09e6d28a5079739b2312d793bab07d3"
  },
  "B1_fixed_B2_movingComposite.h5": {
-  "md5sum": "f8b1fd699ca9ff7799def330a6175f82"
+  "sha512": "184e27629eb4a0ae03d23443503592a94b2f807a5267a4b98353dedcadcebec71ac521eb297256c4b298eacc90af99fa1d1af1815ad14a14501a479179dae385"
  },
  "coins.png": {
-  "md5sum": "ccd1bf9e80499112428224a2d1500ab6"
+  "sha512": "c6aace37bf9bde3a13dbb0b9b4a6361ecdba6ff24c3d495501136605e55cb1f772b245397899e5f6be83ac237275f55a2cb97c5f6e71b5fdc5aea7501a25fbb4"
  },
  "a_vm1108.png": {
-  "md5sum": "0eb580ecb40439d9e4f6e6ac6260905a"
+  "sha512": "329258f7312a1a89b5be7e0780b204d3260f25c00135bfbb511545b22e0a60f4be626c384db77e34b46313629a80ab76753bcff91c8d84530017f8ca6505d2ba"
  },
  "vm_head_rgb.mha": {
-  "md5sum": "78b10debf172519ab277c7db84069a45"
+  "sha512": "c9365ba3e28965f0a971c93dc5729f67fe5fb0ff58ccdf8c5cf53b142c095ecd44a802bee7a0bda4a12a54c82c4486b31fde2aa8ace0128745e1be8f1b2298ca"
  },
  "vm_head_mri.mha": {
-  "md5sum": "2c27ccbddff0bb1b1458075a2a57b7e5"
+  "sha512": "62a22a7cd91c9a91ccc8583ad98a29de83c72e95b652ba345b5697f1f84379fe43890faa38308cd9adf79e5365ffab1438ce3ba41b4423a3127870c27b0ebddf"
  },
- "training_001_ct.mha" : {
-  "md5sum" : "51174490e46fd227b7ae0b83d8e9a143"
+ "training_001_ct.mha": {
+  "sha512": "1b950bc42fddfcefc76b9203d5dd6c45960c4fa8dcb69b839d3d083270d3d4c9a9d378de3d3f914e432dc18fb44c9b9770d4db5580a70265f3e24e6cdb83015d"
  },
- "training_001_mr_T1.mha" : {
-  "md5sum" : "04e76cef57966ac99ad4cee3b787b158"
+ "training_001_mr_T1.mha": {
+  "sha512": "3d15477962fef5851207964c381ffe77c586a6f70f2a373ecd3b6b4dc50d51dc6cd893eb1bedabcd382a96f0dafac893ae9e5a7c2b7333f9ff3f0c6b7016c7bc"
  },
- "ct_T1.standard" : {
- "md5sum" : "91b694af442eaa854be808997c8f0f4b"
+ "ct_T1.standard": {
+  "sha512": "a7e63cc7de459f79c11c5d8c83a9260b81bd1f9b33ea88b1e4952b4fb347d68d59ad8dd149234033418a2ad5a3d1191c3caf312d826ef08f382aa1069e38f9dc"
  },
- "CIRS057A_MR_CT_DICOM/readme.txt" : {
- "md5sum" : "d92c97e6fe6520cb5b1a50b96eb9eb96",
- "archive" : "true"
+ "CIRS057A_MR_CT_DICOM/readme.txt": {
+  "archive": "true",
+  "sha512": "d5130cfca8467c4efe1c6b4057684651d7b74a8e7028d9402aff8e3d62287761b215bc871ad200d4f177b462f7c9358f1518e6e48cece2b51c6d8e3bb89d3eef"
  },
- "SimpleITK.jpg" : {
- "md5sum" : "2685660c4f50c5929516127aed9e5b1a"
+ "SimpleITK.jpg": {
+  "sha512": "f1b5ce1bf9d7ebc0bd66f1c3bc0f90d9e9798efc7d0c5ea7bebe0435f173355b27df632971d1771dc1fc3743c76753e6a28f6ed43c5531866bfa2b38f1b8fd46"
  },
- "spherical_fiducials.mha" : {
- "md5sum" : "f43ce40dccace392f13ff8fcf536edc2"
+ "spherical_fiducials.mha": {
+  "sha512": "6e2d0b50e77e51c7215c75e0a63a7e924ba7160587c755cddb2a663eed34a0174908015e7f2d05e1e130f0c43b4a151a11741f54ff8f03bc0189505a36eb2389"
  },
- "POPI/meta/00-P.mhd" : {
-  "md5sum" : "e53c1a5d001e98b78d06e71b33be41bf",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/00-MetaImage.tar",
-  "archive" : "true"
+ "POPI/meta/00-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/00-MetaImage.tar",
+  "archive": "true",
+  "sha512": "09fcb39c787eee3822040fcbf30d9c83fced4246c518a24ab14537af4b06ebd438e2f36be91e6e26f42a56250925cf1bfa0d2f2f2192ed2b98e6a9fb5f5069fc"
  },
- "POPI/meta/10-P.mhd" : {
-  "md5sum" : "73bb09119fa5c71acb9731fee604c60e",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/10-MetaImage.tar",
-  "archive" : "true"
+ "POPI/meta/10-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/10-MetaImage.tar",
+  "archive": "true",
+  "sha512": "69644c7573a08c57ae4d57286e10e962c5e62472e1893f36bf3a2e8430ef4089fe4162375c3de73e00033114c5fa1653df49ffb3b38deaac8f1f3a8f6ff081b2"
  },
- "POPI/meta/20-P.mhd" : {
-  "md5sum" : "78ae3a0e8a1902ca9ae53baf16b43c81",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/20-MetaImage.tar",
-  "archive" : "true"
+ "POPI/meta/20-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/20-MetaImage.tar",
+  "archive": "true",
+  "sha512": "5a8bdf4977d18d44fb4141e487211157bbdc50dab502e8dfea4d1f4178b28b71172d58332c8661f65349a5ed68c453620e113ce3bcc29b845eee3f9f9ca25e67"
  },
- "POPI/meta/30-P.mhd" : {
-  "md5sum" : "c0ae1dcd0781a4e08b33a1f6281068db",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/30-MetaImage.tar",
-  "archive" : "true"
+ "POPI/meta/30-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/30-MetaImage.tar",
+  "archive": "true",
+  "sha512": "8b7c1cbbb982a44d7c4cb7b794a7821693182b7c637b89956f5ce1ed2534e7dfae59e0654c421ecc538aa451dcdfc5a61a40ffe0d95e14598b9cddea66a6c88c"
  },
- "POPI/meta/40-P.mhd" : {
-  "md5sum" : "c9e8683df8b725f82ddf5bb7163ecb90",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/40-MetaImage.tar",
-  "archive" : "true"
+ "POPI/meta/40-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/40-MetaImage.tar",
+  "archive": "true",
+  "sha512": "ab87f2996592e5f9e3bff30503e54efb8dd48c41d4d8bee1915607b474a1252e3f04a3bcf76d96cad69ad22d3c9b4755cb95a68e28fcd86ebad8a7d86906384a"
  },
- "POPI/meta/50-P.mhd" : {
-  "md5sum" : "bc1bd27c1b0602397eb1fdbba4b2d4ae",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/50-MetaImage.tar",
-  "archive" : "true"
+ "POPI/meta/50-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/50-MetaImage.tar",
+  "archive": "true",
+  "sha512": "5bf8f537a14bbb2140f9ce328938cd0d35373be22c33306d05db9b0745435b63bd803372e2dc4c6e0469d054248f21f7ed805def61a9dc46b3d1b3696d07bb46"
  },
- "POPI/meta/60-P.mhd" : {
-  "md5sum" : "5f879d0e1714bfb3c34b449e3dea7a5d",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/60-MetaImage.tar",
-  "archive" : "true"
+ "POPI/meta/60-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/60-MetaImage.tar",
+  "archive": "true",
+  "sha512": "4e03e84a2cd80c7f24d0f224d66b3c3531690c5d95afc57fbe0ef8685aaa633a2c4c8ba304ce907d10d4c87b117acc46dd11503da27328e651726c5470347fb7"
  },
- "POPI/meta/70-P.mhd" : {
-  "md5sum" : "404c82e14063b17f3d3fc9bf531e9d31",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/70-MetaImage.tar",
-  "archive" : "true"
+ "POPI/meta/70-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/70-MetaImage.tar",
+  "archive": "true",
+  "sha512": "87c256ff441429babceab5f9886397f7c4b4f85525dfb5a786ed64b97f4779d3b313b3faf1449dddb7ba5ed49719ff0eea296a3367cdc98e753f597028a6f0e0"
  },
- "POPI/meta/80-P.mhd" : {
-  "md5sum" : "a718b678141fbab56ee1c28af7234581",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/80-MetaImage.tar",
-  "archive" : "true"
+ "POPI/meta/80-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/80-MetaImage.tar",
+  "archive": "true",
+  "sha512": "22935658574d6ea6641442a0134e5b06c8810c9885cf23bd79b6db8d8c70e25bb7b2d53ff36e0c324f82498236cb8eb76c497222c0ff36c71d9b7124fa4397a9"
  },
- "POPI/meta/90-P.mhd" : {
-  "md5sum" : "07e0a2685bf3e837be833397db2197c6",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/90-MetaImage.tar",
-  "archive" : "true"
+ "POPI/meta/90-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/90-MetaImage.tar",
+  "archive": "true",
+  "sha512": "56455a87cc7e5d3f42ad02ae04b2d20ea8644cb7cb540b7690e147255b67d501a6c659c6fbf9811301d05e6e2e15b3a73210a66366a175d8f79b2dd5cbc162cb"
  },
- "POPI/landmarks/00-Landmarks.pts" : {
-  "md5sum" : "0c3fc14bc7392cd40d65d5bcd1a8b937",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/00-Landmarks.pts"
+ "POPI/landmarks/00-Landmarks.pts": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/00-Landmarks.pts",
+  "sha512": "7c2120b1f6d4b855aa11bf05dd987d677c219ca4bdfbd39234e7835285c45082c229fb5cc09e00e6bd91b339eeb1f700c597f4166633421a133c21ce773b25ad"
  },
- "POPI/landmarks/10-Landmarks.pts" : {
-  "md5sum" : "da014ceb977f5fa39ec8703ec15c881c",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/10-Landmarks.pts"
+ "POPI/landmarks/10-Landmarks.pts": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/10-Landmarks.pts",
+  "sha512": "d7fb0c5766a790c5df9c82ca4929fe09231f534b826b7e0032c088f69fc6a9cd3c146f7b69fd33d963cb6b64d53362bcfd03ccdb46361979b594129a5d635630"
  },
- "POPI/landmarks/20-Landmarks.pts" : {
-  "md5sum" : "74806041422fd2083c05baebe5208b9e",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/20-Landmarks.pts"
+ "POPI/landmarks/20-Landmarks.pts": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/20-Landmarks.pts",
+  "sha512": "17e1e8ded16599a248984486bcc5e0e31b02868fd23d3e5136a98187d1394a7b6d5e8675f65ff1131aa55021fea3331a6b399eb90445168d16ca647cfade670e"
  },
- "POPI/landmarks/30-Landmarks.pts" : {
-  "md5sum" : "7a4e130c4c18d77cf3e46dd226f63997",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/30-Landmarks.pts"
+ "POPI/landmarks/30-Landmarks.pts": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/30-Landmarks.pts",
+  "sha512": "321c91c0cb8ee522bc54b552235f14b584362ef2b126631d837dd36974898bc3c5de941cdcff557216385b814b81a3d3b2884cb69573e2e21f3a46ec53b9d97a"
  },
- "POPI/landmarks/40-Landmarks.pts" : {
-  "md5sum" : "7a83e92095ab89f5dff781697cf17a33",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/40-Landmarks.pts"
+ "POPI/landmarks/40-Landmarks.pts": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/40-Landmarks.pts",
+  "sha512": "9be7a95f63e8179375a30aee82a9b9f61aea8bf53aedb7e92dfaa08aa3c0c0db258a8dcede21871381f7a677041664953084cc03dc76f3aece1156a8c00dd05f"
  },
- "POPI/landmarks/50-Landmarks.pts" : {
-  "md5sum" : "067d81c0feccd7252408b89d2256373e",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/50-Landmarks.pts"
+ "POPI/landmarks/50-Landmarks.pts": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/50-Landmarks.pts",
+  "sha512": "74903145aca0985ab437288e7a82b68f4d51c27f4dad705ffbb209b2bc412273f14efa70254e81c24bfba7bc59afffd00fd79cd6d3d223e5f763b04f414bdd5c"
  },
- "POPI/landmarks/60-Landmarks.pts" : {
-  "md5sum" : "d9d6dc2a1027e2814df394e160f7c750",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/60-Landmarks.pts"
+ "POPI/landmarks/60-Landmarks.pts": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/60-Landmarks.pts",
+  "sha512": "317c9e163860aa474f54259226f3f2c362b5fbfcbe9379fbd4978a45658be3979bb8be7d81a85fc1b3497d3251731b31e69ef07ac98c0e80e41f644be9d64c4f"
  },
- "POPI/landmarks/70-Landmarks.pts" : {
-  "md5sum" : "7bfc9075bb39ccf7507babfd89c7a9bb",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/70-Landmarks.pts"
+ "POPI/landmarks/70-Landmarks.pts": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/70-Landmarks.pts",
+  "sha512": "5bbcb192a275b30510fb1badcd12c9110ed7909d4353c76567ebb0aae61fb944a9c4f3d8cd8ffa0519d8621626d06db333c456eda9c68c3a03991e291760f44c"
  },
- "POPI/landmarks/80-Landmarks.pts" : {
-  "md5sum" : "48578ac0f2125913fe777dbfa6bedf4a",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/80-Landmarks.pts"
+ "POPI/landmarks/80-Landmarks.pts": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/80-Landmarks.pts",
+  "sha512": "0b7791412b9f098e9dc7c66d861429d9ee7adfca966be65ef6c510091b340267bbe926581edb3fa4c97ecdf3c9d94f6845e22d100b71a37c63d8f0858c00596d"
  },
- "POPI/landmarks/90-Landmarks.pts" : {
-  "md5sum" : "3ea1fe605c0f6fd20515723b5e3e930c",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/90-Landmarks.pts"
+ "POPI/landmarks/90-Landmarks.pts": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Landmarks/90-Landmarks.pts",
+  "sha512": "4989789b1d0fc075f509021777bccb36f33746f61b33f6f3f0d99a6ae0379b20b914948f8ee1c4f128e7893e22af1949a42a3ab3406b6e0ce8a4dc0d6a2a5ab2"
  },
- "POPI/masks/00-air-body-lungs.mhd" : {
-  "md5sum" : "94d4b96188196647c0af311eef129b50",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/00Mask-MetaImage.tar",
-  "archive" : "true"
+ "POPI/masks/00-air-body-lungs.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/00Mask-MetaImage.tar",
+  "archive": "true",
+  "sha512": "e20e93b316390ea53c59427a8ab770bb3ebda1f2e4c911382b753ec024d812de8a6c13d1919b77a1687c4f611acdb62ea92c05b2cc3ed065046fbdbe139538c8"
  },
- "POPI/masks/10-air-body-lungs.mhd" : {
-  "md5sum" : "42a8daad169c8879b5087ec1d348e65f",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/10Mask-MetaImage.tar",
-  "archive" : "true"
+ "POPI/masks/10-air-body-lungs.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/10Mask-MetaImage.tar",
+  "archive": "true",
+  "sha512": "3812c013c65601e29d23e6ac968942687278cf785ebb1e70aa86540a528738c9bb5c5bfcdac598e735efa623cab778b7d61a7be918279abaf774e4cec51de021"
  },
- "POPI/masks/20-air-body-lungs.mhd" : {
-  "md5sum" : "49bf3c986a6bf9d44b3ff8016c3eeba3",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/20Mask-MetaImage.tar",
-  "archive" : "true"
+ "POPI/masks/20-air-body-lungs.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/20Mask-MetaImage.tar",
+  "archive": "true",
+  "sha512": "677515f4b571d3a49860e170dd7561d0dd2e04c0e4ee9814eb6ac6278a5402b94fe02b64e35dea98f35b425c394144ac9102347cb5110869031e12596a03b17c"
  },
- "POPI/masks/30-air-body-lungs.mhd" : {
-  "md5sum" : "fb7d3dc4b52a592b4f9a462498a04891",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/30Mask-MetaImage.tar",
-  "archive" : "true"
+ "POPI/masks/30-air-body-lungs.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/30Mask-MetaImage.tar",
+  "archive": "true",
+  "sha512": "d4c038e1d1bd8a1dc224d2145ce745007c280a33b57a7bcf0842dff7c990361ace49b8ea0db40c851b1b8fa0e51b7bd403ca5ffaa2a9284e9a8b74678645dedc"
  },
- "POPI/masks/40-air-body-lungs.mhd" : {
-  "md5sum" : "bedbc3afb8fc09533763bc5a9c025fed",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/40Mask-MetaImage.tar",
-  "archive" : "true"
+ "POPI/masks/40-air-body-lungs.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/40Mask-MetaImage.tar",
+  "archive": "true",
+  "sha512": "ab9c77c83cc4a81eaf3d90af0d10d8adbd3bf246478b61cbd69a62db28cc7a05558ab71aa21bcaf121a2635e6e86db6dd4b6a8f0f35f36134766c5e1b6110903"
  },
- "POPI/masks/50-air-body-lungs.mhd" : {
-  "md5sum" : "ef3993e28781ba84f6e56c87f805da1b",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/50Mask-MetaImage.tar",
-  "archive" : "true"
+ "POPI/masks/50-air-body-lungs.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/50Mask-MetaImage.tar",
+  "archive": "true",
+  "sha512": "28495a92baa8d6801944f431c74e6cae598e35209b4a6d3cf4dceb9c484c29632666cc14bab3d80bd4f4b8536c69997e3b459db0ad057b34fd706505a9708985"
  },
- "POPI/masks/60-air-body-lungs.mhd" : {
-  "md5sum" : "7941c7ae88a803c0d2a19db02a972802",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/60Mask-MetaImage.tar",
-  "archive" : "true"
+ "POPI/masks/60-air-body-lungs.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/60Mask-MetaImage.tar",
+  "archive": "true",
+  "sha512": "029e9fbc30375154daea89bc13e6e1bf9ff39c9c82ddcb112236a080112398c2314a15b66d661563074fae60583d2f06a199dfdf397395e79034d687d7e6a78d"
  },
- "POPI/masks/70-air-body-lungs.mhd" : {
-  "md5sum" : "f03684187568eea6709b7e8d49c7d6c1",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/70Mask-MetaImage.tar",
-  "archive" : "true"
+ "POPI/masks/70-air-body-lungs.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/70Mask-MetaImage.tar",
+  "archive": "true",
+  "sha512": "cbbd4b71b9771b36dc71fe6c564c96fde363878713680a624b9b307c4d9959835731c841be6b9304457d212350cc0ffac44385994b9bc9b2d8523e2463c664f8"
  },
- "POPI/masks/80-air-body-lungs.mhd" : {
-  "md5sum" : "f237a28b4f175cbc7de87bff94d2874a",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/80Mask-MetaImage.tar",
-  "archive" : "true"
+ "POPI/masks/80-air-body-lungs.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/80Mask-MetaImage.tar",
+  "archive": "true",
+  "sha512": "47851273c2bbbcfeae2fe0c9fa3f41bc1e1ceb602ef7dc3f887eeed4ec3d35e1f30ba09a3ba239113870a75680371eabf2e5a881a6b8175547e9974e5c68ee65"
  },
- "POPI/masks/90-air-body-lungs.mhd" : {
-  "md5sum" : "4716b86ff1a213e8b92c4807ca9813a1",
-  "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/90Mask-MetaImage.tar",
-  "archive" : "true"
+ "POPI/masks/90-air-body-lungs.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Masks/90Mask-MetaImage.tar",
+  "archive": "true",
+  "sha512": "874b06282e4e3026410af3f0a7646d2ec3be61bc961b06d2e0d38c8ab468b8f8b613bc207a9c34943609ffecd62be45bada54ac988b0da34119f865418c6c533"
  },
- "liverTumorSegmentations/Patient01Homo.mha" : {
- "md5sum" : "dfc3efbd8c0d4b66792d22b75ec4cc18"
+ "liverTumorSegmentations/Patient01Homo.mha": {
+  "sha512": "c57e6c51bdd9dd46034df3c01e3187d884526dbcfcf8e056221205bac1a09098142692a1bc76f3834a78a809570e64544dbec9b9d264747383ee71e20b21d054"
  },
- "liverTumorSegmentations/Patient01Homo_Rad01.mha" : {
- "md5sum" : "76bd4cd0b9b0ca02612f66fa939a8b60"
+ "liverTumorSegmentations/Patient01Homo_Rad01.mha": {
+  "sha512": "e94fb4d96e5cc5dca3c68fc67f63e895b8a71011f5343b4399e122b8f6a43ec5d5055f939299e3d9955e59cd841ebeb2d2395568c10ce29a597c518db784a337"
  },
- "liverTumorSegmentations/Patient01Homo_Rad02.mha" : {
- "md5sum" : "ac13f182d968fd09faf92604908d30f8"
+ "liverTumorSegmentations/Patient01Homo_Rad02.mha": {
+  "sha512": "e055aff99a1c05ab90b84af048dd94d32236dcb4e4b8ce0a99ba3658fe85cc7c8505b806a92611bcf5ecf4cd0dbe6cafc336efdb9fe49753d1fc4aed174ed8ba"
  },
- "liverTumorSegmentations/Patient01Homo_Rad03.mha" : {
- "md5sum" : "7a156c16e859d3eeb8ad31f59f4b2d96"
+ "liverTumorSegmentations/Patient01Homo_Rad03.mha": {
+  "sha512": "89e4040e17aba2fae50e0b59b2043203ab33ce3ae6ef90af8ebc8c032a6aaee35084bf1e34ce1a390d157b8fadae2fa7694203a0886f54cc9da5293dbaa5d0e7"
  },
- "Control.tif" : {
- "md5sum" : "52d9a7339118abc7d320113bd8dd9300"
+ "Control.tif": {
+  "sha512": "b39821984554a7816d1667faa4a14cd96cbc87b215e80f5049a9502e0156dbb5cb5e8da7d91c3fd505b8d8b565c0c3a7566ebda66bf4e452f77d57a04c0d8f88"
  },
- "head_mr_oriented.mha" : {
- "md5sum" : "1a58fc7d994b7013585d1d71b21dbb0a"
+ "head_mr_oriented.mha": {
+  "sha512": "802ba263cfeda0e32e9e8be2e39bf11c51d5e80a8d203082ba89b05de0a4baddd63b15dc17655051fb35bd6172a5242f2ab1d56863a52ccecc6b12cf9463ae78"
  },
- "fib_sem_bacillus_subtilis.mha" : {
-     "md5sum" : "0f249f48ee671d79367e831d734840e8"
+ "fib_sem_bacillus_subtilis.mha": {
+  "sha512": "5f7c34428362434c4ff3353307f8401ea38a18a68e9fc1705138232b4c70da2fcf3e2e8560ba917620578093edb392b418702edca3be0eafa23d6f52ced73314"
  }
 }

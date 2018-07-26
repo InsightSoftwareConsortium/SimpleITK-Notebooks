@@ -6,43 +6,34 @@ we fetch_data_all from a network resource.
 
 The data we download is described in a json file. The file format is a dictionary
 of dictionaries. The top level key is the file name. The returned dictionary
-contains an md5 checksum and possibly a url and boolean flag indicating
-the file is part of an archive. The md5 checksum is mandatory.
+contains a sha512 checksum and possibly a url and boolean flag indicating
+the file is part of an archive. The sha512 checksum is mandatory.
 When the optional url is given, we attempt to download from that url, otherwise
-we attempt to download from the list of MIDAS servers returned by the 
-get_midas_servers() function. Files that are contained in archives are
+we attempt to download from the list of servers returned by the
+get_servers() function. Files that are contained in archives are
 identified by the archive flag.
 
 Example json file contents:
 
 {
-"SimpleITK.jpg": {
-"md5sum": "2685660c4f50c5929516127aed9e5b1a"
-},
-"POPI/meta/00.mhd" : {
-"md5sum": "3bfc3c92e18a8e6e8494482c44654fd3",
-"url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/10-MetaImage.tar"
-},
-"CIRS057A_MR_CT_DICOM/readme.txt" : {
- "md5sum" : "d92c97e6fe6520cb5b1a50b96eb9eb96",
- "archive" : "true"
-}
+ "SimpleITK.jpg": {
+  "sha512": "f1b5ce1bf9d7ebc0bd66f1c3bc0f90d9e9798efc7d0c5ea7bebe0435f173355b27df632971d1771dc1fc3743c76753e6a28f6ed43c5531866bfa2b38f1b8fd46"
+ },
+ "POPI/meta/00-P.mhd": {
+  "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/00-MetaImage.tar",
+  "archive": "true",
+  "sha512": "09fcb39c787eee3822040fcbf30d9c83fced4246c518a24ab14537af4b06ebd438e2f36be91e6e26f42a56250925cf1bfa0d2f2f2192ed2b98e6a9fb5f5069fc"
+ },
+ "CIRS057A_MR_CT_DICOM/readme.txt": {
+  "archive": "true",
+  "sha512": "d5130cfca8467c4efe1c6b4057684651d7b74a8e7028d9402aff8e3d62287761b215bc871ad200d4f177b462f7c9358f1518e6e48cece2b51c6d8e3bb89d3eef"
+ }
 }
 
 Notes: 
-1. The file we download can be inside an archive. In this case, the md5 
+1. The file we download can be inside an archive. In this case, the sha512
 checksum is that of the archive.
 
-2. For the md5 verification to work we need to store archives on MIDAS and cannot
-   use its on-the-fly archive download mechanism (this mechanism allows users
-   to download "directories/communities" as a single zip archive). The issue is that
-   every time the archive is created its md5 changes. It is likely MIDAS is also
-   encoding the archive's modification/creation time as part of the md5.
-
-   Another issue is that when downloading from this type of url 
-   (e.g. http://midas3.kitware.com/midas/download/folder/11610/ipythonNotebookData.zip)
-   the returned data does not have a "Content-Length" field in the header. The
-   current implementation  will throw an exception.  
 """
 
 import hashlib
@@ -91,29 +82,8 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
         return "HTTP Error: {0} {1}\n".format(e.code, url)
     except URLError as e:
         return "URL Error: {0} {1}\n".format(e.reason, url)
-    # MIDAS is a service and therefor will not generate the expected URLError
-    # when given a nonexistent url. It does return an error message in xml.
-    # When the response is xml then we have an error, we read the whole message
-    # and return the 'msg' attribute associated with the 'err' tag.
-    # The URLError above is not superfluous as it will occur when the url 
-    # refers to a non existent file ('file://non_existent_file_name') or url
-    # which is not a service ('http://non_existent_address').    
-    try:
-        # Python 3
-        content_type = url_response.info().get("Content-Type")
-    except AttributeError:
-        content_type = url_response.info().getheader("Content-Type")
-    # MIDAS error message in json format
-    if content_type == "text/html; charset=UTF-8":
-        doc = json.loads(url_response.read().decode("utf-8"))
-        if doc['stat']=='fail':
-            return doc['message'] + url
-    # MIDAS error message in xml format
-    if content_type == "text/xml":
-        doc = minidom.parseString(url_response.read())
-        if doc.getElementsByTagName("err")[0]:
-            return doc.getElementsByTagName("err")[0].getAttribute("msg") + ': ' + url
-    # We download all content types - the assumption is that the md5sum ensures
+
+    # We download all content types - the assumption is that the sha512 ensures
     # that what we received is the expected data.
     try:
         # Python 3
@@ -167,29 +137,30 @@ def deprecated(func):
     new_func.__dict__.update(func.__dict__)
     return new_func
 
-
-
-def get_midas_servers():
+def get_servers():
     import os
-    midas_servers = list()
+    servers = list()
+    # NLM data server using raw https
+    servers.append( "https://erie.nlm.nih.gov/SimpleITKNotebooksData/SHA512/%(hash)" )
+    # Girder server hosted by kitware
+    servers.append("https://data.kitware.com/api/v1/file/hashsum/sha512/%(hash)/download")
+    # Local file store
     if 'ExternalData_OBJECT_STORES' in os.environ.keys():
         local_object_stores = os.environ['ExternalData_OBJECT_STORES']
         for local_object_store in local_object_stores.split(";"):
-          midas_servers.append( "file://{0}/MD5/%(hash)".format(local_object_store) )
-    # Backup data server using raw https
-    midas_servers.append( "https://erie.nlm.nih.gov/SimpleITKNotebooksData/MD5/%(hash)" )
-    return midas_servers
+          servers.append( "file://{0}/SHA512/%(hash)".format(local_object_store) )
+    return servers
 
 
-def output_hash_is_valid(known_md5sum, output_file):
-    md5 = hashlib.md5()
+def output_hash_is_valid(known_sha512, output_file):
+    sha512 = hashlib.sha512()
     if not os.path.exists(output_file):
         return False
     with open(output_file, 'rb') as fp:
-        for url_download in iter(lambda: fp.read(128 * md5.block_size), b''):
-            md5.update(url_download)
-    retreived_md5sum = md5.hexdigest()
-    return retreived_md5sum == known_md5sum
+        for url_download in iter(lambda: fp.read(128 * sha512.block_size), b''):
+            sha512.update(url_download)
+    retreived_sha512 = sha512.hexdigest()
+    return retreived_sha512 == known_sha512
 
 
 def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, force=False):
@@ -202,14 +173,14 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
     sys.stdout.write("Fetching {0}\n".format(onefilename))
     output_file = os.path.realpath(os.path.join(output_directory, onefilename))
     data_dictionary = manifest[onefilename]
-    md5sum = data_dictionary['md5sum']    
+    sha512 = data_dictionary['sha512']
     # List of places where the file can be downloaded from
     all_urls = []    
     if "url" in data_dictionary:
         all_urls.append(data_dictionary["url"])    
     else:
-        for url_base in get_midas_servers():
-            all_urls.append(url_base.replace("%(hash)", md5sum).replace("%(algo)", "md5"))
+        for url_base in get_servers():
+            all_urls.append(url_base.replace("%(hash)", sha512))
         
     new_download = False
 
@@ -219,14 +190,14 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
             mkdir_p(os.path.dirname(output_file))
             url_download_read(url, output_file, report_hook=url_download_report)
             # Check if a file was downloaded and has the correct hash
-            if output_hash_is_valid(md5sum, output_file):
+            if output_hash_is_valid(sha512, output_file):
                 new_download = True
                 # Stop looking once found
                 break
             # If the file exists this means the hash is invalid we have a problem.
             elif os.path.exists(output_file):
                     error_msg = "File " + output_file
-                    error_msg += " has incorrect hash value, " + md5sum + " was expected."
+                    error_msg += " has incorrect hash value, " + sha512 + " was expected."
                     raise Exception(error_msg)
 
     # Did not find the file anywhere.        
@@ -239,8 +210,8 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
     if not new_download and verify:
         # If the file was part of an archive then we don't verify it. These
         # files are only verfied on download
-        if ( not "archive" in data_dictionary) and ( not output_hash_is_valid(md5sum, output_file) ):
-            # Attempt to download if md5sum is incorrect.
+        if ( not "archive" in data_dictionary) and ( not output_hash_is_valid(sha512, output_file) ):
+            # Attempt to download if sha512 is incorrect.
             fetch_data_one(onefilename, output_directory, manifest_file, verify, 
                            force=True)
     # If the file is in an archive, unpack it.                          
@@ -257,10 +228,6 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
 
     return output_file
 
-@deprecated
-def fetch_midas_data_one(onefilename, output_directory, manifest_file, verify=True, force=False):
-    return fetch_data_one(onefilename, output_directory, manifest_file, verify, force)
-
 
 def fetch_data_all(output_directory, manifest_file, verify=True):
     with open(manifest_file, 'r') as fp:
@@ -268,11 +235,6 @@ def fetch_data_all(output_directory, manifest_file, verify=True):
     for filename in manifest:
         fetch_data_one(filename, output_directory, manifest_file, verify, 
                        force=False)
-
-@deprecated
-def fetch_midas_data_all(output_directory, manifest_file, verify=True):
-    return fetch_data_all(output_directory, manifest_file, verify)
-
 
 def fetch_data(cache_file_name, verify=False, cache_directory_name="../Data"):
     """
@@ -289,10 +251,6 @@ def fetch_data(cache_file_name, verify=False, cache_directory_name="../Data"):
     cache_manifest_file = os.path.join(cache_directory_name, 'manifest.json')
     assert os.path.exists(cache_manifest_file), "ERROR, {0} does not exist".format(cache_manifest_file)
     return fetch_data_one(cache_file_name, cache_directory_name, cache_manifest_file, verify=verify)
-
-@deprecated
-def fetch_midas_data(cache_file_name, verify=False, cache_directory_name="Data"):
-    return fetch_data(cache_file_name, verify, cache_directory_name)
 
 
 if __name__ == '__main__':
