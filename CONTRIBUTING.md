@@ -87,23 +87,23 @@ For the interested readers, the relevant code is found in [setup_for_testing.py]
 ## Adding data
 
 Add an entry to the [manifest.json](Data/manifest.json) file found in the `Data` directory. Each entry consists of the file name which is referenced in the notebook
-and the md5 hash number of that file. You can also use an archive file (tar or zip), in which case you need to indicate it as an archive. Archives are automatically unarchived
-after download. For files stored in a MIDAS
+and the sha512 hash number of that file. You can also use an archive file (tar or zip), in which case you need to indicate it as an archive. Archives are automatically unarchived
+after download. For files stored in a Girder
 data repository this is all that is needed. Raw urls are also supported with the
 url entry.
 
-Example of a standard file stored in a MIDAS data repository:
+Example of a standard file stored in a Girder data repository:
 ```
 "SimpleITK.jpg" : {
-"md5sum" : "2685660c4f50c5929516127aed9e5b1a"
+"sha512": "f1b5ce1bf9d7ebc0bd66f1c3bc0f90d9e9798efc7d0c5ea7bebe0435f173355b27df632971d1771dc1fc3743c76753e6a28f6ed43c5531866bfa2b38f1b8fd46"
 }
 ```
 
 Example of an archive file stored on a standard website:
 ```
-"POPI/meta/00-P.mhd" : {
- "md5sum" : "e53c1a5d001e98b78d06e71b33be41bf",
- "url" : "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/00-MetaImage.tar",
- "archive" : "true"
+"POPI/meta/00-P.mhd": {
+ "url": "http://tux.creatis.insa-lyon.fr/~srit/POPI/Images/MetaImage/00-MetaImage.tar",
+ "archive": "true",
+ "sha512": "09fcb39c787eee3822040fcbf30d9c83fced4246c518a24ab14537af4b06ebd438e2f36be91e6e26f42a56250925cf1bfa0d2f2f2192ed2b98e6a9fb5f5069fc"
 }
 ```
