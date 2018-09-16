@@ -63,6 +63,6 @@ We encourage contributions from the community!!!
 
 If you find these notebooks or the notebook testing infrastructure useful in your research, support our efforts by citing it as:
 
-Z. Yaniv, B. C. Lowekamp, H. J. Johnson, R. Beare, "SimpleITK Image-Analysis Notebooks: a Collaborative Environment for Education and Reproducible Research", J Digit Imaging., https://doi.org/10.1007/s10278-017-0037-8, 2017.
+Z. Yaniv, B. C. Lowekamp, H. J. Johnson, R. Beare, "SimpleITK Image-Analysis Notebooks: a Collaborative Environment for Education and Reproducible Research", J Digit Imaging., https://doi.org/10.1007/s10278-017-0037-8, 31(3): 290-303, 2018.
 
 If you are interested in the details, you can freely read the paper [here](http://em.rdcu.be/wf/click?upn=KP7O1RED-2BlD0F9LDqGVeSIWDx8-2B-2B8r81HkSA5fUW53U-3D_kZYp45lAKoeuSXKlMMKnLRu-2FO1jcvtAwo2UFz30PH9bPLAejS1IjjDkfGx8EIWfnvmrgAH2RF3xvrb1fezqultdVNEEAM7Fc2RGY-2BOVhjR-2BAN-2B7Wi6qUoM6BYtn1ZWsTzFdNZQxBXXJ2Nf0BaU5NhQLQVs2hoM2TXsKZ7pnKQXZVJEAOyLbQSvZkJOvdc7Gk36rdNDa3pn5vH17-2FvszYj4mKlZlgROxTE-2Be2yQ-2FOLAYsoDHZNvVuG4vJr4xNpQnmAI16Nz8h3GJi-2F9GKnpBsAg-3D-3D.).
