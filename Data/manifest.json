@@ -220,5 +220,9 @@
  },
  "fib_sem_bacillus_subtilis.mha": {
   "sha512": "5f7c34428362434c4ff3353307f8401ea38a18a68e9fc1705138232b4c70da2fcf3e2e8560ba917620578093edb392b418702edca3be0eafa23d6f52ced73314"
+ },
+"mr_slice_atlas/readme.txt": {
+  "archive": "true",
+    "sha512":"75af77c4c00deae815da507e2c84b764114080578dc621434d5b587445a93923b8ab98e4ed2ec1547498c24ab0cb0fd872a06e4fbc55818eafb43db645f78ca5"
  }
 }
