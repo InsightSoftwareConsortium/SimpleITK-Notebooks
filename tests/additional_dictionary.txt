@@ -84,6 +84,7 @@ ImageFileReader
 ImageJ
 ImageRegistrationMethod
 ImageSeriesReader
+Interspeech
 IterationEvent
 JPEG
 Jaccard
@@ -94,6 +95,8 @@ Jupyter
 LabelShapeStatisticsImageFilter
 LandmarkBasedTransformInitializer
 LaplacianSegmentation
+Lim
+Lingala
 LoadPrivateTagsOn
 Lobb
 Léon
@@ -110,6 +113,8 @@ MaximumEntropy
 MeanSquares
 MetaDataDictionaryArrayUpdateOn
 MetricEvaluate
+Narayanan
+Nayak
 NeighborhoodConnected
 Nelder
 Otsu's
@@ -169,12 +174,15 @@ SymmetricForcesDemonsRegistrationFilter
 TRE
 TREs
 ThresholdSegmentation
+Toger
+Toutios
 TransformContinuousIndexToPhysicalPoint
 TransformPoint
 TranslationTransform
 UInt
 VGG
 Vandemeulebroucke
+Vaz
 VectorConfidenceConnected
 VersorRigid
 VersorTransform
@@ -185,6 +193,7 @@ XX
 YY
 Yaniv
 ZYX
+Zhu
 al
 app
 argmin
@@ -211,6 +220,7 @@ dev
 disp
 displaystyle
 documentclass
+doi
 dropdown
 eikonal
 endospore

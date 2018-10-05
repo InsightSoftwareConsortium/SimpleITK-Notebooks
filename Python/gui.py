@@ -408,6 +408,7 @@ def multi_image_display2D(image_list, title_list=None, window_level_list= None, 
         ax.set_title(title)
         ax.set_axis_off()
     fig.tight_layout()
+    return (fig, axes)
 
 
 class MultiImageDisplay(object):
