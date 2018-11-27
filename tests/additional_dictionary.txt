@@ -40,6 +40,7 @@ Docstrings
 Doxygen
 EachIteration
 EndEvent
+ExhaustiveOptimizer
 ExpandImageFilter
 FFD
 FFDL
@@ -258,6 +259,7 @@ mathbb
 mathbf
 matplotlib
 meshgrid
+metricvalue
 mha
 multiscale
 myshow
