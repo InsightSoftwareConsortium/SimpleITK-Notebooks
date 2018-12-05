@@ -83,6 +83,7 @@ class Test_notebooks(object):
                               '01_Image_Basics.ipynb',
                               '02_Pythonic_Image.ipynb',
                               '03_Image_Details.ipynb',
+                              '04_Image_Display.ipynb',
                               '10_matplotlib\'s_imshow.ipynb',
                               '20_Expand_With_Interpolators.ipynb',
                               '21_Transforms_and_Resampling.ipynb',
