@@ -70,6 +70,8 @@ GetPixel
 Goldfarb
 GradientDescent
 GradientDescentLineSearch
+HDF
+HDF5ImageIO
 HFDL
 HFDR
 HFP
@@ -82,17 +84,22 @@ IPython
 ITK
 ITK's
 ImageFileReader
+ImageFileReader's
+ImageIO
+ImageIOs
 ImageJ
 ImageRegistrationMethod
 ImageSeriesReader
 Interspeech
 IterationEvent
 JPEG
+JPEGImageIO
 Jaccard
 Jirapatnakul
 JointHistogram
 JointHistogramMutualInformation
 Jupyter
+LSMImageIO
 LabelShapeStatisticsImageFilter
 LandmarkBasedTransformInitializer
 LaplacianSegmentation
@@ -113,11 +120,13 @@ Maurer
 MaximumEntropy
 MeanSquares
 MetaDataDictionaryArrayUpdateOn
+MetaImageIO
 MetricEvaluate
 Narayanan
 Nayak
 NeighborhoodConnected
 Nelder
+NiftiImageIO
 Otsu's
 PNG
 POPI
@@ -172,6 +181,7 @@ StartEvent
 StatisticsImageFilter
 Subsampling
 SymmetricForcesDemonsRegistrationFilter
+TIFFImageIO
 TRE
 TREs
 ThresholdSegmentation
@@ -182,6 +192,7 @@ TransformPoint
 TranslationTransform
 UInt
 VGG
+VTKImageIO
 Vandemeulebroucke
 Vaz
 VectorConfidenceConnected
@@ -296,6 +307,7 @@ resample
 resampled
 resamples
 resampling
+rgb
 scipy
 segBlobs
 segChannel
@@ -337,6 +349,7 @@ thetaY
 thetaZ
 ticklabels
 tidyr
+tif
 timeit
 toolbar
 tranforms
@@ -351,6 +364,7 @@ usepackage
 vdots
 versor
 vertices
+vm
 voxel
 voxel's
 voxels
