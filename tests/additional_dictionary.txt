@@ -99,6 +99,7 @@ Jirapatnakul
 JointHistogram
 JointHistogramMutualInformation
 Jupyter
+LBFGS
 LSMImageIO
 LabelShapeStatisticsImageFilter
 LandmarkBasedTransformInitializer
@@ -155,6 +156,7 @@ SetCenter
 SetDirection
 SetFixedInitialTransform
 SetInitialTransform
+SetInitialTransformAsBSpline
 SetInterpolator
 SetMean
 SetMetricAsDemons
@@ -308,6 +310,7 @@ resampled
 resamples
 resampling
 rgb
+scaleFactors
 scipy
 segBlobs
 segChannel
