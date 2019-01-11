@@ -442,7 +442,7 @@ class MultiImageDisplay(object):
         for ax, npa, slider, min_intensity, max_intensity in zip(self.axes, self.npa_list, self.slider_list, self.min_intensity_list, self.max_intensity_list):
             self.slc[self.axis] = slice(slider.value, slider.value+1)
             # Need to use squeeze to collapse degenerate dimension (e.g. RGB image size 124 124 1 3)
-            ax.imshow(np.squeeze(npa[self.slc]),
+            ax.imshow(np.squeeze(npa[tuple(self.slc)]),
                       cmap=plt.cm.Greys_r,
                       vmin=min_intensity,
                       vmax=max_intensity)
@@ -512,7 +512,7 @@ class MultiImageDisplay(object):
             self.slc[self.axis] = slice(slider.value, slider.value+1)
             ax.clear()
             # Need to use squeeze to collapse degenerate dimension (e.g. RGB image size 124 124 1 3)
-            ax.imshow(np.squeeze(npa[self.slc]),
+            ax.imshow(np.squeeze(npa[tuple(self.slc)]),
                       cmap=plt.cm.Greys_r,
                       vmin=min_intensity,
                       vmax=max_intensity)
