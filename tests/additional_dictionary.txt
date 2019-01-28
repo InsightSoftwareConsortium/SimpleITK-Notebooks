@@ -1,4 +1,5 @@
 ANTSNeighborhoodCorrelation
+API
 Acknowledgements
 AffineTransform
 Args
@@ -64,6 +65,7 @@ GetArrayFromImage
 GetArrayViewFromImage
 GetCenter
 GetHeight
+GetInverse
 GetMetaData
 GetMetaDataKeys
 GetPixel
@@ -90,6 +92,7 @@ ImageIOs
 ImageJ
 ImageRegistrationMethod
 ImageSeriesReader
+InterpolatorEnum
 Interspeech
 IterationEvent
 JPEG
@@ -133,6 +136,7 @@ PNG
 POPI
 PairedPointDataManipulation
 Photogrammetric
+PixelIDValueEnum
 Popa
 Proc
 Pythonic
@@ -152,6 +156,7 @@ ScalarChanAndVese
 ScaleSkewVersor
 ScaleTransform
 ScaleVersor
+SetAngle
 SetCenter
 SetDirection
 SetFixedInitialTransform
@@ -223,6 +228,7 @@ characterisation
 circ
 colour
 colourmap
+const
 convergenceMinimumValue
 convergenceWindowSize
 cryosectioning
@@ -230,6 +236,7 @@ cthead
 ctrl
 dataframe
 debugOn
+defaultPixelValue
 dev
 disp
 displaystyle
@@ -241,9 +248,11 @@ endospore
 endospores
 env
 estimateLearningRate
+euler
 fiducial's
 fiducials
 floordiv
+fp
 frac
 geq
 ggplot
@@ -256,6 +265,7 @@ init
 initialNeighborhoodRadius
 inline
 inlined
+interp
 interpolator
 interpolators
 ipywidgets
@@ -291,6 +301,10 @@ originalControlPointDisplacements
 originalDisplacements
 otsu
 outlier
+outputDirection
+outputOrigin
+outputPixelType
+outputSpacing
 outputfile
 overcomplete
 overfit
@@ -305,6 +319,7 @@ py
 pyplot
 qs
 recognised
+referenceImage
 resample
 resampled
 resamples
@@ -363,6 +378,7 @@ tx
 txt
 ty
 tz
+uint
 usepackage
 vdots
 versor
