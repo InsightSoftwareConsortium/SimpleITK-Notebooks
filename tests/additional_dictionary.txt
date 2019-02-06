@@ -249,6 +249,7 @@ endospores
 env
 estimateLearningRate
 euler
+fdata
 fiducial's
 fiducials
 floordiv
@@ -269,6 +270,7 @@ interp
 interpolator
 interpolators
 ipywidgets
+iso
 jn
 jupyter
 labelForUndecidedPixels
@@ -283,6 +285,7 @@ mathbb
 mathbf
 matplotlib
 meshgrid
+meshlab
 metricvalue
 mha
 multiscale
