@@ -534,7 +534,6 @@ class MultiImageDisplay(object):
                 # We don't take the minimum/maximum values, just in case there are outliers (top/bottom 2%)
                 min_max = np.percentile(npa.flatten(), [2,98])
                 wl_range.append((min_max[0], min_max[1]))
-                print(wl_range)
                 if not window_level_list:
                     wl_init.append(wl_range[-1])
                 else:
