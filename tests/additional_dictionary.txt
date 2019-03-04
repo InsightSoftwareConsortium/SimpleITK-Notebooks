@@ -19,10 +19,13 @@ CBCT
 CIRS
 CREATIS
 CTs
+CastImageFilter
 CenteredTransformInitializer
 CenteredTransformInitializerFilter
 Centre
+CheckerBoardImageFilter
 Clarysse
+ComposeImageFilter
 ConfidenceConnected
 ConjugateGradientLineSearch
 ConnectedComponentImageFilter
@@ -60,6 +63,7 @@ Flickr
 FlipImageFilter
 GIF
 GaborSource
+Geissbuehler
 GeodesicActiveContour
 GetArrayFromImage
 GetArrayViewFromImage
@@ -92,6 +96,7 @@ ImageIOs
 ImageJ
 ImageRegistrationMethod
 ImageSeriesReader
+IntensityWindowingImageFilter
 InterpolatorEnum
 Interspeech
 IterationEvent
@@ -99,14 +104,20 @@ JPEG
 JPEGImageIO
 Jaccard
 Jirapatnakul
+JoinSeries
 JointHistogram
 JointHistogramMutualInformation
 Jupyter
 LBFGS
 LSMImageIO
+LabelContourImageFilter
+LabelMapContourOverlayImageFilter
+LabelOverlayImageFilter
 LabelShapeStatisticsImageFilter
+LabelToRGBImageFilter
 LandmarkBasedTransformInitializer
 LaplacianSegmentation
+Lasser
 Lim
 Lingala
 LoadPrivateTagsOn
@@ -148,11 +159,13 @@ ReadImage
 ReadImageInformation
 ReadTransform
 RegularStepGradientDescent
+ResampleImageFilter
 Rueda
 SEM
 SPIE
 Sarrut
 ScalarChanAndVese
+ScalarToRGBColormapImageFilter
 ScaleSkewVersor
 ScaleTransform
 ScaleVersor
@@ -192,6 +205,7 @@ TIFFImageIO
 TRE
 TREs
 ThresholdSegmentation
+TileImageFilter
 Toger
 Toutios
 TransformContinuousIndexToPhysicalPoint
@@ -220,7 +234,9 @@ atol
 aug
 ay
 az
+backgroundValue
 behaviour
+bio
 booktabs
 bspline
 ccc
@@ -249,6 +265,7 @@ endospores
 env
 estimateLearningRate
 euler
+faux
 fdata
 fiducial's
 fiducials
@@ -272,6 +289,7 @@ interpolators
 ipywidgets
 iso
 jn
+jpg
 jupyter
 labelForUndecidedPixels
 labelled
@@ -315,6 +333,7 @@ overfitting
 param
 pixelated
 pn
+png
 pre
 prefixi
 pretrained
@@ -328,6 +347,8 @@ resampled
 resamples
 resampling
 rgb
+roi
+sagittal
 scaleFactors
 scipy
 segBlobs
