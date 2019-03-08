@@ -84,6 +84,7 @@ HFP
 HFS
 HU
 HasMetaDataKey
+HausdorffDistanceImageFilter
 ICCR
 ID's
 IPython
@@ -276,6 +277,7 @@ geq
 ggplot
 greyscale
 gui
+hausdorff
 honours
 iff
 img
