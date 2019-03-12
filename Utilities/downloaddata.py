@@ -140,8 +140,8 @@ def deprecated(func):
 def get_servers():
     import os
     servers = list()
-    # NLM data server using raw https
-    servers.append( "https://erie.nlm.nih.gov/SimpleITKNotebooksData/SHA512/%(hash)" )
+    # NIAID S3 data store
+    servers.append( "https://s3.amazonaws.com/simpleitk/public/notebooks/SHA512/%(hash)" )
     # Girder server hosted by kitware
     servers.append("https://data.kitware.com/api/v1/file/hashsum/sha512/%(hash)/download")
     # Local file store
