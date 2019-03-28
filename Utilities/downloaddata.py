@@ -175,12 +175,11 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
     data_dictionary = manifest[onefilename]
     sha512 = data_dictionary['sha512']
     # List of places where the file can be downloaded from
-    all_urls = []    
+    all_urls = []
+    for url_base in get_servers():
+        all_urls.append(url_base.replace("%(hash)", sha512))
     if "url" in data_dictionary:
         all_urls.append(data_dictionary["url"])    
-    else:
-        for url_base in get_servers():
-            all_urls.append(url_base.replace("%(hash)", sha512))
         
     new_download = False
 
