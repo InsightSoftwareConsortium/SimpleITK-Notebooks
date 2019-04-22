@@ -222,8 +222,10 @@ VersorRigid
 VersorTransform
 VolView
 WriteImage
+XC
 XVth
 XX
+YCbCr
 YY
 Yaniv
 ZYX

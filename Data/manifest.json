@@ -224,5 +224,8 @@
 "mr_slice_atlas/readme.txt": {
   "archive": "true",
     "sha512":"75af77c4c00deae815da507e2c84b764114080578dc621434d5b587445a93923b8ab98e4ed2ec1547498c24ab0cb0fd872a06e4fbc55818eafb43db645f78ca5"
- }
+},
+"photo.dcm": {
+    "sha512":"d5200d39d5e8bd079a703384a31f0361939753d62c96bcdaabadb1695e6f051adcd1e2e53e795dee8888fd07d63589d138d6c83fc891a390ea5cbedba35ee45b"
+}
 }
