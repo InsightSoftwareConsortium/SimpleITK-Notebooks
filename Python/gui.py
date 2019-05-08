@@ -40,11 +40,11 @@ class RegistrationPointDataAquisition(object):
         
         # Display the data and the controls, first time we display the images is outside the "update_display" method
         # as that method relies on the previous zoom factor which doesn't exist yet.
-        self.fixed_axes.imshow(self.fixed_npa[self.fixed_slider.value,:,:],
+        self.fixed_axes.imshow(self.fixed_npa[self.fixed_slider.value,:,:] if self.fixed_slider else self.fixed_npa,
                                cmap=plt.cm.Greys_r,
                                vmin=self.fixed_min_intensity,
                                vmax=self.fixed_max_intensity)
-        self.moving_axes.imshow(self.moving_npa[self.moving_slider.value,:,:],
+        self.moving_axes.imshow(self.moving_npa[self.moving_slider.value,:,:] if self.moving_slider else self.moving_npa,
                                 cmap=plt.cm.Greys_r,
                                 vmin=self.moving_min_intensity,
                                 vmax=self.moving_max_intensity)
@@ -68,29 +68,33 @@ class RegistrationPointDataAquisition(object):
                                               height= '3em') 
         self.clearall_button.on_click(self.clear_all)
 
-        self.fixed_slider = widgets.IntSlider(description='fixed image z slice:',
-                                              min=0,
-                                              max=self.fixed_npa.shape[0]-1, 
-                                              step=1, 
-                                              value = int((self.fixed_npa.shape[0]-1)/2),
-                                              width='20em')
-        self.fixed_slider.observe(self.on_slice_slider_value_change, names='value')
+        # Sliders are only created if a 3D image, otherwise no need.
+        self.fixed_slider = self.moving_slider = None
+        if self.fixed_npa.ndim == 3:
+            self.fixed_slider = widgets.IntSlider(description='fixed image z slice:',
+                                                  min=0,
+                                                  max=self.fixed_npa.shape[0]-1,
+                                                  step=1,
+                                                  value = int((self.fixed_npa.shape[0]-1)/2),
+                                                  width='20em')
+            self.fixed_slider.observe(self.on_slice_slider_value_change, names='value')
         
-        self.moving_slider = widgets.IntSlider(description='moving image z slice:', 
-                                               min=0,
-                                               max=self.moving_npa.shape[0]-1, 
-                                               step=1, 
-                                               value = int((self.moving_npa.shape[0]-1)/2),
-                                               width='19em')
-        self.moving_slider.observe(self.on_slice_slider_value_change, names='value')
+            self.moving_slider = widgets.IntSlider(description='moving image z slice:',
+                                                   min=0,
+                                                   max=self.moving_npa.shape[0]-1,
+                                                   step=1,
+                                                   value = int((self.moving_npa.shape[0]-1)/2),
+                                                   width='19em')
+            self.moving_slider.observe(self.on_slice_slider_value_change, names='value')
+
+            bx0 = widgets.Box(padding=7, children=[self.fixed_slider, self.moving_slider])
 
         # Layout of UI components. This is pure ugliness because we are not using a UI toolkit. Layout is done
         # using the box widget and padding so that the visible UI components are spaced nicely.
-        bx0 = widgets.Box(padding=7, children=[self.fixed_slider, self.moving_slider])
         bx1 = widgets.Box(padding=7, children = [self.viewing_checkbox])
         bx2 = widgets.Box(padding = 15, children = [self.clearlast_button])
         bx3 = widgets.Box(padding = 15, children = [self.clearall_button])
-        return widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3]),bx0])
+        return widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3]),bx0]) if self.fixed_npa.ndim==3 else widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3])])
         
     def get_window_level_numpy_array(self, image, window_level):
         """
@@ -108,7 +112,7 @@ class RegistrationPointDataAquisition(object):
 
     def update_display(self):
         """
-        Display the two images based on the slider values and the points which are on the 
+        Display the two images based on the slider values, if relevant, and the points which are on the
         displayed slices.
         """
         # We want to keep the zoom factor which was set prior to display, so we log it before
@@ -120,7 +124,7 @@ class RegistrationPointDataAquisition(object):
         
         # Draw the fixed image in the first subplot and the localized points.
         self.fixed_axes.clear()
-        self.fixed_axes.imshow(self.fixed_npa[self.fixed_slider.value,:,:],
+        self.fixed_axes.imshow(self.fixed_npa[self.fixed_slider.value,:,:] if self.fixed_slider else self.fixed_npa,
                                cmap=plt.cm.Greys_r, 
                                vmin=self.fixed_min_intensity,
                                vmax=self.fixed_max_intensity)
@@ -131,7 +135,7 @@ class RegistrationPointDataAquisition(object):
         text_x_offset = -10
         text_y_offset = -10
         for i, pnt in enumerate(self.fixed_point_indexes):
-            if pnt[2] == self.fixed_slider.value:
+            if (self.fixed_slider and pnt[2] == self.fixed_slider.value) or not self.fixed_slider:
                 self.fixed_axes.scatter(pnt[0], pnt[1], s=90, marker='+', color=self.text_and_marker_color)
                 # Get point in pixels.
                 text_in_data_coords = self.fixed_axes.transData.transform([pnt[0],pnt[1]]) 
@@ -143,12 +147,12 @@ class RegistrationPointDataAquisition(object):
         
         # Draw the moving image in the second subplot and the localized points.
         self.moving_axes.clear()
-        self.moving_axes.imshow(self.moving_npa[self.moving_slider.value,:,:],
+        self.moving_axes.imshow(self.moving_npa[self.moving_slider.value,:,:] if self.moving_slider else self.moving_npa,
                                 cmap=plt.cm.Greys_r,
                                 vmin=self.moving_min_intensity,
                                 vmax=self.moving_max_intensity)        
         for i, pnt in enumerate(self.moving_point_indexes):
-            if pnt[2] == self.moving_slider.value:
+            if (self.moving_slider and pnt[2] == self.moving_slider.value) or not self.moving_slider:
                 self.moving_axes.scatter(pnt[0], pnt[1], s=90, marker='+', color=self.text_and_marker_color)
                 text_in_data_coords = self.moving_axes.transData.transform([pnt[0],pnt[1]])
                 text_in_data_coords = self.moving_axes.transData.inverted().transform((text_in_data_coords[0]+text_x_offset, text_in_data_coords[1]+text_y_offset))
@@ -205,19 +209,20 @@ class RegistrationPointDataAquisition(object):
         if self.viewing_checkbox.value == 'edit':
             if event.inaxes==self.fixed_axes:
                 if len(self.fixed_point_indexes) - len(self.moving_point_indexes)<=0:                            
-                    self.fixed_point_indexes.append((event.xdata, event.ydata, self.fixed_slider.value))
+                    self.fixed_point_indexes.append((event.xdata, event.ydata, self.fixed_slider.value) if self.fixed_slider else (event.xdata, event.ydata))
                     self.click_history.append(self.fixed_point_indexes)
                     if self.known_transformation:
                         moving_point_physical = self.known_transformation.TransformPoint(self.fixed_image.TransformContinuousIndexToPhysicalPoint(self.fixed_point_indexes[-1]))
                         moving_point_indexes = self.moving_image.TransformPhysicalPointToIndex(moving_point_physical)
                         self.moving_point_indexes.append(moving_point_indexes)
                         self.click_history.append(self.moving_point_indexes)
-                        if self.moving_slider.max>=moving_point_indexes[2] and self.moving_slider.min<=moving_point_indexes[2]:
-                            self.moving_slider.value = moving_point_indexes[2]
+                        if self.moving_slider:
+                            if self.moving_slider.max>=moving_point_indexes[2] and self.moving_slider.min<=moving_point_indexes[2]:
+                                self.moving_slider.value = moving_point_indexes[2]
                     self.update_display()
             if event.inaxes==self.moving_axes:
                 if len(self.moving_point_indexes) - len(self.fixed_point_indexes)<=0:
-                    self.moving_point_indexes.append((event.xdata, event.ydata, self.moving_slider.value))
+                    self.moving_point_indexes.append((event.xdata, event.ydata, self.moving_slider.value) if self.moving_slider else (event.xdata, event.ydata))
                     self.click_history.append(self.moving_point_indexes)
                     if self.known_transformation:
                         inverse_transform = self.known_transformation.GetInverse()
@@ -225,8 +230,9 @@ class RegistrationPointDataAquisition(object):
                         fixed_point_indexes = self.fixed_image.TransformPhysicalPointToIndex(fixed_point_physical)
                         self.fixed_point_indexes.append(fixed_point_indexes)
                         self.click_history.append(self.fixed_point_indexes)
-                        if self.fixed_slider.max>=fixed_point_indexes[2] and self.fixed_slider.min<=fixed_point_indexes[2]:
-                            self.fixed_slider.value = fixed_point_indexes[2]
+                        if self.fixed_slider:
+                            if self.fixed_slider.max>=fixed_point_indexes[2] and self.fixed_slider.min<=fixed_point_indexes[2]:
+                                self.fixed_slider.value = fixed_point_indexes[2]
                     self.update_display()                
 
 
