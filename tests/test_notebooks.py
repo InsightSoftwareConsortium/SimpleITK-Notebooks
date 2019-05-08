@@ -197,7 +197,7 @@ class Test_notebooks(object):
               #iterlinks() returns tuples of the form (element, attribute, link, pos)
               for document_link in html_tree.iterlinks():
                  try:
-                    if 'http' not in document_link[2]:  # Local file.
+                    if all( prefix not in document_link[2] for prefix in ['http','https']):  # Local file.
                        url = 'file://' + os.path.abspath(document_link[2])
                     else:  # Remote file.
                        url = document_link[2]
