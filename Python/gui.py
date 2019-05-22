@@ -213,7 +213,7 @@ class RegistrationPointDataAquisition(object):
                     self.click_history.append(self.fixed_point_indexes)
                     if self.known_transformation:
                         moving_point_physical = self.known_transformation.TransformPoint(self.fixed_image.TransformContinuousIndexToPhysicalPoint(self.fixed_point_indexes[-1]))
-                        moving_point_indexes = self.moving_image.TransformPhysicalPointToIndex(moving_point_physical)
+                        moving_point_indexes = self.moving_image.TransformPhysicalPointToContinuousIndex(moving_point_physical)
                         self.moving_point_indexes.append(moving_point_indexes)
                         self.click_history.append(self.moving_point_indexes)
                         if self.moving_slider:
@@ -227,7 +227,7 @@ class RegistrationPointDataAquisition(object):
                     if self.known_transformation:
                         inverse_transform = self.known_transformation.GetInverse()
                         fixed_point_physical = inverse_transform.TransformPoint(self.moving_image.TransformContinuousIndexToPhysicalPoint(self.moving_point_indexes[-1]))
-                        fixed_point_indexes = self.fixed_image.TransformPhysicalPointToIndex(fixed_point_physical)
+                        fixed_point_indexes = self.fixed_image.TransformPhysicalPointToContinuousIndex(fixed_point_physical)
                         self.fixed_point_indexes.append(fixed_point_indexes)
                         self.click_history.append(self.fixed_point_indexes)
                         if self.fixed_slider:
