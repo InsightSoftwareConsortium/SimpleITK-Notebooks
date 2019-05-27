@@ -585,7 +585,7 @@ class MultiImageDisplay(object):
 class ROIDataAquisition(object):
     '''
     This class provides a GUI for selecting box shaped Regions Of Interest (ROIs). Each ROI is represented as a
-    tuple: ((min_x,max_x),(min_y,max_y),(min_z,max_z)).
+    tuple: ((min_x,max_x),(min_y,max_y), and possibly (min_z,max_z)) if dealing with a 3D image.
     When using the zoom/pan tool from the toolbar ROI selection is disabled. Once you click again on the zoom/pan
     button zooming/panning will be disabled and ROI selection is enabled.
     Note that when you are marking the ROI on a slice that is outside the Z-range selected by the
@@ -600,6 +600,9 @@ class ROIDataAquisition(object):
         # ROI display settings
         self.roi_display_properties = dict(facecolor='red', edgecolor='black', alpha=0.2, fill=True)
 
+        ui = self.create_ui()
+        display(ui)
+
         # Create a figure.
         self.fig, self.axes = plt.subplots(1,1,figsize=figure_size)
         # Connect the mouse button press to the canvas (__call__ method is the invoked callback).
@@ -613,16 +616,13 @@ class ROIDataAquisition(object):
                                               rectprops = self.roi_display_properties)
         self.roi_selector.set_visible(False)
 
-        ui = self.create_ui()
-
         # Display the data and the controls, first time we display the image is outside the "update_display" method
         # as that method relies on the existance of a previous image which is removed from the figure.
-        self.axes.imshow(self.npa[self.slice_slider.value,:,:],
+        self.axes.imshow(self.npa[self.slice_slider.value,:,:] if self.slice_slider else self.npa,
                          cmap=plt.cm.Greys_r,
                          vmin=self.min_intensity,
                          vmax=self.max_intensity)
         self.update_display()
-        display(ui)
 
 
     def create_ui(self):
@@ -642,29 +642,31 @@ class ROIDataAquisition(object):
                                               height= '3em')
         self.clearall_button.on_click(self.clear_all)
 
-        self.roi_range_slider = widgets.IntRangeSlider(description= 'ROI z range:',
-                                                       min=0,
-                                                       max=self.npa.shape[0]-1,
-                                                       step=1,
-                                                       value=[0,self.npa.shape[0]-1],
-                                                       width='20em')
-
-        self.slice_slider = widgets.IntSlider(description='image z slice:',
-                                              min=0,
-                                              max=self.npa.shape[0]-1,
-                                              step=1,
-                                              value = int((self.npa.shape[0]-1)/2),
-                                              width='20em')
-        self.slice_slider.observe(self.on_slice_slider_value_change, names='value')
+        # Create sliders only if 3D image
+        self.slice_slider = self.roi_range_slider = None
+        if self.npa.ndim == 3:
+            self.roi_range_slider = widgets.IntRangeSlider(description= 'ROI z range:',
+                                                           min=0,
+                                                           max=self.npa.shape[0]-1,
+                                                           step=1,
+                                                           value=[0,self.npa.shape[0]-1],
+                                                           width='20em')
+            bx4 = widgets.Box(padding = 15, children = [self.roi_range_slider])
+            self.slice_slider = widgets.IntSlider(description='image z slice:',
+                                                  min=0,
+                                                  max=self.npa.shape[0]-1,
+                                                  step=1,
+                                                  value = int((self.npa.shape[0]-1)/2),
+                                                  width='20em')
+            self.slice_slider.observe(self.on_slice_slider_value_change, names='value')
+            bx0 = widgets.Box(padding=7, children=[self.slice_slider])
 
         # Layout of UI components. This is pure ugliness because we are not using a UI toolkit. Layout is done
         # using the box widget and padding so that the visible UI components are spaced nicely.
-        bx0 = widgets.Box(padding=7, children=[self.slice_slider])
         bx1 = widgets.Box(padding=7, children = [self.addroi_button])
         bx2 = widgets.Box(padding = 15, children = [self.clearlast_button])
         bx3 = widgets.Box(padding = 15, children = [self.clearall_button])
-        bx4 = widgets.Box(padding = 15, children = [self.roi_range_slider])
-        return widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3]),widgets.VBox(children=[bx0,bx4])])
+        return widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3]),widgets.VBox(children=[bx0,bx4])]) if self.npa.ndim==3 else widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3])])
 
 
     def on_slice_slider_value_change(self, change):
@@ -684,17 +686,18 @@ class ROIDataAquisition(object):
     def update_display(self):
         # Draw the image and ROIs.
         # imshow adds an image to the axes, so we also remove the previous one.
-        self.axes.imshow(self.npa[self.slice_slider.value,:,:],
+        self.axes.imshow(self.npa[self.slice_slider.value,:,:] if self.slice_slider else self.npa,
                          cmap=plt.cm.Greys_r,
                          vmin=self.min_intensity,
                          vmax=self.max_intensity)
         self.axes.images[0].remove()
         # Iterate over all of the ROIs and only display/undisplay those that are relevant.
-        for roi_data in self.rois:
-            if self.slice_slider.value>= roi_data[3][0] and self.slice_slider.value<= roi_data[3][1]:
-                roi_data[0].set_visible(True)
-            else:
-                roi_data[0].set_visible(False)
+        if self.slice_slider:
+            for roi_data in self.rois:
+                if self.slice_slider.value>= roi_data[3][0] and self.slice_slider.value<= roi_data[3][1]:
+                    roi_data[0].set_visible(True)
+                else:
+                    roi_data[0].set_visible(False)
         self.axes.set_title('selected {0} ROIs'.format(len(self.rois)))
         self.axes.set_axis_off()
 
@@ -705,17 +708,19 @@ class ROIDataAquisition(object):
         '''
         Add regions of interest to this GUI.
         Input is an iterable containing tuples where each tuple contains
-        three tuples (min_x,max_x),(min_y,max_y), (min_z,max_z). The ROI
+        either two or three tuples (min_x,max_x),(min_y,max_y), (min_z,max_z).
+        depending on the image dimensionality. The ROI
         is the box defined by these integer values and includes
         both min/max values.
         '''
         self.validate_rois(roi_data)
+
         for roi in roi_data:
             self.rois.append((patches.Rectangle((roi[0][0], roi[1][0]),
                                                  roi[0][1]-roi[0][0],
                                                  roi[1][1]-roi[1][0],
                                                  **self.roi_display_properties),
-                              roi[0], roi[1], roi[2]))
+                              roi[0], roi[1], roi[2] if self.npa.ndim==3 else None))
             self.axes.add_patch(self.rois[-1][0])
         self.update_display()
 
@@ -724,7 +729,8 @@ class ROIDataAquisition(object):
         '''
         Clear any existing ROIs and set the display to the given ones.
         Input is an iterable containing tuples where each tuple contains
-        three tuples (min_x,max_x),(min_y,max_y), (min_z,max_z). The ROI
+        two or three tuples (min_x,max_x),(min_y,max_y), (min_z,max_z) depending
+        on the image dimensionality. The ROI
         is the box defined by these integer values and includes
         both min/max values.
         '''
@@ -734,12 +740,13 @@ class ROIDataAquisition(object):
 
     def validate_rois(self, roi_data):
         for roi in roi_data:
-            # First element in each tuple is expected to be smaller or equal to the second element.
-            if roi[0][0]>roi[0][1] or roi[1][0]>roi[1][1] or roi[2][0]>roi[2][1]:
-                raise ValueError('First element in each tuple is expected to be smaller than second element, error in ROI (' + ', '.join(map(str,roi)) + ').')
-            # Note that SimpleITK uses x-y-z specification vs. numpy's z-y-x
-            if roi[0][0]>=self.npa.shape[2] or roi[0][1]<0 or roi[1][0]>=self.npa.shape[1] or roi[1][1]<0 or roi[2][0]>=self.npa.shape[0] or roi[2][0]<0:
-                raise ValueError('Given ROI (' + ', '.join(map(str,roi)) + ') is outside the image bounds.')
+            for i, bounds in enumerate(roi,1):
+                if bounds[0] > bounds[1]:
+                    raise ValueError('First element in each tuple is expected to be smaller than second element, error in ROI (' + ', '.join(map(str,roi)) + ').')
+                # Note that SimpleITK uses x-y-z specification vs. numpy's z-y-x
+                if not (bounds[0]>=0 and bounds[1]<self.npa.shape[self.npa.ndim-i]):
+                    raise ValueError('Given ROI (' + ', '.join(map(str,roi)) + ') is outside the image bounds.')
+
 
 
     def add_roi(self, button):
@@ -754,7 +761,7 @@ class ROIDataAquisition(object):
                                    **self.roi_display_properties),
                                    (roi_extent[0],roi_extent[1]),
                                    (roi_extent[2],roi_extent[3]),
-                                   self.roi_range_slider.value))
+                                   self.roi_range_slider.value if self.roi_range_slider else None))
             self.axes.add_patch(self.rois[-1][0])
             self.update_display()
 
@@ -779,11 +786,11 @@ class ROIDataAquisition(object):
 
     def get_rois(self):
         '''
-        Return a list of tuples representing the ROIs. Each tuple contains three tuples (min_x,max_x),
-        (min_y,max_y), (min_z,max_z). The ROI is the box defined by these integer values and includes
+        Return a list of tuples representing the ROIs. Each tuple contains either two or three tuples (min_x,max_x),
+        (min_y,max_y), (min_z,max_z) depending on image dimensionality. The ROI is the box defined by these integer values and includes
         both min/max values.
         '''
-        return [(roi_data[1],roi_data[2],roi_data[3]) for roi_data in self.rois]
+        return [(roi_data[1],roi_data[2],roi_data[3]) if self.npa.ndim==3 else (roi_data[1],roi_data[2]) for roi_data in self.rois]
 
 
     def __call__(self, event):
