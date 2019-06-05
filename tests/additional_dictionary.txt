@@ -9,10 +9,12 @@ BSpline
 BSplineTransform
 BSplineTransformInitializer
 BSplineTransformInitializerFilter
+Baum
 Biancardi
 BinaryMorphologicalClosing
 BinaryMorphologicalOpening
 BinaryThreshold
+Biomechanics
 Broyden
 Bérard
 CBCT
@@ -25,6 +27,7 @@ CenteredTransformInitializerFilter
 Centre
 CheckerBoardImageFilter
 Clarysse
+Clin
 ComposeImageFilter
 ConfidenceConnected
 ConjugateGradientLineSearch
@@ -82,6 +85,7 @@ HFDL
 HFDR
 HFP
 HFS
+HKA
 HU
 HasMetaDataKey
 HausdorffDistanceImageFilter
@@ -108,7 +112,9 @@ Jirapatnakul
 JoinSeries
 JointHistogram
 JointHistogramMutualInformation
+Joskowicz
 Jupyter
+Kamath
 LBFGS
 LSMImageIO
 LabelContourImageFilter
@@ -121,6 +127,7 @@ LaplacianSegmentation
 Lasser
 Lim
 Lingala
+Linte
 LoadPrivateTagsOn
 Lobb
 Léon
@@ -143,6 +150,7 @@ Nayak
 NeighborhoodConnected
 Nelder
 NiftiImageIO
+Orthop
 Otsu's
 PNG
 POPI
@@ -160,7 +168,9 @@ ReadImage
 ReadImageInformation
 ReadTransform
 RegularStepGradientDescent
+Relat
 ResampleImageFilter
+Rheumatol
 Rueda
 SEM
 SPIE
@@ -215,7 +225,9 @@ TranslationTransform
 UInt
 VGG
 VTKImageIO
+Valgus
 Vandemeulebroucke
+Varus
 Vaz
 VectorConfidenceConnected
 VersorRigid
@@ -230,6 +242,7 @@ YY
 Yaniv
 ZYX
 Zhu
+Zikri
 al
 app
 argmin
@@ -247,6 +260,7 @@ characterisation
 circ
 colour
 colourmap
+condylar
 const
 convergenceMinimumValue
 convergenceWindowSize
@@ -262,6 +276,7 @@ displaystyle
 documentclass
 doi
 dropdown
+dy
 eikonal
 endospore
 endospores
@@ -275,11 +290,13 @@ fiducials
 floordiv
 fp
 frac
+fronto
 geq
 ggplot
 greyscale
 gui
 hausdorff
+homography
 honours
 iff
 img
@@ -310,11 +327,13 @@ meshgrid
 meshlab
 metricvalue
 mha
+minima
 multiscale
 myshow
 nD
 nbagg
 nbextension
+nms
 np
 num
 numberOfIterations
@@ -336,6 +355,7 @@ overfit
 overfitting
 param
 pixelated
+plafond
 pn
 png
 pre

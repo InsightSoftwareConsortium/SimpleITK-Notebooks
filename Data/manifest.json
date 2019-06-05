@@ -227,5 +227,9 @@
 },
 "photo.dcm": {
     "sha512":"d5200d39d5e8bd079a703384a31f0361939753d62c96bcdaabadb1695e6f051adcd1e2e53e795dee8888fd07d63589d138d6c83fc891a390ea5cbedba35ee45b"
+},
+"leg_panorama/readme.txt": {
+  "archive": "true",
+    "sha512":"0771b63d7f8ed19d16ca36de144d6570cc3f8d604be56626ceb932f6bbf60857282f52aad4158f85e8a01bb1c84222da5b23fd3df91ec46ebe625341f56d6bf9"
 }
 }
