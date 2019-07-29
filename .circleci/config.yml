@@ -10,7 +10,7 @@ workflows:
 jobs:
   test-2.7: &test-template
     docker:
-      - image: circleci/python:2.7
+      - image: circleci/python:2.7-stretch
     environment:
       ExternalData_OBJECT_STORES: /home/circleci/.ExternalData
       SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
@@ -53,10 +53,10 @@ jobs:
   test-3.6:
     <<: *test-template
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.6-stretch
   test-3.7:
     <<: *test-template
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.7-stretch
 
   
