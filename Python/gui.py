@@ -135,7 +135,7 @@ class RegistrationPointDataAquisition(object):
         text_x_offset = -10
         text_y_offset = -10
         for i, pnt in enumerate(self.fixed_point_indexes):
-            if (self.fixed_slider and pnt[2] == self.fixed_slider.value) or not self.fixed_slider:
+            if (self.fixed_slider and int(pnt[2] + 0.5) == self.fixed_slider.value) or not self.fixed_slider:
                 self.fixed_axes.scatter(pnt[0], pnt[1], s=90, marker='+', color=self.text_and_marker_color)
                 # Get point in pixels.
                 text_in_data_coords = self.fixed_axes.transData.transform([pnt[0],pnt[1]]) 
@@ -152,7 +152,7 @@ class RegistrationPointDataAquisition(object):
                                 vmin=self.moving_min_intensity,
                                 vmax=self.moving_max_intensity)        
         for i, pnt in enumerate(self.moving_point_indexes):
-            if (self.moving_slider and pnt[2] == self.moving_slider.value) or not self.moving_slider:
+            if (self.moving_slider and int(pnt[2] + 0.5) == self.moving_slider.value) or not self.moving_slider:
                 self.moving_axes.scatter(pnt[0], pnt[1], s=90, marker='+', color=self.text_and_marker_color)
                 text_in_data_coords = self.moving_axes.transData.transform([pnt[0],pnt[1]])
                 text_in_data_coords = self.moving_axes.transData.inverted().transform((text_in_data_coords[0]+text_x_offset, text_in_data_coords[1]+text_y_offset))
@@ -217,8 +217,9 @@ class RegistrationPointDataAquisition(object):
                         self.moving_point_indexes.append(moving_point_indexes)
                         self.click_history.append(self.moving_point_indexes)
                         if self.moving_slider:
-                            if self.moving_slider.max>=moving_point_indexes[2] and self.moving_slider.min<=moving_point_indexes[2]:
-                                self.moving_slider.value = moving_point_indexes[2]
+                            z_index = int(moving_point_indexes[2]+0.5)
+                            if self.moving_slider.max>=z_index and self.moving_slider.min<=z_index:
+                                self.moving_slider.value = z_index
                     self.update_display()
             if event.inaxes==self.moving_axes:
                 if len(self.moving_point_indexes) - len(self.fixed_point_indexes)<=0:
@@ -231,8 +232,9 @@ class RegistrationPointDataAquisition(object):
                         self.fixed_point_indexes.append(fixed_point_indexes)
                         self.click_history.append(self.fixed_point_indexes)
                         if self.fixed_slider:
-                            if self.fixed_slider.max>=fixed_point_indexes[2] and self.fixed_slider.min<=fixed_point_indexes[2]:
-                                self.fixed_slider.value = fixed_point_indexes[2]
+                            z_index = int(fixed_point_indexes[2]+0.5)
+                            if self.fixed_slider.max>=z_index and self.fixed_slider.min<=z_index:
+                                self.fixed_slider.value = z_index
                     self.update_display()                
 
 
