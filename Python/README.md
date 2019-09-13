@@ -11,6 +11,17 @@ With [Anaconda](https://www.continuum.io/) you can set up a virtual environment,
 
     conda env create -f environment.yml
 
+### Run the notebooks
+
+To launch:
+
+    conda activate sitkpy
+    jupyter notebook
+
+To deactivate the conda environment:
+
+    conda deactivate
+
 
 ## Plain Python
 
