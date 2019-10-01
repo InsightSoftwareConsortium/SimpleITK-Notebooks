@@ -245,21 +245,22 @@ class PointDataAquisition(object):
         self.npa, self.min_intensity, self.max_intensity = self.get_window_level_numpy_array(self.image, window_level)
         self.point_indexes = []
 
+        ui = self.create_ui()
+        display(ui)
+
         # Create a figure. 
         self.fig, self.axes = plt.subplots(1,1,figsize=figure_size)
         # Connect the mouse button press to the canvas (__call__ method is the invoked callback).
         self.fig.canvas.mpl_connect('button_press_event', self)
-
-        ui = self.create_ui()
         
         # Display the data and the controls, first time we display the image is outside the "update_display" method
         # as that method relies on the previous zoom factor which doesn't exist yet.
-        self.axes.imshow(self.npa[self.slice_slider.value,:,:],
+        self.axes.imshow(self.npa[self.slice_slider.value,:,:] if self.slice_slider else self.npa,
                          cmap=plt.cm.Greys_r,
                          vmin=self.min_intensity,
                          vmax=self.max_intensity)
         self.update_display()
-        display(ui)
+
     
     def create_ui(self):
         # Create the active UI components. Height and width are specified in 'em' units. This is
@@ -278,22 +279,25 @@ class PointDataAquisition(object):
                                               height= '3em') 
         self.clearall_button.on_click(self.clear_all)
 
-        self.slice_slider = widgets.IntSlider(description='image z slice:',
-                                              min=0,
-                                              max=self.npa.shape[0]-1, 
-                                              step=1, 
-                                              value = int((self.npa.shape[0]-1)/2),
-                                              width='20em')
-        self.slice_slider.observe(self.on_slice_slider_value_change, names='value')
+        # Slider is only created if a 3D image, otherwise no need.
+        self.slice_slider = None
+        if self.npa.ndim == 3:
+            self.slice_slider = widgets.IntSlider(description='image z slice:',
+                                                  min=0,
+                                                  max=self.npa.shape[0]-1,
+                                                  step=1,
+                                                  value = int((self.npa.shape[0]-1)/2),
+                                                  width='20em')
+            self.slice_slider.observe(self.on_slice_slider_value_change, names='value')
+            bx0 = widgets.Box(padding=7, children=[self.slice_slider])
         
         # Layout of UI components. This is pure ugliness because we are not using a UI toolkit. Layout is done
         # using the box widget and padding so that the visible UI components are spaced nicely.
-        bx0 = widgets.Box(padding=7, children=[self.slice_slider])
         bx1 = widgets.Box(padding=7, children = [self.viewing_checkbox])
         bx2 = widgets.Box(padding = 15, children = [self.clearlast_button])
         bx3 = widgets.Box(padding = 15, children = [self.clearall_button])
-        return widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3]),bx0])
-        
+        return widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3]),bx0]) if self.slice_slider else widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3])])
+
     def get_window_level_numpy_array(self, image, window_level):
         npa = sitk.GetArrayViewFromImage(image)
         if not window_level:
@@ -312,7 +316,7 @@ class PointDataAquisition(object):
         
         # Draw the image and localized points.
         self.axes.clear()
-        self.axes.imshow(self.npa[self.slice_slider.value,:,:],
+        self.axes.imshow(self.npa[self.slice_slider.value,:,:] if self.slice_slider else self.npa,
                          cmap=plt.cm.Greys_r, 
                          vmin=self.min_intensity,
                          vmax=self.max_intensity)
@@ -323,7 +327,7 @@ class PointDataAquisition(object):
         text_x_offset = -10
         text_y_offset = -10
         for i, pnt in enumerate(self.point_indexes):
-            if pnt[2] == self.slice_slider.value:
+            if(self.slice_slider and int(pnt[2] + 0.5) == self.slice_slider.value) or not self.slice_slider:
                 self.axes.scatter(pnt[0], pnt[1], s=90, marker='+', color='yellow')
                 # Get point in pixels.
                 text_in_data_coords = self.axes.transData.transform([pnt[0],pnt[1]]) 
@@ -353,7 +357,11 @@ class PointDataAquisition(object):
 
     def validate_points(self, point_index_data):
         for p in point_index_data:
-            if p[0]>=self.npa.shape[2] or p[0]<0 or p[1]>=self.npa.shape[1] or p[1]<0 or p[2]>=self.npa.shape[0] or p[2]<0:
+            if self.npa.ndim != len(p):
+                raise ValueError('Given point (' + ', '.join(map(str,p)) + ') dimension does not match image dimension.')
+            outside_2d_bounds = p[0]>=self.npa.shape[2] or p[0]<0 or p[1]>=self.npa.shape[1] or p[1]<0
+            outside_bounds = outside_2d_bounds or (False if self.npa.ndim==2 else p[2]>=self.npa.shape[0] or p[2]<0)
+            if outside_bounds:
                 raise ValueError('Given point (' + ', '.join(map(str,p)) + ') is outside the image bounds.')
 
     def clear_all(self, button):
@@ -379,7 +387,7 @@ class PointDataAquisition(object):
     def __call__(self, event):
         if self.viewing_checkbox.value == 'edit':
             if event.inaxes==self.axes:
-                self.point_indexes.append((event.xdata, event.ydata, self.slice_slider.value))
+                self.point_indexes.append((event.xdata, event.ydata, self.slice_slider.value) if self.slice_slider else (event.xdata, event.ydata))
                 self.update_display()
 
 
