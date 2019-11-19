@@ -442,9 +442,9 @@ class MultiImageDisplay(object):
     are displayed either in horizontal or vertical layout, depending on the
     users choice.
     '''
-    def __init__(self, image_list, axis=0, shared_slider=False, title_list=None, window_level_list= None, figure_size=(10,8), horizontal=True):
+    def __init__(self, image_list, axis=0, shared_slider=False, title_list=None, window_level_list= None, intensity_slider_range_percentile = [2,98], figure_size=(10,8), horizontal=True):
 
-        self.npa_list, wl_range, wl_init = self.get_window_level_numpy_array(image_list, window_level_list)
+        self.npa_list, wl_range, wl_init = self.get_window_level_numpy_array(image_list, window_level_list, intensity_slider_range_percentile)
         if title_list:
             if len(image_list)!=len(title_list):
                 raise ValueError('Title list and image list lengths do not match')
@@ -487,8 +487,8 @@ class MultiImageDisplay(object):
             # Validate that all the images have the same size along the axis which we scroll through
             sz = self.npa_list[0].shape[self.axis]
             for npa in self.npa_list:
-                       if npa.shape[self.axis]!=sz:
-                           raise ValueError('Not all images have the same size along the specified axis, cannot share slider.')
+                if npa.shape[self.axis]!=sz:
+                    raise ValueError('Not all images have the same size along the specified axis, cannot share slider.')
 
             slider = widgets.IntSlider(description='image slice:',
                                       min=0,
@@ -529,7 +529,7 @@ class MultiImageDisplay(object):
         wl_box = widgets.Box(padding=7, children=self.wl_list)
         return widgets.VBox(children=[slicer_box,wl_box])
 
-    def get_window_level_numpy_array(self, image_list, window_level_list):
+    def get_window_level_numpy_array(self, image_list, window_level_list, intensity_slider_range_percentile):
         # Using GetArray and not GetArrayView because we don't keep references
         # to the original images. If they are deleted outside the view would become
         # invalid, so we use a copy wich guarentees that the gui is consistent.
@@ -547,16 +547,17 @@ class MultiImageDisplay(object):
                 wl_init.append((0,255))
                 # ignore any window_level_list entry
             else:
-                # We don't take the minimum/maximum values, just in case there are outliers (top/bottom 2%)
-                min_max = np.percentile(npa.flatten(), [2,98])
+                # We don't necessarily take the minimum/maximum values, just in case there are outliers
+                # user can specify how much to take off from top and bottom.
+                min_max = np.percentile(npa.flatten(), intensity_slider_range_percentile)
                 wl_range.append((min_max[0], min_max[1]))
-                if not window_level_list:
+                if not window_level_list: # No list was given.
                     wl_init.append(wl_range[-1])
                 else:
                     wl = window_level_list[i]
                     if wl:
                         wl_init.append((wl[1]-wl[0]/2.0, wl[1]+wl[0]/2.0))
-                    else:
+                    else: # We have a list, but for this image the entry was left empty: []
                         wl_init.append(wl_range[-1])
         return (npa_list, wl_range, wl_init)
 
