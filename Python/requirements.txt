@@ -5,3 +5,4 @@ ipywidgets
 numpy
 scipy
 pandas
+numba

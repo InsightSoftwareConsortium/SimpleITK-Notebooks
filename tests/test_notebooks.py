@@ -97,6 +97,7 @@ class Test_notebooks(object):
                               '34_Segmentation_Evaluation.ipynb',
                               pytest.param('35_Segmentation_Shape_Analysis.ipynb', marks=pytest.mark.skipif(os.environ.get('CIRCLECI')=='true', \
                                                                                                             reason="runtime too long for CircleCI")),
+                              '36_Microscopy_Colocalization_Distance_Analysis.ipynb',
                               #'41_Progress.ipynb', # This notebook times out when run with nbconvert, due to javascript issues, so not tested.
                               '51_VH_Segmentation1.ipynb',
                               '55_VH_Resample.ipynb',

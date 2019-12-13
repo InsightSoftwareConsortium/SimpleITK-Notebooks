@@ -231,5 +231,8 @@
 "leg_panorama/readme.txt": {
   "archive": "true",
     "sha512":"0771b63d7f8ed19d16ca36de144d6570cc3f8d604be56626ceb932f6bbf60857282f52aad4158f85e8a01bb1c84222da5b23fd3df91ec46ebe625341f56d6bf9"
+},
+"microscopy_colocalization.nrrd" : {
+ "sha512": "f25d3b08cbc697752ad61ceb51c047d1cadbd2cdf12e635d8ddcb2f8cb27ea4dffb0dc4e1b932aa8d6aeb4318fe00f59f0f88bbc8e6bae727ce800c78c11d4e7"
 }
 }
