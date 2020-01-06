@@ -98,7 +98,7 @@ class Test_notebooks(object):
                               pytest.param('35_Segmentation_Shape_Analysis.ipynb', marks=pytest.mark.skipif(os.environ.get('CIRCLECI')=='true', \
                                                                                                             reason="runtime too long for CircleCI")),
                               '36_Microscopy_Colocalization_Distance_Analysis.ipynb',
-                              #'41_Progress.ipynb', # This notebook times out when run with nbconvert, due to javascript issues, so not tested.
+                              #'11_Progress.ipynb', # This notebook times out when run with nbconvert, due to javascript issues, so not tested.
                               '51_VH_Segmentation1.ipynb',
                               '55_VH_Resample.ipynb',
                               '56_VH_Registration1.ipynb',
@@ -111,8 +111,8 @@ class Test_notebooks(object):
                               '66_Registration_Demons.ipynb',
                               '67_Registration_Semiautomatic_Homework.ipynb',
                               '68_Registration_Errors.ipynb',
-                              '70_Data_Augmentation.ipynb',
-                              '71_x-ray-panorama.ipynb'])
+                              '69_x-ray-panorama.ipynb',
+                              '70_Data_Augmentation.ipynb'])
     def test_python_notebook(self, notebook_file_name):
        self.evaluate_notebook(self.absolute_path_python(notebook_file_name), 'python')
 
