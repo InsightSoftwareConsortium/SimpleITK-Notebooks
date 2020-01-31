@@ -12,4 +12,4 @@ dependencies:
   - scipy
   - pandas
   - numba
-  - SimpleITK>=1.1.0
+  - SimpleITK>=1.2.4
