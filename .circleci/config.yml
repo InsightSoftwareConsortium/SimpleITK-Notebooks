@@ -4,13 +4,13 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-2.7
       - test-3.6
       - test-3.7
+      - test-3.8      
 jobs:
-  test-2.7: &test-template
+  test-3.6: &test-template
     docker:
-      - image: circleci/python:2.7-stretch
+      - image: circleci/python:3.6-stretch
     environment:
       ExternalData_OBJECT_STORES: /home/circleci/.ExternalData
       SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
@@ -37,7 +37,7 @@ jobs:
             sudo apt-get update; sudo apt-get install enchant
             sudo pip install virtualenv
             virtualenv ~/sitkpy --no-site-packages
-            ~/sitkpy/bin/pip install -r requirements_dev.txt
+            ~/sitkpy/bin/pip install -r requirements_dev.txt --pre --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
             ~/sitkpy/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
       - run:
@@ -50,13 +50,13 @@ jobs:
           key: notebook-data-{{ checksum "Data/manifest.json" }}
           paths: 
             - /home/circleci/.ExternalData
-  test-3.6:
-    <<: *test-template
-    docker:
-      - image: circleci/python:3.6-stretch
   test-3.7:
     <<: *test-template
     docker:
       - image: circleci/python:3.7-stretch
+  test-3.8:
+    <<: *test-template
+    docker:
+      - image: circleci/python:3.8.0
 
   
