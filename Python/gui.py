@@ -11,7 +11,7 @@ import copy
 
 class RegistrationPointDataAquisition(object):
     """
-    This class provides a GUI for localizing corresponding points in two images, and for evaluating registration results using a linked cursor 
+    This class provides a GUI for localizing corresponding points in two images, and for evaluating registration results using a linked cursor
     approach, user clicks in one image and the corresponding point is added to the other image.
     """
 
@@ -29,15 +29,15 @@ class RegistrationPointDataAquisition(object):
         ui = self.create_ui()
         display(ui)
 
-        # Create a figure with two axes for the fixed and moving images.        
+        # Create a figure with two axes for the fixed and moving images.
         self.fig, axes = plt.subplots(1,2,figsize=figure_size)
-        #self.fig.canvas.set_window_title('Registration Points Acquisition') 
+        #self.fig.canvas.set_window_title('Registration Points Acquisition')
         self.fixed_axes = axes[0]
-        self.moving_axes = axes[1]        
+        self.moving_axes = axes[1]
         # Connect the mouse button press to the canvas (__call__ method is the invoked callback).
         self.fig.canvas.mpl_connect('button_press_event', self)
 
-        
+
         # Display the data and the controls, first time we display the images is outside the "update_display" method
         # as that method relies on the previous zoom factor which doesn't exist yet.
         self.fixed_axes.imshow(self.fixed_npa[self.fixed_slider.value,:,:] if self.fixed_slider else self.fixed_npa,
@@ -50,22 +50,22 @@ class RegistrationPointDataAquisition(object):
                                 vmax=self.moving_max_intensity)
         self.update_display()
 
-    
+
     def create_ui(self):
         # Create the active UI components. Height and width are specified in 'em' units. This is
         # a html size specification, size relative to current font size.
-        self.viewing_checkbox = widgets.RadioButtons(description= 'Interaction mode:', 
-                                                     options= ['edit', 'view'], 
+        self.viewing_checkbox = widgets.RadioButtons(description= 'Interaction mode:',
+                                                     options= ['edit', 'view'],
                                                      value = 'edit')
 
-        self.clearlast_button = widgets.Button(description= 'Clear Last', 
-                                               width= '7em', 
+        self.clearlast_button = widgets.Button(description= 'Clear Last',
+                                               width= '7em',
                                                height= '3em')
         self.clearlast_button.on_click(self.clear_last)
 
-        self.clearall_button = widgets.Button(description= 'Clear All', 
-                                              width= '7em', 
-                                              height= '3em') 
+        self.clearall_button = widgets.Button(description= 'Clear All',
+                                              width= '7em',
+                                              height= '3em')
         self.clearall_button.on_click(self.clear_all)
 
         # Sliders are only created if a 3D image, otherwise no need.
@@ -78,7 +78,7 @@ class RegistrationPointDataAquisition(object):
                                                   value = int((self.fixed_npa.shape[0]-1)/2),
                                                   width='20em')
             self.fixed_slider.observe(self.on_slice_slider_value_change, names='value')
-        
+
             self.moving_slider = widgets.IntSlider(description='moving image z slice:',
                                                    min=0,
                                                    max=self.moving_npa.shape[0]-1,
@@ -95,7 +95,7 @@ class RegistrationPointDataAquisition(object):
         bx2 = widgets.Box(padding = 15, children = [self.clearlast_button])
         bx3 = widgets.Box(padding = 15, children = [self.clearall_button])
         return widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3]),bx0]) if self.fixed_npa.ndim==3 else widgets.HBox(children=[widgets.HBox(children=[bx1, bx2, bx3])])
-        
+
     def get_window_level_numpy_array(self, image, window_level):
         """
         Get the numpy array representation of the image and the min and max of the intensities
@@ -105,7 +105,7 @@ class RegistrationPointDataAquisition(object):
         if not window_level:
             return npa, npa.min(), npa.max()
         else:
-            return npa, window_level[1]-window_level[0]/2.0, window_level[1]+window_level[0]/2.0 
+            return npa, window_level[1]-window_level[0]/2.0, window_level[1]+window_level[0]/2.0
 
     def on_slice_slider_value_change(self, change):
         self.update_display()
@@ -120,16 +120,16 @@ class RegistrationPointDataAquisition(object):
         fixed_xlim = self.fixed_axes.get_xlim()
         fixed_ylim = self.fixed_axes.get_ylim()
         moving_xlim = self.moving_axes.get_xlim()
-        moving_ylim = self.moving_axes.get_ylim()        
-        
+        moving_ylim = self.moving_axes.get_ylim()
+
         # Draw the fixed image in the first subplot and the localized points.
         self.fixed_axes.clear()
         self.fixed_axes.imshow(self.fixed_npa[self.fixed_slider.value,:,:] if self.fixed_slider else self.fixed_npa,
-                               cmap=plt.cm.Greys_r, 
+                               cmap=plt.cm.Greys_r,
                                vmin=self.fixed_min_intensity,
                                vmax=self.fixed_max_intensity)
         # Positioning the text is a bit tricky, we position relative to the data coordinate system, but we
-        # want to specify the shift in pixels as we are dealing with display. We therefore (a) get the data 
+        # want to specify the shift in pixels as we are dealing with display. We therefore (a) get the data
         # point in the display coordinate system in pixel units (b) modify the point using pixel offset and
         # transform back to the data coordinate system for display.
         text_x_offset = -10
@@ -138,19 +138,19 @@ class RegistrationPointDataAquisition(object):
             if (self.fixed_slider and int(pnt[2] + 0.5) == self.fixed_slider.value) or not self.fixed_slider:
                 self.fixed_axes.scatter(pnt[0], pnt[1], s=90, marker='+', color=self.text_and_marker_color)
                 # Get point in pixels.
-                text_in_data_coords = self.fixed_axes.transData.transform([pnt[0],pnt[1]]) 
+                text_in_data_coords = self.fixed_axes.transData.transform([pnt[0],pnt[1]])
                 # Offset in pixels and get in data coordinates.
                 text_in_data_coords = self.fixed_axes.transData.inverted().transform((text_in_data_coords[0]+text_x_offset, text_in_data_coords[1]+text_y_offset))
-                self.fixed_axes.text(text_in_data_coords[0], text_in_data_coords[1], str(i), color=self.text_and_marker_color)                               
-        self.fixed_axes.set_title('fixed image - localized {0} points'.format(len(self.fixed_point_indexes)))   
+                self.fixed_axes.text(text_in_data_coords[0], text_in_data_coords[1], str(i), color=self.text_and_marker_color)
+        self.fixed_axes.set_title('fixed image - localized {0} points'.format(len(self.fixed_point_indexes)))
         self.fixed_axes.set_axis_off()
-        
+
         # Draw the moving image in the second subplot and the localized points.
         self.moving_axes.clear()
         self.moving_axes.imshow(self.moving_npa[self.moving_slider.value,:,:] if self.moving_slider else self.moving_npa,
                                 cmap=plt.cm.Greys_r,
                                 vmin=self.moving_min_intensity,
-                                vmax=self.moving_max_intensity)        
+                                vmax=self.moving_max_intensity)
         for i, pnt in enumerate(self.moving_point_indexes):
             if (self.moving_slider and int(pnt[2] + 0.5) == self.moving_slider.value) or not self.moving_slider:
                 self.moving_axes.scatter(pnt[0], pnt[1], s=90, marker='+', color=self.text_and_marker_color)
@@ -164,10 +164,10 @@ class RegistrationPointDataAquisition(object):
         self.fixed_axes.set_xlim(fixed_xlim)
         self.fixed_axes.set_ylim(fixed_ylim)
         self.moving_axes.set_xlim(moving_xlim)
-        self.moving_axes.set_ylim(moving_ylim)        
+        self.moving_axes.set_ylim(moving_ylim)
 
         self.fig.canvas.draw_idle()
-    
+
     def clear_all(self, button):
         """
         Get rid of all the data.
@@ -176,7 +176,7 @@ class RegistrationPointDataAquisition(object):
         del self.moving_point_indexes[:]
         del self.click_history[:]
         self.update_display()
-        
+
     def clear_last(self, button):
         """
         Remove last point or point-pair addition (depends on whether the interface is used for localizing point pairs or
@@ -187,17 +187,17 @@ class RegistrationPointDataAquisition(object):
                 self.click_history.pop().pop()
             self.click_history.pop().pop()
             self.update_display()
-        
+
     def get_points(self):
         """
         Get the points in the image coordinate systems.
         """
         if(len(self.fixed_point_indexes) != len(self.moving_point_indexes)):
-            raise Exception('Number of localized points in fixed and moving images does not match.') 
+            raise Exception('Number of localized points in fixed and moving images does not match.')
         fixed_point_list = [self.fixed_image.TransformContinuousIndexToPhysicalPoint(pnt) for pnt in self.fixed_point_indexes]
         moving_point_list = [self.moving_image.TransformContinuousIndexToPhysicalPoint(pnt) for pnt in self.moving_point_indexes]
         return fixed_point_list, moving_point_list
-                    
+
     def __call__(self, event):
         """
         Callback invoked when the user clicks inside the figure.
@@ -208,7 +208,7 @@ class RegistrationPointDataAquisition(object):
         # the two images.
         if self.viewing_checkbox.value == 'edit':
             if event.inaxes==self.fixed_axes:
-                if len(self.fixed_point_indexes) - len(self.moving_point_indexes)<=0:                            
+                if len(self.fixed_point_indexes) - len(self.moving_point_indexes)<=0:
                     self.fixed_point_indexes.append((event.xdata, event.ydata, self.fixed_slider.value) if self.fixed_slider else (event.xdata, event.ydata))
                     self.click_history.append(self.fixed_point_indexes)
                     if self.known_transformation:
@@ -235,11 +235,11 @@ class RegistrationPointDataAquisition(object):
                             z_index = int(fixed_point_indexes[2]+0.5)
                             if self.fixed_slider.max>=z_index and self.fixed_slider.min<=z_index:
                                 self.fixed_slider.value = z_index
-                    self.update_display()                
+                    self.update_display()
 
 
 class PointDataAquisition(object):
-    
+
     def __init__(self, image, window_level= None, figure_size=(10,8)):
         self.image = image
         self.npa, self.min_intensity, self.max_intensity = self.get_window_level_numpy_array(self.image, window_level)
@@ -248,11 +248,11 @@ class PointDataAquisition(object):
         ui = self.create_ui()
         display(ui)
 
-        # Create a figure. 
+        # Create a figure.
         self.fig, self.axes = plt.subplots(1,1,figsize=figure_size)
         # Connect the mouse button press to the canvas (__call__ method is the invoked callback).
         self.fig.canvas.mpl_connect('button_press_event', self)
-        
+
         # Display the data and the controls, first time we display the image is outside the "update_display" method
         # as that method relies on the previous zoom factor which doesn't exist yet.
         self.axes.imshow(self.npa[self.slice_slider.value,:,:] if self.slice_slider else self.npa,
@@ -261,22 +261,22 @@ class PointDataAquisition(object):
                          vmax=self.max_intensity)
         self.update_display()
 
-    
+
     def create_ui(self):
         # Create the active UI components. Height and width are specified in 'em' units. This is
         # a html size specification, size relative to current font size.
-        self.viewing_checkbox = widgets.RadioButtons(description= 'Interaction mode:', 
-                                                     options= ['edit', 'view'], 
+        self.viewing_checkbox = widgets.RadioButtons(description= 'Interaction mode:',
+                                                     options= ['edit', 'view'],
                                                      value = 'edit')
 
-        self.clearlast_button = widgets.Button(description= 'Clear Last', 
-                                               width= '7em', 
+        self.clearlast_button = widgets.Button(description= 'Clear Last',
+                                               width= '7em',
                                                height= '3em')
         self.clearlast_button.on_click(self.clear_last)
 
-        self.clearall_button = widgets.Button(description= 'Clear All', 
-                                              width= '7em', 
-                                              height= '3em') 
+        self.clearall_button = widgets.Button(description= 'Clear All',
+                                              width= '7em',
+                                              height= '3em')
         self.clearall_button.on_click(self.clear_all)
 
         # Slider is only created if a 3D image, otherwise no need.
@@ -290,7 +290,7 @@ class PointDataAquisition(object):
                                                   width='20em')
             self.slice_slider.observe(self.on_slice_slider_value_change, names='value')
             bx0 = widgets.Box(padding=7, children=[self.slice_slider])
-        
+
         # Layout of UI components. This is pure ugliness because we are not using a UI toolkit. Layout is done
         # using the box widget and padding so that the visible UI components are spaced nicely.
         bx1 = widgets.Box(padding=7, children = [self.viewing_checkbox])
@@ -303,25 +303,25 @@ class PointDataAquisition(object):
         if not window_level:
             return npa, npa.min(), npa.max()
         else:
-            return npa, window_level[1]-window_level[0]/2.0, window_level[1]+window_level[0]/2.0 
- 
+            return npa, window_level[1]-window_level[0]/2.0, window_level[1]+window_level[0]/2.0
+
     def on_slice_slider_value_change(self, change):
         self.update_display()
-    
+
     def update_display(self):
         # We want to keep the zoom factor which was set prior to display, so we log it before
         # clearing the axes.
         xlim = self.axes.get_xlim()
         ylim = self.axes.get_ylim()
-        
+
         # Draw the image and localized points.
         self.axes.clear()
         self.axes.imshow(self.npa[self.slice_slider.value,:,:] if self.slice_slider else self.npa,
-                         cmap=plt.cm.Greys_r, 
+                         cmap=plt.cm.Greys_r,
                          vmin=self.min_intensity,
                          vmax=self.max_intensity)
         # Positioning the text is a bit tricky, we position relative to the data coordinate system, but we
-        # want to specify the shift in pixels as we are dealing with display. We therefore (a) get the data 
+        # want to specify the shift in pixels as we are dealing with display. We therefore (a) get the data
         # point in the display coordinate system in pixel units (b) modify the point using pixel offset and
         # transform back to the data coordinate system for display.
         text_x_offset = -10
@@ -330,20 +330,20 @@ class PointDataAquisition(object):
             if(self.slice_slider and int(pnt[2] + 0.5) == self.slice_slider.value) or not self.slice_slider:
                 self.axes.scatter(pnt[0], pnt[1], s=90, marker='+', color='yellow')
                 # Get point in pixels.
-                text_in_data_coords = self.axes.transData.transform([pnt[0],pnt[1]]) 
+                text_in_data_coords = self.axes.transData.transform([pnt[0],pnt[1]])
                 # Offset in pixels and get in data coordinates.
                 text_in_data_coords = self.axes.transData.inverted().transform((text_in_data_coords[0]+text_x_offset, text_in_data_coords[1]+text_y_offset))
-                self.axes.text(text_in_data_coords[0], text_in_data_coords[1], str(i), color='yellow')                               
+                self.axes.text(text_in_data_coords[0], text_in_data_coords[1], str(i), color='yellow')
         self.axes.set_title('localized {0} points'.format(len(self.point_indexes)))
         self.axes.set_axis_off()
-        
+
 
         # Set the zoom factor back to what it was before we cleared the axes, and rendered our data.
         self.axes.set_xlim(xlim)
         self.axes.set_ylim(ylim)
 
         self.fig.canvas.draw_idle()
-    
+
     def add_point_indexes(self, point_index_data):
         self.validate_points(point_index_data)
         self.point_indexes.append(list(point_index_data))
@@ -367,12 +367,12 @@ class PointDataAquisition(object):
     def clear_all(self, button):
         del self.point_indexes[:]
         self.update_display()
-        
+
     def clear_last(self, button):
         if self.point_indexes:
             self.point_indexes.pop()
             self.update_display()
-        
+
     def get_points(self):
         return [self.image.TransformContinuousIndexToPhysicalPoint(pnt) for pnt in self.point_indexes]
 
@@ -864,66 +864,66 @@ class PairedPointDataManipulation(object):
 
         self.ui = self.create_ui()
         display(self.ui)
-        
-        # Create a figure. 
+
+        # Create a figure.
         self.fig, self.axes = plt.subplots(1,1,True, True, figsize=self.figure_size)
-        
+
         self.fig.canvas.mpl_connect('button_press_event', self.on_press)
         self.fig.canvas.mpl_connect('motion_notify_event', self.on_motion)
         self.fig.canvas.mpl_connect('button_release_event', self.on_release)
-        
+
         self.update_display()
-        
+
 
     def create_ui(self):
         # Create the active UI components. Height and width are specified in 'em' units. This is
         # a html size specification, size relative to current font size.
-        self.viewing_checkbox = widgets.RadioButtons(description= 'Mode:', 
+        self.viewing_checkbox = widgets.RadioButtons(description= 'Mode:',
                                                      options= ['edit', 'translate', 'rotate'],
                                                      value = 'edit')
         self.viewing_checkbox.observe(self.update_centroid_and_display)
 
-        self.noise_button = widgets.Button(description= 'Add Noise', 
-                                              width= '7em', 
-                                              height= '3em') 
+        self.noise_button = widgets.Button(description= 'Add Noise',
+                                              width= '7em',
+                                              height= '3em')
         self.noise_button.on_click(self.noise)
 
-        self.outlier_button = widgets.Button(description= 'Add Outlier', 
-                                              width= '7em', 
-                                              height= '3em') 
+        self.outlier_button = widgets.Button(description= 'Add Outlier',
+                                              width= '7em',
+                                              height= '3em')
         self.outlier_button.on_click(self.outlier)
-        
-        self.bias1_button = widgets.Button(description= 'Bias (FRE<TRE)', 
-                                               width= '7em', 
+
+        self.bias1_button = widgets.Button(description= 'Bias (FRE<TRE)',
+                                               width= '7em',
                                                height= '3em')
         self.bias1_button.on_click(self.bias_1)
 
-        self.bias2_button = widgets.Button(description= 'Bias (FRE>TRE)', 
-                                              width= '7em', 
-                                              height= '3em') 
+        self.bias2_button = widgets.Button(description= 'Bias (FRE>TRE)',
+                                              width= '7em',
+                                              height= '3em')
         self.bias2_button.on_click(self.bias_2)
-        
-        self.clear_fiducial_button = widgets.Button(description= 'Clear Fiducials', 
-                                               width= '7em', 
+
+        self.clear_fiducial_button = widgets.Button(description= 'Clear Fiducials',
+                                               width= '7em',
                                                height= '3em')
         self.clear_fiducial_button.on_click(self.clear_fiducials)
 
-        self.clear_target_button = widgets.Button(description= 'Clear Targets', 
-                                               width= '7em', 
+        self.clear_target_button = widgets.Button(description= 'Clear Targets',
+                                               width= '7em',
                                                height= '3em')
         self.clear_target_button.on_click(self.clear_targets)
-        
-        self.reset_button = widgets.Button(description= 'Reset', 
-                                               width= '7em', 
+
+        self.reset_button = widgets.Button(description= 'Reset',
+                                               width= '7em',
                                                height= '3em')
         self.reset_button.on_click(self.reset)
-        
-        self.register_button = widgets.Button(description= 'Register', 
-                                               width= '7em', 
+
+        self.register_button = widgets.Button(description= 'Register',
+                                               width= '7em',
                                                height= '3em')
         self.register_button.on_click(self.register)
 
-        
+
         # Layout of UI components. This is pure ugliness because we are not using a UI toolkit. Layout is done
         # using the box widget and padding so that the visible UI components are spaced nicely.
         bx0 = widgets.Box(padding = 2, children = [self.viewing_checkbox])
@@ -937,7 +937,7 @@ class PairedPointDataManipulation(object):
         bx8 = widgets.Box(padding = 15, children = [self.register_button])
         return widgets.HBox(children=[bx0, widgets.VBox(children=[widgets.HBox([bx1, bx2, bx3, bx4]), widgets.HBox(children=[bx5, bx6, bx7, bx8])])])
 
-    
+
     def update_display(self):
 
         self.axes.clear()
@@ -958,16 +958,16 @@ class PairedPointDataManipulation(object):
         self.axes.set_title('Registration Error Demonstration')
         self.axes.get_xaxis().set_visible(False)
         self.axes.get_yaxis().set_visible(False)
-        
+
         self.axes.set_facecolor((0, 0, 0))
-        
+
         # Set the data range back to what it was before we cleared the axes, and rendered our data.
         self.axes.set_xlim([0, self.scale])
         self.axes.set_ylim([0, self.scale])
 
         self.fig.canvas.draw_idle()
-    
-    
+
+
     def update_centroid_and_display(self, button):
         self.update_centroid()
         self.update_display()
@@ -1014,7 +1014,7 @@ class PairedPointDataManipulation(object):
                 fle[0]+=0.015*self.scale
                 fle[1]+=0.015*self.scale
         self.update_display()
-    
+
     def bias_2(self, button):
         if self.moving_fiducials:
             self.can_add_fiducials = False
@@ -1026,7 +1026,7 @@ class PairedPointDataManipulation(object):
                 fle[1] += 0.015*pol*self.scale
                 pol*=-1
         self.update_display()
-    
+
     def clear_fiducials(self, button):
         self.fixed_fiducials = []
         self.moving_fiducials = []
@@ -1048,7 +1048,7 @@ class PairedPointDataManipulation(object):
         self.can_add_fiducials = True
         self.update_centroid()
         self.update_display()
-        
+
     def register(self, button):
         fixed_points = [c for p in self.fixed_fiducials for c in p]
         moving_points = [c for p in self.moving_fiducials for c in p]
@@ -1064,8 +1064,8 @@ class PairedPointDataManipulation(object):
             pnt[1] = transformed_pnt[1]
         self.update_centroid()
         self.update_display()
-    
-    
+
+
     def on_press(self, event):
         if self.viewing_checkbox.value == 'edit':
             if self.can_add_fiducials:
@@ -1088,7 +1088,7 @@ class PairedPointDataManipulation(object):
                 elif self.viewing_checkbox.value == 'rotate' and self.centroid:
                     self.previous = [event.xdata - self.centroid[0],
                                      event.ydata - self.centroid[1]]
-                    
+
     def on_motion(self, event):
         if event.button == 1: #left click
             if self.viewing_checkbox.value == 'translate':
@@ -1106,10 +1106,10 @@ class PairedPointDataManipulation(object):
                 oy = self.centroid[1]
                 v1 = self.previous
                 v2 = [event.xdata-ox, event.ydata-oy]
-                
-                cosang = v1[0]*v2[0]+v1[1]*v2[1]                
+
+                cosang = v1[0]*v2[0]+v1[1]*v2[1]
                 sinang = v1[0]*v2[1]-v1[1]*v2[0]
-                angle = np.arctan2(sinang, cosang)                
+                angle = np.arctan2(sinang, cosang)
 
                 for glyph in self.moving_fiducials_glyphs + self.moving_targets_glyphs:
                     px = glyph.get_xdata()
@@ -1119,7 +1119,7 @@ class PairedPointDataManipulation(object):
                 self.previous = v2
                 self.fig.canvas.draw_idle()
                 self.fig.canvas.flush_events()
-                    
+
     def on_release(self, event):
         if event.button == 1: #left click
             if self.viewing_checkbox.value == 'translate' or self.viewing_checkbox.value == 'rotate':
@@ -1130,11 +1130,11 @@ class PairedPointDataManipulation(object):
                 for glyph,target in zip(self.moving_targets_glyphs, self.moving_targets):
                     target[0] = float(glyph.get_xdata())
                     target[1] = float(glyph.get_ydata())
-        
+
 
     def get_fixed_fiducials(self):
         return self.fixed_fiducials
-        
+
     def get_fixed_targets(self):
         return self.fixed_targets
 
