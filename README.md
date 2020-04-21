@@ -23,7 +23,7 @@ Note that currently SimpleITK with R is only available on Linux and Mac.
 
 1. Language specific details for installing the notebooks is given in the README files in the respective directories ([Python](Python/README.md), [R](R/README.md)). For general information about installing SimpleITK please see the [SimpleITK read-the-docs](https://simpleitk.readthedocs.io/en/master/) pages.
 
-2. The [SimpleITK API documentation](https://itk.org/SimpleITKDoxygen/html/index.html) is based on the C++ implementation which is readily mapped to your language of choice.
+2. The [SimpleITK API documentation](https://simpleitk.org/doxygen/latest/html/index.html) is based on the C++ implementation which is readily mapped to your language of choice.
 
 3. Learn the general concepts underlying the implementations of segmentation and registration by reading the ([ITK book](https://itk.org/ItkSoftwareGuide)). The relevant portion is "Book 2: Design and Functionality". The ITK API is significantly different from the SimpleITK one, but the general concepts are the same (e.g. combination of optimizer and similarity metric for registration).     
 
