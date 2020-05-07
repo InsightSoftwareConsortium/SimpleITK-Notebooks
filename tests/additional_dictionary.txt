@@ -129,6 +129,7 @@ JointHistogram
 JointHistogramMutualInformation
 Joskowicz
 Jupyter
+JupyterLab
 Kamath
 LBFGS
 LSMImageIO
