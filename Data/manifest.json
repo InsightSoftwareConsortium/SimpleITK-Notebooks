@@ -234,5 +234,8 @@
 },
 "microscopy_colocalization.nrrd" : {
  "sha512": "f25d3b08cbc697752ad61ceb51c047d1cadbd2cdf12e635d8ddcb2f8cb27ea4dffb0dc4e1b932aa8d6aeb4318fe00f59f0f88bbc8e6bae727ce800c78c11d4e7"
+},
+"cxr.dcm" : {
+ "sha512": "06395fc6ca54f2f2816b85e68b0a7ac6d0f1fb1158f3bca28c5a5f1fd8a9e99ebf83f01745f87f191fcbd2ffa8f65e8fdaf2a2b8268a8aa733c554263361be05"
 }
 }
