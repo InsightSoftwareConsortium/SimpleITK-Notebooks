@@ -414,6 +414,7 @@ parallelization
 param
 parametrization
 parametrized
+photometric
 pixelated
 plafond
 pn
@@ -438,6 +439,7 @@ rescale
 rgb
 roi
 runtime
+sRGB
 sagittal
 scaleFactors
 scipy
