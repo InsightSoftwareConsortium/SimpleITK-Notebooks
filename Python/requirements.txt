@@ -6,3 +6,4 @@ numpy
 scipy
 pandas
 numba
+multiprocess

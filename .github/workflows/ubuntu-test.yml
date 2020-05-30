@@ -1,0 +1,44 @@
+name: Ubuntu Pytest
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      with:
+        path: |
+          Data
+        key: notebook-data-{{ checksum "Data/manifest.json" }}
+        restore-keys: |
+          notebook-data-{{ checksum "Data/manifest.json" }}
+          notebook-data-
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install enchant
+        python3 -m pip install --upgrade pip
+        pip3 install virtualenv
+        virtualenv ~/sitkpy
+        ~/sitkpy/bin/pip3 install -r requirements_dev.txt --pre --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
+        ~/sitkpy/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
+    - name: Activate environment and run the test
+      env: 
+        SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
+      run: |
+        source ~/sitkpy/bin/activate
+        ~/sitkpy/bin/pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook

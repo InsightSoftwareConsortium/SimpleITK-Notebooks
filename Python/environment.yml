@@ -1,10 +1,19 @@
 name: sitkpy
 
+# Use the dev label because we will use an RC and not a
+<<<<<<< HEAD
+# regular release (2.0.0), go back to regular channel
+=======
+# retular release (2.0.0), go back to regular channel
+>>>>>>> 89a369d... Updating the trust-but-verify notebook.
+# when 2.0.0 is released
 channels:
-  - simpleitk
+  - defaults
+  - simpleitk/label/dev
+  - conda-forge
 
 dependencies:
-  - python=3.7
+  - python=3.8
   - jupyter
   - matplotlib
   - ipywidgets
@@ -12,4 +21,5 @@ dependencies:
   - scipy
   - pandas
   - numba
-  - SimpleITK>=1.2.4
+  - multiprocess
+  - SimpleITK>1.2.4
