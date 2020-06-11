@@ -1,6 +1,7 @@
 ANTSNeighborhoodCorrelation
 API
 Acknowledgements
+AddTransform
 Affine
 AffineTransform
 Another's
@@ -36,6 +37,7 @@ Clin
 CoRR
 Colocalization
 ComposeImageFilter
+CompositeTransform
 ConfidenceConnected
 ConjugateGradientLineSearch
 ConnectedComponentImageFilter
@@ -245,6 +247,7 @@ TileImageFilter
 Toger
 Toutios
 TransformContinuousIndexToPhysicalPoint
+TransformEnum
 TransformPoint
 TransformToDisplacementFieldFilter
 TranslationTransform
@@ -387,6 +390,7 @@ nD
 natively
 nbagg
 nbextension
+nm
 nms
 np
 num

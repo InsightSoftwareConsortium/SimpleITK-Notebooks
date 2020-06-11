@@ -99,7 +99,7 @@ def metric_and_reference_plot_values(registration_method, fixed_points, moving_p
     current_iteration_number =  registration_method.GetOptimizerIteration()
     metric_values.append(registration_method.GetMetricValue())
     # Compute and store TRE statistics (mean, min, max).
-    current_transform = sitk.Transform(registration_method.GetInitialTransform())
+    current_transform = sitk.CompositeTransform(registration_method.GetInitialTransform())
     current_transform.SetParameters(registration_method.GetOptimizerPosition())
     current_transform.AddTransform(registration_method.GetMovingInitialTransform())
     current_transform.AddTransform(registration_method.GetFixedInitialTransform().GetInverse())
