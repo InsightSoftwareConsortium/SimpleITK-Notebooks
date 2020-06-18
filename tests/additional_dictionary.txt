@@ -502,6 +502,7 @@ tranforms
 transform's
 translational
 truediv
+tryCatch
 ttest
 tx
 txt
