@@ -177,6 +177,7 @@ Otsu's
 PNG
 POPI
 PairedPointDataManipulation
+PasteImageFilter
 Photogrammetric
 Photometric
 PixelIDValueEnum
@@ -475,6 +476,7 @@ sitkVectorFloat
 sitkVectorInt
 sitkVectorUInt
 sitkWelchWindowedSinc
+spacings
 spatio
 spc
 sqrt
