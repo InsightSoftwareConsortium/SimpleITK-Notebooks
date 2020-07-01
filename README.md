@@ -27,6 +27,19 @@ Note that currently SimpleITK with R is only available on Linux and Mac.
 
 3. Learn the general concepts underlying the implementations of segmentation and registration by reading the ([ITK book](https://itk.org/ItkSoftwareGuide)). The relevant portion is "Book 2: Design and Functionality". The ITK API is significantly different from the SimpleITK one, but the general concepts are the same (e.g. combination of optimizer and similarity metric for registration).     
 
+4. General notebook setup. By default the contents of the Jupyter notebooks do not occupy the full browser window width. To take advantage of the full window width you can either configure each notebook independently by adding the following into a code cell:
+```
+from IPython.core.display import display, HTML
+display(HTML("<style>.container { width:100% !important; }</style>"))
+```
+Or apply this configuration to all notebooks by adding the following to
+the custom.css jupyter configuration file:
+```
+.container { width:100% !important; }
+```
+On OSX/Linux this file is found in `~/.jupyter/custom/custom.css` on windows it is
+found in `C:\Users\[your_user_name]\.jupyter\custom\custom.css`.
+
 # Kicking the Tires
 
 Before you clone the repository to your computer you may want to try it out, kick the tires so to speak.
