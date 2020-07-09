@@ -373,6 +373,7 @@ hausdorff
 homography
 honours
 iff
+imageIO
 img
 init
 initialNeighborhoodRadius
@@ -404,6 +405,7 @@ mathbf
 matplotlib
 meshgrid
 meshlab
+metadata
 metric's
 metricvalue
 mha
