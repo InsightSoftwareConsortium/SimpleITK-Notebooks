@@ -226,12 +226,12 @@ def display_scalar_images(image1_z_index, image2_z_index, image1, image2,
     plt.subplots(1,2,figsize=figure_size)
     
     plt.subplot(1,2,1)
-    plt.imshow(sitk.GetArrayViewFromImage(image1[:,:,image1_z_index]),cmap=plt.cm.Greys_r, vmin=vmin1, vmax=vmax1)
+    plt.imshow(sitk.GetArrayFromImage(image1[:,:,image1_z_index]),cmap=plt.cm.Greys_r, vmin=vmin1, vmax=vmax1)
     plt.title(title1)
     plt.axis('off')
     
     plt.subplot(1,2,2)
-    plt.imshow(sitk.GetArrayViewFromImage(image2[:,:,image2_z_index]),cmap=plt.cm.Greys_r, vmin=vmin2, vmax=vmax2)
+    plt.imshow(sitk.GetArrayFromImage(image2[:,:,image2_z_index]),cmap=plt.cm.Greys_r, vmin=vmin2, vmax=vmax2)
     plt.title(title2)
     plt.axis('off')
 
