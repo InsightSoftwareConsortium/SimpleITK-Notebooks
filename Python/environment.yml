@@ -1,7 +1,7 @@
 name: sitkpy
 
 # Use the dev label because we will use an RC and not a
-# retular release (2.0.0), go back to regular channel
+# regular release (2.0.0), go back to regular channel
 # when 2.0.0 is released
 channels:
   - defaults
