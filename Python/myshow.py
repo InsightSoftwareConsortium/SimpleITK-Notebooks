@@ -22,7 +22,7 @@ def myshow(img, title=None, margin=0.05, dpi=80 ):
         c = nda.shape[-1]
 
         if not c in (3,4):
-            raise Runtime("Unable to show 3D-vector Image")
+            raise RuntimeError("Unable to show 3D-vector Image")
 
         # take a z-slice
         slicer = True
