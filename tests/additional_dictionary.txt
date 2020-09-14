@@ -119,6 +119,7 @@ IPython
 IQR
 ITK
 ITK's
+ITKWidgets
 ImageFileReader
 ImageFileReader's
 ImageIO
@@ -274,6 +275,7 @@ TranslationTransform
 UInt
 Uncomment
 VGG
+VTK
 VTKImageIO
 Valgus
 Vandemeulebroucke
