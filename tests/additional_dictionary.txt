@@ -5,6 +5,7 @@ AddTransform
 Affine
 AffineTransform
 Another's
+Annulus
 Args
 Azulay
 BFGS
@@ -16,6 +17,7 @@ BSplineTransformInitializer
 BSplineTransformInitializerFilter
 Baum
 Biancardi
+Bimodal
 BinaryMorphologicalClosing
 BinaryMorphologicalOpening
 BinaryThreshold
@@ -48,6 +50,7 @@ ConfidenceConnected
 ConjugateGradientLineSearch
 ConnectedComponentImageFilter
 ConnectedThreshold
+Covariance
 Cy
 DAPI
 DICOM
@@ -181,6 +184,7 @@ MetaDataDictionaryArrayUpdateOn
 MetaImageIO
 MetricEvaluate
 Narayanan
+Nanometers
 Nayak
 NeighborhoodConnected
 Nelder
@@ -298,6 +302,7 @@ affine
 al
 algorithmically
 anisotropic
+annulus
 app
 argmin
 atol
@@ -306,6 +311,7 @@ ay
 az
 backgroundValue
 behaviour
+bimodal
 bio
 booktabs
 boolean
@@ -324,6 +330,7 @@ const
 convergenceMinimumValue
 convergenceWindowSize
 convolutional
+covariance
 cryosectioning
 csv
 cthead
@@ -415,6 +422,7 @@ multiprocess
 multiscale
 myshow
 nD
+nanometers
 natively
 nbagg
 nbextension
