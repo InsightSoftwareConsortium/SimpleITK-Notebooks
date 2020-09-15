@@ -5,6 +5,7 @@ import nbformat
 import pytest
 import markdown
 import re
+import urllib.request
 
 from enchant.checker import SpellChecker
 from enchant.tokenize import Filter, EmailFilter, URLFilter
@@ -201,7 +202,7 @@ class Test_notebooks(object):
               for document_link in html_tree.iterlinks():
                  try:
                     if all( prefix not in document_link[2] for prefix in ['http','https']):  # Local file.
-                       url = 'file://' + os.path.abspath(document_link[2])
+                       url = 'file:' + urllib.request.pathname2url(document_link[2])
                     else:  # Remote file.
                        url = document_link[2]
                     urlopen(url)
@@ -269,13 +270,14 @@ class Test_notebooks(object):
 
         # Execute the notebook and allow errors (run all cells), output is
         # written to a temporary file which is automatically deleted.
-        with tempfile.NamedTemporaryFile(suffix='.ipynb') as fout:
+        # The delete=False is here to address an issue that Windows that seems to have with temporary files (see https://bugs.python.org/issue14243).
+        with tempfile.NamedTemporaryFile(suffix='.ipynb',delete=False) as fout:
             args = ['jupyter', 'nbconvert', 
                     '--to', 'notebook', 
                     '--execute',
                     '--ExecutePreprocessor.kernel_name='+kernel_name, 
                     '--ExecutePreprocessor.allow_errors=True',
-                    '--ExecutePreprocessor.timeout=600', # seconds till timeout 
+                    '--ExecutePreprocessor.timeout=6000', # seconds till timeout 
                     '--output', fout.name, path]
             subprocess.check_call(args)
             nb = nbformat.read(fout.name, nbformat.current_nbformat)
