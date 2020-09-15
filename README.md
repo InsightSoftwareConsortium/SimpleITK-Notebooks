@@ -1,5 +1,9 @@
 # SimpleITK Notebooks
-[![CircleCI](https://circleci.com/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/tree/master.svg?style=svg)](https://circleci.com/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/tree/master)
+
+[![CircleCI](https://circleci.com/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/tree/master.svg?style=shield)](https://circleci.com/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/tree/master) &nbsp;&nbsp;
+![Ubuntu](https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/workflows/Ubuntu%20Pytest/badge.svg)
+&nbsp;&nbsp;![Windows](https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/workflows/Windows%20Pytest/badge.svg)
+
 
 [SimpleITK](https://itk.org/Wiki/SimpleITK) is an abstraction layer and wrapper around the Insight Segmentation and Registration Toolkit [(ITK)](http://www.itk.org). It is available in the following programming languages: C++, Python, R, Java, C#, Lua, Tcl and Ruby.
 
