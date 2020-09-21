@@ -34,7 +34,7 @@ jobs:
         python3 -m pip install --upgrade pip
         pip3 install virtualenv
         virtualenv ~/sitkpy
-        ~/sitkpy/bin/pip3 install -r requirements_dev.txt --pre --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
+        ~/sitkpy/bin/pip3 install -r requirements_dev.txt
         ~/sitkpy/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
     - name: Activate environment and run the test
       env: 
