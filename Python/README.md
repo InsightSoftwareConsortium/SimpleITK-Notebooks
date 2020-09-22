@@ -1,6 +1,6 @@
 # SimpleITK Python Notebooks
 
-As of this writing, SimpleITK version >=1.2 or newer is required to run these notebooks. This version is available from [PyPi](https://pypi.python.org/pypi/SimpleITK) and [Anaconda Cloud](https://anaconda.org/simpleitk/simpleitk).
+As of this writing, SimpleITK version >=2.0.0 or newer is required to run these notebooks. This version is available from [PyPi](https://pypi.python.org/pypi/SimpleITK) and [Anaconda Cloud](https://anaconda.org/simpleitk/simpleitk).
 
 ## Setting Up a Python Environment
 
