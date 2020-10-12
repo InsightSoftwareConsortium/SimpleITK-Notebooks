@@ -4,8 +4,8 @@ Acknowledgements
 AddTransform
 Affine
 AffineTransform
-Another's
 Annulus
+Another's
 Args
 Azulay
 BFGS
@@ -160,6 +160,7 @@ LabelToRGBImageFilter
 LandmarkBasedTransformInitializer
 LaplacianSegmentation
 Lasser
+Levelset
 Leygue
 Lim
 Lingala
@@ -183,8 +184,8 @@ MeanSquares
 MetaDataDictionaryArrayUpdateOn
 MetaImageIO
 MetricEvaluate
-Narayanan
 Nanometers
+Narayanan
 Nayak
 NeighborhoodConnected
 Nelder
