@@ -5,6 +5,12 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      testPyPi:
+        description: 'Use test PyPi?'     
+        required: true
+        default: 'false'
 
 jobs:
   build:
@@ -31,6 +37,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m ipykernel install --user
+        If ( "${{ github.event.inputs.testPyPi }}"  -eq 'true') {
+          Write-Output "*** Using Test PyPi ***"
+          pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple SimpleITK
+        }
         pip install -r requirements_dev.txt
         jupyter nbextension enable --py widgetsnbextension
     - name: Patch asyncio library for 3.8

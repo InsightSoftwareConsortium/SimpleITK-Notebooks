@@ -5,6 +5,12 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      testPyPi:
+        description: 'Use test PyPi?'     
+        required: true
+        default: 'false'
 
 jobs:
   build:
@@ -34,6 +40,11 @@ jobs:
         python3 -m pip install --upgrade pip
         pip3 install virtualenv
         virtualenv ~/sitkpy
+        if [ "${{ github.event.inputs.testPyPi }}" = "true" ]
+        then
+          echo "*** Using Test PyPi ***"
+          ~/sitkpy/bin/pip3 install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple SimpleITK
+        fi
         ~/sitkpy/bin/pip3 install -r requirements_dev.txt
         ~/sitkpy/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
     - name: Activate environment and run the test
