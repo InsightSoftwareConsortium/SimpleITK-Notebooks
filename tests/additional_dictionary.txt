@@ -257,6 +257,7 @@ Sigmoid
 SimpleITK
 SimpleITK's
 SimpleITKv
+SmoothingRecursiveGaussianImageFilter
 Sorensen
 StartEvent
 StatisticsImageFilter
