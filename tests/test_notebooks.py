@@ -3,6 +3,7 @@ import subprocess
 import tempfile
 import nbformat
 import pytest
+import warnings
 import markdown
 import re
 import urllib.request
@@ -212,11 +213,13 @@ class Test_notebooks(object):
                  cells_and_broken_links.append((broken_links,c.source))
         if cells_and_broken_links:
            no_broken_links = False
+           broken_links_list = []
            print('Cells with broken links:\n________________________')
            for links, cell in cells_and_broken_links:
               print(cell+'\n')
               print('\tBroken links:')
               print('\t'+'\n\t'.join(links)+'\n---')
+              broken_links_list.extend(links)
         else:
            print('no broken links')
 
@@ -251,8 +254,9 @@ class Test_notebooks(object):
               print('\t'+'\n\t'.join(misspelled_words)+'\n---')
         else:
            print('no spelling mistakes')
-
-        return(no_unexpected_output and no_broken_links and no_spelling_mistakes)
+        if not no_broken_links:
+            warnings.warn('Broken links:\n'+'\n\t'.join(broken_links_list))
+        return(no_unexpected_output and no_spelling_mistakes)
 
 
     def dynamic_analysis(self, path, kernel_name):
