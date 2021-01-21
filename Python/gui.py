@@ -142,7 +142,7 @@ class RegistrationPointDataAquisition(object):
                 # Offset in pixels and get in data coordinates.
                 text_in_data_coords = self.fixed_axes.transData.inverted().transform((text_in_data_coords[0]+text_x_offset, text_in_data_coords[1]+text_y_offset))
                 self.fixed_axes.text(text_in_data_coords[0], text_in_data_coords[1], str(i), color=self.text_and_marker_color)
-        self.fixed_axes.set_title('fixed image - localized {0} points'.format(len(self.fixed_point_indexes)))
+        self.fixed_axes.set_title(f'fixed image - localized {len(self.fixed_point_indexes)} points')
         self.fixed_axes.set_axis_off()
 
         # Draw the moving image in the second subplot and the localized points.
@@ -157,7 +157,7 @@ class RegistrationPointDataAquisition(object):
                 text_in_data_coords = self.moving_axes.transData.transform([pnt[0],pnt[1]])
                 text_in_data_coords = self.moving_axes.transData.inverted().transform((text_in_data_coords[0]+text_x_offset, text_in_data_coords[1]+text_y_offset))
                 self.moving_axes.text(text_in_data_coords[0], text_in_data_coords[1], str(i), color=self.text_and_marker_color)
-        self.moving_axes.set_title('moving image - localized {0} points'.format(len(self.moving_point_indexes)))
+        self.moving_axes.set_title(f'moving image - localized {len(self.moving_point_indexes)} points')
         self.moving_axes.set_axis_off()
 
         # Set the zoom factor back to what it was before we cleared the axes, and rendered our data.
@@ -334,7 +334,7 @@ class PointDataAquisition(object):
                 # Offset in pixels and get in data coordinates.
                 text_in_data_coords = self.axes.transData.inverted().transform((text_in_data_coords[0]+text_x_offset, text_in_data_coords[1]+text_y_offset))
                 self.axes.text(text_in_data_coords[0], text_in_data_coords[1], str(i), color='yellow')
-        self.axes.set_title('localized {0} points'.format(len(self.point_indexes)))
+        self.axes.set_title(f'localized {len(self.point_indexes)} points')
         self.axes.set_axis_off()
 
 
@@ -709,7 +709,7 @@ class ROIDataAquisition(object):
                     roi_data[0].set_visible(True)
                 else:
                     roi_data[0].set_visible(False)
-        self.axes.set_title('selected {0} ROIs'.format(len(self.rois)))
+        self.axes.set_title(f'selected {len(self.rois)} ROIs')
         self.axes.set_axis_off()
 
         self.fig.canvas.draw_idle()
@@ -1162,7 +1162,7 @@ class PairedPointDataManipulation(object):
         # Validate the points are inside the expected range.
         all_coords = [coord for pnt in points for coord in pnt]
         if min(all_coords)<0 or max(all_coords)>self.scale:
-            raise ValueError('One of the points is outside the image bounds, [0,{0}]X[0,{0}].'.format(self.scale))
+            raise ValueError(f'One of the points is outside the image bounds, [0,{0}]X[0,{self.scale}].')
         # Copy the data in and coerce points to lists. The coercion to list
         # allows us to accept tuples, as internally we need the points to be mutable.
         fill_lists = [self.fixed_fiducials, self.moving_fiducials] if are_fiducials else [self.fixed_targets, self.moving_targets]

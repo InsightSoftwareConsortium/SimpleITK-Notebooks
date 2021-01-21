@@ -53,7 +53,7 @@ def absolute_orientation_m(points_in_left, points_in_right):
     dim_points = len(points_in_left[0])
     # Cursory check that the number of points is sufficient.
     if num_points<dim_points:      
-        raise ValueError('Number of points must be greater/equal {0}.'.format(dim_points))
+        raise ValueError(f'Number of points must be greater/equal {dim_points}.')
 
     # Construct matrices out of the two point sets for easy manipulation.
     left_mat = np.array(points_in_left).T

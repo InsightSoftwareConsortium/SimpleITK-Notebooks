@@ -117,9 +117,9 @@ def inspect_image(sitk_image, image_info, current_index, meta_data_keys=[]):
         pixel_type = sitk_image.GetPixelIDTypeAsString()
         channels = [sitk.GetArrayFromImage(sitk.VectorIndexSelectionCast(sitk_image,i)) for i in range(sitk_image.GetNumberOfComponentsPerPixel())]
         if np.array_equal(channels[0], channels[1]) and np.array_equal(channels[0], channels[2]):
-            pixel_type = pixel_type + ' {0} channels gray'.format(sitk_image.GetNumberOfComponentsPerPixel()) 
+            pixel_type = pixel_type + f' {sitk_image.GetNumberOfComponentsPerPixel()} channels gray' 
         else:
-            pixel_type = pixel_type + ' {0} channels color'.format(sitk_image.GetNumberOfComponentsPerPixel())
+            pixel_type = pixel_type + f' {sitk_image.GetNumberOfComponentsPerPixel()} channels color'
         image_info[current_index] = pixel_type
         current_index = current_index+3
     img_keys = sitk_image.GetMetaDataKeys()
@@ -329,7 +329,7 @@ def inspect_series(root_dir, meta_data_keys=[], additional_column_names=[]):
             reader.SetFileName(file_names[0])
             reader.ReadImageInformation()
             study = reader.GetMetaData('0020|000d')
-            key = '{0}:{1}'.format(study,sid)
+            key = '{study}:{sid}'
             if key in all_series_files:
                 all_series_files[key].extend(file_names)
             else:
