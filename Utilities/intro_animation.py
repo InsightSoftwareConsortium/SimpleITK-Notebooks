@@ -78,7 +78,7 @@ def save_plot(registration_method, fixed, moving, transform, file_name_prefix):
     
     moving_transformed = sitk.Resample(moving, fixed, transform, 
                                        sitk.sitkLinear, 0.0, 
-                                       moving_image.GetPixelIDValue())
+                                       moving.GetPixelIDValue())
     # Extract the central slice in xy and alpha blend them                                   
     combined = (1.0 - alpha)*fixed[:,:,central_index] + \
                alpha*moving_transformed[:,:,central_index]
