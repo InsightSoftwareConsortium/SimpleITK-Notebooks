@@ -805,13 +805,12 @@ class ROIDataAquisition(object):
 
 
     def __call__(self, event):
-        # This is dangerous as we are accessing a "private" variable to find the state
-        # of the figure's toolbar ('ZOOM',PAN' or None). When Zoom or pan are active we will
+        # When Zoom or pan are active we will
         # ignore the button press, once the user deactivates the zoom/pan we can allow them
         # to select the ROI.
-        # Discussion on stack overflow with matplotlib developer (circa 2013), no change to date:
+        # Details in this stack overflow discussion:
         # http://stackoverflow.com/questions/20711148/ignore-matplotlib-cursor-widget-when-toolbar-widget-selected
-        if self.fig.canvas.toolbar._active is None:
+        if self.fig.canvas.manager.toolbar.mode =='':
             self.roi_selector.set_visible(True)
             self.addroi_button.disabled = False
             self.update_display()
