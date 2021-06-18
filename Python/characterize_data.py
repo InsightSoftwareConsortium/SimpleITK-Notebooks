@@ -321,19 +321,24 @@ def inspect_series(root_dir, meta_data_keys=[], additional_column_names=[]):
     all_series_files = {}
     reader = sitk.ImageFileReader()
     #collect the file names of all series into a dictionary with the key being
-    #study:series.
+    #study:series. This traversal is faster, O(n), than calling GetGDCMSeriesIDs on each
+    #directory followed by iterating over the series and calling
+    #GetGDCMSeriesFileNames with the seriesID on that directory, O(n^2).
     for dir_name, subdir_names, file_names in os.walk(root_dir):
-        sids = sitk.ImageSeriesReader_GetGDCMSeriesIDs(dir_name)
-        for sid in sids:
-            file_names = sitk.ImageSeriesReader_GetGDCMSeriesFileNames(dir_name, sid)
-            reader.SetFileName(file_names[0])
-            reader.ReadImageInformation()
-            study = reader.GetMetaData('0020|000d')
-            key = '{study}:{sid}'
-            if key in all_series_files:
-                all_series_files[key].extend(file_names)
-            else:
-                all_series_files[key] = list(file_names)
+        for file in file_names:
+            try:
+                fname = os.path.join(dir_name, file)
+                reader.SetFileName(fname)
+                reader.ReadImageInformation()
+                sid = reader.GetMetaData('0020|000e')
+                study = reader.GetMetaData('0020|000d')
+                key = f'{study}:{sid}'
+                if key in all_series_files:
+                    all_series_files[key].append(fname)
+                else:
+                    all_series_files[key] = [fname]
+            except Exception:
+                pass
     # Get list of lists describing the results and then combine into a dataframe, faster
     # than appending to the dataframe one by one.
     res = [inspect_single_series(series_data, meta_data_keys) for series_data in all_series_files.items()]
