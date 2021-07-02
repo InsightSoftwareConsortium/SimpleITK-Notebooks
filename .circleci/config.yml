@@ -42,6 +42,7 @@ jobs:
 
       - run:
           name: Activate environment and run the test
+          no_output_timeout: 30m
           command: |
             source ~/sitkpy/bin/activate
             ~/sitkpy/bin/pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
