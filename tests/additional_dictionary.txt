@@ -45,6 +45,7 @@ Clunie's
 CoRR
 Colocalization
 ComposeImageFilter
+ComposeScaleSkewVersor
 CompositeTransform
 ConfidenceConnected
 ConjugateGradientLineSearch
@@ -148,6 +149,7 @@ JointHistogramMutualInformation
 Joskowicz
 Jupyter
 JupyterLab
+K
 Kamath
 LBFGS
 LSMImageIO
@@ -207,10 +209,12 @@ PixelIDValueEnum
 Popa
 Proc
 Pythonic
+R
 RGB
 RIRE
 RLE
 ROIs
+RSK
 Radiographic
 ReadImage
 ReadImageInformation
@@ -220,6 +224,7 @@ Relat
 ResampleImageFilter
 Rheumatol
 Rueda
+S
 SEM
 SPIE
 Sarrut
