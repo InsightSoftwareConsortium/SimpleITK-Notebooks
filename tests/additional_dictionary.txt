@@ -399,6 +399,7 @@ interp
 interpolator
 interpolators
 intra
+invertible
 ipywidgets
 iso
 jn
