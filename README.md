@@ -1,6 +1,5 @@
 # SimpleITK Notebooks
 
-[![CircleCI](https://circleci.com/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/tree/master.svg?style=shield)](https://circleci.com/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/tree/master) &nbsp;&nbsp;
 ![Ubuntu](https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/workflows/Ubuntu%20Pytest/badge.svg)
 &nbsp;&nbsp;![Windows](https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/workflows/Windows%20Pytest/badge.svg)
 
