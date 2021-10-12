@@ -4,13 +4,13 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-3.6
       - test-3.7
-      - test-3.8      
+      - test-3.8
+      - test-3.9
 jobs:
-  test-3.6: &test-template
+  test-3.7: &test-template
     docker:
-      - image: circleci/python:3.6-stretch
+      - image: cimg/python:3.7
     environment:
       ExternalData_OBJECT_STORES: /home/circleci/.ExternalData
       SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
@@ -35,29 +35,26 @@ jobs:
           name: Setup of Python environment
           command: |
             sudo apt-get update; sudo apt-get install enchant
-            sudo pip install virtualenv
-            virtualenv ~/sitkpy
-            ~/sitkpy/bin/pip install -r requirements_dev.txt
-            ~/sitkpy/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
+            pipenv install -r requirements_dev.txt
+            jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
       - run:
           name: Activate environment and run the test
           no_output_timeout: 30m
           command: |
-            source ~/sitkpy/bin/activate
-            ~/sitkpy/bin/pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
+            pipenv run pytest pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
 
       - save_cache:
           key: notebook-data-{{ checksum "Data/manifest.json" }}
           paths: 
             - /home/circleci/.ExternalData
-  test-3.7:
-    <<: *test-template
-    docker:
-      - image: circleci/python:3.7-stretch
   test-3.8:
     <<: *test-template
     docker:
-      - image: circleci/python:3.8.0
+      - image: cimg/python:3.8
+  test-3.9:
+    <<: *test-template
+    docker:
+      - image: cimg/python:3.9
 
   
