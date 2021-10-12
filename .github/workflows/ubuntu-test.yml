@@ -16,7 +16,7 @@ jobs:
   build:
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.7, 3.8, 3.9]
     runs-on: ubuntu-latest
 
     steps:
@@ -52,4 +52,4 @@ jobs:
         SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
       run: |
         source ~/sitkpy/bin/activate
-        ~/sitkpy/bin/pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook 
+        ~/sitkpy/bin/pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
