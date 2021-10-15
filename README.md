@@ -2,7 +2,7 @@
 
 ![Ubuntu](https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/workflows/Ubuntu%20Pytest/badge.svg)
 &nbsp;&nbsp;![Windows](https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/workflows/Windows%20Pytest/badge.svg)
-[![http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/)
+&nbsp;&nbsp;[![http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/)
 
 http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/
 
