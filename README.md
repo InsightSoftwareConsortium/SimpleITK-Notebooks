@@ -2,6 +2,9 @@
 
 ![Ubuntu](https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/workflows/Ubuntu%20Pytest/badge.svg)
 &nbsp;&nbsp;![Windows](https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/workflows/Windows%20Pytest/badge.svg)
+&nbsp;&nbsp;[![http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/)
+
+http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/
 
 
 [SimpleITK](https://itk.org/Wiki/SimpleITK) is an abstraction layer and wrapper around the Insight Segmentation and Registration Toolkit [(ITK)](http://www.itk.org). It is available in the following programming languages: C++, Python, R, Java, C#, Lua, Tcl and Ruby.
