@@ -16,10 +16,11 @@ def shrink_decorator(size):
             shrink_filter = sitk.ShrinkImageFilter()
             shrink_filter.SetShrinkFactor(size)
             return shrink_filter.Execute(func(*args, **kwargs))
+
         return func_and_resize
+
     return inner_decorator
 
-if os.environ.get('SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT'):
+
+if os.environ.get("SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT"):
     sitk.ReadImage = shrink_decorator(4)(sitk.ReadImage)
-
-
