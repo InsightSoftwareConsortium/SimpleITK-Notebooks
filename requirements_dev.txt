@@ -1,3 +1,4 @@
+black[jupyter]
 pytest
 markdown
 lxml
