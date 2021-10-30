@@ -1,0 +1,12 @@
+sphinx
+furo
+sphinx-copybutton
+nbsphinx
+numpy
+matplotlib
+ipywidgets
+scipy
+pandas
+numba
+multiprocess
+SimpleITK
