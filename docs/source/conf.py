@@ -17,12 +17,12 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Okapi3'
-copyright = '2021, Itk people'
+project = 'SimpleITK-Notebooks'
+copyright = '2021, Itk'
 author = 'Itk people'
 
 # The full version, including alpha/beta/rc tags
-release = '10/2021'
+release = '11/2021'
 
 
 # -- General configuration ---------------------------------------------------
