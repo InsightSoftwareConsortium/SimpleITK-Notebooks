@@ -2,7 +2,7 @@ import SimpleITK as sitk
 import matplotlib.pyplot as plt
 
 from ipywidgets import interact, interactive
-from ipywidgets import widgets
+from ipywidgets import widgets 
 
 
 def myshow(img, title=None, margin=0.05, dpi=80, cmap="gray"):
