@@ -18,8 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'SimpleITK-Notebooks'
-copyright = '2021, Itk'
-author = 'Itk people'
+copyright = 'NumFOCUS'
 
 # The full version, including alpha/beta/rc tags
 release = '11/2021'
