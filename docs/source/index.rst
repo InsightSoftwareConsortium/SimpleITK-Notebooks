@@ -9,6 +9,10 @@ Contents can be used for:
 * As a basis for your teaching activities.  
 * As a basis for your research activities.  
 
+.. toctree::
+   :maxdepth: 2
+
+   readme_link
 
 
 
