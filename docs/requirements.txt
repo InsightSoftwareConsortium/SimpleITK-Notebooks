@@ -10,3 +10,4 @@ pandas
 numba
 multiprocess
 SimpleITK
+nbsphinx_link

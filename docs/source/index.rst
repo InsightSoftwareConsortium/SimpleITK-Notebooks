@@ -12,7 +12,7 @@ Contents can be used for:
 .. toctree::
    :maxdepth: 2
 
-   readme_link
+   00_Setup
 
 
 

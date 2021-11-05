@@ -31,7 +31,8 @@ release = '11/2021'
 # ones.
 extensions = [
     'sphinx_copybutton',
-    'nbsphinx'
+    'nbsphinx',
+    'nbsphinx_link'
 ]
 nbsphinx_allow_errors = True
 nbsphinx_execute = 'never'
