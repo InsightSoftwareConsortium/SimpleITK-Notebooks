@@ -10,10 +10,8 @@ Contents can be used for:
 * As a basis for your research activities.  
 
 .. toctree::
-   :maxdepth: 2
 
-   00_Setup
-
+   my_nb
 
 
 

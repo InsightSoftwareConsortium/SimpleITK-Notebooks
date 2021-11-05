@@ -30,9 +30,9 @@ release = '11/2021'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'nbsphinx_link',
     'sphinx_copybutton',
     'nbsphinx',
-    'nbsphinx_link'
 ]
 nbsphinx_allow_errors = True
 nbsphinx_execute = 'never'
