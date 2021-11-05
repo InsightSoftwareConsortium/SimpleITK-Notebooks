@@ -11,7 +11,7 @@ Contents can be used for:
 
 .. toctree::
 
-   my_nb
+   00_Setup
 
 
 
