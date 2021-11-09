@@ -15,6 +15,8 @@ Contents can be used for:
     :glob:
     
     Python/02_Pythonic_Image.ipynb
+    Python/31_Levelset_Segmentation
+    Python/32_Watersheds_Segmentation
     
 
 
