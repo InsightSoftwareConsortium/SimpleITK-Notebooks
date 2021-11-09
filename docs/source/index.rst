@@ -13,7 +13,7 @@ Contents can be used for:
 .. toctree::
     :maxdepth: 2
     :glob:
-    
+    Python/00_Setup
     Python/02_Pythonic_Image.ipynb
     Python/31_Levelset_Segmentation
     Python/32_Watersheds_Segmentation
