@@ -11,4 +11,4 @@ build
 .*.swp
 .mha
 .jpg
-docs/source/hello.ipynb # local helper script 
+docs/source/hello.ipynb
