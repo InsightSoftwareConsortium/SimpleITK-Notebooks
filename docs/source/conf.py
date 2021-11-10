@@ -77,7 +77,7 @@ exclude_notobooks = [
 #"Python/35_Segmentation_Shape_Analysis.ipynb",
 #"Python/36_Microscopy_Colocalization_Distance_Analysis.ipynb",
 #"Python/51_VH_Segmentation1.ipynb",
-#"Python/55_VH_Resample.ipynb",
+"Python/55_VH_Resample.ipynb",
 #"Python/56_VH_Registration1.ipynb",
 #"Python/60_Registration_Introduction.ipynb",
 #"Python/61_Registration_Introduction_Continued.ipynb",
