@@ -14,6 +14,30 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+# PreProcessing:
+from pathlib import Path
+import shutil
+print("########################")
+print("########################")
+print("########################")
+print("########################")
+
+ROOT_DIR = Path.cwd().parent.parent
+print(ROOT_DIR )
+
+COPYFROM = ROOT_DIR 
+COPYTO = ROOT_DIR / "docs" / "source"
+print(COPYFROM)
+print(COPYTO)
+folders = ["Python", "Data", "Utilities"]
+for num, folder in enumerate(folders): 
+    print("######")
+    folder_from = COPYFROM/ folder
+    folder_to = COPYTO /folder
+    print(f"{folder_from}")
+    print(f"{folder_to}")
+    shutil.copytree(folder_from, folder_to)
+    print("******DONE*******")
 
 # -- Project information -----------------------------------------------------
 
