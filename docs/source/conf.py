@@ -43,6 +43,9 @@ for num, folder in enumerate(folders):
     shutil.copytree(folder_from, folder_to)
     print("******DONE*******")
 
+
+
+
 # delete all notebooks that are not wanted
 NEWLOCATION = ROOT_DIR / "docs" / "source"
 exclude_notobooks = [
@@ -86,6 +89,30 @@ for nb in exclude_notobooks:
     excluded_notebook = NEWLOCATION/nb
     print(excluded_notebook)
     excluded_notebook.unlink()
+
+base_directory = NEWLOCATION / "Python"
+suffix = ".ipynb"
+file_names = [
+    subp
+    for subp in base_directory.rglob("*") if (suffix == subp.suffix)
+]
+file_names.sort()
+print(*file_names, sep="\n")
+
+# replace all sitk show occurences:
+from pathlib import Path
+for num, notebook in enumerate(file_names): # comment out the  sitk.Show line in all notebooks
+    print("######")
+    print(f"Notebook Number {num} with the name {notebook}")
+    original= "sitk.Show("
+    #replacement= "#sitk.Show("  # because this handles sitk.Show in a "try" environment in 04_Image_Display.ipynb, this line did not work
+    replacement = "hello_world = 42 ### original line was sITK.Show("
+
+    path =  Path(notebook)
+    original_content= path.read_text()
+    new_content= original_content.replace(original,replacement)
+    print(f"Occurences changed: {(len(new_content)-len(original_content))/(len(replacement)-len(original)) }")
+    path.write_text(new_content)
 
 
 # -- Project information -----------------------------------------------------
