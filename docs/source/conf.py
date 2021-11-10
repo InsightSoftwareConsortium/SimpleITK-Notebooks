@@ -19,17 +19,6 @@
 from pathlib import Path
 import shutil
 
-## deleting all files in docs/source, when they should exist
-# DOCS_SOURCE_DIR = Path.cwd()  / "source"
-# print(DOCS_SOURCE_DIR)
-
-# folders = ["Python", "Data", "Utilities"]
-# for folder in folders:
-#     print(DOCS_SOURCE_DIR / folder)
-#     try:
-#         shutil.rmtree(DOCS_SOURCE_DIR/folder)
-#     except FileNotFoundError:
-#         print(f"Directory {DOCS_SOURCE_DIR/folder} was not yet in docs/source, so not deleted.")
 
 # Copy notebooks to source
 
