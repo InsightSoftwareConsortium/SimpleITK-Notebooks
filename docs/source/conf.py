@@ -15,8 +15,24 @@
 # sys.path.insert(0, os.path.abspath('.'))
 
 # PreProcessing:
+
 from pathlib import Path
 import shutil
+
+## deleting all files in docs/source, when they should exist
+# DOCS_SOURCE_DIR = Path.cwd()  / "source"
+# print(DOCS_SOURCE_DIR)
+
+# folders = ["Python", "Data", "Utilities"]
+# for folder in folders:
+#     print(DOCS_SOURCE_DIR / folder)
+#     try:
+#         shutil.rmtree(DOCS_SOURCE_DIR/folder)
+#     except FileNotFoundError:
+#         print(f"Directory {DOCS_SOURCE_DIR/folder} was not yet in docs/source, so not deleted.")
+
+# Copy notebooks to source
+
 print("########################")
 print("########################")
 print("########################")
@@ -24,7 +40,6 @@ print("########################")
 
 ROOT_DIR = Path.cwd().parent.parent
 print(ROOT_DIR )
-# Copy notebooks to source
 COPYFROM = ROOT_DIR 
 COPYTO = ROOT_DIR / "docs" / "source"
 print(COPYFROM)
@@ -52,13 +67,13 @@ exclude_notobooks = [
 "Python/11_Progress.ipynb",
 "Python/20_Expand_With_Interpolators.ipynb",
 "Python/21_Transforms_and_Resampling.ipynb",
-"Python/22_Transforms.ipynb",
+#"Python/22_Transforms.ipynb",
 "Python/300_Segmentation_Overview.ipynb",
 "Python/30_Segmentation_Region_Growing.ipynb",
-"Python/31_Levelset_Segmentation.ipynb",
-"Python/32_Watersheds_Segmentation.ipynb",
-"Python/33_Segmentation_Thresholding_Edge_Detection.ipynb",
-"Python/34_Segmentation_Evaluation.ipynb",
+#"Python/31_Levelset_Segmentation.ipynb",
+#"Python/32_Watersheds_Segmentation.ipynb",
+#"Python/33_Segmentation_Thresholding_Edge_Detection.ipynb",
+#"Python/34_Segmentation_Evaluation.ipynb",
 "Python/35_Segmentation_Shape_Analysis.ipynb",
 "Python/36_Microscopy_Colocalization_Distance_Analysis.ipynb",
 "Python/51_VH_Segmentation1.ipynb",
