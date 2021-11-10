@@ -34,7 +34,7 @@ extensions = [
     'nbsphinx'
 ]
 nbsphinx_allow_errors = True
-nbsphinx_execute = 'never'
+#nbsphinx_execute = 'never'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
