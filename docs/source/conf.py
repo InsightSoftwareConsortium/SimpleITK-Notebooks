@@ -106,6 +106,7 @@ extensions = [
     'sphinx_copybutton',
     'nbsphinx'
 ]
+nbsphinx_timeout = 10000 
 nbsphinx_allow_errors = True
 #nbsphinx_execute = 'never'
 
