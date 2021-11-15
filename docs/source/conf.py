@@ -53,7 +53,7 @@ exclude_notobooks = [
 #"Python/04_Image_Display.ipynb",
 #"Python/05_Results_Visualization.ipynb",
 #"Python/10_matplotlibs_imshow.ipynb",
-#"Python/11_Progress.ipynb",
+"Python/11_Progress.ipynb",
 #"Python/20_Expand_With_Interpolators.ipynb",
 #"Python/21_Transforms_and_Resampling.ipynb",
 #"Python/22_Transforms.ipynb",
