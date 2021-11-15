@@ -48,7 +48,7 @@ Contents can be used for:
     Python/70_Data_Augmentation.ipynb
     Python/71_Trust_But_Verify.ipynb
 
-
+ 
 
 Repository on GitHub:
 https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks
