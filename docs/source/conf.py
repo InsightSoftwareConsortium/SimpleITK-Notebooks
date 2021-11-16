@@ -71,15 +71,15 @@ exclude_notobooks = [
 #"Python/60_Registration_Introduction.ipynb",
 #"Python/61_Registration_Introduction_Continued.ipynb",
 #"Python/62_Registration_Tuning.ipynb",
-"Python/63_Registration_Initialization.ipynb",
+#"Python/63_Registration_Initialization.ipynb",
 "Python/64_Registration_Memory_Time_Tradeoff.ipynb",
 "Python/65_Registration_FFD.ipynb",
 "Python/66_Registration_Demons.ipynb",
-"Python/67_Registration_Semiautomatic_Homework.ipynb",
-"Python/68_Registration_Errors.ipynb",
-"Python/69_x-ray-panorama.ipynb",
-"Python/70_Data_Augmentation.ipynb",
-"Python/71_Trust_But_Verify.ipynb",
+#"Python/67_Registration_Semiautomatic_Homework.ipynb",
+#"Python/68_Registration_Errors.ipynb",
+#"Python/69_x-ray-panorama.ipynb",
+#"Python/70_Data_Augmentation.ipynb",
+#"Python/71_Trust_But_Verify.ipynb",
 ]
 
 for nb in exclude_notobooks:
