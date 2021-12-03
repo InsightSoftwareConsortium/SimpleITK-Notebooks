@@ -1141,7 +1141,9 @@ class PairedPointDataManipulation(object):
         display(self.ui)
 
         # Create a figure.
-        self.fig, self.axes = plt.subplots(1, 1, True, True, figsize=self.figure_size)
+        self.fig, self.axes = plt.subplots(
+            nrows=1, ncols=1, sharex=True, sharey=True, figsize=self.figure_size
+        )
 
         self.fig.canvas.mpl_connect("button_press_event", self.on_press)
         self.fig.canvas.mpl_connect("motion_notify_event", self.on_motion)
