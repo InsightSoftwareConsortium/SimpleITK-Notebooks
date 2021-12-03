@@ -1,3 +1,5 @@
+import SimpleITK as sitk
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -51,6 +53,12 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 html_theme = 'furo'
+html_title = f"SITK Notebooks Version {sitk.__version__}"
+
+html_logo = '_static/organe_itk_banner.svg'
+html_favicon = '_static/orange_itk_icon.svg'
+
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
