@@ -374,6 +374,7 @@ fiducial
 fiducial's
 fiducials
 floordiv
+forall
 fp
 frac
 fronto
