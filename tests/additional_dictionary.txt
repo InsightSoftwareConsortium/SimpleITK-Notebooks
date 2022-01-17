@@ -69,6 +69,8 @@ Doxygen
 EachIteration
 EndEvent
 Etienne
+EvaluateAtContinuousIndex
+EvaluateAtPhysicalPoint
 ExhaustiveOptimizer
 ExpandImageFilter
 FFD
