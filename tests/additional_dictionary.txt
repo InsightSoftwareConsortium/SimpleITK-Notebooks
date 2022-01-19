@@ -425,6 +425,7 @@ metadata
 metric's
 metricvalue
 mha
+mhd
 midas
 minima
 multiprocess
@@ -438,6 +439,7 @@ nbextension
 nm
 nms
 np
+nrrd
 num
 numberOfIterations
 numberOfSteps
@@ -494,6 +496,7 @@ sRGB
 sagittal
 scaleFactors
 scipy
+seg
 segBlobs
 segChannel
 segmentations
