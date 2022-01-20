@@ -13,12 +13,7 @@ from enchant.tokenize import Filter, EmailFilter, URLFilter
 from enchant import DictWithPWL
 
 from lxml.html import document_fromstring, etree
-try:
-   # Python 3
-   from urllib.request import urlopen, URLError
-except ImportError:
-   from urllib2 import urlopen, URLError
-
+from urllib.request import urlopen, URLError, Request
 
 
 """
@@ -206,7 +201,9 @@ class Test_notebooks(object):
                        url = 'file:' + urllib.request.pathname2url(document_link[2])
                     else:  # Remote file.
                        url = document_link[2]
-                    urlopen(url)
+                    # mimic a web browser request, otherwise some sites return
+                    # "HTTP Error 403: Forbidden" to prevent web scraping
+                    urlopen(Request(url, headers={'User-Agent':'Mozilla/5.0'}))
                  except URLError:
                     broken_links.append(url)
               if broken_links:
