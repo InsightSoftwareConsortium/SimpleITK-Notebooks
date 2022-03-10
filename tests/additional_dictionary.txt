@@ -194,6 +194,7 @@ Nelder
 NiftiImageIO
 NrrdImageIO
 Nyquist
+OpenCV
 OpenI
 Optimizers
 Orthop
@@ -203,6 +204,7 @@ PNGImageIO
 POPI
 PairedPointDataManipulation
 PasteImageFilter
+PermuteAxes
 Photogrammetric
 Photometric
 PixelIDValueEnum
