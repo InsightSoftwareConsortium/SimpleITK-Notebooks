@@ -35,6 +35,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: mxschmitt/action-tmate@v3
     - uses: actions/cache@v2
       with:
         path: |
