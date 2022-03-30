@@ -13,9 +13,14 @@ import SimpleITK as sitk
 def shrink_decorator(size):
     def inner_decorator(func):
         def func_and_resize(*args, **kwargs):
+            original_image = func(*args, **kwargs)
             shrink_filter = sitk.ShrinkImageFilter()
             shrink_filter.SetShrinkFactor(size)
-            return shrink_filter.Execute(func(*args, **kwargs))
+            f_and_s_image = shrink_filter.Execute(original_image)
+            # Copy metadata dictionary
+            for key in original_image.GetMetaDataKeys():
+                f_and_s_image.SetMetaData(key, original_image.GetMetaData(key))
+            return f_and_s_image
 
         return func_and_resize
 
