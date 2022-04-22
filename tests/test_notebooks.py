@@ -79,7 +79,8 @@ class Test_notebooks(object):
                              ['00_Setup.ipynb',
                               '01_Image_Basics.ipynb',
                               '02_Pythonic_Image.ipynb',
-                              '03_Image_Details.ipynb',
+                              pytest.param('03_Image_Details.ipynb', marks=pytest.mark.skipif(os.environ.get('GITHUB_ACTIONS')=='true', \
+                                                                                                            reason="on GitHub runners, nbconvert intermittently fails with dead kernel, even after reducing notebook memory usage")),
                               '04_Image_Display.ipynb',
                               '05_Results_Visualization.ipynb',
                               '10_matplotlibs_imshow.ipynb',
