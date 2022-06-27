@@ -97,6 +97,7 @@ GeodesicActiveContour
 GetArrayFromImage
 GetArrayViewFromImage
 GetCenter
+GetGDCMSeriesFileNames
 GetHeight
 GetInverse
 GetMetaData
@@ -273,6 +274,7 @@ StimulateImageIO
 Subsampling
 SymmetricForcesDemonsRegistrationFilter
 TIFFImageIO
+TMPDIR
 TRE
 TREs
 ThresholdSegmentation
@@ -357,6 +359,7 @@ defaultPixelValue
 deformable
 dev
 dimensionality
+dir
 disp
 displaystyle
 dissociations
@@ -369,6 +372,7 @@ eikonal
 endospore
 endospores
 env
+environ
 estimateLearningRate
 et
 euler
@@ -455,6 +459,7 @@ optimizerScales
 optimizers
 originalControlPointDisplacements
 originalDisplacements
+os
 otsu
 outlier
 outputDirection
@@ -541,6 +546,7 @@ supersampling
 sys
 sz
 tempdir
+tempfile
 textrm
 tfm
 tgz
