@@ -509,6 +509,7 @@ seg
 segBlobs
 segChannel
 segmentations
+shm
 sigmoid
 sitk
 sitkAnnulus
