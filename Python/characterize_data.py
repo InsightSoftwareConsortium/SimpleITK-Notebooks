@@ -6,6 +6,7 @@ import sys
 import shutil
 import subprocess
 import platform
+import matplotlib.pyplot as plt
 
 # We use the multiprocess package instead of the official
 # multiprocessing as it currently has several issues as discussed
@@ -21,9 +22,9 @@ import tempfile
 MAX_PROCESSES = 15
 
 """
-This script inspects/charachterizes images in a given directory structure. It
-recuresivly traverses the directories and either inspects the files one by one
-or if in DICOM series inspection mode, inspects the data on a per series basis 
+This script inspects/characterizes images in a given directory structure. It
+recursively traverses the directories and either inspects the files one by one
+or if in DICOM series inspection mode, inspects the data on a per series basis
 (all 2D series files combined into a single 3D image).
 
 To run the script one needs to specify:
@@ -31,26 +32,26 @@ To run the script one needs to specify:
     2. Output file name.
     3. The analysis type to perform per_file or per_series. The latter indicates
        we are only interested in DICOM files. When run using per_file empty lines
-       in the results file are due to: 
+       in the results file are due to:
            a. The file is not an image or is a corrupt image file.
            b. SimpleITK was unable to read the image file (contact us with an example).
     4. Optional SimpleITK imageIO to use. The default value is
        the empty string, indicating that all file types should be read.
-       To see the set of ImageIO types supported by your version of SimpleITK, 
-       call ImageFileReader::GetRegisteredImageIOs() or simply print an 
+       To see the set of ImageIO types supported by your version of SimpleITK,
+       call ImageFileReader::GetRegisteredImageIOs() or simply print an
        ImageFileReader object.
-    5. Optional exteranl applications to run. Their return value (zero or 
+    5. Optional external applications to run. Their return value (zero or
        non zero) is used to log success or failure. A nice example is the
        dciodvfy program from David Clunie (https://www.dclunie.com/dicom3tools.html)
        which validates compliance with the DICOM standard.
-    6. When the external applications are provided corrosponding column headings
+    6. When the external applications are provided corresponding column headings
        are also required. These are used in the output csv file.
     7. Optional metadata keys. These are image specific keys such as DICOM tags
        or other metadata tags that may be found in the image. The content of the
        tags is written to the result file.
-    8. When the metadata tags are provided corrosponding column headings
+    8. When the metadata tags are provided corresponding column headings
        are also required. These are used in the output csv file.
-    
+
 Examples:
 Run a generic file analysis:
 python characterize_data.py ../Data/ Output/generic_image_data_report.csv per_file \
@@ -61,6 +62,12 @@ python characterize_data.py ../Data/ Output/generic_image_data_report.csv per_fi
 Run a DICOM series based analysis:
 python characterize_data.py ../Data/ Output/DICOM_image_data_report.csv per_series \
 --metadata_keys "0008|0060" "0018|5101" --metadata_keys_headings "modality" "radiographic view"
+
+Output:
+The raw information is written to the specified output file (e.g. output.csv).
+Additionally, minimal analysis of the raw information is performed:
+1. If there are duplicate images these are reported in output_duplicates.csv.
+2. Two figures: output_image_size_distribution.pdf and output_min_max_intensity_distribution.pdf
 """
 
 
@@ -187,10 +194,10 @@ def inspect_single_file(file_name, imageIO="", meta_data_keys=[], external_progr
                 # external program fails (returns non zero value).
                 subprocess.run([p, file_name], check=True, capture_output=True)
                 file_info[current_index] = "succeeded"
-            except:
+            except Exception:
                 file_info[current_index] = "failed"
             current_index = current_index + 1
-    except:
+    except Exception:
         pass
     return file_info
 
@@ -205,7 +212,7 @@ def inspect_files(
     """
     Iterate over a directory structure and return a pandas dataframe with the relevant information for the
     image files. This also includes non image files. The resulting dataframe will only include the file name
-    if that file wasn't successfuly read by SimpleITK. The two reasons for failure are: (1) the user specified
+    if that file wasn't successfully read by SimpleITK. The two reasons for failure are: (1) the user specified
     imageIO isn't compatible with the file format (user is only interested in reading jpg and the file
     format is mha) or (2) the file could not be read by the SimpleITK IO (corrupt file or unexpected limitation of
     SimpleITK).
@@ -224,7 +231,7 @@ def inspect_files(
                                   the return value 'succeeded' or 'failed' is recorded. This
                                   is useful for example if you need to validate conformance
                                   to a standard such as DICOM.
-    additional_column_names (list(str)): Column names corrosponding to the contents of the
+    additional_column_names (list(str)): Column names corresponding to the contents of the
                                          meta_data_keys and external_programs lists.
     Returns
     -------
@@ -277,7 +284,7 @@ def inspect_files(
 
 def inspect_single_series(series_data, meta_data_keys=[]):
     """
-    Inspect a single DICOM series (DICOM heirarchy of patient-study-series-image).
+    Inspect a single DICOM series (DICOM hierarchy of patient-study-series-image).
     This can be a single file, or multiple files such as a CT or
     MR volume.
 
@@ -330,7 +337,7 @@ def inspect_single_series(series_data, meta_data_keys=[]):
                 if reader.HasMetaDataKey(0, k):
                     img.SetMetaData(k, reader.GetMetaData(0, k))
             inspect_image(img, series_info, current_index, meta_data_keys)
-    except:
+    except Exception:
         pass
     return series_info
 
@@ -349,7 +356,7 @@ def inspect_series(root_dir, meta_data_keys=[], additional_column_names=[]):
                     images from the series are under the root_dir.
     meta_data_keys(list(str)): The series meta-data dictionary keys whose value we want to
                                inspect.
-    additional_column_names (list(str)): Column names corrosponding to the contents of the
+    additional_column_names (list(str)): Column names corresponding to the contents of the
                                          meta_data_keys list.
     Returns
     -------
@@ -460,16 +467,104 @@ def main(argv=None):
             additional_column_names=args.metadata_keys_headings
             + args.external_applications_headings,
         )
-        df.to_csv(args.output_file, index=False)
-        sys.exit(0)
-    if args.analysis_type == "per_series":
+    elif args.analysis_type == "per_series":
         df = inspect_series(
             args.root_of_data_directory,
             meta_data_keys=args.metadata_keys,
             additional_column_names=args.metadata_keys_headings,
         )
-        df.to_csv(args.output_file, index=False)
-        sys.exit(0)
+    # save the raw information
+    df.to_csv(args.output_file, index=False)
+
+    # minimal analysis on the image information, detect image duplicates and plot the image size
+    # distribution and distribution of min/max intensity values of scalar
+    # images
+    image_counts = (
+        df["MD5 intensity hash"].dropna().value_counts().reset_index(name="count")
+    )
+    duplicates = df[
+        df["MD5 intensity hash"].isin(image_counts[image_counts["count"] > 1]["index"])
+    ].sort_values(by=["MD5 intensity hash"])
+    if not duplicates.empty:
+        duplicates.to_csv(
+            f"{os.path.splitext(args.output_file)[0]}_duplicates.csv", index=False
+        )
+
+    size_counts = (
+        df["image size"]
+        .astype("string")
+        .dropna()
+        .value_counts()
+        .reset_index(name="count")
+    )
+    if not size_counts.empty:
+        # Compute appropriate size for figure using a specific font size
+        # based on stack-overflow: https://stackoverflow.com/questions/35127920/overlapping-yticklabels-is-it-possible-to-control-cell-size-of-heatmap-in-seabo
+        fontsize_pt = 8
+        dpi = 72.27
+
+        # compute the matrix height in points and inches
+        matrix_height_pt = fontsize_pt * len(size_counts)
+        matrix_height_in = matrix_height_pt / dpi
+
+        # compute the required figure height
+        top_margin = 0.04  # in percentage of the figure height
+        bottom_margin = 0.04  # in percentage of the figure height
+        figure_height = matrix_height_in / (1 - top_margin - bottom_margin)
+
+        # build the figure instance with the desired height
+        fig, ax = plt.subplots(
+            figsize=(6, figure_height),
+            gridspec_kw=dict(top=1 - top_margin, bottom=bottom_margin),
+        )
+
+        ax.tick_params(axis="y", labelsize=fontsize_pt)
+        ax.tick_params(axis="x", labelsize=fontsize_pt)
+        ax.xaxis.get_major_locator().set_params(integer=True)
+        ax = size_counts.plot.barh(
+            x="index",
+            y="count",
+            xlabel="image size",
+            ylabel="# of images",
+            legend=None,
+            ax=ax,
+        )
+        ax.bar_label(
+            ax.containers[0], fontsize=fontsize_pt
+        )  # add the number at the top of each bar
+        plt.savefig(
+            f"{os.path.splitext(args.output_file)[0]}_image_size_distribution.pdf",
+            bbox_inches="tight",
+        )
+
+    min_intensities = df["min intensity"].dropna()
+    max_intensities = df["max intensity"].dropna()
+    if not min_intensities.empty:
+        fig, ax = plt.subplots()
+        ax.yaxis.get_major_locator().set_params(integer=True)
+        ax.hist(
+            min_intensities,
+            bins=256,
+            alpha=0.5,
+            label="min intensity",
+            color="blue",
+        )
+        ax.hist(
+            max_intensities,
+            bins=256,
+            alpha=0.5,
+            label="max intensity",
+            color="green",
+        )
+        plt.legend()
+        plt.xlabel("intensity")
+        plt.ylabel("# of images")
+        plt.savefig(
+            f"{os.path.splitext(args.output_file)[0]}_min_max_intensity_distribution.pdf",
+            bbox_inches="tight",
+        )
+
+    sys.exit(0)
 
 
 if __name__ == "__main__":
