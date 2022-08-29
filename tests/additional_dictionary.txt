@@ -413,6 +413,7 @@ intra
 invertible
 ipywidgets
 iso
+itertools
 jn
 jpg
 jupyter
