@@ -1,4 +1,4 @@
-SimpleITK>=2.1.0
+SimpleITK>=2.2.0
 jupyter
 matplotlib
 ipywidgets

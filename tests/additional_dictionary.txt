@@ -69,6 +69,8 @@ Doxygen
 EachIteration
 EndEvent
 Etienne
+EvaluateAtContinuousIndex
+EvaluateAtPhysicalPoint
 ExhaustiveOptimizer
 ExpandImageFilter
 FFD
@@ -411,6 +413,7 @@ intra
 invertible
 ipywidgets
 iso
+itertools
 jn
 jpg
 jupyter
