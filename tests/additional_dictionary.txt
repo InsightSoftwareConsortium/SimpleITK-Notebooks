@@ -175,7 +175,9 @@ Lobb
 Léon
 MATLAB
 MATLAB's
+MAXXY
 MINCImageIO
+MINXY
 MRCImageIO
 MacCallum
 MacOS
