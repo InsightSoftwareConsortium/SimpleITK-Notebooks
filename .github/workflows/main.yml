@@ -82,5 +82,6 @@ jobs:
       run: python Utilities/downloaddata.py Data/ Data/manifest.json
     - name: run the test
       env: 
+        ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS: 1
         SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
       run: pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
