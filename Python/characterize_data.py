@@ -473,7 +473,8 @@ def main(argv=None):
             meta_data_keys=args.metadata_keys,
             additional_column_names=args.metadata_keys_headings,
         )
-    # save the raw information
+    # save the raw information, create directory structure if it doesn't exist
+    os.makedirs(os.path.dirname(args.output_file), exist_ok=True)
     df.to_csv(args.output_file, index=False)
 
     # minimal analysis on the image information, detect image duplicates and plot the image size
