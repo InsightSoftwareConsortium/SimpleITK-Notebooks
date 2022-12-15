@@ -54,6 +54,11 @@ jobs:
         key: notebook-data-${{ hashFiles('Data/manifest.json') }}
         restore-keys: |
           notebook-data-${{ hashFiles('Data/manifest.json') }}
+    - name: print env
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          printenv
+        fi
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
