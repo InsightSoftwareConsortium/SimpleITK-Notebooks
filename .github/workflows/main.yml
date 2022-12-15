@@ -55,6 +55,7 @@ jobs:
         restore-keys: |
           notebook-data-${{ hashFiles('Data/manifest.json') }}
     - name: print env
+      shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           printenv
