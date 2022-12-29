@@ -64,7 +64,7 @@ jobs:
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt-get update
-          sudo apt-get install enchant
+          sudo apt-get install enchant-2
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew update
           brew install enchant
