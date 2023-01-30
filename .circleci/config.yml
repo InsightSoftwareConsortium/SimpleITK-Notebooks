@@ -1,0 +1,72 @@
+version: 2
+
+jobs:
+  lint:
+    executor: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install and run black for notebooks
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install black[jupyter]
+        black --check --diff --verbose Python
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.7', '3.10']
+    machine: 
+      image: ubuntu-2004:current
+    resource_class: large
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      id: cache
+      with:
+        path: |
+          Data
+        key: notebook-data-${{ hashFiles('Data/manifest.json') }}
+        restore-keys: |
+          notebook-data-${{ hashFiles('Data/manifest.json') }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    # on windows, the pyenchant package includes enchant
+    - name: Install enchant on non windows systems
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo apt-get update
+          sudo apt-get install enchant-2
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          brew update
+          brew install enchant
+        fi
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements_dev.txt
+        jupyter nbextension enable --py --sys-prefix widgetsnbextension
+    - name: Install SimpleITK from test PyPi from manually launched workflow
+      if: ${{ inputs.testPyPi }}
+      run: pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple SimpleITK
+    - name: Download data
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: python Utilities/downloaddata.py Data/ Data/manifest.json
+    - name: run the test
+      env: 
+        SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
+      run: pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
+
+workflows:
+  test_notebooks:
+    jobs:
+      - lint
+      - test:
+          requires:
+            - lint
