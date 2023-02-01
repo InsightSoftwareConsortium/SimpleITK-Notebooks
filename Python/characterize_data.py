@@ -406,7 +406,6 @@ def inspect_series(root_dir, meta_data_keys=[], additional_column_names=[]):
 
 
 def main(argv=None):
-
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "root_of_data_directory", help="path to the topmost directory containing data"

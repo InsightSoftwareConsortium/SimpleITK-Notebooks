@@ -46,27 +46,32 @@ import warnings
 
 # http://stackoverflow.com/questions/2028517/python-urllib2-progress-hook
 
+
 def url_download_report(bytes_so_far, url_download_size, total_size):
     percent = float(bytes_so_far) / total_size
     percent = round(percent * 100, 2)
     if bytes_so_far > url_download_size:
         # Note that the carriage return is at the begining of the
-        # string and not the end. This accomodates usage in 
+        # string and not the end. This accomodates usage in
         # IPython usage notebooks. Otherwise the string is not
         # displayed in the output.
-        sys.stdout.write("\rDownloaded %d of %d bytes (%0.2f%%)" %
-                         (bytes_so_far, total_size, percent))
+        sys.stdout.write(
+            "\rDownloaded %d of %d bytes (%0.2f%%)"
+            % (bytes_so_far, total_size, percent)
+        )
         sys.stdout.flush()
     if bytes_so_far >= total_size:
-        sys.stdout.write("\rDownloaded %d of %d bytes (%0.2f%%)\n" %
-                         (bytes_so_far, total_size, percent))
+        sys.stdout.write(
+            "\rDownloaded %d of %d bytes (%0.2f%%)\n"
+            % (bytes_so_far, total_size, percent)
+        )
         sys.stdout.flush()
-        
- 
+
+
 def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=None):
     # Use the urllib2 to download the data. The Requests package, highly
     # recommended for this task, doesn't support the file scheme so we opted
-    # for urllib2 which does.  
+    # for urllib2 which does.
 
     try:
         # Python 3
@@ -74,7 +79,7 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
     except ImportError:
         from urllib2 import urlopen, URLError, HTTPError
     from xml.dom import minidom
-    
+
     # Open the url
     try:
         url_response = urlopen(url)
@@ -110,6 +115,7 @@ def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=N
                 report_hook(bytes_so_far, url_download_size, total_size)
     return "Downloaded Successfully"
 
+
 # http://stackoverflow.com/questions/600268/mkdir-p-functionality-in-python?rq=1
 def mkdir_p(path):
     try:
@@ -120,16 +126,21 @@ def mkdir_p(path):
         else:
             raise
 
-#http://stackoverflow.com/questions/2536307/decorators-in-the-python-standard-lib-deprecated-specifically
+
+# http://stackoverflow.com/questions/2536307/decorators-in-the-python-standard-lib-deprecated-specifically
 def deprecated(func):
     """This is a decorator which can be used to mark functions
     as deprecated. It will result in a warning being emmitted
     when the function is used."""
 
     def new_func(*args, **kwargs):
-        warnings.simplefilter('always', DeprecationWarning) #turn off filter 
-        warnings.warn("Call to deprecated function {}.".format(func.__name__), category=DeprecationWarning, stacklevel=2)
-        warnings.simplefilter('default', DeprecationWarning) #reset filter
+        warnings.simplefilter("always", DeprecationWarning)  # turn off filter
+        warnings.warn(
+            "Call to deprecated function {}.".format(func.__name__),
+            category=DeprecationWarning,
+            stacklevel=2,
+        )
+        warnings.simplefilter("default", DeprecationWarning)  # reset filter
         return func(*args, **kwargs)
 
     new_func.__name__ = func.__name__
@@ -137,18 +148,22 @@ def deprecated(func):
     new_func.__dict__.update(func.__dict__)
     return new_func
 
+
 def get_servers():
     import os
+
     servers = list()
     # NIAID S3 data store
-    servers.append( "https://s3.amazonaws.com/simpleitk/public/notebooks/SHA512/%(hash)" )
+    servers.append("https://s3.amazonaws.com/simpleitk/public/notebooks/SHA512/%(hash)")
     # Girder server hosted by kitware
-    servers.append("https://data.kitware.com/api/v1/file/hashsum/sha512/%(hash)/download")
+    servers.append(
+        "https://data.kitware.com/api/v1/file/hashsum/sha512/%(hash)/download"
+    )
     # Local file store
-    if 'ExternalData_OBJECT_STORES' in os.environ.keys():
-        local_object_stores = os.environ['ExternalData_OBJECT_STORES']
+    if "ExternalData_OBJECT_STORES" in os.environ.keys():
+        local_object_stores = os.environ["ExternalData_OBJECT_STORES"]
         for local_object_store in local_object_stores.split(";"):
-          servers.append( "file://{0}/SHA512/%(hash)".format(local_object_store) )
+            servers.append("file://{0}/SHA512/%(hash)".format(local_object_store))
     return servers
 
 
@@ -156,31 +171,35 @@ def output_hash_is_valid(known_sha512, output_file):
     sha512 = hashlib.sha512()
     if not os.path.exists(output_file):
         return False
-    with open(output_file, 'rb') as fp:
-        for url_download in iter(lambda: fp.read(128 * sha512.block_size), b''):
+    with open(output_file, "rb") as fp:
+        for url_download in iter(lambda: fp.read(128 * sha512.block_size), b""):
             sha512.update(url_download)
     retreived_sha512 = sha512.hexdigest()
     return retreived_sha512 == known_sha512
 
 
-def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, force=False):
+def fetch_data_one(
+    onefilename, output_directory, manifest_file, verify=True, force=False
+):
     import tarfile, zipfile
-    
-    with open(manifest_file, 'r') as fp:
+
+    with open(manifest_file, "r") as fp:
         manifest = json.load(fp)
-    assert onefilename in manifest, "ERROR: {0} does not exist in {1}".format(onefilename, manifest_file)
+    assert onefilename in manifest, "ERROR: {0} does not exist in {1}".format(
+        onefilename, manifest_file
+    )
 
     sys.stdout.write("Fetching {0}\n".format(onefilename))
     output_file = os.path.realpath(os.path.join(output_directory, onefilename))
     data_dictionary = manifest[onefilename]
-    sha512 = data_dictionary['sha512']
+    sha512 = data_dictionary["sha512"]
     # List of places where the file can be downloaded from
     all_urls = []
     for url_base in get_servers():
         all_urls.append(url_base.replace("%(hash)", sha512))
     if "url" in data_dictionary:
-        all_urls.append(data_dictionary["url"])    
-        
+        all_urls.append(data_dictionary["url"])
+
     new_download = False
 
     for url in all_urls:
@@ -195,32 +214,35 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
                 break
             # If the file exists this means the hash is invalid we have a problem.
             elif os.path.exists(output_file):
-                    error_msg = "File " + output_file
-                    error_msg += " has incorrect hash value, " + sha512 + " was expected."
-                    raise Exception(error_msg)
+                error_msg = "File " + output_file
+                error_msg += " has incorrect hash value, " + sha512 + " was expected."
+                raise Exception(error_msg)
 
-    # Did not find the file anywhere.        
+    # Did not find the file anywhere.
     if not os.path.exists(output_file):
-        error_msg = "File " + "\'"  + os.path.basename(output_file) +"\'"
-        error_msg += " could not be found in any of the following locations:\n" 
+        error_msg = "File " + "'" + os.path.basename(output_file) + "'"
+        error_msg += " could not be found in any of the following locations:\n"
         error_msg += ", ".join(all_urls)
         raise Exception(error_msg)
-    
+
     if not new_download and verify:
         # If the file was part of an archive then we don't verify it. These
         # files are only verfied on download
-        if ( not "archive" in data_dictionary) and ( not output_hash_is_valid(sha512, output_file) ):
+        if (not "archive" in data_dictionary) and (
+            not output_hash_is_valid(sha512, output_file)
+        ):
             # Attempt to download if sha512 is incorrect.
-            fetch_data_one(onefilename, output_directory, manifest_file, verify, 
-                           force=True)
-    # If the file is in an archive, unpack it.                          
+            fetch_data_one(
+                onefilename, output_directory, manifest_file, verify, force=True
+            )
+    # If the file is in an archive, unpack it.
     if tarfile.is_tarfile(output_file) or zipfile.is_zipfile(output_file):
         tmp_output_file = output_file + ".tmp"
-        os.rename(output_file, tmp_output_file)        
+        os.rename(output_file, tmp_output_file)
         if tarfile.is_tarfile(tmp_output_file):
             archive = tarfile.open(tmp_output_file)
         if zipfile.is_zipfile(tmp_output_file):
-            archive = zipfile.ZipFile(tmp_output_file, 'r')
+            archive = zipfile.ZipFile(tmp_output_file, "r")
         archive.extractall(os.path.dirname(tmp_output_file))
         archive.close()
         os.remove(tmp_output_file)
@@ -229,11 +251,11 @@ def fetch_data_one(onefilename, output_directory, manifest_file, verify=True, fo
 
 
 def fetch_data_all(output_directory, manifest_file, verify=True):
-    with open(manifest_file, 'r') as fp:
+    with open(manifest_file, "r") as fp:
         manifest = json.load(fp)
     for filename in manifest:
-        fetch_data_one(filename, output_directory, manifest_file, verify, 
-                       force=False)
+        fetch_data_one(filename, output_directory, manifest_file, verify, force=False)
+
 
 def fetch_data(cache_file_name, verify=False, cache_directory_name="../Data"):
     """
@@ -246,17 +268,21 @@ def fetch_data(cache_file_name, verify=False, cache_directory_name="../Data"):
     """
     if not os.path.isabs(cache_directory_name):
         cache_root_directory_name = os.path.dirname(__file__)
-        cache_directory_name = os.path.join(cache_root_directory_name, cache_directory_name)
-    cache_manifest_file = os.path.join(cache_directory_name, 'manifest.json')
-    assert os.path.exists(cache_manifest_file), "ERROR, {0} does not exist".format(cache_manifest_file)
-    return fetch_data_one(cache_file_name, cache_directory_name, cache_manifest_file, verify=verify)
+        cache_directory_name = os.path.join(
+            cache_root_directory_name, cache_directory_name
+        )
+    cache_manifest_file = os.path.join(cache_directory_name, "manifest.json")
+    assert os.path.exists(cache_manifest_file), "ERROR, {0} does not exist".format(
+        cache_manifest_file
+    )
+    return fetch_data_one(
+        cache_file_name, cache_directory_name, cache_manifest_file, verify=verify
+    )
 
 
-if __name__ == '__main__':
-    
-        
+if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print('Usage: ' + sys.argv[0] + ' output_directory manifest.json')
+        print("Usage: " + sys.argv[0] + " output_directory manifest.json")
         sys.exit(1)
     output_directory = sys.argv[1]
     if not os.path.exists(output_directory):

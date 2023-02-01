@@ -7,6 +7,7 @@
 import os
 import SimpleITK as sitk
 
+
 #
 # A decorator which receives the size to shrink as a parameter.
 #
