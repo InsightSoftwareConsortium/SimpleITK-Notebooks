@@ -40,7 +40,6 @@ def myshow(img, title=None, margin=0.05, dpi=80, cmap="gray"):
     figsize = (1 + margin) * ysize / dpi, (1 + margin) * xsize / dpi
 
     def callback(z=None):
-
         extent = (0, xsize * spacing[1], ysize * spacing[0], 0)
 
         fig = plt.figure(figsize=figsize, dpi=dpi)
