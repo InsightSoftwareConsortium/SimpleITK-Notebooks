@@ -58,12 +58,8 @@ jobs:
             if [ "$RUNNER_OS" == "macos" ]; then
               brew install pyenv
               eval "$(pyenv init -)"
-              pyenv install << parameters.python-version >> || echo "Python version is already installed."
-              pyenv global << parameters.python-version >>
-              export PATH="$HOME/.pyenv/versions/<< parameters.python-version >>/bin:$PATH"
-              echo -e '\neval "$(pyenv init -)"' >> ~/.bash_profile
-              source ~/.bash_profile
-            elif [ "$RUNNER_OS" == "linux" ]; then
+            fi
+            if [ "$RUNNER_OS" == "macos" || "$RUNNER_OS" == "linux" ]; then
               pyenv install << parameters.python-version >> || echo "Python version is already installed."
               pyenv global << parameters.python-version >>
               export PATH="$HOME/.pyenv/versions/<< parameters.python-version >>/bin:$PATH"
