@@ -21,22 +21,13 @@ executors:
 
 jobs:
   lint:
-    machine:
-      image: ubuntu-2004:current
+    docker:
+      - image: circleci/python:3.9.7
     steps:
       - checkout
       - run:
-          name: Set up Python 3.9
-          command: |
-            sudo apt-get update
-            sudo apt-get install python3.9
-            sudo apt install python3.9-venv
-            python3.9 -m venv env
-            source env/bin/activate
-      - run:
           name: Install and run black for notebooks
           command: |
-            source env/bin/activate
             pip install --upgrade pip
             pip install black[jupyter]
             black --check --diff --verbose Python
@@ -58,8 +49,7 @@ jobs:
             if [ "$RUNNER_OS" == "macos" ]; then
               brew install pyenv
               eval "$(pyenv init -)"
-            fi
-            if [ "$RUNNER_OS" == "macos" || "$RUNNER_OS" == "linux" ]; then
+            elif [ "$RUNNER_OS" == "linux" ] || [ "$RUNNER_OS" == "macos" ] ; then
               pyenv install << parameters.python-version >> || echo "Python version is already installed."
               pyenv global << parameters.python-version >>
               export PATH="$HOME/.pyenv/versions/<< parameters.python-version >>/bin:$PATH"
@@ -117,5 +107,3 @@ workflows:
             branches:
                ignore:
                  - '**.md'
-
-
