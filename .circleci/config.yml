@@ -1,0 +1,109 @@
+version: 2.1
+
+executors:
+  windows: 
+    machine:
+      image: 'windows-server-2022-gui:current'
+    environment:
+      RUNNER_OS: windows
+    resource_class: windows.large
+  linux: 
+    machine:
+      image: ubuntu-2004:current
+    environment:
+      RUNNER_OS: linux
+    resource_class: large
+  macos: 
+    macos:
+      xcode: 13.4.1
+    environment:
+      RUNNER_OS: macos
+
+jobs:
+  lint:
+    docker:
+      - image: circleci/python:3.9.7
+    steps:
+      - checkout
+      - run:
+          name: Install and run black for notebooks
+          command: |
+            pip install --upgrade pip
+            pip install black[jupyter]
+            black --check --diff --verbose Python
+
+  test:
+    parameters:
+      os:
+        type: executor
+      python-version: 
+        type: string
+    executor: << parameters.os >>
+    steps:
+      - checkout
+      - restore_cache:
+          key: notebook-data-${{ checksum 'Data/manifest.json' }}
+      - run:
+          name: Install Python << parameters.python-version >>
+          command: |
+            if [ "$RUNNER_OS" == "macos" ]; then
+              brew install pyenv
+              eval "$(pyenv init -)"
+            elif [ "$RUNNER_OS" == "linux" ] || [ "$RUNNER_OS" == "macos" ] ; then
+              pyenv install << parameters.python-version >> || echo "Python version is already installed."
+              pyenv global << parameters.python-version >>
+              export PATH="$HOME/.pyenv/versions/<< parameters.python-version >>/bin:$PATH"
+              echo -e '\neval "$(pyenv init -)"' >> ~/.bash_profile
+              source ~/.bash_profile
+            elif [ "$RUNNER_OS" == "windows" ]; then
+              choco install python --version=<< parameters.python-version >> --allow-downgrade -y
+              python -m pip install --upgrade pip
+            fi
+      - run:
+          name: Install enchant on non windows systems <Linux>
+          command: |
+            if [ "$RUNNER_OS" == "linux" ]; then
+              sudo apt-get update
+              sudo apt-get install enchant-2
+            elif [ "$RUNNER_OS" == "macos" ]; then
+              brew update
+              brew install enchant
+            fi
+      - run:
+          name: Install dependencies
+          command: |
+            pip install --upgrade pip
+            pip install -r requirements_dev.txt
+            jupyter nbextension enable --py --sys-prefix widgetsnbextension
+      - run:
+          name: Install SimpleITK from test PyPi from manually launched workflow
+          command: |
+            pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple SimpleITK
+      - run:
+          name: Download data
+          command: |
+            python Utilities/downloaddata.py Data/ Data/manifest.json
+      - run:
+          name: run the test
+          command: |
+            export SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT=1
+            pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
+      - save_cache:
+          paths:
+            - Data
+          key: notebook-data-${{ checksum 'Data/manifest.json' }}
+workflows:
+  test_notebooks:
+    jobs:
+      - lint
+      - test:
+          matrix:
+            parameters:
+              python-version: ['3.7.6', '3.10.6']
+              os: ["linux", "macos", "windows"]
+          requires:
+            - lint
+          filters:
+            branches:
+               ignore:
+                 - '**.md'
