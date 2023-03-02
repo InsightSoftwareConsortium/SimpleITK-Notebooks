@@ -729,7 +729,7 @@ class MultiImageDisplay(object):
     ):
         # Using GetArray and not GetArrayView because we don't keep references
         # to the original images. If they are deleted outside the view would become
-        # invalid, so we use a copy wich guarentees that the gui is consistent.
+        # invalid, so we use a copy which guarantees that the GUI is consistent.
         npa_list = list(map(sitk.GetArrayFromImage, image_list))
 
         wl_range = []
@@ -841,7 +841,7 @@ class ROIDataAquisition(object):
         self.roi_selector.set_visible(False)
 
         # Display the data and the controls, first time we display the image is outside the "update_display" method
-        # as that method relies on the existance of a previous image which is removed from the figure.
+        # as that method relies on the existence of a previous image which is removed from the figure.
         self.axes.imshow(
             self.npa[self.slice_slider.value, :, :] if self.slice_slider else self.npa,
             cmap=plt.cm.Greys_r,
@@ -1114,7 +1114,7 @@ class PairedPointDataManipulation(object):
         self.fixed_fiducials = []
         self.fixed_targets = []
         # The moving fiducials will have noise, bias added to their coordinates. Noise
-        # model is zero mean Gaussian, isotropic and homogenous.
+        # model is zero mean Gaussian, isotropic and homogeneous.
         self.moving_fiducials = []
         self.moving_targets = []
         # This list will contain the FLE vectors, not the FLE. Allows us to

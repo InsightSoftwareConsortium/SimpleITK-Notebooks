@@ -314,7 +314,7 @@ def inspect_single_series(series_data, meta_data_keys=[]):
         # separate directories and SimpleITK expects them to be in a single directory
         # we use a tempdir and symbolic links to enable SimpleITK to read the series as
         # a single image. Additionally the files are renamed as they may have resided in
-        # separate directories with the same file name. Finally, unfortunatly on windows
+        # separate directories with the same file name. Finally, unfortunately on Windows
         # we copy the files to the tempdir as the os.symlink documentation says that
         # "On newer versions of Windows 10, unprivileged accounts can create symlinks
         # if Developer Mode is enabled. When Developer Mode is not available/enabled,

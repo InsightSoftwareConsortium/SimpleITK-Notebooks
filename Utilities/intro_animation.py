@@ -156,7 +156,7 @@ if __name__ == "__main__":
     registration_method.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
     registration_method.SetInitialTransform(transform)
 
-    # Add all the callbacks responsible for ploting
+    # Add all the callbacks responsible for plotting
     registration_method.AddCommand(sitk.sitkStartEvent, start_plot)
     registration_method.AddCommand(sitk.sitkEndEvent, end_plot)
     registration_method.AddCommand(
