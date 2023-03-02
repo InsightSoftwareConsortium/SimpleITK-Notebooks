@@ -830,14 +830,13 @@ class ROIDataAquisition(object):
         self.roi_selector = RectangleSelector(
             self.axes,
             lambda eclick, erelease: None,
-            drawtype="box",
             useblit=True,
             button=[1, 3],  # Left, right buttons only.
             minspanx=5,
             minspany=5,  # Ignore motion smaller than 5 pixels.
             spancoords="pixels",
             interactive=True,
-            rectprops=self.roi_display_properties,
+            props=self.roi_display_properties,
         )
         self.roi_selector.set_visible(False)
 
