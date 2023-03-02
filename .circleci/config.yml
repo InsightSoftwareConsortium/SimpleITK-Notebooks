@@ -22,7 +22,7 @@ executors:
 jobs:
   lint:
     docker:
-      - image: circleci/python:3.9.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - run:
