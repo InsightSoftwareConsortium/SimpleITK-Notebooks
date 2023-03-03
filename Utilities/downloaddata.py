@@ -30,7 +30,7 @@ Example json file contents:
  }
 }
 
-Notes: 
+Notes:
 1. The file we download can be inside an archive. In this case, the sha512
 checksum is that of the archive.
 
@@ -51,8 +51,8 @@ def url_download_report(bytes_so_far, url_download_size, total_size):
     percent = float(bytes_so_far) / total_size
     percent = round(percent * 100, 2)
     if bytes_so_far > url_download_size:
-        # Note that the carriage return is at the begining of the
-        # string and not the end. This accomodates usage in
+        # Note that the carriage return is at the beginning of the
+        # string and not the end. This accommodates usage in
         # IPython usage notebooks. Otherwise the string is not
         # displayed in the output.
         sys.stdout.write(
@@ -227,7 +227,7 @@ def fetch_data_one(
 
     if not new_download and verify:
         # If the file was part of an archive then we don't verify it. These
-        # files are only verfied on download
+        # files are only verified on download
         if (not "archive" in data_dictionary) and (
             not output_hash_is_valid(sha512, output_file)
         ):

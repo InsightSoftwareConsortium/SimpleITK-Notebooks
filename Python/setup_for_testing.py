@@ -1,5 +1,5 @@
 #
-# If we are in a continous testing environment that is memory constrained,
+# If we are in a continuous testing environment that is memory constrained,
 # for instance CircleCI which limits memory to 4Gb. We override the ReadImage
 # function using a decorator that also resamples the image.
 #

@@ -91,7 +91,7 @@ def generate_random_pointset(image, num_points):
     Returns:
         A list of points (tuples).
     """
-    # Continous random uniform point indexes inside the image bounds.
+    # Continuous random uniform point indexes inside the image bounds.
     point_indexes = np.multiply(
         np.tile(image.GetSize(), (num_points, 1)),
         np.random.random((num_points, image.GetDimension())),
