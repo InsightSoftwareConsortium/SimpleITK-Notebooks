@@ -23,6 +23,10 @@ on:
   # run testing on the first of each month 5am ET / 9am UTC 
   - cron: '0 9 1 * *'
 
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     runs-on: ubuntu-latest
