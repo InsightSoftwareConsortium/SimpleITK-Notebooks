@@ -54,9 +54,6 @@ jobs:
             if [ "$RUNNER_OS" == "linux" ] || [ "$RUNNER_OS" == "macos" ] ; then
               pyenv install << parameters.python-version >> || echo "Python version is already installed."
               pyenv global << parameters.python-version >>
-              export PATH="$HOME/.pyenv/versions/<< parameters.python-version >>/bin:$PATH"
-              echo -e '\neval "$(pyenv init -)"' >> ~/.bash_profile
-              source ~/.bash_profile
             elif [ "$RUNNER_OS" == "windows" ]; then
               choco install python --version=<< parameters.python-version >> --allow-downgrade -y
               python -m pip install --upgrade pip
@@ -75,6 +72,7 @@ jobs:
           name: Install dependencies
           command: |
             python --version
+            which python
             python -m pip install --upgrade pip
             python -m pip install -r requirements_dev.txt
             python -m jupyter nbextension enable --py --sys-prefix widgetsnbextension
