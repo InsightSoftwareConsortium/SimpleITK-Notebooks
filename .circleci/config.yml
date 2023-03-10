@@ -88,7 +88,7 @@ jobs:
             python Utilities/downloaddata.py Data/ Data/manifest.json
       - run:
           name: run the test
-          no_output_timeout: 30m
+          no_output_timeout: 45m
           command: |
             export SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT=1
             export PYTHONUNBUFFERED=1
