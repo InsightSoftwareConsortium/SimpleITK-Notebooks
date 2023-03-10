@@ -48,7 +48,7 @@ jobs:
           command: |
             if [ "$RUNNER_OS" == "macos" ]; then
               brew install pyenv
-              eval "$(pyenv init -)"
+              echo 'export PATH=$(pyenv root)/shims:"$PATH"' >> "$BASH_ENV"
             fi
 
             if [ "$RUNNER_OS" == "linux" ] || [ "$RUNNER_OS" == "macos" ] ; then
