@@ -104,7 +104,7 @@ workflows:
       - test:
           matrix:
             parameters:
-              python-version: ['3.7.6', '3.10.6']
+              python-version: ['3.7', '3.10']
               os: ["linux", "macos", "windows"]
           requires:
             - lint
