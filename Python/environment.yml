@@ -16,4 +16,4 @@ dependencies:
   - pandas
   - numba
   - multiprocess
-  - SimpleITK>=2.2.0
+  - SimpleITK>2.2.1
