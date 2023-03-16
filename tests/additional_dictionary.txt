@@ -16,6 +16,7 @@ BSplineTransform
 BSplineTransformInitializer
 BSplineTransformInitializerFilter
 Baum
+Bérard
 Biancardi
 Bimodal
 BinaryMorphologicalClosing
@@ -26,7 +27,6 @@ Biomechanics
 Bitwise
 Broyden
 Bruker
-Bérard
 CBCT
 CIRS
 CREATIS
@@ -165,6 +165,7 @@ LabelToRGBImageFilter
 LandmarkBasedTransformInitializer
 LaplacianSegmentation
 Lasser
+Léon
 Levelset
 Leygue
 Lim
@@ -172,7 +173,6 @@ Lingala
 Linte
 LoadPrivateTagsOn
 Lobb
-Léon
 MATLAB
 MATLAB's
 MAXXY
@@ -397,6 +397,7 @@ glyphs
 greyscale
 gui
 hausdorff
+hdf
 homography
 honours
 iff
@@ -595,6 +596,7 @@ vz
 widgetsnbextension
 wikimedia
 workflow
+xfm
 xn
 xpixels
 xtable
