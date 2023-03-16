@@ -42,7 +42,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 'notebook-data-${{ checksum "Data/manifest.json" }}'
+          key: notebook-data-{{ checksum "Data/manifest.json" }}
       - run:
           name: Install Python << parameters.python-version >>
           command: |
@@ -90,7 +90,7 @@ jobs:
       - save_cache:
           paths:
             - Data
-          key: 'notebook-data-${{ checksum "Data/manifest.json" }}'
+          key: notebook-data-{{ checksum "Data/manifest.json" }}
 workflows:
   test_notebooks:
     jobs:
