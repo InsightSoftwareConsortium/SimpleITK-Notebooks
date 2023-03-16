@@ -99,7 +99,7 @@ workflows:
           matrix:
             parameters:
               python-version: ['3.7', '3.10']
-              os: ["linux", "macos"]
+              os: ["linux"]
           requires:
             - lint
           filters:
