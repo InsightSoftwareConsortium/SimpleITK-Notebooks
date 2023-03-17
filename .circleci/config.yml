@@ -39,6 +39,7 @@ jobs:
       python-version:
         type: string
     executor: << parameters.os >>
+    parallelism: 4
     steps:
       - checkout
       - restore_cache:
@@ -86,7 +87,13 @@ jobs:
           command: |
             export SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT=1
             export PYTHONUNBUFFERED=1
-            python -m pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
+            cd Python
+            TESTS=$(circleci tests glob "*.ipynb" | circleci tests split --split-by=timings)
+            cd ..
+            for notebook in $TESTS
+            do
+              python -m pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook[$notebook]
+            done
       - save_cache:
           paths:
             - Data
