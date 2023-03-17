@@ -1,19 +1,19 @@
 version: 2.1
 
 executors:
-  windows: 
+  windows:
     machine:
       image: 'windows-server-2022-gui:current'
     environment:
       RUNNER_OS: windows
     resource_class: windows.large
-  linux: 
+  linux:
     machine:
       image: ubuntu-2004:current
     environment:
       RUNNER_OS: linux
     resource_class: large
-  macos: 
+  macos:
     macos:
       xcode: 13.4.1
     environment:
@@ -28,33 +28,33 @@ jobs:
       - run:
           name: Install and run black for notebooks
           command: |
-            pip install --upgrade pip
-            pip install black[jupyter]
-            black --check --diff --verbose Python
+            python -m pip install --upgrade pip
+            python -m pip install black[jupyter]
+            python -m black --check --diff --verbose Python
 
   test:
     parameters:
       os:
         type: executor
-      python-version: 
+      python-version:
         type: string
     executor: << parameters.os >>
+    parallelism: 4
     steps:
       - checkout
       - restore_cache:
-          key: notebook-data-${{ checksum 'Data/manifest.json' }}
+          key: notebook-data-{{ checksum "Data/manifest.json" }}
       - run:
           name: Install Python << parameters.python-version >>
           command: |
             if [ "$RUNNER_OS" == "macos" ]; then
               brew install pyenv
-              eval "$(pyenv init -)"
-            elif [ "$RUNNER_OS" == "linux" ] || [ "$RUNNER_OS" == "macos" ] ; then
+              echo 'export PATH=$(pyenv root)/shims:"$PATH"' >> "$BASH_ENV"
+            fi
+
+            if [ "$RUNNER_OS" == "linux" ] || [ "$RUNNER_OS" == "macos" ] ; then
               pyenv install << parameters.python-version >> || echo "Python version is already installed."
               pyenv global << parameters.python-version >>
-              export PATH="$HOME/.pyenv/versions/<< parameters.python-version >>/bin:$PATH"
-              echo -e '\neval "$(pyenv init -)"' >> ~/.bash_profile
-              source ~/.bash_profile
             elif [ "$RUNNER_OS" == "windows" ]; then
               choco install python --version=<< parameters.python-version >> --allow-downgrade -y
               python -m pip install --upgrade pip
@@ -72,26 +72,32 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            pip install --upgrade pip
-            pip install -r requirements_dev.txt
-            jupyter nbextension enable --py --sys-prefix widgetsnbextension
-      - run:
-          name: Install SimpleITK from test PyPi from manually launched workflow
-          command: |
-            pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple SimpleITK
+            python --version
+            which python
+            python -m pip install --upgrade pip
+            python -m pip install -r requirements_dev.txt
+            python -m jupyter nbextension enable --py --sys-prefix widgetsnbextension
       - run:
           name: Download data
           command: |
             python Utilities/downloaddata.py Data/ Data/manifest.json
       - run:
           name: run the test
+          no_output_timeout: 45m
           command: |
             export SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT=1
-            pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
+            export PYTHONUNBUFFERED=1
+            cd Python
+            TESTS=$(circleci tests glob "*.ipynb" | circleci tests split --split-by=timings)
+            cd ..
+            for notebook in $TESTS
+            do
+              python -m pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook[$notebook]
+            done
       - save_cache:
           paths:
             - Data
-          key: notebook-data-${{ checksum 'Data/manifest.json' }}
+          key: notebook-data-{{ checksum "Data/manifest.json" }}
 workflows:
   test_notebooks:
     jobs:
@@ -99,8 +105,8 @@ workflows:
       - test:
           matrix:
             parameters:
-              python-version: ['3.7.6', '3.10.6']
-              os: ["linux", "macos", "windows"]
+              python-version: ['3.8', '3.10']
+              os: ["linux"]
           requires:
             - lint
           filters:

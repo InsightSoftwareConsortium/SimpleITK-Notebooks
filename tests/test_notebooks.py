@@ -109,7 +109,13 @@ class Test_notebooks(object):
                 ),
             ),
             "36_Microscopy_Colocalization_Distance_Analysis.ipynb",
-            #'11_Progress.ipynb', # This notebook times out when run with nbconvert, due to javascript issues, so not tested.
+            pytest.param(
+                "11_Progress.ipynb",
+                marks=pytest.mark.skipif(
+                    True,
+                    reason="this notebook times out when run with nbconvert, due to javascript issues, so not tested",
+                ),
+            ),
             "51_VH_Segmentation1.ipynb",
             "55_VH_Resample.ipynb",
             "56_VH_Registration1.ipynb",
