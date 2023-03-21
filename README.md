@@ -1,6 +1,6 @@
 # SimpleITK Notebooks
 
-![Notebook Testing](https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/workflows/Notebook%20Testing/badge.svg)
+![GitHub Actions Notebook Testing](https://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks/workflows/GitHub%20Actions/badge.svg)&nbsp;&nbsp;[![CircleCI Notebook Testing](https://dl.circleci.com/status-badge/img/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/tree/master)
 &nbsp;&nbsp;[![http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/)
 &nbsp;&nbsp;[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
