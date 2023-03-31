@@ -18,6 +18,7 @@ executors:
       xcode: 13.4.1
     environment:
       RUNNER_OS: macos
+    resource_class: macos.x86.medium.gen2
 
 jobs:
   lint:
