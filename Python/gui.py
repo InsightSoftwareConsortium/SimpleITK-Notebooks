@@ -611,7 +611,7 @@ class MultiImageDisplay(object):
     slider. For color images the intensity control slider will be disabled. This
     allows us to display both color and grayscale images in the same figure with
     a consistent look to the controls. The range of the intensity slider is set
-    to be from top/bottom 2% of intensities (accomodating for outliers). Images
+    to be from top/bottom 2% of intensities (accommodating for outliers). Images
     are displayed either in horizontal or vertical layout, depending on the
     users choice.
     """
