@@ -18,6 +18,7 @@ executors:
       xcode: 13.4.1
     environment:
       RUNNER_OS: macos
+    resource_class: macos.x86.medium.gen2
 
 jobs:
   lint:
@@ -83,7 +84,7 @@ jobs:
             python Utilities/downloaddata.py Data/ Data/manifest.json
       - run:
           name: run the test
-          no_output_timeout: 45m
+          no_output_timeout: 1h
           command: |
             export SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT=1
             export PYTHONUNBUFFERED=1
