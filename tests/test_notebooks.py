@@ -318,10 +318,14 @@ class Test_notebooks(object):
 
         # Execute the notebook and allow errors (run all cells), output is
         # written to a temporary file which is automatically deleted.
-        # The delete=False is here to address an issue that Windows has with temporary files.
-        # On windows, if delete=True the file is kept open and cannot be read from.
+        # Windows has a bug with temporary files. On windows, if delete=True
+        # the file is kept open and cannot be read from
         # (see https://github.com/python/cpython/issues/58451).
-        with tempfile.NamedTemporaryFile(suffix=".ipynb", delete=False) as fout:
+        # We set the delete flag to False on windows and True on all
+        # other operating systems, circumventing the issue.
+        with tempfile.NamedTemporaryFile(
+            suffix=".ipynb", delete=os.name != "nt"
+        ) as fout:
             output_dir, output_fname = os.path.split(fout.name)
             args = [
                 "jupyter",
