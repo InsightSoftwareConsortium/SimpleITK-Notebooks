@@ -75,8 +75,8 @@ jobs:
         fi
     - name: Install dependencies
       run: |
-        pip install --upgrade pip
-        pip install -r requirements_dev.txt
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements_dev.txt
         jupyter nbextension enable --py --sys-prefix widgetsnbextension
     - name: Install SimpleITK from test PyPi from manually launched workflow
       if: ${{ inputs.testPyPi }}
