@@ -47,6 +47,8 @@ jobs:
       matrix:
         os: [macos-latest, windows-latest]
         python-version: ['3.8', '3.10']
+        inputs: ["00_ or 01_ or 02_ or 03_ or 04_ or 05_ or 10_ or 20_ or 21_ or 22_ or 300_ or 30_ or 31_ or 32_ or 33_ or 34_ or 35_ or 36_", "51_ or 55_ or 56_ or 60_ or 61_ or 62_ or 63_ or 64_ or 65_ or 66_ or 67_ or 68_ or 69_ or 70_ or 71_"
+]
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
@@ -87,4 +89,4 @@ jobs:
     - name: run the test
       env: 
         SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
-      run: pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook
+      run: pytest -v --tb=short -k "${{matrix.inputs}}" tests/test_notebooks.py::Test_notebooks::test_python_notebook
