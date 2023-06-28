@@ -126,6 +126,7 @@ IPython
 IQR
 ITK
 ITK's
+ITKMontage
 ImageFileReader
 ImageFileReader's
 ImageIO

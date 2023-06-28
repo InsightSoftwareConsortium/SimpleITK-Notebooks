@@ -72,7 +72,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install enchant-2
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew update
+          brew update-reset
           brew install enchant
         fi
     - name: Install dependencies
