@@ -77,7 +77,6 @@ jobs:
             which python
             python -m pip install --upgrade pip
             python -m pip install -r requirements_dev.txt
-            python -m jupyter nbextension enable --py --sys-prefix widgetsnbextension
       - run:
           name: Download data
           command: |
