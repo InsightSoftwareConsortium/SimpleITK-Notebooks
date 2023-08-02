@@ -35,11 +35,16 @@ Activate the virtual environment:
 On windows: ```sitkpy\Scripts\activate.bat```  
 On linux/osx: ```source sitkpy/bin/activate```
 
-Install all of the required packages and activate the ipywidgets notebook extension.
+Install all of the required packages.
 ```
 pip install -r Python/requirements.txt
+```
+
+On Jupyter Notebooks version 5.2 or older activate the ipywidgets notebook extension:
+```
 jupyter nbextension enable --py --sys-prefix widgetsnbextension
 ```
+
 The requirements.txt file lists the required packages ([see here](requirements.txt)).
 
 **Run the notebooks**
