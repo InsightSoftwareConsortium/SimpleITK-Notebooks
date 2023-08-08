@@ -483,7 +483,9 @@ def main(argv=None):
         df["MD5 intensity hash"].dropna().value_counts().reset_index(name="count")
     )
     duplicates = df[
-        df["MD5 intensity hash"].isin(image_counts[image_counts["count"] > 1]["index"])
+        df["MD5 intensity hash"].isin(
+            image_counts[image_counts["count"] > 1]["MD5 intensity hash"]
+        )
     ].sort_values(by=["MD5 intensity hash"])
     if not duplicates.empty:
         duplicates.to_csv(
@@ -522,7 +524,7 @@ def main(argv=None):
         ax.tick_params(axis="x", labelsize=fontsize_pt)
         ax.xaxis.get_major_locator().set_params(integer=True)
         ax = size_counts.plot.barh(
-            x="index",
+            x="image size",
             y="count",
             xlabel="image size",
             ylabel="# of images",
