@@ -68,6 +68,11 @@ The raw information is written to the specified output file (e.g. output.csv).
 Additionally, minimal analysis of the raw information is performed:
 1. If there are duplicate images these are reported in output_duplicates.csv.
 2. Two figures: output_image_size_distribution.pdf and output_min_max_intensity_distribution.pdf
+
+NOTE: For the same directory structure, the order of the rows in the output csv file will vary
+across operating systems (order of files in the "files" column also varies). This is a consequence
+of using os.walk to traverse the file system (internally os.walk uses os.scandir and that method's 
+documentation says "The entries are yielded in arbitrary order.").  
 """
 
 
@@ -179,7 +184,9 @@ def inspect_single_file(file_name, imageIO="", meta_data_keys=[], external_progr
     will be the file name (all other values will be either None or NaN).
     """
     file_info = [None] * (9 + len(meta_data_keys) + len(external_programs))
-    file_info[0] = file_name
+    # Using a list so that returned csv is consistent with the series based analysis (an
+    # image is defined by multiple files).
+    file_info[0] = [file_name]
     current_index = 1
     try:
         reader = sitk.ImageFileReader()
@@ -241,7 +248,7 @@ def inspect_files(
     if len(meta_data_keys) + len(external_programs) != len(additional_column_names):
         raise ValueError("Number of additional column names does not match expected.")
     column_names = [
-        "file name",
+        "files",
         "MD5 intensity hash",
         "image size",
         "image spacing",
@@ -405,7 +412,7 @@ def inspect_series(root_dir, meta_data_keys=[], additional_column_names=[]):
     return pd.DataFrame(res, columns=column_names)
 
 
-def main(argv=None):
+def characterize_data(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "root_of_data_directory", help="path to the topmost directory containing data"
@@ -566,8 +573,8 @@ def main(argv=None):
             bbox_inches="tight",
         )
 
-    sys.exit(0)
+    return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(characterize_data())
