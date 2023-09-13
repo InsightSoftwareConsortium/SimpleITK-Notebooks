@@ -80,8 +80,8 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install -r requirements_dev.txt
     - name: Install SimpleITK from test PyPi from manually launched workflow
-      if: ${{ inputs.testPyPi }}
-      run: pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple SimpleITK
+      if: 1 # ${{ inputs.testPyPi }}
+      run: pip install --upgrade --index-url https://test.pypi.org/simple/ SimpleITK
     - name: Download data
       if: steps.cache.outputs.cache-hit != 'true'
       run: python Utilities/downloaddata.py Data/ Data/manifest.json
