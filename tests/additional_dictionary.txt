@@ -192,6 +192,7 @@ MeanSquares
 MetaDataDictionaryArrayUpdateOn
 MetaImageIO
 MetricEvaluate
+NamedTemporaryFile
 Nanometers
 Narayanan
 Nayak
@@ -456,6 +457,7 @@ nm
 nms
 np
 nrrd
+nt
 num
 numberOfIterations
 numberOfSteps
