@@ -534,6 +534,8 @@ sitkFloat
 sitkGaussian
 sitkHammingWindowedSinc
 sitkInt
+sitkLabelGaussian
+sitkLabelLinear
 sitkLabelUInt
 sitkLanczosWindowedSinc
 sitkLinear
