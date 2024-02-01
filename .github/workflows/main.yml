@@ -20,9 +20,9 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python 3.10
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
     - name: Install and run black for notebooks
@@ -41,7 +41,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0 # fetch all history for all branches, required for the changed-files action
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       id: cache
       with:
         path: |
@@ -50,7 +50,7 @@ jobs:
         restore-keys: |
           notebook-data-${{ hashFiles('Data/manifest.json') }}
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     # on windows, the pyenchant package includes enchant
@@ -73,7 +73,7 @@ jobs:
       run: python Utilities/downloaddata.py Data/ Data/manifest.json
     - name: Get list of Python notebooks to test
       id: nbl
-      uses: tj-actions/changed-files@v41
+      uses: tj-actions/changed-files@v42
       with:
           files: Python/*.ipynb
     - name: Run the notebooks test
