@@ -59,17 +59,21 @@ class RegistrationPointDataAquisition(object):
         # Display the data and the controls, first time we display the images is outside the "update_display" method
         # as that method relies on the previous zoom factor which doesn't exist yet.
         self.fixed_axes.imshow(
-            self.fixed_npa[self.fixed_slider.value, :, :]
-            if self.fixed_slider
-            else self.fixed_npa,
+            (
+                self.fixed_npa[self.fixed_slider.value, :, :]
+                if self.fixed_slider
+                else self.fixed_npa
+            ),
             cmap=plt.cm.Greys_r,
             vmin=self.fixed_min_intensity,
             vmax=self.fixed_max_intensity,
         )
         self.moving_axes.imshow(
-            self.moving_npa[self.moving_slider.value, :, :]
-            if self.moving_slider
-            else self.moving_npa,
+            (
+                self.moving_npa[self.moving_slider.value, :, :]
+                if self.moving_slider
+                else self.moving_npa
+            ),
             cmap=plt.cm.Greys_r,
             vmin=self.moving_min_intensity,
             vmax=self.moving_max_intensity,
@@ -164,9 +168,11 @@ class RegistrationPointDataAquisition(object):
         # Draw the fixed image in the first subplot and the localized points.
         self.fixed_axes.clear()
         self.fixed_axes.imshow(
-            self.fixed_npa[self.fixed_slider.value, :, :]
-            if self.fixed_slider
-            else self.fixed_npa,
+            (
+                self.fixed_npa[self.fixed_slider.value, :, :]
+                if self.fixed_slider
+                else self.fixed_npa
+            ),
             cmap=plt.cm.Greys_r,
             vmin=self.fixed_min_intensity,
             vmax=self.fixed_max_intensity,
@@ -209,9 +215,11 @@ class RegistrationPointDataAquisition(object):
         # Draw the moving image in the second subplot and the localized points.
         self.moving_axes.clear()
         self.moving_axes.imshow(
-            self.moving_npa[self.moving_slider.value, :, :]
-            if self.moving_slider
-            else self.moving_npa,
+            (
+                self.moving_npa[self.moving_slider.value, :, :]
+                if self.moving_slider
+                else self.moving_npa
+            ),
             cmap=plt.cm.Greys_r,
             vmin=self.moving_min_intensity,
             vmax=self.moving_max_intensity,
@@ -1050,9 +1058,11 @@ class ROIDataAquisition(object):
         both min/max values.
         """
         return [
-            (roi_data[1], roi_data[2], roi_data[3])
-            if self.npa.ndim == 3
-            else (roi_data[1], roi_data[2])
+            (
+                (roi_data[1], roi_data[2], roi_data[3])
+                if self.npa.ndim == 3
+                else (roi_data[1], roi_data[2])
+            )
             for roi_data in self.rois
         ]
 
