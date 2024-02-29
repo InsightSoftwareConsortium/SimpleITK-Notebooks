@@ -2,7 +2,7 @@ version: 2
 formats: all
 
 build:
-  image: latest
+  os: ubuntu-22.04
 
 
 python:
@@ -12,4 +12,3 @@ python:
     - requirements: docs/requirements.txt
 
   system_packages: true
-
