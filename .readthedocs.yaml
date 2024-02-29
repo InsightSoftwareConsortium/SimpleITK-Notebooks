@@ -11,5 +11,3 @@ python:
   install:
     - requirements: docs/rtd-requirements.txt
     - requirements: docs/requirements.txt
-
-  system_packages: true
