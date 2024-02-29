@@ -3,10 +3,11 @@ formats: all
 
 build:
   os: ubuntu-22.04
+  tools:
+    python: "3.8"
 
 
 python:
-  version: 3.8
   install:
     - requirements: docs/rtd-requirements.txt
     - requirements: docs/requirements.txt
