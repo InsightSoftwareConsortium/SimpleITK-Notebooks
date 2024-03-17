@@ -73,7 +73,7 @@ jobs:
       run: python Utilities/downloaddata.py Data/ Data/manifest.json
     - name: Get list of Python notebooks to test
       id: nbl
-      uses: tj-actions/changed-files@v42
+      uses: tj-actions/changed-files@v43
       with:
           files: Python/*.ipynb
     - name: Run the notebooks test
