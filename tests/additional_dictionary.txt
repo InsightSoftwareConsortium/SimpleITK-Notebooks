@@ -1,7 +1,9 @@
+ACM
 ANTSNeighborhoodCorrelation
 API
 Acknowledgements
 AddTransform
+Adelson
 Affine
 AffineTransform
 Annulus
@@ -164,6 +166,7 @@ LabelOverlayImageFilter
 LabelShapeStatisticsImageFilter
 LabelToRGBImageFilter
 LandmarkBasedTransformInitializer
+Laplacian
 LaplacianSegmentation
 Lasser
 Léon
@@ -192,6 +195,7 @@ MeanSquares
 MetaDataDictionaryArrayUpdateOn
 MetaImageIO
 MetricEvaluate
+Multiresolution
 NamedTemporaryFile
 Nanometers
 Narayanan
