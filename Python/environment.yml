@@ -1,7 +1,6 @@
 name: sitkpy
 
 channels:
-  - defaults
   - conda-forge
 
 dependencies:
