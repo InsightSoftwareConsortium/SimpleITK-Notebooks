@@ -452,6 +452,11 @@ def characterize_data(argv=None):
         nargs="*",
         help="titles of the results columns for the metadata_keys",
     )
+    parser.add_argument(
+        "--ignore_problems",
+        action="store_true",
+        help="problematic files will not be listed if parameter is given on commandline",
+    )
 
     args = parser.parse_args(argv)
     if len(args.external_applications) != len(args.external_applications_headings):
@@ -479,6 +484,9 @@ def characterize_data(argv=None):
             meta_data_keys=args.metadata_keys,
             additional_column_names=args.metadata_keys_headings,
         )
+    # remove all rows associated with problematic files (non-image files or image files with problems)
+    if args.ignore_problems:
+        df.dropna(inplace=True)
     # save the raw information, create directory structure if it doesn't exist
     os.makedirs(os.path.dirname(args.output_file), exist_ok=True)
     df.to_csv(args.output_file, index=False)
