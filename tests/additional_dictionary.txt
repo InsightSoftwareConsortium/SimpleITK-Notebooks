@@ -160,6 +160,7 @@ Kamath
 LBFGS
 LSMImageIO
 LaTeX
+LabelContourFilter
 LabelContourImageFilter
 LabelMapContourOverlayImageFilter
 LabelOverlayImageFilter
