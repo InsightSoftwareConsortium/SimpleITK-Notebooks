@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 import SimpleITK as sitk
 import pandas as pd
 import numpy as np
