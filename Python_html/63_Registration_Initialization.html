@@ -7557,7 +7557,7 @@ a.anchor-link {
 <li>Use a sampling of the parameter space (useful mostly for low dimensional parameter spaces).</li>
 <li>Manual initialization - allow an operator to control transformation parameter settings directly using a GUI with visual feedback or identify multiple corresponding points in the two images and compute an initial rigid or affine transformation.</li>
 </ol>
-<p>In many cases we perform initialization in an automatic manner by making assumptions with regard to the contents of the image and the imaging protocol. For instance, if we expect that images were acquired with the patient in a known orientation we can align the geometric centers of the two volumes or the center of mass of the image contents if the anatomy is not centered in the image (this is what we previously did in <a href="60_Registration_Introduction.ipynb">this example</a>).</p>
+<p>In many cases we perform initialization in an automatic manner by making assumptions with regard to the contents of the image and the imaging protocol. For instance, if we expect that images were acquired with the patient in a known orientation we can align the geometric centers of the two volumes or the center of mass of the image contents if the anatomy is not centered in the image (this is what we previously did in <a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/60_Registration_Introduction.html">this example</a>).</p>
 <p>When the orientation is not known, or is known but incorrect, this approach will not yield a reasonable initial estimate for the registration.</p>
 <p>When working with clinical images, the DICOM tags define the orientation and position of the anatomy in the volume. The tags of interest are:</p>
 <ul>
