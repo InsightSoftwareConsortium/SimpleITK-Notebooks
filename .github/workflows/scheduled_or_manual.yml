@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.10
+    - name: Set up Python 3.12
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.12'
     - name: Install and run black for notebooks
       run: |
         python -m pip install --upgrade pip
@@ -36,7 +36,7 @@ jobs:
     strategy:
       matrix: #using macos-13 because pyenchant doesn't work on macos-latest (macos 14, arm64 architecture)
         os: [macos-13, windows-latest]
-        python-version: ['3.8', '3.11']
+        python-version: ['3.9', '3.12']
         inputs: ["00_ or 01_ or 02_ or 03_ or 04_ or 05_ or 10_ or 20_ or 21_ or 22_ or 300_ or 30_ or 31_ or 32_ or 33_ or 34_ or 35_ or 36_", "51_ or 55_ or 56_ or 60_ or 61_ or 62_ or 63_ or 64_", "65_ or 66_ or 67_ or 68_ or 69_ or 70_ or 71_"]
     runs-on: ${{ matrix.os }}
     steps:
