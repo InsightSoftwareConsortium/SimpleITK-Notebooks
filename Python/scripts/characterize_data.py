@@ -78,58 +78,44 @@ documentation says "The entries are yielded in arbitrary order.").
 """
 
 
-def inspect_image(sitk_image, image_info, current_index, meta_data_keys=[]):
+def inspect_image(sitk_image, image_info, meta_data_info):
     """
-    Inspect a SimpleITK image, return a list of parameters characterizing the image.
+    Inspect a SimpleITK image, and update the image_info dictionary with the values associated with the
+    contents of the meta_data_info.
 
     Parameters
     ----------
     sitk_image (SimpleITK.Image): Input image for inspection.
-    image_info (list): Image information is written to this list, starting at current_index.
-                       [,,,MD5 intensity hash,
-                        image size, image spacing, image origin, axis direction,
-                        pixel type, min intensity, max intensity,
-                        meta data_1...meta_data_n,,,]
-    current_index (int): Starting index into the image_info list.
-    meta_data_keys(list(str)): The image's meta-data dictionary keys whose value we want to
-                               inspect.
-    Returns
-    -------
-    index to the next empty entry in the image_info list.
-    The image_info list is filled with the following values:
-    MD5 intensity hash - Enable identification of duplicate images in terms of intensity.
-                         This is different from SimpleITK image equality where the
-                         same intensities with different image spacing/origin/direction cosine
-                         are considered different images as they occupy a different spatial
-                         region.
-    image size - number of pixels in each dimension.
-    pixel type - type of pixels (scalar - gray, vector - gray or color).
-    min/max intensity - if a scalar image, min and max values.
-    meta data_i - value of image's metadata dictionary for given key (e.g. .
+    image_info (dict): Image information is written to this dictionary (e.g. image_info["image size"] = "(512,512)").
+                           The image_info dict is filled with the following values:
+                           "MD5 intensity hash" - Enable identification of duplicate images in terms of intensity.
+                                                  This is different from SimpleITK image equality where the
+                                                  same intensities with different image spacing/origin/direction cosine
+                                                  are considered different images as they occupy a different spatial
+                                                  region.
+                           "image size" - number of pixels in each dimension.
+                           "pixel type" - type of pixels (scalar - gray, vector - gray or color).
+                           "min intensity"/"max intensity" - if a scalar image, min and max values.
+                           metadata values for the values listed in the meta_data_info dictionary (e.g. "radiographic view" : "AP").
+    meta_data_info(dict(str:str)): The meta-data information whose values will be reported.
+                                   Dictionary structure is description:meta_data_tag
+                                   (e.g. {"radiographic view" : "0018|5101", "modality" : "0008|0060"}).
     """
-    image_info[current_index] = hashlib.md5(
+    image_info["MD5 intensity hash"] = hashlib.md5(
         sitk.GetArrayViewFromImage(sitk_image)
     ).hexdigest()
-    current_index = current_index + 1
-    image_info[current_index] = sitk_image.GetSize()
-    current_index = current_index + 1
-    image_info[current_index] = sitk_image.GetSpacing()
-    current_index = current_index + 1
-    image_info[current_index] = sitk_image.GetOrigin()
-    current_index = current_index + 1
-    image_info[current_index] = sitk_image.GetDirection()
-    current_index = current_index + 1
+    image_info["image size"] = sitk_image.GetSize()
+    image_info["image spacing"] = sitk_image.GetSpacing()
+    image_info["image origin"] = sitk_image.GetOrigin()
+    image_info["axis direction"] = sitk_image.GetDirection()
     if (
         sitk_image.GetNumberOfComponentsPerPixel() == 1
     ):  # greyscale image, get the min/max pixel values
-        image_info[current_index] = sitk_image.GetPixelIDTypeAsString() + " gray"
-        current_index = current_index + 1
+        image_info["pixel type"] = sitk_image.GetPixelIDTypeAsString() + " gray"
         mmfilter = sitk.MinimumMaximumImageFilter()
         mmfilter.Execute(sitk_image)
-        image_info[current_index] = mmfilter.GetMinimum()
-        current_index = current_index + 1
-        image_info[current_index] = mmfilter.GetMaximum()
-        current_index = current_index + 1
+        image_info["min intensity"] = mmfilter.GetMinimum()
+        image_info["max intensity"] = mmfilter.GetMaximum()
     else:  # either a color image or a greyscale image masquerading as a color one
         pixel_type = sitk_image.GetPixelIDTypeAsString()
         channels = [
@@ -148,19 +134,18 @@ def inspect_image(sitk_image, image_info, current_index, meta_data_keys=[]):
                 pixel_type
                 + f" {sitk_image.GetNumberOfComponentsPerPixel()} channels color"
             )
-        image_info[current_index] = pixel_type
-        current_index = current_index + 3
+        image_info["pixel type"] = pixel_type
     img_keys = sitk_image.GetMetaDataKeys()
-    for k in meta_data_keys:
-        if k in img_keys:
-            image_info[current_index] = sitk_image.GetMetaData(k)
-        current_index = current_index + 1
-    return current_index
+    for k, v in meta_data_info.items():
+        if v in img_keys:
+            image_info[k] = sitk_image.GetMetaData(v)
 
 
-def inspect_single_file(file_name, imageIO="", meta_data_keys=[], external_programs=[]):
+def inspect_single_file(
+    file_name, imageIO="", meta_data_info={}, external_programs_info={}
+):
     """
-    Inspect a file using the specified imageIO, returning a list with the relevant information.
+    Inspect a file using the specified imageIO, returning a dictionary with the relevant information.
 
     Parameters
     ----------
@@ -168,44 +153,43 @@ def inspect_single_file(file_name, imageIO="", meta_data_keys=[], external_progr
     imageIO (str): Name of image IO to use. To see the list of registered image IOs use the
                    ImageFileReader::GetRegisteredImageIOs() or print an ImageFileReader.
                    The empty string indicates to read all file formats supported by SimpleITK.
-    meta_data_keys(list(str)): The image's meta-data dictionary keys whose value we want to
-                               inspect.
-    external_programs(list(str)): A list of programs we will run with the file_name as input
-                                  the return value 'succeeded' or 'failed' is recorded. This is useful
-                                  for example if you need to validate conformance to a standard
-                                  such as DICOM.
-
+    meta_data_info(dict(str:str)): The meta-data information whose values will be reported.
+                                   Dictionary structure is description:meta_data_tag
+                                   (e.g. {"radiographic view" : "0018|5101", "modality" : "0008|0060"}).
+    external_programs_info(dict(str:str)): A dictionary of programs that are run with the file_name as input
+                                  the return value 'succeeded' or 'failed' is recorded. This
+                                  is useful for example if you need to validate conformance
+                                  to a standard such as DICOM. Dictionary format is description:program (e.g.
+                                  {"DICOM compliant" : "path_to_dicom3tools/dciodvfy"}).
     Returns
     -------
-     list with the following entries: [file name, MD5 intensity hash,
+     dict with the following entries: file name, MD5 intensity hash,
                                        image size, image spacing, image origin, axis direction,
                                        pixel type, min intensity, max intensity,
                                        meta data_1...meta_data_n,
-                                       external_program_res_1...external_program_res_m]
-    If the given file is not readable by SimpleITK, the only meaningful entry in the list
-    will be the file name (all other values will be either None or NaN).
+                                       external_program_res_1...external_program_res_m
+    If the given file is not readable by SimpleITK, the only entry in the dictionary
+    will be the file name.
     """
-    file_info = [None] * (9 + len(meta_data_keys) + len(external_programs))
     # Using a list so that returned csv is consistent with the series based analysis (an
     # image is defined by multiple files).
-    file_info[0] = [file_name]
-    current_index = 1
+    file_info = {}
+    file_info["files"] = [file_name]
     try:
         reader = sitk.ImageFileReader()
         reader.SetImageIO(imageIO)
         reader.SetFileName(file_name)
         img = reader.Execute()
-        current_index = inspect_image(img, file_info, current_index, meta_data_keys)
-        for p in external_programs:
+        inspect_image(img, file_info, meta_data_info)
+        for k, p in external_programs_info.items():
             try:
                 # run the external programs, check the return value, and capture all output so it
                 # doesn't appear on screen. The CalledProcessError exception is raised if the
                 # external program fails (returns non zero value).
                 subprocess.run([p, file_name], check=True, capture_output=True)
-                file_info[current_index] = "succeeded"
+                file_info[k] = "succeeded"
             except Exception:
-                file_info[current_index] = "failed"
-            current_index = current_index + 1
+                file_info[k] = "failed"
     except Exception:
         pass
     return file_info
@@ -214,15 +198,14 @@ def inspect_single_file(file_name, imageIO="", meta_data_keys=[], external_progr
 def inspect_files(
     root_dir,
     imageIO="",
-    meta_data_keys=[],
-    external_programs=[],
-    additional_column_names=[],
+    meta_data_info={},
+    external_programs_info={},
 ):
     """
     Iterate over a directory structure and return a pandas dataframe with the relevant information for the
     image files. This also includes non image files. The resulting dataframe will only include the file name
     if that file wasn't successfully read by SimpleITK. The two reasons for failure are: (1) the user specified
-    imageIO isn't compatible with the file format (user is only interested in reading jpg and the file
+    imageIO isn't compatible with the file format (e.g. user is only interested in reading jpg and the file
     format is mha) or (2) the file could not be read by the SimpleITK IO (corrupt file or unexpected limitation of
     SimpleITK).
 
@@ -234,46 +217,33 @@ def inspect_files(
     imageIO (str): Name of image IO to use. To see the list of registered image IOs use the
                    ImageFileReader::GetRegisteredImageIOs() or print an ImageFileReader.
                    The empty string indicates to read all file formats supported by SimpleITK.
-    meta_data_keys(list(str)): The image's meta-data dictionary keys whose value we want to
-                               inspect.
-    external_programs(list(str)): A list of programs we will run with the file_name as input
+    meta_data_info(dict(str:str)): The meta-data information whose values will be reported.
+                                   Dictionary structure is description:meta_data_tag
+                                   (e.g. {"radiographic view" : "0018|5101", "modality" : "0008|0060"}).
+    external_programs_info(dict(str:str)): A dictionary of programs that are run with the file_name as input
                                   the return value 'succeeded' or 'failed' is recorded. This
                                   is useful for example if you need to validate conformance
-                                  to a standard such as DICOM.
-    additional_column_names (list(str)): Column names corresponding to the contents of the
-                                         meta_data_keys and external_programs lists.
+                                  to a standard such as DICOM. Dictionary format is description:program (e.g.
+                                  {"DICOM compliant" : "path_to_dicom3tools/dciodvfy"}).
     Returns
     -------
     pandas DataFrame: Each row in the data frame corresponds to a single file.
 
     """
-    if len(meta_data_keys) + len(external_programs) != len(additional_column_names):
-        raise ValueError("Number of additional column names does not match expected.")
-    column_names = [
-        "files",
-        "MD5 intensity hash",
-        "image size",
-        "image spacing",
-        "image origin",
-        "axis direction",
-        "pixel type",
-        "min intensity",
-        "max intensity",
-    ] + additional_column_names
     all_file_names = []
     for dir_name, subdir_names, file_names in os.walk(root_dir):
         all_file_names += [
             os.path.join(os.path.abspath(dir_name), fname) for fname in file_names
         ]
-    # Get list of lists describing the results and then combine into a dataframe, faster
+    # Get list of dictionaries describing the results and then combine into a dataframe, faster
     # than appending to the dataframe one by one. Use parallel processing to speed things up.
     if platform.system() == "Windows":
         res = map(
             partial(
                 inspect_single_file,
                 imageIO=imageIO,
-                meta_data_keys=meta_data_keys,
-                external_programs=external_programs,
+                meta_data_info=meta_data_info,
+                external_programs_info=external_programs_info,
             ),
             all_file_names,
         )
@@ -283,15 +253,15 @@ def inspect_files(
                 partial(
                     inspect_single_file,
                     imageIO=imageIO,
-                    meta_data_keys=meta_data_keys,
-                    external_programs=external_programs,
+                    meta_data_info=meta_data_info,
+                    external_programs_info=external_programs_info,
                 ),
                 all_file_names,
             )
-    return pd.DataFrame(res, columns=column_names)
+    return pd.DataFrame.from_dict(res)
 
 
-def inspect_single_series(series_data, meta_data_keys=[]):
+def inspect_single_series(series_data, meta_data_info={}):
     """
     Inspect a single DICOM series (DICOM hierarchy of patient-study-series-image).
     This can be a single file, or multiple files such as a CT or
@@ -301,24 +271,21 @@ def inspect_single_series(series_data, meta_data_keys=[]):
     ----------
     series_data (two entry tuple): First entry is study:series, second entry is the list of
                                    files comprising this series.
-    meta_data_keys(list(str)): The image's meta-data dictionary keys whose value we want to
-                               inspect.
+    meta_data_info(dict(str:str)): The meta-data information whose values will be reported.
+                                   Dictionary structure is description:meta_data_tag
+                                   (e.g. {"radiographic view" : "0018|5101", "modality" : "0008|0060"}).
     Returns
     -------
-     list with the following entries: [study:series, MD5 intensity hash,
-                                       image size, image spacing, image origin, axis direction,
-                                       pixel type, min intensity, max intensity,
-                                       meta data_1...meta_data_n]
+     dictionary containing all of the information about the series.
     """
-    series_info = [None] * (9 + len(meta_data_keys))
-    series_info[0] = series_data[1]
-    current_index = 1
+    series_info = {}
+    series_info["files"] = series_data[1]
     try:
         reader = sitk.ImageSeriesReader()
         reader.MetaDataDictionaryArrayUpdateOn()
         reader.LoadPrivateTagsOn()
         _, sid = series_data[0].split(":")
-        file_names = series_data[1]
+        file_names = series_info["files"]
         # As the files comprising a series with multiple files can reside in
         # separate directories and SimpleITK expects them to be in a single directory
         # we use a tempdir and symbolic links to enable SimpleITK to read the series as
@@ -342,16 +309,16 @@ def inspect_single_series(series_data, meta_data_keys=[]):
                 sitk.ImageSeriesReader_GetGDCMSeriesFileNames(tmpdirname, sid)
             )
             img = reader.Execute()
-            for k in meta_data_keys:
+            for k in meta_data_info.values():
                 if reader.HasMetaDataKey(0, k):
                     img.SetMetaData(k, reader.GetMetaData(0, k))
-            inspect_image(img, series_info, current_index, meta_data_keys)
+            inspect_image(img, series_info, meta_data_info)
     except Exception:
         pass
     return series_info
 
 
-def inspect_series(root_dir, meta_data_keys=[], additional_column_names=[]):
+def inspect_series(root_dir, meta_data_info={}):
     """
     Inspect all series found in the directory structure. A series does not have to
     be in a single directory (the files are located in the subtree and combined
@@ -363,27 +330,13 @@ def inspect_series(root_dir, meta_data_keys=[], additional_column_names=[]):
                     and inspect every series. If the series is comprised of multiple image files
                     they do not have to be in the same directory. The only expectation is that all
                     images from the series are under the root_dir.
-    meta_data_keys(list(str)): The series meta-data dictionary keys whose value we want to
-                               inspect.
-    additional_column_names (list(str)): Column names corresponding to the contents of the
-                                         meta_data_keys list.
+    meta_data_info(dict(str:str)): The meta-data information whose values will be reported.
+                                   Dictionary structure is description:meta_data_tag
+                                   (e.g. {"radiographic view" : "0018|5101", "modality" : "0008|0060"}).
     Returns
     -------
     pandas DataFrame: Each row in the data frame corresponds to a single file.
     """
-    if len(meta_data_keys) != len(additional_column_names):
-        raise ValueError("Number of additional column names does not match expected.")
-    column_names = [
-        "files",
-        "MD5 intensity hash",
-        "image size",
-        "image spacing",
-        "image origin",
-        "axis direction",
-        "pixel type",
-        "min intensity",
-        "max intensity",
-    ] + additional_column_names
     all_series_files = {}
     reader = sitk.ImageFileReader()
     # collect the file names of all series into a dictionary with the key being
@@ -405,13 +358,13 @@ def inspect_series(root_dir, meta_data_keys=[], additional_column_names=[]):
                     all_series_files[key] = [fname]
             except Exception:
                 pass
-    # Get list of lists describing the results and then combine into a dataframe, faster
+    # Get list of dictionaries describing the results and then combine into a dataframe, faster
     # than appending to the dataframe one by one.
     res = [
-        inspect_single_series(series_data, meta_data_keys)
+        inspect_single_series(series_data, meta_data_info)
         for series_data in all_series_files.items()
     ]
-    return pd.DataFrame(res, columns=column_names)
+    return pd.DataFrame.from_dict(res)
 
 
 def characterize_data(argv=None):
@@ -475,22 +428,25 @@ def characterize_data(argv=None):
         df = inspect_files(
             args.root_of_data_directory,
             imageIO=args.imageIO,
-            meta_data_keys=args.metadata_keys,
-            external_programs=args.external_applications,
-            additional_column_names=args.metadata_keys_headings
-            + args.external_applications_headings,
+            meta_data_info=dict(zip(args.metadata_keys_headings, args.metadata_keys)),
+            external_programs_info=dict(
+                zip(args.external_applications_headings, args.external_applications)
+            ),
         )
     elif args.analysis_type == "per_series":
         df = inspect_series(
             args.root_of_data_directory,
-            meta_data_keys=args.metadata_keys,
-            additional_column_names=args.metadata_keys_headings,
+            meta_data_info=dict(zip(args.metadata_keys_headings, args.metadata_keys)),
         )
-    # remove all rows associated with problematic files (non-image files or image files with problems)
+    # remove all rows associated with problematic files (non-image files or image files with problems).
+    # all the valid rows contain at least 2 non-na values so use that threshold when dropping rows.
     if args.ignore_problems:
-        df.dropna(inplace=True)
+        df.dropna(inplace=True, thresh=2)
     # save the raw information, create directory structure if it doesn't exist
-    os.makedirs(os.path.dirname(args.output_file), exist_ok=True)
+    dirname = os.path.dirname(args.output_file)
+    if not dirname:
+        dirname = "."
+    os.makedirs(dirname, exist_ok=True)
     df.to_csv(args.output_file, index=False)
 
     # minimal analysis on the image information, detect image duplicates and plot the image size
