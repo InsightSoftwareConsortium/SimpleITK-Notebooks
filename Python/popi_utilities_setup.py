@@ -1,6 +1,6 @@
 """
-Utilities specific to the POPI data: 
-* The label values used in the masks that segment the CT into air/body/lung. 
+Utilities specific to the POPI data:
+* The label values used in the masks that segment the CT into air/body/lung.
 * Function for reading the ground truth point data.
 * Function for displaying a spatio-temporal coronal image with segmented label contour overlay.
 * Function for displaying a coronal image with a set of segmentations (before and after registration).
