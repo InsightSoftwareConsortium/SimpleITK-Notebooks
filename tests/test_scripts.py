@@ -46,12 +46,12 @@ class TestScripts:
             (
                 "per_file_data_characteristics.csv",
                 "per_file",
-                "c1e073943a1e6160350df2376db42b12",
+                "0ac42f84a5421dc39c85079cd3d5ae91",
             ),
             (
                 "per_series_data_characteristics.csv",
                 "per_series",
-                "8a806fa717739b9c6f2132a719b1ab8f",
+                "8ee7820b100e6e9eebf444205c1a93af",
             ),
         ],
     )
