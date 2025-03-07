@@ -41,22 +41,24 @@ class TestScripts:
         return md5.hexdigest()
 
     @pytest.mark.parametrize(
-        "output_file, analysis_type, result_md5hash",
+        "output_file, analysis_type, user_configuration, result_md5hash",
         [
             (
                 "per_file_data_characteristics.csv",
                 "per_file",
-                "0ac42f84a5421dc39c85079cd3d5ae91",
+                "characterize_data_user_defaults.json",
+                "bdb2f2489287cf43b681afce1b5d00e8",
             ),
             (
                 "per_series_data_characteristics.csv",
                 "per_series",
-                "8ee7820b100e6e9eebf444205c1a93af",
+                "characterize_data_user_defaults.json",
+                "1c78bf68faf7f1a8fdb29e14ae276565",
             ),
         ],
     )
     def test_characterize_data(
-        self, output_file, analysis_type, result_md5hash, tmp_path
+        self, output_file, analysis_type, user_configuration, result_md5hash, tmp_path
     ):
         # NOTE: For now not testing pdf files. Setting the SOURCE_DATE_EPOCH
         # didn't resolve the variability across platforms, getting different
@@ -75,6 +77,8 @@ class TestScripts:
                 str(self.data_path / "CIRS057A_MR_CT_DICOM"),
                 str(output_dir / output_file),
                 analysis_type,
+                "--configuration_file",
+                str(self.data_path / user_configuration),
             ]
         )
         # csv files needs to be modified as follows before comparing to expected values:
@@ -91,9 +95,14 @@ class TestScripts:
                 lambda x: sorted([pathlib.Path(fname).name for fname in eval(x)])
             )
             df.to_csv(file, index=False)
+        # Below we convert the generators to lists and concatenate them. A nicer way of
+        # concatenating iterables with a large number of entries is to use itertools.chain().
+        # In our case, the number of entries is small (<5) and we don't want to add the dependency
+        # on the itertools package, so just convert to list.
         assert (
             self.files_md5(
-                ascii_file_list=output_dir.glob("*.csv"),
+                ascii_file_list=list(output_dir.glob("*.csv"))
+                + list(output_dir.glob("*.json")),
                 binary_file_list=[],  # output_dir.glob("*.pdf"),
             )
             == result_md5hash

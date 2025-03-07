@@ -45,50 +45,47 @@ def positive_int(i):
     raise argparse.ArgumentTypeError(f"Invalid argument ({i}), expected value > 0 .")
 
 
-# Class for loading optional configuration settings stored in a JSON file
-# via the argparse action. The configuration file settings override
-# the hard-coded default settings and are overridden by settings
-# provided on the commandline.
-class LoadOptionalFromJSONFile(argparse.Action):
-    def __init__(self, option_strings, internal_parser, *args, **kwargs):
-        super().__init__(option_strings=option_strings, *args, **kwargs)
-        self.internal_parser = internal_parser
+def load_optional_parameters(file_name, parser):
+    """
+    Loading optional argparse parameters from a JSON configuration file.
+    The contents of the JSON dictionary are run through the parser so that
+    they adhere to the same constraints as those imposed on the parameters
+    provided on the commandline.
 
-    def __call__(self, parser, namespace, values, option_string=None):
-        config_argv = []
-        with values as fp:
-            configuration_dict = json.load(fp)
-            # Convert dictionary to equivalent commandline entries
-            # prepend -- to keys as these are optional argparse parameters
-            for key, val in configuration_dict.items():
-                # boolean flags added only if they are true
-                if type(val) == bool:
-                    if val:
-                        config_argv.append(f"--{key}")
-                elif type(val) != list:
+    Parameters
+    ----------
+    file_name (Union[str, Path]): Name of JSON configuration file.
+    parser (argparse.Parser): Parser for the optional commandline parameters.
+    """
+    config_argv = []
+    with open(file_name, "r") as fp:
+        configuration_dict = json.load(fp)
+        # Convert dictionary to equivalent commandline entries
+        # prepend -- to keys as these are optional argparse parameters
+        for key, val in configuration_dict.items():
+            # boolean flags added only if they are true
+            if type(val) == bool:
+                if val:
                     config_argv.append(f"--{key}")
-                    config_argv.append(str(val))
-                # checking the list length so that errors in the file,
-                # empty list, are ignored
-                elif len(val) > 0:
-                    config_argv.append(f"--{key}")
-                    config_argv.extend([str(v) for v in val])
-        # parse the arguments and store in local config_data namespace
-        # calling parse_known_args and not parse_args so that unexpected arguments
-        # are ignored. Using parse_args results in an error if there
-        # are unexpected arguments.
-        config_data, additional_args = self.internal_parser.parse_known_args(
-            config_argv, namespace=None
+            elif type(val) != list:
+                config_argv.append(f"--{key}")
+                config_argv.append(str(val))
+            # checking the list length so that errors in the file,
+            # empty list, are ignored
+            elif len(val) > 0:
+                config_argv.append(f"--{key}")
+                config_argv.extend([str(v) for v in val])
+    # parse the arguments and store in local config_data namespace
+    # calling parse_known_args and not parse_args so that unexpected arguments
+    # are ignored. Using parse_args results in an error if there
+    # are unexpected arguments.
+    config_data, additional_args = parser.parse_known_args(config_argv, namespace=None)
+
+    if additional_args:
+        print(
+            f"Warning: unexpected arguments found in configuration file ({additional_args})."
         )
-        if additional_args:
-            print(
-                f"Warning: unexpected arguments found in configuration file ({additional_args})."
-            )
-        # add the contents to the external namespace only if it doesn't already
-        # contain the attribute (this means it wasn't given on the commandline)
-        for k, v in vars(config_data).items():
-            if getattr(namespace, k, None) is None:
-                setattr(namespace, k, v)
+    return vars(config_data)
 
 
 #
@@ -106,6 +103,7 @@ class RawDescriptionAndDefaultHelpFormatter(
 
 def inspect_grayscale_image(sitk_image, image_info):
     np_arr_view = sitk.GetArrayViewFromImage(sitk_image)
+    image_info["MD5 intensity hash"] = hashlib.md5(np_arr_view).hexdigest()
     mmfilter = sitk.MinimumMaximumImageFilter()
     mmfilter.Execute(sitk_image)
     image_info["min intensity"] = mmfilter.GetMinimum()
@@ -148,7 +146,6 @@ def inspect_image(sitk_image, image_info, meta_data_info, thumbnail_settings):
                               stored in image_info["thumbnail"].
     """
     np_arr_view = sitk.GetArrayViewFromImage(sitk_image)
-    image_info["MD5 intensity hash"] = hashlib.md5(np_arr_view).hexdigest()
     image_info["image size"] = sitk_image.GetSize()
     image_info["image spacing"] = sitk_image.GetSpacing()
     image_info["image origin"] = sitk_image.GetOrigin()
@@ -156,15 +153,19 @@ def inspect_image(sitk_image, image_info, meta_data_info, thumbnail_settings):
 
     if (
         sitk_image.GetNumberOfComponentsPerPixel() == 1
-    ):  # greyscale image, get measures of intensity location and spread the min/max pixel values
+    ):  # grayscale image, get measures of intensity location and spread the min/max pixel values
         image_info["pixel type"] = sitk_image.GetPixelIDTypeAsString() + " gray"
         inspect_grayscale_image(sitk_image, image_info)
-    else:  # either a color image or a greyscale image masquerading as a color one
+    else:  # either a color image or a grayscale image masquerading as a color one
         pixel_type = sitk_image.GetPixelIDTypeAsString()
         channels = [
             sitk.VectorIndexSelectionCast(sitk_image, i)
             for i in range(sitk_image.GetNumberOfComponentsPerPixel())
         ]
+        # if this multi-channel is actually a grayscale image, treat
+        # it as such, call inspect_grayscale_image on the first channel
+        # this will compute the intensity statistics and the md5 hash on
+        # the actual grayscale information
         if np.array_equal(
             sitk.GetArrayViewFromImage(channels[0]),
             sitk.GetArrayViewFromImage(channels[1]),
@@ -178,6 +179,7 @@ def inspect_image(sitk_image, image_info, meta_data_info, thumbnail_settings):
             )
             inspect_grayscale_image(channels[0], image_info)
         else:
+            image_info["MD5 intensity hash"] = hashlib.md5(np_arr_view).hexdigest()
             pixel_type = (
                 pixel_type
                 + f" {sitk_image.GetNumberOfComponentsPerPixel()} channels color"
@@ -651,7 +653,9 @@ def characterize_data(argv=None):
        with the summary image. The summary image is a faux volume where each slice is composed
        of multiple 2D grayscale thumbnails representing the original images. When the original
        image is a color image it is converted to grayscale. When the original image is 3D
-       it is converted to 2D via maximum intensity projection along a user specified axis.
+       it is converted to 2D via maximum intensity projection along a user specified axis. To
+       retain the original image's aspect ratio it is resized and padded to fit in the user
+       specified thumbnail size image.
 
     Examples:
     --------
@@ -732,9 +736,7 @@ def characterize_data(argv=None):
     opt_arg_parser = argparse.ArgumentParser(add_help=False)
     opt_arg_parser.add_argument(
         "--configuration_file",
-        type=open,
-        action=LoadOptionalFromJSONFile,
-        internal_parser=opt_arg_parser,  # additional parameter provided to the action
+        type=file_path,
         help="JSON configuration file containing settings for the optional parameters",
     )
     opt_arg_parser.add_argument(
@@ -859,6 +861,16 @@ def characterize_data(argv=None):
     )
 
     args = parser.parse_args(argv)
+    if args.configuration_file:
+        new_default_settings = load_optional_parameters(
+            args.configuration_file, opt_arg_parser
+        )
+        # Configuration file overrides the hard coded default settings
+        # which are then overridden by the commandline settings by
+        # calling the parse_args again.
+        parser.set_defaults(**new_default_settings)
+        args = parser.parse_args(argv)
+
     # keep a copy of the original settings before some are converted to
     # internal representations.
     save_dict = copy.deepcopy(vars(args))
