@@ -1,0 +1,33 @@
+{
+  "max_processes": 6,
+  "series_tags": [
+    "0020|000e",
+    "0020|000d",
+    "0020|0011",
+    "0018|0024",
+    "0018|0050",
+    "0028|0010",
+    "0028|0011"
+  ],
+  "imageIO": "All",
+  "metadata_keys": [
+    "0008|0060",
+    "0018|5101"
+  ],
+  "metadata_keys_headings": [
+    "modality",
+    "radiographic view"
+  ],
+  "ignore_problems": true,
+  "create_summary_image": true,
+  "thumbnail_sizes": [
+    64,
+    64
+  ],
+  "tile_sizes": [
+    30,
+    20
+  ],
+  "projection_axis": 2,
+  "interpolator": "sitkLinear"
+}
