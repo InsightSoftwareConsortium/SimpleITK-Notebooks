@@ -580,7 +580,7 @@ def image_to_thumbnail(img, thumbnail_sizes, interpolator, projection_axis):
     return res
 
 
-def image_list_to_faux_volume(image_list, tile_size=[20, 20]):
+def image_list_to_faux_volume(image_list, tile_size):
     """
     Create a faux volume from a list of images all having the same size.
 
@@ -955,7 +955,9 @@ def characterize_data(argv=None):
     # create summary image and remove the column containing the thumbnail images from the
     # dataframe.
     if args.create_summary_image:
-        faux_volume = image_list_to_faux_volume(df["thumbnail"].dropna().to_list())
+        faux_volume = image_list_to_faux_volume(
+            df["thumbnail"].dropna().to_list(), args.tile_sizes
+        )
         sitk.WriteImage(
             faux_volume,
             f"{os.path.splitext(args.output_file)[0]}_summary_image.nrrd",
