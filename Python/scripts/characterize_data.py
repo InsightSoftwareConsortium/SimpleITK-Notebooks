@@ -988,82 +988,45 @@ def characterize_data(argv=None):
             f"{os.path.splitext(args.output_file)[0]}_duplicates.csv", index=False
         )
 
-    size_counts = (
-        df["image size"]
-        .astype("string")
-        .dropna()
-        .value_counts()
-        .reset_index(name="count")
+    fig, ax = plt.subplots()
+    # There are true 3D images in the dataset, convert 2D sizes
+    # to faux 3D ones by adding third dimension as 1 and treat all
+    # images as 3D. Plot as a scatterplot with x and y sizes axes
+    # and z size encoded via color.
+    if df["image size"].apply(lambda x: len(x) == 3 and x[2] > 1).any():
+        sizes = df["image size"].apply(lambda x: x if len(x) == 3 else x + (1,))
+        x_size, y_size, z_size = zip(*sizes)
+        sc = ax.scatter(x_size, y_size, c=z_size, cmap="viridis")
+        cb = fig.colorbar(sc)
+        cb.set_label("z size", rotation=270, verticalalignment="baseline")
+        cb.set_ticks(np.linspace(min(z_size), max(z_size), 5, endpoint=True, dtype=int))
+        ax.set_xlabel("x size")
+        ax.set_ylabel("y size")
+    # All images are 2D, but some may be faux 3D, last dimension is 1,
+    # convert faux 3D sizes to 2D by removing the last dimension.
+    else:
+        sizes = df["image size"].apply(lambda x: x if len(x) == 2 else x[0:2])
+        x_size, y_size = zip(*sizes)
+        ax.scatter(x_size, y_size)
+        ax.set_xlabel("x size")
+        ax.set_ylabel("y size")
+    plt.tight_layout()
+    plt.savefig(
+        f"{os.path.splitext(args.output_file)[0]}_image_size_scatterplot.pdf",
+        bbox_inches="tight",
     )
-    if not size_counts.empty:
-        # Compute appropriate size for figure using a specific font size
-        # based on stack-overflow: https://stackoverflow.com/questions/35127920/overlapping-yticklabels-is-it-possible-to-control-cell-size-of-heatmap-in-seabo
-        fontsize_pt = 8
-        dpi = 72.27
-
-        # compute the matrix height in points and inches
-        matrix_height_pt = fontsize_pt * len(size_counts)
-        matrix_height_in = matrix_height_pt / dpi
-
-        # compute the required figure height
-        top_margin = 0.04  # in percentage of the figure height
-        bottom_margin = 0.04  # in percentage of the figure height
-        figure_height = matrix_height_in / (1 - top_margin - bottom_margin)
-
-        # build the figure instance with the desired height
-        fig, ax = plt.subplots(
-            figsize=(6, figure_height),
-            gridspec_kw=dict(top=1 - top_margin, bottom=bottom_margin),
-        )
-
-        ax.tick_params(axis="y", labelsize=fontsize_pt)
-        ax.tick_params(axis="x", labelsize=fontsize_pt)
-        ax.xaxis.get_major_locator().set_params(integer=True)
-        ax = size_counts.plot.barh(
-            x="image size",
-            y="count",
-            xlabel="image size",
-            ylabel="# of images",
-            legend=None,
-            ax=ax,
-        )
-        ax.bar_label(
-            ax.containers[0], fontsize=fontsize_pt
-        )  # add the number at the top of each bar
-        plt.savefig(
-            f"{os.path.splitext(args.output_file)[0]}_image_size_distribution.pdf",
-            bbox_inches="tight",
-        )
     # there is at least one series/file that is grayscale
     if "min intensity" in df.columns:
         min_intensities = df["min intensity"].dropna()
         max_intensities = df["max intensity"].dropna()
         if not min_intensities.empty:
             fig, ax = plt.subplots()
-            fig.set_layout_engine("constrained")
-            ax.yaxis.get_major_locator().set_params(integer=True)
-            ax.hist(
-                min_intensities,
-                bins=256,
-                alpha=0.5,
-                label="min intensity",
-                color="blue",
-            )
-            ax.hist(
-                max_intensities,
-                bins=256,
-                alpha=0.5,
-                label="max intensity",
-                color="green",
-            )
-            plt.legend()
-            plt.xlabel("intensity")
-            plt.ylabel("# of images")
-
-            # plt.tight_layout()
+            ax.scatter(min_intensities, max_intensities)
+            ax.set_xlabel("min intensity")
+            ax.set_ylabel("max intensity")
             plt.savefig(
-                f"{os.path.splitext(args.output_file)[0]}_min_max_intensity_distribution.pdf",
-                #   bbox_inches="tight",
+                f"{os.path.splitext(args.output_file)[0]}_min_max_intensity_scatterplot.pdf",
+                bbox_inches="tight",
             )
 
     return 0
