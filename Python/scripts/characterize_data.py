@@ -552,11 +552,11 @@ def image_to_thumbnail(img, thumbnail_sizes, interpolator, projection_axis):
                 outputMaximum=255.0,
             )
             img = sitk.Cast(wl_image, sitk.sitkUInt8)
-        else:
+        else:  # pixel type of uint8
             img = sitk.IntensityWindowing(
-                img,
-                windowMinimum=np.min(sitk.GetArrayViewFromImage(img)),
-                windowMaximum=np.max(sitk.GetArrayViewFromImage(img)),
+                img,  # numpy returns its own type np.uint8 which isn't converted implicitly by SimpleITK
+                windowMinimum=int(np.min(sitk.GetArrayViewFromImage(img))),
+                windowMaximum=int(np.max(sitk.GetArrayViewFromImage(img))),
             )
     # Computations below are simplified if we assume image axes are the
     # standard basis. This is reasonable for the purpose of creating a
