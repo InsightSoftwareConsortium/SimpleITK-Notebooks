@@ -373,34 +373,48 @@ def inspect_single_series(series_data, meta_data_info={}, thumbnail_settings={})
         reader = sitk.ImageSeriesReader()
         reader.MetaDataDictionaryArrayUpdateOn()
         reader.LoadPrivateTagsOn()
-        # CHANGE to split list of tag values and sid is first entry
+        # split list of tag values, sid is first entry (see inspect_series)
         sid = series_data[0].split(":")[0]
         file_names = series_info["files"]
-        # As the files comprising a series with multiple files can reside in
-        # separate directories and SimpleITK expects them to be in a single directory
+        # As the files comprising a series can reside in separate directories
+        # and may have identical file names (e.g. 1/Z0.dcm, 2/Z0.dcm)
         # we use a tempdir and symbolic links to enable SimpleITK to read the series as
-        # a single image. Additionally, the files are renamed as they may have resided in
-        # separate directories with the same file name. Finally, on Windows
-        # we need to copy the files to the tempdir as the os.symlink documentation says that
+        # a single image (ImageSeriesReader_GetGDCMSeriesFileNames expects all files to
+        # be in a single directory).
+        # On Windows we need to copy the files to the tempdir as the os.symlink documentation says that
         # "On newer versions of Windows 10, unprivileged accounts can create symlinks
         # if Developer Mode is enabled. When Developer Mode is not available/enabled,
         # the SeCreateSymbolicLinkPrivilege privilege is required, or the process must be
         # run as an administrator."
         # To turn Developer Mode on in Windows 11:
         # Settings->System->For Developers and turn Developer Mode on.
-        # We could then comment out the Windows specific code below.
+        # We could then use the os.symlink function instead of the indirect usage of a
+        # copy_link_function below.
         with tempfile.TemporaryDirectory() as tmpdirname:
-            if platform.system() == "Windows":
-                for i, fname in enumerate(file_names):
-                    shutil.copy(
-                        os.path.abspath(fname), os.path.join(tmpdirname, str(i))
-                    )
-            else:
-                for i, fname in enumerate(file_names):
-                    os.symlink(os.path.abspath(fname), os.path.join(tmpdirname, str(i)))
-            reader.SetFileNames(
-                sitk.ImageSeriesReader_GetGDCMSeriesFileNames(tmpdirname, sid)
+            copy_link_function = (
+                shutil.copy if platform.system() == "Windows" else os.symlink
             )
+            new_orig_file_name_dict = {}
+            for i, fname in enumerate(file_names):
+                new_fname = os.path.join(tmpdirname, str(i))
+                new_orig_file_name_dict[new_fname] = fname
+                copy_link_function(fname, new_fname)
+            # For some reason on windows the returned full paths use double backslash
+            # for all directories except the last one which has a slash. This does not
+            # match the contents of the new_orig_file_name_dict which has a backslash
+            # for the last entry too. In the code below we call os.path.normpath to
+            # address this issue.
+            sorted_new_file_names = sitk.ImageSeriesReader_GetGDCMSeriesFileNames(
+                tmpdirname, sid
+            )
+            # store the file names in a sorted order so that they are saved in this
+            # manner. This is useful for reading from the saved csv file
+            # using the SeriesImageReader or ImageRead which expect ordered file names
+            series_info["files"] = [
+                new_orig_file_name_dict[os.path.normpath(new_fname)]
+                for new_fname in sorted_new_file_names
+            ]
+            reader.SetFileNames(sorted_new_file_names)
             img = reader.Execute()
             for k in meta_data_info.values():
                 if reader.HasMetaDataKey(0, k):
