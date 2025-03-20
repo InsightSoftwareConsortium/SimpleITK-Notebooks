@@ -373,34 +373,48 @@ def inspect_single_series(series_data, meta_data_info={}, thumbnail_settings={})
         reader = sitk.ImageSeriesReader()
         reader.MetaDataDictionaryArrayUpdateOn()
         reader.LoadPrivateTagsOn()
-        # CHANGE to split list of tag values and sid is first entry
+        # split list of tag values, sid is first entry (see inspect_series)
         sid = series_data[0].split(":")[0]
         file_names = series_info["files"]
-        # As the files comprising a series with multiple files can reside in
-        # separate directories and SimpleITK expects them to be in a single directory
+        # As the files comprising a series can reside in separate directories
+        # and may have identical file names (e.g. 1/Z0.dcm, 2/Z0.dcm)
         # we use a tempdir and symbolic links to enable SimpleITK to read the series as
-        # a single image. Additionally, the files are renamed as they may have resided in
-        # separate directories with the same file name. Finally, on Windows
-        # we need to copy the files to the tempdir as the os.symlink documentation says that
+        # a single image (ImageSeriesReader_GetGDCMSeriesFileNames expects all files to
+        # be in a single directory).
+        # On Windows we need to copy the files to the tempdir as the os.symlink documentation says that
         # "On newer versions of Windows 10, unprivileged accounts can create symlinks
         # if Developer Mode is enabled. When Developer Mode is not available/enabled,
         # the SeCreateSymbolicLinkPrivilege privilege is required, or the process must be
         # run as an administrator."
         # To turn Developer Mode on in Windows 11:
         # Settings->System->For Developers and turn Developer Mode on.
-        # We could then comment out the Windows specific code below.
+        # We could then use the os.symlink function instead of the indirect usage of a
+        # copy_link_function below.
         with tempfile.TemporaryDirectory() as tmpdirname:
-            if platform.system() == "Windows":
-                for i, fname in enumerate(file_names):
-                    shutil.copy(
-                        os.path.abspath(fname), os.path.join(tmpdirname, str(i))
-                    )
-            else:
-                for i, fname in enumerate(file_names):
-                    os.symlink(os.path.abspath(fname), os.path.join(tmpdirname, str(i)))
-            reader.SetFileNames(
-                sitk.ImageSeriesReader_GetGDCMSeriesFileNames(tmpdirname, sid)
+            copy_link_function = (
+                shutil.copy if platform.system() == "Windows" else os.symlink
             )
+            new_orig_file_name_dict = {}
+            for i, fname in enumerate(file_names):
+                new_fname = os.path.join(tmpdirname, str(i))
+                new_orig_file_name_dict[new_fname] = fname
+                copy_link_function(fname, new_fname)
+            # For some reason on windows the returned full paths use double backslash
+            # for all directories except the last one which has a slash. This does not
+            # match the contents of the new_orig_file_name_dict which has a backslash
+            # for the last entry too. In the code below we call os.path.normpath to
+            # address this issue.
+            sorted_new_file_names = sitk.ImageSeriesReader_GetGDCMSeriesFileNames(
+                tmpdirname, sid
+            )
+            # store the file names in a sorted order so that they are saved in this
+            # manner. This is useful for reading from the saved csv file
+            # using the SeriesImageReader or ImageRead which expect ordered file names
+            series_info["files"] = [
+                new_orig_file_name_dict[os.path.normpath(new_fname)]
+                for new_fname in sorted_new_file_names
+            ]
+            reader.SetFileNames(sorted_new_file_names)
             img = reader.Execute()
             for k in meta_data_info.values():
                 if reader.HasMetaDataKey(0, k):
@@ -441,6 +455,10 @@ def inspect_series(root_dir, series_tags, meta_data_info={}, thumbnail_settings=
     all_series_files = {}
     additional_series_tags = series_tags - {"0020|000e", "0020|000d"}
     reader = sitk.ImageFileReader()
+    # explicitly set ImageIO to GDCMImageIO so that non DICOM files that
+    # contain DICOM tags (file converted from original DICOM) will be
+    # ignored.
+    reader.SetImageIO("GDCMImageIO")
     # collect the file names of all series into a dictionary with the key being
     # study:series. This traversal is faster, O(n), than calling GetGDCMSeriesIDs on each
     # directory followed by iterating over the series and calling
@@ -448,7 +466,7 @@ def inspect_series(root_dir, series_tags, meta_data_info={}, thumbnail_settings=
     for dir_name, subdir_names, file_names in os.walk(root_dir):
         for file in file_names:
             try:
-                fname = os.path.join(dir_name, file)
+                fname = os.path.join(os.path.abspath(dir_name), file)
                 reader.SetFileName(fname)
                 reader.ReadImageInformation()
                 sid = reader.GetMetaData("0020|000e")
@@ -723,27 +741,32 @@ def characterize_data(argv=None):
     of using os.walk to traverse the file system (internally os.walk uses os.scandir and that method's
     documentation says "The entries are yielded in arbitrary order.").
 
-    Convert from x, y, z (zero based) indexes from the "summary image" to information from "summary csv" file.
+    Convert from x, y, z (zero based) indexes from the "summary image" to information from
+    "summary csv" file. To view the summary image and obtain the x-y-z coordinates for a
+    specific thumbnail we recommend using one of the following free programs:
+    Fiji (uses zero based indexing): https://imagej.net/software/fiji/
+    3D slicer (uses zero based indexing): https://www.slicer.org/
+    ITK-SNAP (uses one based indexing, subtract one): http://www.itksnap.org/
+
 
     import pandas as pd
     import SimpleITK as sitk
 
-    def xyz_to_index(x, y, z):
-        tile_size=[20, 20]
-        thumbnail_size=[64, 64]
-        # add 2 to the index because the csv starts counting lines at 1 and the first
-        # line is the table header
+    def xyz_to_index(x, y, z, thumbnail_size, tile_size):
         return (z * tile_size[0] * tile_size[1]
                 + int(y / thumbnail_size[1]) * tile_size[0]
                 + int(x / thumbnail_size[0])
                 )
 
-    csv_file_name = "Output/generic_image_data_report.csv"
-    df = pd.read_csv(csv_file_name)
+    summary_csv_file_name =
+    df = pd.read_csv(summary_csv_file_name)
+    # Ensure dataframe matches the read images. If the report included files that
+    # were not read (non-image or read failures) remove them.
+    df.dropna(inplace=True, thresh=2)
 
-    file_names = eval(df["files"].iloc[xyz_to_index(x=xval, y=yval, z=zval)])
-    print(file_names)
-    sitk.Show(sitk.ReadImage(file_names))
+    thumbnail_size =
+    tile_size =
+    print(df["files"].iloc[xyz_to_index(x, y, z, thumbnail_size, tile_size)])
     """
     # Configure argument parser for commandline arguments and set default
     # values.
@@ -990,11 +1013,12 @@ def characterize_data(argv=None):
     df.to_csv(args.output_file, index=False)
 
     # minimal analysis on the image information, detect image duplicates and plot the image size
-    # distribution and distribution of min/max intensity values of scalar
-    # images
-    image_counts = (
-        df["MD5 intensity hash"].dropna().value_counts().reset_index(name="count")
-    )
+    # distribution and distribution of min/max intensity values of scalar images
+    # first drop the rows that correspond to problematic files if they weren't already dropped
+    # based on program settings
+    if not args.ignore_problems:
+        df.dropna(inplace=True, thresh=2)
+    image_counts = df["MD5 intensity hash"].value_counts().reset_index(name="count")
     duplicates = df[
         df["MD5 intensity hash"].isin(
             image_counts[image_counts["count"] > 1]["MD5 intensity hash"]
