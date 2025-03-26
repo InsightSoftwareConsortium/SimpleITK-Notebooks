@@ -1,8 +1,6 @@
 {
   "max_processes": 6,
-  "series_tags": [
-    "0020|000e",
-    "0020|000d",
+  "additional_series_tags": [
     "0020|0011",
     "0018|0024",
     "0018|0050",

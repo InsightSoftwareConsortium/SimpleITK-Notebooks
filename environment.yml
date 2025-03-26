@@ -14,5 +14,5 @@ dependencies:
   - scipy
   - pandas
   - numba
-  - multiprocess
+  - tqdm
   - SimpleITK>2.2.1

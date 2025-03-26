@@ -47,13 +47,13 @@ class TestScripts:
                 "per_file_data_characteristics.csv",
                 "per_file",
                 "characterize_data_user_defaults.json",
-                "bdb2f2489287cf43b681afce1b5d00e8",
+                "fb0338866794ef68c5d5854399ccd22c",
             ),
             (
                 "per_series_data_characteristics.csv",
                 "per_series",
                 "characterize_data_user_defaults.json",
-                "1c78bf68faf7f1a8fdb29e14ae276565",
+                "766184c8503a2f08cac6e3b6be57e346",
             ),
         ],
     )
