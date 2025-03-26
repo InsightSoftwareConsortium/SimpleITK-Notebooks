@@ -7,6 +7,6 @@ numpy
 scipy
 pandas
 numba
-multiprocess
+tqdm
 requests
 

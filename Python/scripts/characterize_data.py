@@ -26,18 +26,16 @@ import time
 import json
 import shutil
 import subprocess
+import concurrent.futures
+from tqdm import tqdm
 import platform
 import copy
 import matplotlib.pyplot as plt
-
-# We use the multiprocess package instead of the native
-# multiprocessing as it currently has several issues as discussed
-# on the software carpentry page: https://hpc-carpentry.github.io/hpc-python/06-parallel/
-import multiprocess as mp
 from functools import partial
 import argparse
 import hashlib
 import tempfile
+from collections import defaultdict
 
 
 # Datatypes with lightweight validation for use with argparse
@@ -143,8 +141,8 @@ def inspect_image(sitk_image, image_info, meta_data_info, thumbnail_settings):
 
     Parameters
     ----------
-    sitk_image (SimpleITK.Image): Input image for inspection.
-    image_info (dict): Image information is written to this dictionary (e.g. image_info["image size"] = "(512,512)").
+    sitk_image (SimpleITK.Image): Input image for inspection, 2D or 3D.
+    image_info (dict): Image information is added to this dictionary (e.g. image_info["image size"] = "(512,512)").
                        The image_info dict is filled with the following values:
                            "MD5 intensity hash" - Enable identification of duplicate images in terms of intensity.
                                                   This is different from SimpleITK image equality where the
@@ -152,7 +150,8 @@ def inspect_image(sitk_image, image_info, meta_data_info, thumbnail_settings):
                                                   are considered different images as they occupy a different spatial
                                                   region.
                            Image spatial information - "image size", "image spacing", "image origin", "axis direction".
-                           Image intensity information - "pixel type", if scalar:"min", "max", "mean", "std".
+                           Image intensity information - "pixel type", if scalar or repeated scalar impersonating a
+                                                          multi-channel image:"min", "max", "mean", "std".
                            metadata values for the values listed in the meta_data_info dictionary (e.g. "radiographic view" : "AP").
     meta_data_info(dict(str:str)): The meta-data information whose values will be reported.
                                    Dictionary structure is description:meta_data_tag
@@ -278,6 +277,7 @@ def inspect_single_file(
 def inspect_files(
     root_dir,
     max_processes,
+    disable_tqdm,
     imageIO="",
     meta_data_info={},
     external_programs_info={},
@@ -298,6 +298,7 @@ def inspect_files(
                     case the only valid entry will be the file name).
     max_processes (int): Maximal number of processes to use in when performing parallel processing.
                          Only relevant for non-windows systems.
+    disable_tqdm (bool): Display a progress bar, or not.
     imageIO (str): Name of image IO to use. To see the list of registered image IOs use the
                    ImageFileReader::GetRegisteredImageIOs() or print an ImageFileReader.
                    The empty string indicates to read all file formats supported by SimpleITK.
@@ -323,22 +324,13 @@ def inspect_files(
         all_file_names += [
             os.path.join(os.path.abspath(dir_name), fname) for fname in file_names
         ]
+
     # Get list of dictionaries describing the results and then combine into a dataframe, faster
     # than appending to the dataframe one by one. Use parallel processing to speed things up.
-    if platform.system() == "Windows":
-        res = map(
-            partial(
-                inspect_single_file,
-                imageIO=imageIO,
-                meta_data_info=meta_data_info,
-                external_programs_info=external_programs_info,
-                thumbnail_settings=thumbnail_settings,
-            ),
-            all_file_names,
-        )
-    else:
-        with mp.Pool(processes=max_processes) as pool:
-            res = pool.map(
+    res = []
+    with concurrent.futures.ProcessPoolExecutor(max_processes) as executor:
+        futures = (
+            executor.submit(
                 partial(
                     inspect_single_file,
                     imageIO=imageIO,
@@ -346,8 +338,28 @@ def inspect_files(
                     external_programs_info=external_programs_info,
                     thumbnail_settings=thumbnail_settings,
                 ),
-                all_file_names,
+                file_name,
             )
+            for file_name in all_file_names
+        )
+        # tqdm configuration, set miniters (minimal number of iterations before updating the progress bar) to
+        # be about ~10% of data in combination with maxinterval of 60sec. If the 10% interval takes more
+        # than 60sec then tqdm automatically changes it to match the maxinterval. Additionally, the whole progress
+        # bar is disabled if disable_tqdm is True, for example when scheduling a job on a cluster in which case there
+        # is no person looking at the progress.
+        tqdm_total = len(all_file_names)
+        for file_name, future in tqdm(
+            zip(all_file_names, concurrent.futures.as_completed(futures)),
+            total=tqdm_total,
+            maxinterval=60,
+            miniters=tqdm_total // 10,
+            disable=disable_tqdm,
+        ):
+            try:
+                result = future.result()
+                res.append(result)
+            except Exception as e:
+                print(f"Failed process for {file_name}", file=sys.stderr)
     return pd.DataFrame.from_dict(res)
 
 
@@ -399,11 +411,12 @@ def inspect_single_series(series_data, meta_data_info={}, thumbnail_settings={})
                 new_fname = os.path.join(tmpdirname, str(i))
                 new_orig_file_name_dict[new_fname] = fname
                 copy_link_function(fname, new_fname)
-            # For some reason on windows the returned full paths use double backslash
+            # On windows the returned full paths use backslash
             # for all directories except the last one which has a slash. This does not
             # match the contents of the new_orig_file_name_dict which has a backslash
-            # for the last entry too. In the code below we call os.path.normpath to
-            # address this issue.
+            # for the last entry too, as expected on windows. This is an issue with GDCM
+            # and we reported it on its bug tracker. In the code below we call os.path.normpath to
+            # resolve this issue.
             sorted_new_file_names = sitk.ImageSeriesReader_GetGDCMSeriesFileNames(
                 tmpdirname, sid
             )
@@ -425,7 +438,54 @@ def inspect_single_series(series_data, meta_data_info={}, thumbnail_settings={})
     return series_info
 
 
-def inspect_series(root_dir, series_tags, meta_data_info={}, thumbnail_settings={}):
+def get_series_key_fname(file_name, additional_series_tags):
+    """
+    If a DICOM file, create a unique string identifier representing its series. This is
+    a combination of the series UID, study UID and the values of the additional series
+    tags. For non DICOM files or files that GDCM cannot read this function will raise
+    an exception.
+
+    Parameters
+    ----------
+    file_name (Union[str,Path]): Name of file.
+    additional_series_tags (list(str)): List of DICOM tags that together with
+    series and study UID serve to uniquely identify files belonging to the same
+    series.
+
+    Returns
+    -------
+    A tuple (key, file_name) where key is a unique identifier string
+    comprised of series UID:study UID:values from additional series tags. This
+    will succeed if the given file_name is a DICOM file that GDCM can read,
+    if not an exception is raised by the ImageFileReader.
+    """
+    reader = sitk.ImageFileReader()
+    # explicitly set ImageIO to GDCMImageIO so that non DICOM files that
+    # contain DICOM tags (file converted from original DICOM) will be
+    # ignored.
+    reader.SetImageIO("GDCMImageIO")
+    reader.SetFileName(file_name)
+    reader.ReadImageInformation()
+    sid = reader.GetMetaData("0020|000e")
+    study = reader.GetMetaData("0020|000d")
+    key = f"{sid}:{study}"
+    key += ":".join(
+        [
+            reader.GetMetaData(k) if reader.HasMetaDataKey(k) else " "
+            for k in additional_series_tags
+        ]
+    )
+    return (key, file_name)
+
+
+def inspect_series(
+    root_dir,
+    max_processes,
+    disable_tqdm,
+    additional_series_tags,
+    meta_data_info={},
+    thumbnail_settings={},
+):
     """
     Inspect all series found in the directory structure. A series does not have to
     be in a single directory (the files are located in the subtree and combined
@@ -437,9 +497,12 @@ def inspect_series(root_dir, series_tags, meta_data_info={}, thumbnail_settings=
                     and inspect every series. If the series is comprised of multiple image files
                     they do not have to be in the same directory. The only expectation is that all
                     images from the series are under the root_dir.
-    series_tags set(str): Set of DICOM tags used to uniquely identify files belonging to the same
-                          series. These are assumed to include 0020|000e, series instance UID, and
-                          0020|000d, study Instance UID.
+    max_processes (int): Maximal number of processes to use in when performing parallel processing.
+                         Only relevant for non-windows systems.
+    disable_tqdm (bool): Display a progress bar, or not.
+    additional_series_tags list(str): List of DICOM tags used to uniquely identify files belonging to the same
+                          series. These are in addition to 0020|000e, series instance UID, and
+                          0020|000d, study Instance UID that are always used.
     meta_data_info(dict(str:str)): The meta-data information whose values will be reported.
                                    Dictionary structure is description:meta_data_tag
                                    (e.g. {"radiographic view" : "0018|5101", "modality" : "0008|0060"}).
@@ -452,44 +515,75 @@ def inspect_series(root_dir, series_tags, meta_data_info={}, thumbnail_settings=
     -------
     pandas DataFrame: Each row in the data frame corresponds to a single series.
     """
-    all_series_files = {}
-    additional_series_tags = series_tags - {"0020|000e", "0020|000d"}
-    reader = sitk.ImageFileReader()
-    # explicitly set ImageIO to GDCMImageIO so that non DICOM files that
-    # contain DICOM tags (file converted from original DICOM) will be
-    # ignored.
-    reader.SetImageIO("GDCMImageIO")
-    # collect the file names of all series into a dictionary with the key being
-    # study:series. This traversal is faster, O(n), than calling GetGDCMSeriesIDs on each
-    # directory followed by iterating over the series and calling
-    # GetGDCMSeriesFileNames with the seriesID on that directory, O(n^2).
+    # Identify all files that belong to the same DICOM series. The all_series_files dictionary keys
+    # are unique series identifiers and the values are lists of files belonging
+    # to the corresponding series.
+    # Use the collections defaultdict so we can call all_series_files[key].append()
+    # without a key error. If the key doesn't exist, it is created with an empty list and the
+    # value is added to that list.
+    # First obtain all files in the directory structure, then concurrently obtain a key representing
+    # the series if it is a DICOM file. The key is based on combining the series and study UIDs and
+    # the values corresponding to the provided additional_series_tags.
+    all_series_files = defaultdict(list)
+    all_file_names = []
     for dir_name, subdir_names, file_names in os.walk(root_dir):
-        for file in file_names:
+        all_file_names += [
+            os.path.join(os.path.abspath(dir_name), fname) for fname in file_names
+        ]
+    with concurrent.futures.ProcessPoolExecutor(max_processes) as executor:
+        futures = (
+            executor.submit(
+                partial(
+                    get_series_key_fname,
+                    additional_series_tags=additional_series_tags,
+                ),
+                file_name,
+            )
+            for file_name in all_file_names
+        )
+        for future in concurrent.futures.as_completed(futures):
+            # if an exception was thrown by the process, for example the file is not in DICOM
+            # format then it will be re-raised when attempting to access the future's
+            # result, we can ignore it.
             try:
-                fname = os.path.join(os.path.abspath(dir_name), file)
-                reader.SetFileName(fname)
-                reader.ReadImageInformation()
-                sid = reader.GetMetaData("0020|000e")
-                study = reader.GetMetaData("0020|000d")
-                key = f"{sid}:{study}"
-                key += ":".join(
-                    [
-                        reader.GetMetaData(k) if reader.HasMetaDataKey(k) else " "
-                        for k in additional_series_tags
-                    ]
-                )
-                if key in all_series_files:
-                    all_series_files[key].append(fname)
-                else:
-                    all_series_files[key] = [fname]
-            except Exception:
+                result = future.result()
+                all_series_files[result[0]].append(result[1])
+            except Exception as e:
                 pass
+
     # Get list of dictionaries describing the results and then combine into a dataframe, faster
     # than appending to the dataframe one by one.
-    res = [
-        inspect_single_series(series_data, meta_data_info, thumbnail_settings)
-        for series_data in all_series_files.items()
-    ]
+    res = []
+    with concurrent.futures.ProcessPoolExecutor(max_processes) as executor:
+        futures = (
+            executor.submit(
+                partial(
+                    inspect_single_series,
+                    meta_data_info=meta_data_info,
+                    thumbnail_settings=thumbnail_settings,
+                ),
+                series_data,
+            )
+            for series_data in all_series_files.items()
+        )
+        # tqdm configuration, set miniters (minimal number of iterations before updating the progress bar) to
+        # be about ~10% of data in combination with maxinterval of 60sec. If the 10% interval takes more
+        # than 60sec then tqdm automatically changes it to match the maxinterval. Additionally, the whole progress
+        # bar is disabled if disable_tqdm is True, for example when scheduling a job on a cluster in which case there
+        # is no person looking at the progress.
+        tqdm_total = len(all_series_files)
+        for file_names, future in tqdm(
+            zip(all_series_files.values(), concurrent.futures.as_completed(futures)),
+            total=tqdm_total,
+            maxinterval=60,
+            miniters=tqdm_total // 10,
+            disable=disable_tqdm,
+        ):
+            try:
+                result = future.result()
+                res.append(result)
+            except Exception as e:
+                print(f"Failed process for {file_names}", file=sys.stderr)
     return pd.DataFrame.from_dict(res)
 
 
@@ -655,7 +749,7 @@ def characterize_data(argv=None):
     This script inspects/characterizes images in a given directory structure. It
     recursively traverses the directories and either inspects the files one by one
     or if in DICOM series inspection mode, inspects the data on a per-series basis
-    (i.e. combines all 2D images belonging to the same CT series into a single 3D image).
+    (e.g. combines all 2D images belonging to the same CT series into a single 3D image).
 
     Running:
     -------
@@ -767,6 +861,17 @@ def characterize_data(argv=None):
     thumbnail_size =
     tile_size =
     print(df["files"].iloc[xyz_to_index(x, y, z, thumbnail_size, tile_size)])
+
+    Caveat:
+    ------
+    When characterizing a set of DICOM images, start by running the script in per_file
+    mode. This will identify duplicate image files. Remove them before running using the per_series
+    mode. If run in per_series mode on the original data the duplicate files will not be identified
+    as such, they will be identified as belonging to the same series. In this situation we end up
+    with multiple images in the same spatial location (repeated 2D slice in a 3D volume). This will
+    result in incorrect values reported for the spacing, image size etc.
+    When this happens you will see a WARNING printed to the terminal output, along the lines of
+    "ImageSeriesReader : Non uniform sampling or missing slices detected...".
     """
     # Configure argument parser for commandline arguments and set default
     # values.
@@ -785,6 +890,12 @@ def characterize_data(argv=None):
         default=2,
         help="maximal number of parallel processes",
     )
+    opt_arg_parser.add_argument(
+        "--disable_tqdm",
+        action="store_true",
+        help="disable the tqdm progress bar display",
+    )
+
     # Default tag values used for uniquely identifying the DICOM series:
     # Based on GDCM::SerieHelper::CreateDefaultUniqueSeriesIdentifier
     # https://github.com/malaterre/GDCM/blob/c10068ff26e7a6905fa9b75d9f45a7c4ce9d5591/Source/MediaStorageAndFileFormat/gdcmSerieHelper.cxx#L72C6-L99
@@ -796,10 +907,8 @@ def characterize_data(argv=None):
     # 0028|0010 - rows
     # 0028|0011 - columns
     opt_arg_parser.add_argument(
-        "--series_tags",
+        "--additional_series_tags",
         default=[
-            "0020|000e",
-            "0020|000d",
             "0020|0011",
             "0018|0024",
             "0018|0050",
@@ -808,7 +917,7 @@ def characterize_data(argv=None):
         ],
         nargs="+",
         help="tags used to uniquely identify image files that "
-        "belong to the same DICOM series",
+        "belong to the same DICOM series, these are in addition to 0020|000e, series instance UID, and 0020|000d, study Instance UID",
     )
     # query SimpleITK for the list of registered ImageIO types
     opt_arg_parser.add_argument(
@@ -943,6 +1052,7 @@ def characterize_data(argv=None):
         df = inspect_files(
             args.root_of_data_directory,
             args.max_processes,
+            args.disable_tqdm,
             imageIO=args.imageIO,
             meta_data_info=dict(zip(args.metadata_keys_headings, args.metadata_keys)),
             external_programs_info=dict(
@@ -953,10 +1063,17 @@ def characterize_data(argv=None):
     elif args.analysis_type == "per_series":
         df = inspect_series(
             args.root_of_data_directory,
+            args.max_processes,
+            args.disable_tqdm,
             # series and study instance UIDs are always included as series_tags used
             # to aggregate files belonging to the same series, no matter what the user
-            # specifies on the commandline
-            series_tags=set(args.series_tags + ["0020|000e", "0020|000d"]),
+            # specifies. Use set to ensure no duplicates in user input and convert all
+            # to lowercase as these strings represent hexadecimal numbers, so 0020|000E
+            # and 0020|000e are equivalent.
+            additional_series_tags=list(
+                set([t.lower() for t in args.additional_series_tags])
+                - {"0020|000e", "0020|000d"}
+            ),
             meta_data_info=dict(zip(args.metadata_keys_headings, args.metadata_keys)),
             thumbnail_settings=thumbnail_settings,
         )
@@ -1012,8 +1129,8 @@ def characterize_data(argv=None):
     # save the raw information, create directory structure if it doesn't exist
     df.to_csv(args.output_file, index=False)
 
-    # minimal analysis on the image information, detect image duplicates and plot the image size
-    # distribution and distribution of min/max intensity values of scalar images
+    # minimal analysis on the image information, detect image duplicates and plot the image size,
+    # spacing and min/max intensity values of scalar image distributions as scatterplots.
     # first drop the rows that correspond to problematic files if they weren't already dropped
     # based on program settings
     if not args.ignore_problems:
@@ -1029,7 +1146,8 @@ def characterize_data(argv=None):
             f"{os.path.splitext(args.output_file)[0]}_duplicates.csv", index=False
         )
 
-    fig, ax = plt.subplots()
+    size_fig, size_ax = plt.subplots()
+    spacing_fig, spacing_ax = plt.subplots()
     # There are true 3D images in the dataset, convert 2D sizes
     # to faux 3D ones by adding third dimension as 1 and treat all
     # images as 3D. Plot as a scatterplot with x and y sizes axes
@@ -1037,25 +1155,43 @@ def characterize_data(argv=None):
     if df["image size"].apply(lambda x: len(x) == 3 and x[2] > 1).any():
         sizes = df["image size"].apply(lambda x: x if len(x) == 3 else x + (1,))
         x_size, y_size, z_size = zip(*sizes)
-        sc = ax.scatter(x_size, y_size, c=z_size, cmap="viridis")
-        cb = fig.colorbar(sc)
+        sc = size_ax.scatter(x_size, y_size, c=z_size, cmap="viridis")
+        cb = size_fig.colorbar(sc)
         cb.set_label("z size", rotation=270, verticalalignment="baseline")
         cb.set_ticks(np.linspace(min(z_size), max(z_size), 5, endpoint=True, dtype=int))
-        ax.set_xlabel("x size")
-        ax.set_ylabel("y size")
+
+        spacings = df["image spacing"].apply(lambda x: x if len(x) == 3 else x + (1,))
+        x_spacing, y_spacing, z_spacing = zip(*spacings)
+        sc = spacing_ax.scatter(x_spacing, y_spacing, c=z_spacing, cmap="viridis")
+        cb = spacing_fig.colorbar(sc)
+        cb.set_label("z spacing [mm]", rotation=270, verticalalignment="baseline")
+
     # All images are 2D, but some may be faux 3D, last dimension is 1,
     # convert faux 3D sizes to 2D by removing the last dimension.
     else:
         sizes = df["image size"].apply(lambda x: x if len(x) == 2 else x[0:2])
         x_size, y_size = zip(*sizes)
-        ax.scatter(x_size, y_size)
-        ax.set_xlabel("x size")
-        ax.set_ylabel("y size")
-    plt.tight_layout()
-    plt.savefig(
+        size_ax.scatter(x_size, y_size)
+
+        spacings = df["image spacing"].apply(lambda x: x if len(x) == 2 else x[0:2])
+        x_spacing, y_spacing = zip(*spacings)
+        spacing_ax.scatter(x_spacing, y_spacing)
+
+    size_ax.set_xlabel("x size")
+    size_ax.set_ylabel("y size")
+    size_fig.tight_layout()
+    size_fig.savefig(
         f"{os.path.splitext(args.output_file)[0]}_image_size_scatterplot.pdf",
         bbox_inches="tight",
     )
+    spacing_ax.set_xlabel("x spacing [mm]")
+    spacing_ax.set_ylabel("y spacing [mm]")
+    spacing_fig.tight_layout()
+    spacing_fig.savefig(
+        f"{os.path.splitext(args.output_file)[0]}_image_spacing_scatterplot.pdf",
+        bbox_inches="tight",
+    )
+
     # there is at least one series/file that is grayscale
     if "min intensity" in df.columns:
         min_intensities = df["min intensity"].dropna()
@@ -1065,7 +1201,7 @@ def characterize_data(argv=None):
             ax.scatter(min_intensities, max_intensities)
             ax.set_xlabel("min intensity")
             ax.set_ylabel("max intensity")
-            plt.savefig(
+            fig.savefig(
                 f"{os.path.splitext(args.output_file)[0]}_min_max_intensity_scatterplot.pdf",
                 bbox_inches="tight",
             )
