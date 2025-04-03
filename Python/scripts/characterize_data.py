@@ -354,6 +354,7 @@ def inspect_files(
             maxinterval=60,
             miniters=tqdm_total // 10,
             disable=disable_tqdm,
+            file=sys.stdout,
         ):
             try:
                 result = future.result()
@@ -578,6 +579,7 @@ def inspect_series(
             maxinterval=60,
             miniters=tqdm_total // 10,
             disable=disable_tqdm,
+            file=sys.stdout,
         ):
             try:
                 result = future.result()
@@ -805,6 +807,10 @@ def characterize_data(argv=None):
     --external_applications ./dciodvfy --external_applications_headings "DICOM compliant" \
     --metadata_keys "0008|0060" --metadata_keys_headings modality --ignore_problems --create_summary_image \
     --max_processes 15
+
+    Run a generic file analysis using a configuration file and redirect stderr to file.
+    python characterize_data.py ../../Data/ Output/generic_image_data_report.csv per_file \
+    --configuration_file ../../Data/characterize_data_user_defaults.json 2> errors.txt
 
     Output:
     ------
