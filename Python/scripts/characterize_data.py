@@ -1049,6 +1049,14 @@ def characterize_data(argv=None):
         )
         return 1
 
+    # This script uses concurrent.futures ProcessPoolExecutor for parallel processing at
+    # the process level. ITK filters implement concurrency at the thread level.
+    # The combination of these two parallelization approaches can potentially be
+    # detrimental, as each of N processes creates M threads which can overwhelm a
+    # system if it has less than NM cores. We therefor configure SimpleITK to work
+    # in a single threaded fashion and only use process level parallelization.
+    sitk.ProcessObject.SetGlobalDefaultNumberOfThreads(1)
+
     thumbnail_settings = {}
     if args.create_summary_image:
         thumbnail_settings["thumbnail_sizes"] = args.thumbnail_sizes
