@@ -33,8 +33,8 @@ jobs:
   test:
     needs: lint
     strategy:
-      matrix: #using macos-13 because pyenchant doesn't work on macos-latest (macos 14, arm64 architecture)
-        os: [macos-13, windows-latest, ubuntu-latest]
+      matrix: #using macos-13, last available intel architecture. macos-latest is arm64 architecture.
+        os: [macos-13, windows-latest, ubuntu-latest, macos-latest]
         python-version: ['3.9', '3.12']
     runs-on: ${{ matrix.os }}
     steps:
@@ -81,7 +81,10 @@ jobs:
       if: steps.nbl.outputs.any_changed == 'true'
       env:
         SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
-      run: |
+      run: | # pyenchant has a problem locating libenchant on macOS-ARM64. setting this environment variable resolves the issue
+        if [ "$RUNNER_OS" == "macOS" ] && [ "${{ matrix.os }}" != "macos-13" ]; then
+           export PYENCHANT_LIBRARY_PATH=/opt/homebrew/lib/libenchant-2.dylib
+        fi
         test_files="${{ steps.nbl.outputs.all_changed_files }}"
         # on windows the paths use backslashes, so replace with forward slashes
         if [ "$RUNNER_OS" == "Windows" ]; then
