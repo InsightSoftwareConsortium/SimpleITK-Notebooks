@@ -993,6 +993,12 @@ def characterize_data(argv=None):
         default="sitkNearestNeighbor",
         help="SimpleITK interpolator used to resize images when creating summary image",
     )
+    opt_arg_parser.add_argument(
+        "--float_precision",
+        type=positive_int,
+        default=None,
+        help="Precision for floating point numbers. Use only if exact numeric equality across platforms is required (i.e. for testing)",
+    )
     # Use the function docstring as the text in the parser description and a custom
     # RawDescriptionAndDefaultHelpFormatter so that the docstring layout
     # is maintained, otherwise it is line-wrapped and the formatting is lost, and the
@@ -1141,7 +1147,21 @@ def characterize_data(argv=None):
     if args.ignore_problems:
         df.dropna(inplace=True, thresh=2)
     # save the raw information, create directory structure if it doesn't exist
-    df.to_csv(args.output_file, index=False)
+    # if floating point precision was specified, convert the floating point tuples to the
+    # desired precision. the dataframe's to_csv method will format the columns with floating point type.
+    float_format_str = None
+    if args.float_precision:
+        float_format_str = f"%.{args.float_precision}f"
+        df["image spacing"] = df["image spacing"].apply(
+            lambda x: np.round(x, decimals=args.float_precision)
+        )
+        df["image origin"] = df["image origin"].apply(
+            lambda x: np.round(x, decimals=args.float_precision)
+        )
+        df["axis direction "] = df["axis direction"].apply(
+            lambda x: np.round(x, decimals=args.float_precision)
+        )
+    df.to_csv(args.output_file, index=False, float_format=float_format_str)
 
     # minimal analysis on the image information, detect image duplicates and plot the image size,
     # spacing and min/max intensity values of scalar image distributions as scatterplots.

@@ -47,13 +47,13 @@ class TestScripts:
                 "per_file_data_characteristics.csv",
                 "per_file",
                 "characterize_data_user_defaults.json",
-                "fb0338866794ef68c5d5854399ccd22c",
+                "561519272943948754e5a78a043b66dd",
             ),
             (
                 "per_series_data_characteristics.csv",
                 "per_series",
                 "characterize_data_user_defaults.json",
-                "766184c8503a2f08cac6e3b6be57e346",
+                "9c6aa0ff16e78f7e3d808531caf8cd91",
             ),
         ],
     )
@@ -79,6 +79,8 @@ class TestScripts:
                 analysis_type,
                 "--configuration_file",
                 str(self.data_path / user_configuration),
+                "--float_precision",
+                "3",
             ]
         )
         # csv files needs to be modified as follows before comparing to expected values:
