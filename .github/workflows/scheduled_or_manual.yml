@@ -75,6 +75,7 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: python Utilities/downloaddata.py Data/ Data/manifest.json
     - name: run the test
+      shell: bash
       env: 
         SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
       run: | # pyenchant has a problem locating libenchant on macOS-ARM64. setting this environment variable resolves the issue
