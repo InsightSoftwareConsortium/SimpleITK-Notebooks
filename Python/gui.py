@@ -41,6 +41,8 @@ class RegistrationPointDataAquisition(object):
         moving_window_level=None,
         figure_size=(10, 8),
         known_transformation=None,
+        image1_title="fixed image",
+        image2_title="moving image",
     ):
         self.fixed_image = fixed_image
         (
@@ -61,7 +63,8 @@ class RegistrationPointDataAquisition(object):
         )  # Keep a history of user point localizations, enabling undo of last localization.
         self.known_transformation = known_transformation  # If the transformation is valid (not None) then corresponding points are automatically added.
         self.text_and_marker_color = "red"
-
+        self.image1_title = image1_title
+        self.image2_title = image2_title
         ui = self.create_ui()
         display(ui)
 
@@ -118,7 +121,7 @@ class RegistrationPointDataAquisition(object):
         self.fixed_slider = self.moving_slider = None
         if self.fixed_npa.ndim == 3:
             self.fixed_slider = widgets.IntSlider(
-                description="fixed image z slice:",
+                description=f"{self.image1_title} z slice:",
                 min=0,
                 max=self.fixed_npa.shape[0] - 1,
                 step=1,
@@ -128,7 +131,7 @@ class RegistrationPointDataAquisition(object):
             self.fixed_slider.observe(self.on_slice_slider_value_change, names="value")
 
             self.moving_slider = widgets.IntSlider(
-                description="moving image z slice:",
+                description=f"{self.image2_title} z slice:",
                 min=0,
                 max=self.moving_npa.shape[0] - 1,
                 step=1,
@@ -225,7 +228,7 @@ class RegistrationPointDataAquisition(object):
                     color=self.text_and_marker_color,
                 )
         self.fixed_axes.set_title(
-            f"fixed image - localized {len(self.fixed_point_indexes)} points"
+            f"{self.image1_title} - {len(self.fixed_point_indexes)} points"
         )
         self.fixed_axes.set_axis_off()
 
@@ -264,7 +267,7 @@ class RegistrationPointDataAquisition(object):
                     color=self.text_and_marker_color,
                 )
         self.moving_axes.set_title(
-            f"moving image - localized {len(self.moving_point_indexes)} points"
+            f"{self.image2_title} - {len(self.moving_point_indexes)} points"
         )
         self.moving_axes.set_axis_off()
 
