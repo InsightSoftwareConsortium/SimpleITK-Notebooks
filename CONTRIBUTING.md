@@ -18,7 +18,7 @@ driver for both the Python and R notebooks. Testing relies on several Python
 packages listed in the [requirements_dev.txt](requirements_dev.txt) file. Please
 install these packages. Note that we use the pyenchant
 spell checker which is only available by using the pip package manager
-(no conda). This spell checker relies on the [enchant](https://abiword.github.io/enchant/) library (`brew install enchant`,  `sudo apt-get install enchant`).  
+(no conda). This spell checker relies on the [enchant](https://rrthomas.github.io/enchant/) library (`brew install enchant`,  `sudo apt-get install enchant`).
 
 When you add a new notebook, you will need to add it to the relevant list of
 notebooks found in the [test_notebooks.py](tests/test_notebooks.py). These
