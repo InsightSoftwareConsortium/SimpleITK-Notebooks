@@ -47,21 +47,18 @@ found in `C:\Users\[your_user_name]\.jupyter\custom\custom.css`.
 
 # Kicking the Tires
 
-Before you clone the repository to your computer you may want to try it out, kick the tires so to speak.
+Before you clone the repository to your computer you may want to try it out, kick the tires so to speak. You can try out the Python notebooks without installing anything. We support two paths that enable this. The first uses [BinderHub](https://github.com/jupyterhub/binderhub) (binder). The second uses [Google Colaboratory](https://colab.google/) (colab). To launch a notebook using one of these services, go to the notebook and click on the shield icon first notebook cell, if it exists.
 
-Thanks to the awesome people from the [BinderHub Project](https://github.com/jupyterhub/binderhub)
-you can try out the Python notebooks without installing a thing.
+You can run all of the notebooks in a single Binder environment, just [![BinderHub](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/main) navigate to the Python directory and open a notebook. 
 
 Some caveats:
 
-1. This is a free public service with limited resources, so may not always be available.
-2. Some of our notebooks require significant computational
-   resources which may not be available.
-3. All cells that use the sitk.Show() command will generate an exception because they require a Fiji installation. Either ignore this or modify the code for the session.
+1. Some of the notebooks require significant computational resources which may not be available from these services.
+2. All cells that use the sitk.Show() command will generate an exception because they require a [Fiji](https://imagej.net/software/fiji/) installation. Either ignore this or modify the code for the session.
+3. Binder is a free public service, no login required, with limited resources. As a result it may not always be available or launch quickly.
+4. Colab is a free Google service that requires login.
+5. Colab launches each notebook in an independent environment.
 
-After you launch binder, go to the Python directory and select the notebook of interest:
-
-[![BinderHub](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/main)
 
 # Contributions from the Community
 
