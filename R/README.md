@@ -10,16 +10,16 @@
 
 ### Install SimpleITK
 
-A devtools based installer is [available on github](https://github.com/SimpleITK/SimpleITKRInstaller). It requires that you have the [CMake tool](https://cmake.org/) and the git version control system installed on your machine.
+A remotes based installer is [available on github](https://github.com/SimpleITK/SimpleITKRInstaller). It requires that you have the [CMake tool](https://cmake.org/) and the [git version control system](https://git-scm.com/) installed on your machine.
 
-The manual approach to compiling and installing SimpleITK with the R wrapping turned on is described [here](https://simpleitk.readthedocs.io/en/master/building.html).
+A manual approach to compiling and installing SimpleITK with the R wrapping turned on is described [here](https://simpleitk.readthedocs.io/en/latest/building.html).
 
 
 ### Downloading Data
 
-The data can be automatically downloaded to the "Data" directory when you execute the notebooks.
+The data is automatically downloaded to the "Data" directory when you execute the notebooks.
 
-Alternatively, to download all the data before hand:
+Alternatively, to download all the data before hand (assumes Python is available):
 
     cd SimpleITK-Notebooks
     ./downloaddata.py Data/ Data/manifest.json

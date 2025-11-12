@@ -1,13 +1,13 @@
 # SimpleITK Python Notebooks
 
-As of this writing, SimpleITK version >=2.2.0 or newer is required to run these notebooks. This version is available from [PyPi](https://pypi.python.org/pypi/SimpleITK) and [Anaconda Cloud](https://anaconda.org/simpleitk/simpleitk).
+As of this writing, SimpleITK version >=2.2.0 or newer is required to run these notebooks. This version is available from [PyPi](https://pypi.python.org/pypi/SimpleITK) and [Conda Forge](https://anaconda.org/conda-forge/simpleitk).
 
 ## Setting Up a Python Environment
 
 We recommend setting up a separate Python virtual environment to run through these notebooks as a tutorial. Use either the Anaconda Python distribution or a plain Python distribution.
 
 ### Anaconda
-With [Anaconda](https://www.continuum.io/) you can set up a virtual environment, named sitkpy, and install all dependencies including SimpleITK using a single command:
+With [Anaconda](https://www.anaconda.com/docs/main) you can set up a virtual environment, named sitkpy, and install all dependencies including SimpleITK using a single command:
 ```
 conda env create -f environment.yml
 ```

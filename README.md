@@ -6,7 +6,7 @@
 &nbsp;&nbsp;[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 
-[SimpleITK](https://itk.org/Wiki/SimpleITK) is an abstraction layer and wrapper around the Insight Segmentation and Registration Toolkit [(ITK)](http://www.itk.org). It is available in the following programming languages: C++, Python, R, Java, C#, Lua, Tcl and Ruby.
+[SimpleITK](https://simpleitk.org) is an abstraction layer and wrapper around the Insight Segmentation and Registration Toolkit [(ITK)](http://www.itk.org). It is available in the following programming languages: C++, Python, R, Java, C#, Lua, Tcl and Ruby.
 
 This repository contains a collection of Jupyter Notebooks illustrating the use of SimpleITK for educational and research activities. The notebooks demonstrate the use of SimpleITK for interactive image analysis using the Python and R programming languages.
 
@@ -24,13 +24,13 @@ created with SimpleITK and Python (the [script](Utilities/intro_animation.py) us
 
 # Getting Started
 
-Note that currently SimpleITK with R is only available on Linux and Mac.
+Note that currently SimpleITK with R is only available on Linux and Mac (see the [remotes based installer](https://github.com/SimpleITK/SimpleITKRInstaller)).
 
-1. Language specific details for installing the notebooks is given in the README files in the respective directories ([Python](Python/README.md), [R](R/README.md)). For general information about installing SimpleITK please see the [SimpleITK read-the-docs](https://simpleitk.readthedocs.io/en/master/) pages.
+1. Language specific details for installing the notebooks is given in the README files in the respective directories ([Python](Python/README.md), [R](R/README.md)). For general information about installing SimpleITK please see the [SimpleITK read-the-docs](https://simpleitk.readthedocs.io/en/latest/) pages.
 
 2. The [SimpleITK API documentation](https://simpleitk.org/doxygen/latest/html/index.html) is based on the C++ implementation which is readily mapped to your language of choice.
 
-3. Learn the general concepts underlying the implementations of segmentation and registration by reading the ([ITK book](https://itk.org/ItkSoftwareGuide)). The relevant portion is "Book 2: Design and Functionality". The ITK API is significantly different from the SimpleITK one, but the general concepts are the same (e.g. combination of optimizer and similarity metric for registration).     
+3. Learn the general concepts underlying the implementations of segmentation and registration by reading the ([ITK book](https://itk.org/ITKSoftwareGuide/html/)). The relevant portion is "Book 2: Design and Functionality". The ITK API is significantly different from the SimpleITK one, but the general concepts are the same (e.g. combination of optimizer and similarity metric for registration).
 
 4. General notebook setup. By default the contents of the Jupyter notebooks do not occupy the full browser window width. To take advantage of the full window width you can either configure each notebook independently by adding the following into a code cell:
 ```
@@ -49,7 +49,7 @@ found in `C:\Users\[your_user_name]\.jupyter\custom\custom.css`.
 
 Before you clone the repository to your computer you may want to try it out, kick the tires so to speak.
 
-Thanks to the awesome people from the [Binder Project](https://github.com/jupyterhub/binderhub)
+Thanks to the awesome people from the [BinderHub Project](https://github.com/jupyterhub/binderhub)
 you can try out the Python notebooks without installing a thing.
 
 Some caveats:
@@ -57,13 +57,11 @@ Some caveats:
 1. This is a free public service with limited resources, so may not always be available.
 2. Some of our notebooks require significant computational
    resources which may not be available.
-3. All cells that use the sitk.Show() command will generate an exception because they
-   require a Fiji installation. Either ignore this or modify the code
-   for the session.
+3. All cells that use the sitk.Show() command will generate an exception because they require a Fiji installation. Either ignore this or modify the code for the session.
 
 After you launch binder, go to the Python directory and select the notebook of interest:
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/master)
+[![BinderHub](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/InsightSoftwareConsortium/SimpleITK-Notebooks/main)
 
 # Contributions from the Community
 
