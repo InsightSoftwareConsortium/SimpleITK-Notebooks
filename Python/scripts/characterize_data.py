@@ -17,6 +17,24 @@
 #
 # =========================================================================
 
+#
+# Run the script directly from GitHub without downloading it using uv (https://github.com/astral-sh/uv):
+# uv run https://raw.githubusercontent.com/InsightSoftwareConsortium/SimpleITK-Notebooks/refs/heads/main/Python/scripts/characterize_data.py -h
+#
+
+#
+# Provide inline script metadata per PEP 723 (https://peps.python.org/pep-0723/)
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "matplotlib",
+#     "numpy",
+#     "pandas",
+#     "tqdm",
+#     "SimpleITK",
+# ]
+# ///
+
 import SimpleITK as sitk
 import pandas as pd
 import numpy as np
