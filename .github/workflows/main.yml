@@ -36,6 +36,12 @@ jobs:
       matrix: #using macos-15-intel, last available intel architecture. macos-latest is arm64 architecture.
         os: [macos-15-intel, windows-latest, ubuntu-latest, macos-latest]
         python-version: ['3.9', '3.12']
+        # Combination of old architecture, macos-intel, and new python, 3.12, causes issues:
+        # llvmlite is not available for this combination from PyPI so skip that testing.
+        # It is available from conda-forge so not completely unsupported.
+        exclude:
+          - os: macos-15-intel
+            python-version: '3.12'
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v5
