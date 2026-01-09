@@ -839,9 +839,16 @@ def characterize_data(argv=None):
            a date-time prefix and "_characterize_data_settings.json" postfix). This file can then be
            used to override the default parameter settings with user defaults in a reproducible
            manner via the --configuration_file option.
-        3. pdf figure with the histogram of image sizes.
-        4. Possibly a pdf figure with histogram of min-max intensity values for the scalar images, if any.
-        5. Possibly a csv file listing exact duplicate images, if any. Images are considered duplicates if
+        3. Two or three scatterplots in pdf/png format. File format is determined based on the number of
+           images. If more than 500,000 images the png format is used, otherwise pdf. This avoids excessively long
+           rendering times associated with the vector graphics format which renders each individual point in the
+           scatterplot. Preference is to use a vector graphics format which allows for resizing without loss of
+           quality. If you require a vector graphics format even for large datasets, you will need to modify the
+           PDF_FOMAT_THRESHOLD value in the script.
+           Plots include: image sizes, image spacing, and possibly min-max intensity values for
+           scalar images. Image size and spacings are 2D plots. When dealing with 3D images, information
+           along the z axis is encoded using color.
+        4. Possibly a csv file listing exact duplicate images, if any. Images are considered duplicates if
            the intensity values are the same, header and spatial information may be different.
 
     Empty lines in the resulting csv file (file names listed but nothing else in that row)
@@ -897,6 +904,12 @@ def characterize_data(argv=None):
     When this happens you will see a WARNING printed to the terminal output, along the lines of
     "ImageSeriesReader : Non uniform sampling or missing slices detected...".
     """
+    # Maximal number of points for which scatterplots are saved in pdf format,
+    # otherwise png. Threshold was deterimined empirically based on rendering
+    # times longer than 10sec on a 2020 MacBook Pro (1.4GHz Quad core Intel i5
+    # with 16GB RAM).
+    PDF_FOMAT_THRESHOLD = 500000
+
     # Configure argument parser for commandline arguments and set default
     # values.
     # We use two parsers, one for the optional parameters and the other for positional and
@@ -1233,14 +1246,14 @@ def characterize_data(argv=None):
     size_ax.set_ylabel("y size")
     size_fig.tight_layout()
     size_fig.savefig(
-        f"{os.path.splitext(args.output_file)[0]}_image_size_scatterplot.pdf",
+        f"{os.path.splitext(args.output_file)[0]}_image_size_scatterplot.{'png' if len(df) > PDF_FOMAT_THRESHOLD else 'pdf'}",
         bbox_inches="tight",
     )
     spacing_ax.set_xlabel("x spacing [mm]")
     spacing_ax.set_ylabel("y spacing [mm]")
     spacing_fig.tight_layout()
     spacing_fig.savefig(
-        f"{os.path.splitext(args.output_file)[0]}_image_spacing_scatterplot.pdf",
+        f"{os.path.splitext(args.output_file)[0]}_image_spacing_scatterplot.{'png' if len(df) > PDF_FOMAT_THRESHOLD else 'pdf'}",
         bbox_inches="tight",
     )
 
@@ -1254,7 +1267,7 @@ def characterize_data(argv=None):
             ax.set_xlabel("min intensity")
             ax.set_ylabel("max intensity")
             fig.savefig(
-                f"{os.path.splitext(args.output_file)[0]}_min_max_intensity_scatterplot.pdf",
+                f"{os.path.splitext(args.output_file)[0]}_min_max_intensity_scatterplot.{'png' if len(df) > PDF_FOMAT_THRESHOLD else 'pdf'}",
                 bbox_inches="tight",
             )
 
