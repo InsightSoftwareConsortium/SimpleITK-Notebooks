@@ -18,11 +18,6 @@
 # =========================================================================
 
 #
-# Run the script directly from GitHub without downloading it using uv (https://github.com/astral-sh/uv):
-# uv run https://raw.githubusercontent.com/InsightSoftwareConsortium/SimpleITK-Notebooks/refs/heads/main/Python/scripts/characterize_data.py -h
-#
-
-#
 # Provide inline script metadata per PEP 723 (https://peps.python.org/pep-0723/)
 # /// script
 # requires-python = ">=3.11"
@@ -775,7 +770,7 @@ def characterize_data(argv=None):
     -------
     To run the script one has to specify:
         1. Root of the data directory.
-        2. Filename of csv output, can include relative or absolute path.
+        2. Filename of csv output.
         3. The analysis type to perform per_file or per_series. The latter indicates
            we are only interested in DICOM files.
 
@@ -829,6 +824,11 @@ def characterize_data(argv=None):
     Run a generic file analysis using a configuration file and redirect stderr to file.
     python characterize_data.py ../../Data/ Output/generic_image_data_report.csv per_file \
     --configuration_file ../../Data/characterize_data_user_defaults.json 2> errors.txt
+
+    You can also run the script directly from GitHub without downloading it or explicitly creating
+    a virtual Python environment using the uv Python package and project manager
+    (https://github.com/astral-sh/uv):
+    uv run https://raw.githubusercontent.com/InsightSoftwareConsortium/SimpleITK-Notebooks/refs/heads/main/Python/scripts/characterize_data.py -h
 
     Output:
     ------
@@ -893,16 +893,24 @@ def characterize_data(argv=None):
     tile_size =
     print(df["files"].iloc[xyz_to_index(x, y, z, thumbnail_size, tile_size)])
 
-    Caveat:
-    ------
+    Caveats:
+    --------
     When characterizing a set of DICOM images, start by running the script in per_file
-    mode. This will identify duplicate image files. Remove them before running using the per_series
-    mode. If run in per_series mode on the original data the duplicate files will not be identified
-    as such, they will be identified as belonging to the same series. In this situation we end up
-    with multiple images in the same spatial location (repeated 2D slice in a 3D volume). This will
-    result in incorrect values reported for the spacing, image size etc.
+    mode. This will identify duplicate images at the file level. Remove them before running
+    in per_series mode. If run in per_series mode on data with duplicate files they may
+    not be identified as such as they may be identified as belonging to the same series.
+    In this situation we end up with multiple images in the same spatial location
+    (repeated 2D slice in a 3D volume). This will result in incorrect values reported for the
+    spacing, image size etc.
     When this happens you will see a WARNING printed to the terminal output, along the lines of
     "ImageSeriesReader : Non uniform sampling or missing slices detected...".
+
+    When file paths are very long and the number of files in a series is large the total
+    per cell character count in the "files" column may exceed the cell limits of some
+    spreadsheet applications. The limit for Microsoft Excel is 32,767 characters and for
+    Google Sheets it is 50,000 characters. When opened with Excel, the contents of the cell are
+    truncated and this will corrupt the column layout. The data itself is valid and can be read
+    correctly using Python or R.
     """
     # Maximal number of points for which scatterplots are saved in pdf format,
     # otherwise png. Threshold was deterimined empirically based on rendering
