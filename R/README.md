@@ -5,7 +5,7 @@
 1. Install [R](https://www.r-project.org/) on your machine.
 2. [Install](http://jupyter.readthedocs.org/en/latest/install.html) the Jupyter environment.
 3. [Install](https://github.com/IRkernel/IRkernel) the R kernel for Jupyter.
-4. Install the following R packages, at the R prompt: install.packages(c("rPython", "scatterplot3d", "tidyr", "ggplot2", "xtable", "purrr")).
+4. Install the following R packages, at the R prompt: install.packages(c("reticulate", "scatterplot3d", "tidyr", "ggplot2", "xtable", "purrr")).
 
 
 ### Install SimpleITK
@@ -13,7 +13,6 @@
 A remotes based installer is [available on github](https://github.com/SimpleITK/SimpleITKRInstaller). It requires that you have the [CMake tool](https://cmake.org/) and the [git version control system](https://git-scm.com/) installed on your machine.
 
 A manual approach to compiling and installing SimpleITK with the R wrapping turned on is described [here](https://simpleitk.readthedocs.io/en/latest/building.html).
-
 
 ### Downloading Data
 
