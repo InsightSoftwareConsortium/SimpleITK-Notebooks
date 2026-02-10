@@ -28,7 +28,7 @@ executors:
 jobs:
   lint:
     docker:
-      - image: cimg/python:3.12
+      - image: cimg/python:3.13
     steps:
       - checkout
       - run:
@@ -111,7 +111,7 @@ workflows:
       - test:
           matrix:
             parameters:
-              python-version: ['3.9', '3.12']
+              python-version: ['3.10', '3.13']
               os: ["linux"]
           requires:
             - lint
