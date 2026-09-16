@@ -788,7 +788,10 @@ def characterize_data(argv=None):
        The external applications return value (zero or non zero) is used to log
        success or failure. A nice example is the dciodvfy program from David
        Clunie (https://www.dclunie.com/dicom3tools.html)
-       which validates compliance with the DICOM standard.
+       which validates compliance with the DICOM standard. The
+       dicom3tools can be downlaoded from the website or, more conveniently, installed
+       directly from PyPI (pip install dicom3tools). When using uv, add --with dicom3tools
+       to the invocation to fetch it on demand.
     6. Metadata keys and corresponding headings used in the csv output. These are
        image specific keys such as DICOM tags or other metadata tags that may be
        found in the image. The content of the tags is written to the output csv file.
@@ -829,6 +832,13 @@ def characterize_data(argv=None):
     a virtual Python environment using the uv Python package and project manager
     (https://github.com/astral-sh/uv):
     uv run https://raw.githubusercontent.com/InsightSoftwareConsortium/SimpleITK-Notebooks/refs/heads/main/Python/scripts/characterize_data.py -h
+
+    To also validate DICOM compliance without installing dicom3tools yourself, use uv's --with flag
+    to pull in the "dicom3tools" PyPI package (prebuilt dciodvfy binaries) just for this run:
+    uv run --with dicom3tools \
+    https://raw.githubusercontent.com/InsightSoftwareConsortium/SimpleITK-Notebooks/refs/heads/main/Python/scripts/characterize_data.py \
+    ../../Data/ Output/generic_image_data_report.csv per_file \
+    --external_applications dciodvfy --external_applications_headings "DICOM compliant"
 
     Output:
     ------
