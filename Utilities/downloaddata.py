@@ -40,6 +40,7 @@ import hashlib
 import sys
 import os
 import json
+import time
 
 import errno
 import warnings
@@ -50,25 +51,29 @@ import warnings
 def url_download_report(bytes_so_far, url_download_size, total_size):
     percent = float(bytes_so_far) / total_size
     percent = round(percent * 100, 2)
-    if bytes_so_far > url_download_size:
-        # Note that the carriage return is at the beginning of the
-        # string and not the end. This accommodates usage in
-        # IPython usage notebooks. Otherwise the string is not
-        # displayed in the output.
-        sys.stdout.write(
-            "\rDownloaded %d of %d bytes (%0.2f%%)"
-            % (bytes_so_far, total_size, percent)
-        )
-        sys.stdout.flush()
-    if bytes_so_far >= total_size:
-        sys.stdout.write(
-            "\rDownloaded %d of %d bytes (%0.2f%%)\n"
-            % (bytes_so_far, total_size, percent)
-        )
-        sys.stdout.flush()
+    done = bytes_so_far >= total_size
+    now = time.monotonic()
+    # This is called once per chunk (e.g. every 16KB), so for large files a
+    # write+flush every call dominates runtime. Throttle by wall time instead,
+    # while always showing the first and last update.
+    if not done and bytes_so_far and (now - url_download_report.last_update) < 0.1:
+        return
+    url_download_report.last_update = now
+    # Note that the carriage return is at the beginning of the
+    # string and not the end. This accommodates usage in
+    # IPython usage notebooks. Otherwise the string is not
+    # displayed in the output.
+    sys.stdout.write(
+        "\rDownloaded %d of %d bytes (%0.2f%%)%s"
+        % (bytes_so_far, total_size, percent, "\n" if done else "")
+    )
+    sys.stdout.flush()
 
 
-def url_download_read(url, outputfile, url_download_size=8192 * 2, report_hook=None):
+url_download_report.last_update = 0.0
+
+
+def url_download_read(url, outputfile, url_download_size=1024 * 1024, report_hook=None):
     # Use the urllib2 to download the data. The Requests package, highly
     # recommended for this task, doesn't support the file scheme so we opted
     # for urllib2 which does.
