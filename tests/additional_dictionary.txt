@@ -200,6 +200,7 @@ MeanSquares
 MetaDataDictionaryArrayUpdateOn
 MetaImageIO
 MetricEvaluate
+MultiplyImageFilter
 Multiresolution
 NamedTemporaryFile
 Nanometers
