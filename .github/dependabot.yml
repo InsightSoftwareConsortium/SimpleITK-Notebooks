@@ -5,3 +5,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "sunday"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
