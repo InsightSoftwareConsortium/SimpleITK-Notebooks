@@ -8,9 +8,9 @@ import markdown
 import re
 import urllib.request
 
-from enchant.checker import SpellChecker
-from enchant.tokenize import Filter, EmailFilter, URLFilter
-from enchant import DictWithPWL
+from comment_parser.parsers.common import Comment
+from comment_spell_check.comment_spell_check import spell_check_comment
+from comment_spell_check.utils.create_checker import create_checker
 
 from lxml.html import document_fromstring, etree
 from urllib.request import urlopen, URLError, Request
@@ -250,44 +250,36 @@ class Test_notebooks(object):
             print("no broken links")
 
         #######################
-        # Spell check all markdown cells and comments in code cells using the pyenchant spell checker.
+        # Spell check all markdown cells and comments in code cells using the
+        # CommentSpellCheck package.
         #######################
         no_spelling_mistakes = True
-        simpleitk_notebooks_dictionary = DictWithPWL(
-            "en_US",
-            os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), "additional_dictionary.txt"
-            ),
+        spell_checker = create_checker(
+            [
+                os.path.join(
+                    os.path.dirname(os.path.abspath(__file__)),
+                    "additional_dictionary.txt",
+                )
+            ]
         )
-        spell_checker = SpellChecker(
-            simpleitk_notebooks_dictionary, filters=[EmailFilter, URLFilter]
-        )
+        prefixes = ["sitk", "itk", "vtk"]
         cells_and_spelling_mistakes = []
         for c in nb.cells:
-            spelling_mistakes = []
             if c.cell_type == "markdown":
                 # Get the text as a string from the html without the markup which is replaced by space.
-                spell_checker.set_text(
-                    " ".join(
-                        etree.XPath("//text()")(
-                            document_fromstring(markdown.markdown(c.source))
-                        )
+                text = " ".join(
+                    etree.XPath("//text()")(
+                        document_fromstring(markdown.markdown(c.source))
                     )
                 )
             elif c.cell_type == "code":
                 # Get all the comments and concatenate them into a single string separated by newlines.
-                comment_lines = re.findall("#+.*", c.source)
-                spell_checker.set_text("\n".join(comment_lines))
-            for error in spell_checker:
-                error_message = (
-                    "error: "
-                    + "'"
-                    + error.word
-                    + "', "
-                    + "suggestions: "
-                    + str(spell_checker.suggest())
-                )
-                spelling_mistakes.append(error_message)
+                text = "\n".join(re.findall("#+.*", c.source))
+            else:
+                continue
+            # Line number is irrelevant, the whole cell's text is checked as one unit.
+            mistakes = spell_check_comment(spell_checker, Comment(text, 1), prefixes=prefixes)
+            spelling_mistakes = ["error: " + mistake for mistake in mistakes]
             if spelling_mistakes:
                 cells_and_spelling_mistakes.append((spelling_mistakes, c.source))
         if cells_and_spelling_mistakes:

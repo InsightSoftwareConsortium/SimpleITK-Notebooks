@@ -53,17 +53,6 @@ jobs:
       uses: actions/setup-python@v7
       with:
         python-version: ${{ matrix.python-version }}
-    # on windows, the pyenchant package includes enchant
-    - name: Install enchant on non windows systems
-      shell: bash
-      run: |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo apt-get update
-          sudo apt-get install enchant-2
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew update-reset
-          brew install enchant
-        fi
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -78,9 +67,6 @@ jobs:
       shell: bash
       env: 
         SIMPLE_ITK_MEMORY_CONSTRAINED_ENVIRONMENT: 1
-      run: | # pyenchant has a problem locating libenchant on macOS-ARM64. setting this environment variable resolves the issue
-        if [ "$RUNNER_OS" == "macOS" ] && [ "${{ matrix.os }}" != "macos-15-intel" ]; then
-           export PYENCHANT_LIBRARY_PATH=/opt/homebrew/lib/libenchant-2.dylib
-        fi
+      run: |
         pytest -v --tb=short -k "${{matrix.inputs}}" tests/test_notebooks.py::Test_notebooks::test_python_notebook
         pytest -v --tb=short tests/test_scripts.py

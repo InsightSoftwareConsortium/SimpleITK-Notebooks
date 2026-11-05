@@ -2,6 +2,6 @@ black[jupyter]
 pytest
 markdown
 lxml
-pyenchant
+comment-spell-check
 ipython<=8.12
 -rPython/requirements.txt
