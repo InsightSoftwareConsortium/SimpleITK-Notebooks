@@ -30,8 +30,38 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install black[jupyter]
         black --check --diff --verbose Python
-  test:
+  static_check:
+    name: static checking (spelling and more)
     needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        fetch-depth: 0 # fetch all history for all branches, required for the changed-files action
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v7
+      with:
+        python-version: '3.13'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements_dev.txt
+    - name: Get list of Python notebooks to test
+      id: nbl
+      uses: tj-actions/changed-files@v47
+      with:
+          files: Python/*.ipynb
+    - name: Run static analysis on the notebooks
+      shell: bash
+      if: steps.nbl.outputs.any_changed == 'true'
+      run: |
+        test_files="${{ steps.nbl.outputs.all_changed_files }}"
+        for nb_file in ${test_files}; do
+            # the substring contains the file paths, extract the basename for usage with pytest
+            pytest -v --tb=short --analysis=static tests/test_notebooks.py::Test_notebooks::test_python_notebook["${nb_file##*/}"]
+        done
+  test:
+    needs: static_check
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
@@ -78,7 +108,7 @@ jobs:
         fi
         for nb_file in ${test_files}; do
             # the substring contains the file paths, extract the basename for usage with pytest
-            pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook["${nb_file##*/}"]
+            pytest -v --tb=short --analysis=dynamic tests/test_notebooks.py::Test_notebooks::test_python_notebook["${nb_file##*/}"]
         done
     - name: Run the scripts test
       env: 

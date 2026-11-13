@@ -32,6 +32,16 @@ pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebo
 run specific R test:
 pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_r_notebook[00_Setup.ipynb]
 
+By default both static and dynamic analysis are performed (appropriate for
+local testing). On CI, the two are split into separate jobs/steps, each
+running once, via the --analysis option which is defined via the conftest.py:
+
+run only the static analysis (no output/broken-links/spelling checks):
+pytest -v --tb=short --analysis=static tests/test_notebooks.py::Test_notebooks::test_python_notebook
+
+run only the dynamic analysis (execute notebook, check for errors):
+pytest -v --tb=short --analysis=dynamic tests/test_notebooks.py::Test_notebooks::test_python_notebook
+
 -s : disable all capturing of output.
 """
 
@@ -76,19 +86,31 @@ class Test_notebooks(object):
     _allowed_error_markup = "simpleitk_error_allowed"
     _expected_error_markup = "simpleitk_error_expected"
 
+    # Notebooks that are skipped when dynamic analysis runs (dynamic or both
+    # modes), keyed by file name, value is (skip_condition, reason). Static-only
+    # runs ignore these and always test the notebook.
+    _dynamic_skip_conditions = {
+        "03_Image_Details.ipynb": (
+            os.environ.get("GITHUB_ACTIONS") == "true",
+            "on GitHub runners, nbconvert intermittently fails with dead kernel, even after reducing notebook memory usage",
+        ),
+        "35_Segmentation_Shape_Analysis.ipynb": (
+            os.environ.get("CIRCLECI") == "true",
+            "runtime too long for CircleCI",
+        ),
+        "11_Progress.ipynb": (
+            True,
+            "this notebook times out when run with nbconvert, due to javascript issues, so not tested",
+        ),
+    }
+
     @pytest.mark.parametrize(
         "notebook_file_name",
         [
             "00_Setup.ipynb",
             "01_Image_Basics.ipynb",
             "02_Pythonic_Image.ipynb",
-            pytest.param(
-                "03_Image_Details.ipynb",
-                marks=pytest.mark.skipif(
-                    os.environ.get("GITHUB_ACTIONS") == "true",
-                    reason="on GitHub runners, nbconvert intermittently fails with dead kernel, even after reducing notebook memory usage",
-                ),
-            ),
+            "03_Image_Details.ipynb",
             "04_Image_Display.ipynb",
             "05_Results_Visualization.ipynb",
             "10_matplotlibs_imshow.ipynb",
@@ -101,21 +123,9 @@ class Test_notebooks(object):
             "32_Watersheds_Segmentation.ipynb",
             "33_Segmentation_Thresholding_Edge_Detection.ipynb",
             "34_Segmentation_Evaluation.ipynb",
-            pytest.param(
-                "35_Segmentation_Shape_Analysis.ipynb",
-                marks=pytest.mark.skipif(
-                    os.environ.get("CIRCLECI") == "true",
-                    reason="runtime too long for CircleCI",
-                ),
-            ),
+            "35_Segmentation_Shape_Analysis.ipynb",
             "36_Microscopy_Colocalization_Distance_Analysis.ipynb",
-            pytest.param(
-                "11_Progress.ipynb",
-                marks=pytest.mark.skipif(
-                    True,
-                    reason="this notebook times out when run with nbconvert, due to javascript issues, so not tested",
-                ),
-            ),
+            "11_Progress.ipynb",
             "51_VH_Segmentation1.ipynb",
             "55_VH_Resample.ipynb",
             "56_VH_Registration1.ipynb",
@@ -133,8 +143,17 @@ class Test_notebooks(object):
             "71_Trust_But_Verify.ipynb",
         ],
     )
-    def test_python_notebook(self, notebook_file_name):
-        self.evaluate_notebook(self.absolute_path_python(notebook_file_name), "python")
+    def test_python_notebook(self, notebook_file_name, request):
+        analysis = request.config.getoption("--analysis")
+        if analysis != "static":
+            skip_condition = self._dynamic_skip_conditions.get(notebook_file_name)
+            if skip_condition and skip_condition[0]:
+                pytest.skip(skip_condition[1])
+        self.evaluate_notebook(
+            self.absolute_path_python(notebook_file_name),
+            "python",
+            analysis,
+        )
 
     @pytest.mark.parametrize(
         "notebook_file_name",
@@ -154,17 +173,23 @@ class Test_notebooks(object):
             "70_Data_Augmentation.ipynb",
         ],
     )
-    def test_r_notebook(self, notebook_file_name):
-        self.evaluate_notebook(self.absolute_path_r(notebook_file_name), "ir")
+    def test_r_notebook(self, notebook_file_name, request):
+        self.evaluate_notebook(
+            self.absolute_path_r(notebook_file_name),
+            "ir",
+            request.config.getoption("--analysis"),
+        )
 
-    def evaluate_notebook(self, path, kernel_name):
+    def evaluate_notebook(self, path, kernel_name, analysis="both"):
         """
-        Perform static and dynamic analysis of the notebook.
+        Perform static and/or dynamic analysis of the notebook.
         Execute a notebook via nbconvert and print the results of the test (errors etc.)
         Args:
             path (string): Name of notebook to run.
             kernel_name (string): Which jupyter kernel to use to run the test.
                                   Relevant values are:'python2', 'python3', 'ir'.
+            analysis (string): Which analysis to perform, one of 'static',
+                               'dynamic', or 'both' (default).
         """
 
         dir_name, file_name = os.path.split(path)
@@ -172,8 +197,12 @@ class Test_notebooks(object):
             os.chdir(dir_name)
 
         print("-------- begin (kernel {0}) {1} --------".format(kernel_name, file_name))
-        no_static_errors = self.static_analysis(path)
-        no_dynamic_errors = self.dynamic_analysis(path, kernel_name)
+        no_static_errors = True
+        no_dynamic_errors = True
+        if analysis in ("static", "both"):
+            no_static_errors = self.static_analysis(path)
+        if analysis in ("dynamic", "both"):
+            no_dynamic_errors = self.dynamic_analysis(path, kernel_name)
         print("-------- end (kernel {0}) {1} --------".format(kernel_name, file_name))
         assert no_static_errors and no_dynamic_errors
 

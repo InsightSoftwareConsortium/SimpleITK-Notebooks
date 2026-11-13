@@ -1,4 +1,12 @@
 streamable
+namespace
+uuid
+divid
+enum
+enums
+Gabor
+functionalities
+std
 rm
 Assoc
 phys
