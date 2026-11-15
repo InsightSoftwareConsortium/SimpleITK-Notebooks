@@ -38,6 +38,27 @@ jobs:
             python -m pip install black[jupyter]
             python -m black --check --diff --verbose Python
 
+  static_check:
+    docker:
+      - image: cimg/python:3.13
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            python -m pip install --upgrade pip
+            python -m pip install -r requirements_dev.txt
+      - run:
+          name: static checking (spelling and more)
+          command: |
+            cd Python
+            NOTEBOOKS=$(ls *.ipynb)
+            cd ..
+            for notebook in $NOTEBOOKS
+            do
+              python -m pytest -v --tb=short --analysis=static tests/test_notebooks.py::Test_notebooks::test_python_notebook[$notebook]
+            done
+
   test:
     parameters:
       os:
@@ -87,7 +108,7 @@ jobs:
             cd ..
             for notebook in $TESTS
             do
-              python -m pytest -v --tb=short tests/test_notebooks.py::Test_notebooks::test_python_notebook[$notebook]
+              python -m pytest -v --tb=short --analysis=dynamic tests/test_notebooks.py::Test_notebooks::test_python_notebook[$notebook]
             done
       - save_cache:
           paths:
@@ -98,13 +119,20 @@ workflows:
     when: << pipeline.parameters.run_monthly_testing >>
     jobs:
       - lint
+      - static_check:
+          requires:
+            - lint
+          filters:
+            branches:
+               ignore:
+                 - '**.md'
       - test:
           matrix:
             parameters:
               python-version: ['3.10', '3.13']
               os: ["linux"]
           requires:
-            - lint
+            - static_check
           filters:
             branches:
                ignore:
