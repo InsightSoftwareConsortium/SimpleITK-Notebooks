@@ -16,4 +16,4 @@ dependencies:
   - numba
   - multiprocess
   - tqdm
-  - SimpleITK>2.2.1
+  - SimpleITK>=2.5.7
