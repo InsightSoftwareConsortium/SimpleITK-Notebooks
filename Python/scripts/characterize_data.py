@@ -43,6 +43,11 @@ import concurrent.futures
 from tqdm import tqdm
 import platform
 import copy
+import matplotlib
+
+# set to a non-interactive GUI backend as we don't display figures, only
+# save to disk. This avoids platform-specific GUI backend issues.
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from functools import partial
 import argparse
@@ -374,7 +379,7 @@ def inspect_files(
                 res.append(result)
             except Exception as e:
                 print(f"Failed process for {file_name}", file=sys.stderr)
-    return pd.DataFrame.from_dict(res)
+    return pd.DataFrame(res)
 
 
 def inspect_single_series(series_data, meta_data_info={}, thumbnail_settings={}):
@@ -599,7 +604,7 @@ def inspect_series(
                 res.append(result)
             except Exception as e:
                 print(f"Failed process for {file_names}", file=sys.stderr)
-    return pd.DataFrame.from_dict(res)
+    return pd.DataFrame(res)
 
 
 def image_to_thumbnail(img, thumbnail_sizes, interpolator, projection_axis):
@@ -897,7 +902,7 @@ def characterize_data(argv=None):
     df = pd.read_csv(summary_csv_file_name)
     # Ensure dataframe matches the read images. If the report included files that
     # were not read (non-image or read failures) remove them.
-    df.dropna(inplace=True, thresh=2)
+    df = df.dropna(thresh=2)
 
     thumbnail_size =
     tile_size =
@@ -1189,12 +1194,12 @@ def characterize_data(argv=None):
             f"{os.path.splitext(args.output_file)[0]}_summary_image.nrrd",
             useCompression=True,
         )
-        df.drop("thumbnail", axis=1, inplace=True)
+        df = df.drop("thumbnail", axis=1)
 
     # remove all rows associated with problematic files (non-image files or image files with problems).
     # all the valid rows contain at least 2 non-na values so use that threshold when dropping rows.
     if args.ignore_problems:
-        df.dropna(inplace=True, thresh=2)
+        df = df.dropna(thresh=2)
     # save the raw information, create directory structure if it doesn't exist
     # if floating point precision was specified, convert the floating point tuples to the
     # desired precision. the dataframe's to_csv method will format the columns with floating point type.
@@ -1217,7 +1222,7 @@ def characterize_data(argv=None):
     # first drop the rows that correspond to problematic files if they weren't already dropped
     # based on program settings
     if not args.ignore_problems:
-        df.dropna(inplace=True, thresh=2)
+        df = df.dropna(thresh=2)
     image_counts = df["MD5 intensity hash"].value_counts().reset_index(name="count")
     duplicates = df[
         df["MD5 intensity hash"].isin(
